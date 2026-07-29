@@ -101,18 +101,45 @@ const STATUS = {
 
 function loadScript(src: string, id: string) {
   return new Promise<void>((resolve, reject) => {
-    if (document.getElementById(id)) {
-      resolve();
+    const existing = document.getElementById(id) as HTMLScriptElement | null;
+    if (existing) {
+      if ((existing as any).dataset.loaded === "1") {
+        resolve();
+        return;
+      }
+      existing.addEventListener("load", () => resolve());
+      existing.addEventListener("error", () => reject(new Error(src)));
       return;
     }
     const s = document.createElement("script");
     s.id = id;
     s.src = src;
     s.async = true;
-    s.onload = () => resolve();
+    s.onload = () => {
+      (s as any).dataset.loaded = "1";
+      resolve();
+    };
     s.onerror = () => reject(new Error(src));
     document.body.appendChild(s);
   });
+}
+
+async function ensureLib(check: () => boolean, loaders: Array<() => Promise<void>>, timeoutMs = 20000) {
+  if (check()) return;
+  let lastErr: unknown;
+  for (const load of loaders) {
+    try {
+      await load();
+      const start = Date.now();
+      while (!check() && Date.now() - start < 4000) {
+        await new Promise((r) => setTimeout(r, 50));
+      }
+      if (check()) return;
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+  if (!check()) throw lastErr || new Error("library load timeout " + timeoutMs);
 }
 
 function loadCss(href: string, id: string) {
@@ -132,6 +159,7 @@ async function getJSON<T>(url: string): Promise<T> {
 
 export function HydroDashboard() {
   const [ready, setReady] = useState(false);
+  const [libsReady, setLibsReady] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [meta, setMeta] = useState<Meta | null>(null);
   const [overview, setOverview] = useState<{ as_of: string; stations: StationCard[] } | null>(null);
@@ -157,11 +185,7 @@ export function HydroDashboard() {
     let cancelled = false;
     (async () => {
       try {
-        loadCss("https://unpkg.com/leaflet@1.9.4/dist/leaflet.css", "leaflet-css");
-        await Promise.all([
-          loadScript("https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js", "echarts-js"),
-          loadScript("https://unpkg.com/leaflet@1.9.4/dist/leaflet.js", "leaflet-js"),
-        ]);
+        // 先装数据，避免 CDN 卡住整页
         const [m, o, s, md, f, el, fb] = await Promise.all([
           getJSON<Meta>("/hydro/meta.json"),
           getJSON<{ as_of: string; stations: StationCard[] }>("/hydro/overview.json"),
@@ -181,6 +205,29 @@ export function HydroDashboard() {
         setForecast(fb);
         setActive(el.defaults || ["q", "precip", "lstm_attention"]);
         setReady(true);
+
+        try {
+          loadCss("https://unpkg.com/leaflet@1.9.4/dist/leaflet.css", "leaflet-css");
+          await Promise.all([
+            ensureLib(
+              () => !!window.echarts,
+              [
+                () => loadScript("https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js", "echarts-js"),
+                () => loadScript("https://unpkg.com/echarts@5.5.1/dist/echarts.min.js", "echarts-js-fb"),
+              ]
+            ),
+            ensureLib(
+              () => !!window.L,
+              [
+                () => loadScript("https://unpkg.com/leaflet@1.9.4/dist/leaflet.js", "leaflet-js"),
+                () => loadScript("https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js", "leaflet-js-fb"),
+              ]
+            ),
+          ]);
+          if (!cancelled) setLibsReady((x) => x + 1);
+        } catch (libErr) {
+          console.warn("chart libs failed", libErr);
+        }
       } catch (e) {
         if (!cancelled) setError(String(e));
       }
@@ -427,7 +474,7 @@ export function HydroDashboard() {
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, [ready, renderMainChart, renderForecast, renderCsi, renderMap]);
+  }, [ready, libsReady, renderMainChart, renderForecast, renderCsi, renderMap]);
 
   useEffect(() => {
     if (!playing || !flood?.events?.length) return;
