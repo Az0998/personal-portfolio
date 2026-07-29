@@ -38,6 +38,8 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
   const tags = parseTags(work.tags);
   const showcase = getShowcaseByTitle(work.title);
   const mood = showcase?.mood ?? "tool";
+  // 如果 curated works 的 link 字段还没被 seed 进数据库，用 showcases 的 slug 兜底
+  const effectiveLink = work.link || (showcase ? `/${showcase.slug}` : null);
 
   return (
     <motion.article
@@ -103,7 +105,7 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
         </div>
       </Link>
 
-      {(work.link || work.github) && (
+      {(effectiveLink || work.github) && (
         <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
           {work.github && (
             <a
@@ -116,10 +118,10 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
               <Github className="w-4 h-4" />
             </a>
           )}
-          {work.link && (
+          {effectiveLink && (
             <a
-              href={work.link}
-              {...(work.link.startsWith("http")
+              href={effectiveLink}
+              {...(effectiveLink.startsWith("http")
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
               onClick={(e) => e.stopPropagation()}

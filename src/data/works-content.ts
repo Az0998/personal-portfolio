@@ -96,6 +96,49 @@ python run_ablation.py
 `,
   },
   {
+    title: "Novel Studio 写作工作台",
+    description:
+      "AI 连载工作台网页演示：向导建书、流水线、赞助发码与功能验证；桌面端负责本机 LLM 与发布。挂载 /novel-studio。",
+    category: "project",
+    tags: "LLM,写作工具,Next.js,桌面应用,产品演示",
+    featured: true,
+    published: true,
+    sortOrder: 2,
+    link: "/novel-studio",
+    content: `## 一句话
+
+把「种子 → 大纲 → 梗概 → 正文 → 审查 → 排期」做成可体验的工作台：网页验证交互，桌面跑真引擎。
+
+## 在线打开
+
+[打开 Novel Studio 演示](/novel-studio)
+
+> 不在顶栏占位，从本作品详情进入即可。
+
+## 网页能验证什么
+
+- **新建书向导**与免费 1 本额度
+- **工作台流水线**步骤状态
+- **赞助 ¥8 / 7 天**：下单 → 发码 → 激活闭环
+- **一键功能验证**套件
+- API Key / 模型配置预演（仅存浏览器本地）
+
+## 桌面端（完整能力）
+
+\`\`\`bash
+cd fanqie-novel/novel-studio
+pip install -r requirements.txt
+python -m app.main
+\`\`\`
+
+便携包：\`python tools/build_portable.py\`
+
+## 定位
+
+公开展示为**个人写作辅助 / 产品演示**；平台自动化请自行评估合规风险。
+`,
+  },
+  {
     title: "庄方宜 Q 版桌面宠物",
     description:
       "终末地麒麟天师桌宠：透明置顶、多套动画、点击台词与托盘常驻，二次元陪伴向作品。",
@@ -103,7 +146,7 @@ python run_ablation.py
     tags: "PyQt5,桌面宠物,二次元,动画,庄方宜",
     featured: true,
     published: true,
-    sortOrder: 2,
+    sortOrder: 3,
     content: `## 一句话
 
 让角色住进桌面——无边框透明、始终置顶，写代码时点一下还会跟你打招呼。
@@ -141,7 +184,7 @@ python main.py
     tags: "Flask,ECharts,SQLite,可视化,工具",
     featured: true,
     published: true,
-    sortOrder: 3,
+    sortOrder: 4,
     content: `## 一句话
 
 后台默默记下你复制的文字、图片、路径和链接，再用仪表板把习惯可视化。
@@ -171,7 +214,7 @@ python app.py
     tags: "python-pptx,植物,生态,课程汇报",
     featured: true,
     published: true,
-    sortOrder: 4,
+    sortOrder: 5,
     content: `## 一句话
 
 深林绿学术配色，把多场景叶片观察自动排成能上台讲的 PPT。
@@ -235,24 +278,6 @@ python create_plant_ppt.py
     content: `## 一句话
 
 结构化综述写作 + 流域示意图，展示文献梳理与图文编排能力。
-`,
-  },
-  {
-    title: "Novel Studio 写作工作台",
-    description:
-      "个人向连载助手：大纲到章节流水线、质量门禁与桌面端打包（强调本地创作辅助）。",
-    category: "project",
-    tags: "LLM,写作工具,桌面应用",
-    featured: false,
-    published: true,
-    sortOrder: 8,
-    content: `## 一句话
-
-本地管理多书目，走完「种子 → 大纲 → 章节 → 质检」循环，给长期写作降摩擦。
-
-## 演示重点
-
-建书目 → 扩大纲 → 章节质量分门禁。公开展示定位为个人写作辅助。
 `,
   },
 ];

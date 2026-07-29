@@ -11,6 +11,11 @@
 站点：https://zhangsjqaq.vexr.dev  
 仓库：https://github.com/Az0998/personal-portfolio
 
+挂载演示（非主导航，从作品进入）：
+
+- `/hydro` — HydroInfo  
+- `/novel-studio` — Novel Studio 写作工作台  
+
 ## 一、推到 GitHub
 
 在 `personal-portfolio` 目录：

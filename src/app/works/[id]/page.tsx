@@ -21,6 +21,8 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
   const tags = parseTags(work.tags);
   const showcase = getShowcaseByTitle(work.title);
+  // 数据库可能还没 seed 最新的 link，用 showcase slug 兜底
+  const effectiveLink = work.link || (showcase ? `/${showcase.slug}` : null);
 
   return (
     <div className="min-h-screen relative">
@@ -86,16 +88,16 @@ export default async function WorkDetailPage({ params }: PageProps) {
           )}
 
           <div className="flex gap-4 mb-12">
-            {work.link && (
+            {effectiveLink && (
               <a
-                href={work.link}
-                {...(work.link.startsWith("http")
+                href={effectiveLink}
+                {...(effectiveLink.startsWith("http")
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
                 className="btn-primary"
               >
                 <ExternalLink className="w-4 h-4" />
-                {work.link.startsWith("/") ? "打开演示" : "查看项目"}
+                {effectiveLink.startsWith("/") ? "打开演示" : "查看项目"}
               </a>
             )}
             {work.github && (
