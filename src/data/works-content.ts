@@ -16,9 +16,9 @@ export const worksContent: WorkSeed[] = [
   {
     title: "HydroInfo 流域水情信息平台",
     description:
-      "在线演示：国内示范站网 + Leaflet 地图、可变要素出图、洪水 CSI 回放、LSTM 指标对接，挂载于本站 /hydro。",
+      "黄河—洮河公开站 CSV：10 站可切换，流量/水位/降水/气温/含沙量/过水面积可变出图，Leaflet 国内底图，挂载 /hydro。",
     category: "project",
-    tags: "智慧水利,水信息,Leaflet,LSTM,CSI,Next.js",
+    tags: "智慧水利,水信息,Leaflet,CSV,黄河,洮河,LSTM",
     featured: true,
     published: true,
     sortOrder: 0,
@@ -34,11 +34,11 @@ export const worksContent: WorkSeed[] = [
 
 ## 能力
 
-- **国内示范站网**：洮河坐标布局（方法可复现映射）
-- **Leaflet 地图**：站点状态与瞬时流量弹窗
-- **可变要素出图**：Q / Z / P / T / 上游 / Persistence / XGBoost / LSTM-Attention
-- **洪水 CSI 回放**：P90 事件窗高亮 + 1/3/7 日 CSI·POD·FAR
-- **LSTM 对接**：正式实验 NSE/KGE/CSI 指标舱 + 展示序列
+- **国内公开站 CSV**：10 站（兰州/临洮/渭源/康乐/青铜峡/石嘴山/头道拐/潼关/花园口/利津）
+- **站点切换**：下拉 + 站条 + 地图点击
+- **公制参数**：流量 m³/s、水位 m、降水、气温、含沙量、过水面积
+- **Leaflet**：高德/GeoQ 国内底图（修复 OSM 空白）
+- **洪水 CSI 回放** + **LSTM 指标舱**
 
 ## 本地 Flask（同源）
 
