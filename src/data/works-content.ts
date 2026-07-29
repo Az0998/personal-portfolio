@@ -16,27 +16,31 @@ export const worksContent: WorkSeed[] = [
   {
     title: "HydroInfo 流域水情信息平台",
     description:
-      "智慧水利 / 水信息演示：多站态势、质控预警、过程线与绳套、7 日业务基线预报，Flask + ECharts 一页看板。",
+      "在线演示：国内示范站网 + Leaflet 地图、可变要素出图、洪水 CSI 回放、LSTM 指标对接，挂载于本站 /hydro。",
     category: "project",
-    tags: "智慧水利,水信息,Flask,ECharts,质控,预报",
+    tags: "智慧水利,水信息,Leaflet,LSTM,CSI,Next.js",
     featured: true,
     published: true,
     sortOrder: 0,
     github: "https://github.com/Az0998/hydro-info-platform",
-    link: "https://github.com/Az0998/hydro-info-platform",
+    link: "/hydro",
     content: `## 一句话
 
-面向智慧水利岗位的最小信息闭环：**采集 → 质控 → 态势 → 业务基线预报**，用一页看板把站网水情讲清楚。
+面向智慧水利岗位的信息闭环：**采集 → 质控 → 态势 → 预报/洪水评估**，演示已挂在本站 \`/hydro\`。
 
-## 你现在能看到什么
+## 在线打开
 
-- **多站 KPI**：控制站 + 上游站流量 / 水位 / 日变幅 / 注意·警戒状态
-- **过程线**：流量 + 降水，叠加阈值线
-- **质控舱**：缺失、MAD 突变、阈值告警
-- **绳套图**：演示水位—流量关系
-- **7 日预报**：Persistence→MA7 混合 + 1/3/7 日回测 NSE
+[打开 HydroInfo 演示](/hydro)
 
-## 本地演示
+## 能力
+
+- **国内示范站网**：洮河坐标布局（方法可复现映射）
+- **Leaflet 地图**：站点状态与瞬时流量弹窗
+- **可变要素出图**：Q / Z / P / T / 上游 / Persistence / XGBoost / LSTM-Attention
+- **洪水 CSI 回放**：P90 事件窗高亮 + 1/3/7 日 CSI·POD·FAR
+- **LSTM 对接**：正式实验 NSE/KGE/CSI 指标舱 + 展示序列
+
+## 本地 Flask（同源）
 
 \`\`\`bash
 cd hydro-info-platform
@@ -44,16 +48,7 @@ pip install -r requirements.txt
 python app.py
 \`\`\`
 
-打开 http://127.0.0.1:5050
-
-## 和论文项目怎么分工
-
-| 项目 | 定位 |
-|------|------|
-| HydroInfo | 水信息产品形态 / 业务看板 |
-| hydro-ml-paper | 论文级 LSTM 多时效预报与投稿流水线 |
-
-后续路线：国内站网格式、洪水 CSI 回放、对接 LSTM 推理服务、Leaflet 站网地图。
+导出个人站数据包：\`python scripts/export_portfolio_bundle.py\`
 `,
   },
   {

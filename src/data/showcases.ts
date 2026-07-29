@@ -25,6 +25,32 @@ export interface Showcase {
 
 export const showcases: Showcase[] = [
   {
+    slug: "hydro-info",
+    title: "HydroInfo 流域水情信息平台",
+    mood: "hydro",
+    heroEmoji: "💧",
+    tagline: "国内示范站网 · Leaflet · CSI 回放 · LSTM 指标 · 可变出图",
+    highlights: [
+      "挂载于个人站 /hydro，一页完成水情态势演示",
+      "洮河坐标示范站网 + Leaflet 交互地图",
+      "洪水 P90 事件回放与 1/3/7 日 CSI / POD / FAR",
+      "可变要素：流量、水位、降水、气温、上游与多模型曲线",
+    ],
+    metrics: [
+      { label: "LSTM-Attn · 1日 NSE", value: 0.93, display: "0.930" },
+      { label: "洪水 CSI · 1日 Attn", value: 0.75, display: "0.750" },
+      { label: "示范站点", value: 3, display: "3" },
+    ],
+    demo: [
+      { title: "打开 /hydro", detail: "导航栏「水情演示」或作品卡片进入在线看板。" },
+      { title: "地图点站", detail: "Leaflet 上查看临洮 / 渭源 / 康乐瞬时流量与状态。" },
+      { title: "勾选出图", detail: "切换 Q/Z/P/T/上游/模型曲线，缩放查看过程。" },
+      { title: "洪水回放", detail: "自动或手动切换 P90 事件窗，对照 CSI 表。" },
+    ],
+    stack: ["Next.js", "ECharts", "Leaflet", "Python 导出", "LSTM 指标对接"],
+    galleryHints: ["站网地图", "可变过程线", "CSI 柱状图", "洪水事件列表"],
+  },
+  {
     slug: "hydro-ml",
     title: "波托马克河多时效径流深度学习预报",
     mood: "hydro",

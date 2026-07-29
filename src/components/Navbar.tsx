@@ -7,6 +7,7 @@ export function Navbar({ name }: { name: string }) {
   const links = [
     { href: "#about", label: "关于" },
     { href: "#works", label: "作品" },
+    { href: "/hydro", label: "水情演示" },
     { href: "#contact", label: "联系" },
   ];
 
@@ -18,15 +19,25 @@ export function Navbar({ name }: { name: string }) {
         </Link>
 
         <div className="flex items-center gap-8">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm text-ink-300 hover:text-sakura-soft transition-colors hidden sm:block"
-            >
-              {link.label}
-            </a>
-          ))}
+          {links.map((link) =>
+            link.href.startsWith("/") ? (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm text-ink-300 hover:text-sakura-soft transition-colors hidden sm:block"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm text-ink-300 hover:text-sakura-soft transition-colors hidden sm:block"
+              >
+                {link.label}
+              </a>
+            )
+          )}
           <Link
             href="/admin"
             className="p-2 text-ink-400 hover:text-sakura-soft transition-colors"

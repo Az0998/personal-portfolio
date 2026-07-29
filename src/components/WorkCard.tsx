@@ -119,8 +119,9 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
           {work.link && (
             <a
               href={work.link}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...(work.link.startsWith("http")
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
               onClick={(e) => e.stopPropagation()}
               className="p-2 bg-night/80 rounded-full hover:bg-aqua transition-colors"
             >

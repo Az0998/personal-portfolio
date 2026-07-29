@@ -87,9 +87,15 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
           <div className="flex gap-4 mb-12">
             {work.link && (
-              <a href={work.link} target="_blank" rel="noopener noreferrer" className="btn-primary">
+              <a
+                href={work.link}
+                {...(work.link.startsWith("http")
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                className="btn-primary"
+              >
                 <ExternalLink className="w-4 h-4" />
-                查看项目
+                {work.link.startsWith("/") ? "打开演示" : "查看项目"}
               </a>
             )}
             {work.github && (

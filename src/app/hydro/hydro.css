@@ -1,0 +1,144 @@
+.hydro-root {
+  --h-bg: #06141c;
+  --h-panel: rgba(10, 34, 46, 0.88);
+  --h-line: rgba(120, 190, 210, 0.18);
+  --h-text: #e7f4f8;
+  --h-muted: #8fb3c0;
+  --h-accent: #2ec4b6;
+  --h-blue: #3d8bfd;
+  --h-warn: #e9a825;
+  --h-alert: #e4572e;
+  --h-ok: #3ddc97;
+  min-height: 100vh;
+  color: var(--h-text);
+  background:
+    radial-gradient(1000px 500px at 8% -8%, rgba(46, 196, 182, 0.16), transparent 55%),
+    radial-gradient(800px 420px at 92% 0%, rgba(61, 139, 253, 0.12), transparent 50%),
+    linear-gradient(180deg, #041018, var(--h-bg) 45%, #071820);
+  font-family: "Noto Sans SC", "DM Sans", system-ui, sans-serif;
+}
+
+.hydro-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  align-items: center;
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--h-line);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(4, 16, 24, 0.75);
+}
+
+.hydro-back {
+  color: var(--h-muted);
+  text-decoration: none;
+  font-size: 13px;
+}
+.hydro-back:hover { color: var(--h-accent); }
+
+.hydro-brand { display: flex; align-items: center; gap: 10px; margin-right: auto; }
+.hydro-mark {
+  width: 38px; height: 38px; display: grid; place-items: center;
+  border-radius: 11px; border: 1px solid var(--h-line);
+  background: linear-gradient(145deg, rgba(46,196,182,.25), rgba(61,139,253,.18));
+  color: var(--h-accent);
+}
+.hydro-title { font-weight: 700; letter-spacing: 0.04em; }
+.hydro-sub { font-size: 12px; color: var(--h-muted); }
+.hydro-links { display: flex; gap: 14px; }
+.hydro-links a { color: var(--h-accent); text-decoration: none; font-size: 13px; }
+
+.hydro-main { padding: 18px 22px 40px; display: flex; flex-direction: column; gap: 16px; }
+
+.hydro-note {
+  font-size: 12px; color: var(--h-muted);
+  border: 1px dashed var(--h-line); border-radius: 12px; padding: 10px 14px;
+  background: rgba(0,0,0,.18);
+}
+
+.hydro-kpi {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.hydro-card, .hydro-panel {
+  background: var(--h-panel);
+  border: 1px solid var(--h-line);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.28);
+}
+
+.hydro-card .label { color: var(--h-muted); font-size: 12px; margin-bottom: 6px; }
+.hydro-card .value { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+.hydro-card .meta { margin-top: 8px; font-size: 12px; color: var(--h-muted); display: flex; justify-content: space-between; gap: 8px; }
+
+.hydro-badge {
+  display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 999px;
+  font-size: 11px; font-weight: 600; border: 1px solid transparent;
+}
+.hydro-badge.ok { color: var(--h-ok); background: rgba(61,220,151,.1); border-color: rgba(61,220,151,.25); }
+.hydro-badge.warn { color: var(--h-warn); background: rgba(233,168,37,.1); border-color: rgba(233,168,37,.3); }
+.hydro-badge.alert { color: var(--h-alert); background: rgba(228,87,46,.12); border-color: rgba(228,87,46,.35); }
+
+.hydro-grid-2 {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 14px;
+}
+.hydro-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 0.9fr;
+  gap: 14px;
+}
+
+.hydro-panel h2 { margin: 0; font-size: 15px; font-weight: 600; }
+.hydro-panel p.desc { margin: 4px 0 0; color: var(--h-muted); font-size: 12px; }
+
+.hydro-chart { width: 100%; height: 320px; margin-top: 8px; }
+.hydro-map { width: 100%; height: 320px; margin-top: 10px; border-radius: 12px; overflow: hidden; border: 1px solid var(--h-line); }
+
+.hydro-controls {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;
+}
+.hydro-chip {
+  appearance: none; border: 1px solid var(--h-line); background: rgba(0,0,0,.2);
+  color: var(--h-muted); border-radius: 999px; padding: 5px 11px; font-size: 12px; cursor: pointer;
+}
+.hydro-chip.on {
+  color: #042028; background: var(--h-accent); border-color: transparent; font-weight: 600;
+}
+
+.hydro-metrics {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;
+}
+.hydro-metrics .pill {
+  font-size: 12px; color: var(--h-muted); border: 1px solid var(--h-line);
+  border-radius: 10px; padding: 6px 10px; background: rgba(0,0,0,.16);
+}
+.hydro-metrics strong { color: var(--h-text); }
+
+.hydro-flood-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; max-height: 280px; overflow: auto; }
+.hydro-flood-item {
+  border: 1px solid var(--h-line); border-radius: 12px; padding: 10px 12px;
+  background: rgba(0,0,0,.16); cursor: pointer; text-align: left; color: inherit; width: 100%;
+}
+.hydro-flood-item.active { border-color: rgba(46,196,182,.55); background: rgba(46,196,182,.08); }
+.hydro-flood-item .row { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; }
+.hydro-flood-item .sub { margin-top: 4px; font-size: 11px; color: var(--h-muted); }
+
+.hydro-csi-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; }
+.hydro-csi-table th, .hydro-csi-table td {
+  border-bottom: 1px solid var(--h-line); padding: 7px 6px; text-align: right;
+}
+.hydro-csi-table th:first-child, .hydro-csi-table td:first-child { text-align: left; }
+.hydro-csi-table th { color: var(--h-muted); font-weight: 500; }
+
+@media (max-width: 1100px) {
+  .hydro-grid-2, .hydro-grid-3 { grid-template-columns: 1fr; }
+  .hydro-chart, .hydro-map { height: 280px; }
+}
