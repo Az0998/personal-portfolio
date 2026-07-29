@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+XiaoWei&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-body: 'Noto Sans SC', system-ui, sans-serif;
+  --font-display: 'ZCOOL XiaoWei', 'Fredoka', Georgia, serif;
+  --font-cute: 'Fredoka', 'Noto Sans SC', system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-night text-ink-100 antialiased;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 10% -10%, rgba(255, 143, 184, 0.18), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 90% 10%, rgba(94, 200, 232, 0.14), transparent 50%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(168, 120, 255, 0.08), transparent 45%);
+  background-attachment: fixed;
+}
+
+::selection {
+  @apply bg-sakura/40 text-white;
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/[0.06] backdrop-blur-xl border border-white/10;
+  }
+
+  .glass-sakura {
+    @apply bg-sakura/10 backdrop-blur-xl border border-sakura/25;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-sakura-soft via-white to-aqua-soft bg-clip-text text-transparent;
+  }
+
+  .section-padding {
+    @apply px-6 md:px-12 lg:px-24 py-20 md:py-28;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3
+           bg-gradient-to-r from-sakura to-sakura-deep
+           text-white rounded-full font-medium transition-all duration-300
+           hover:shadow-sakura hover:-translate-y-0.5;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-6 py-3 border border-white/20
+           hover:border-sakura hover:text-sakura-soft rounded-full font-medium
+           transition-all duration-300;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl
+           text-white placeholder:text-ink-400 focus:outline-none focus:border-sakura/50
+           focus:ring-1 focus:ring-sakura/30 transition-colors;
+  }
+
+  .label-field {
+    @apply block text-sm font-medium text-ink-300 mb-1.5;
+  }
+
+  .anime-card {
+    @apply relative overflow-hidden rounded-3xl glass
+           transition-all duration-500 hover:border-sakura/40 hover:shadow-sakura;
+  }
+
+  .metric-bar {
+    @apply h-2.5 rounded-full bg-white/10 overflow-hidden;
+  }
+
+  .metric-bar-fill {
+    @apply h-full rounded-full bg-gradient-to-r from-aqua to-sakura;
+  }
+
+  .prose-anime {
+    @apply max-w-none text-ink-200 leading-relaxed text-lg;
+  }
+
+  .prose-anime h1,
+  .prose-anime h2,
+  .prose-anime h3,
+  .prose-anime h4 {
+    @apply font-display text-sakura-soft font-bold mt-8 mb-4;
+  }
+
+  .prose-anime h1 { @apply text-3xl; }
+  .prose-anime h2 { @apply text-2xl; }
+  .prose-anime h3 { @apply text-xl; }
+
+  .prose-anime p { @apply mb-4; }
+  .prose-anime a { @apply text-aqua underline-offset-2 hover:underline; }
+  .prose-anime strong { @apply text-white font-semibold; }
+  .prose-anime code { @apply text-sakura-soft text-sm bg-white/5 px-1.5 py-0.5 rounded; }
+  .prose-anime pre { @apply bg-night-card border border-white/10 rounded-xl p-4 overflow-x-auto mb-4 text-sm; }
+  .prose-anime pre code { @apply bg-transparent p-0; }
+  .prose-anime ul { @apply list-disc pl-6 mb-4 space-y-2; }
+  .prose-anime ol { @apply list-decimal pl-6 mb-4 space-y-2; }
+  .prose-anime blockquote { @apply border-l-4 border-sakura/40 pl-4 italic text-ink-300 mb-4; }
+  .prose-anime table { @apply w-full text-sm mb-6 border-collapse; }
+  .prose-anime th { @apply text-left border-b border-white/20 py-2 text-sakura-soft; }
+  .prose-anime td { @apply border-b border-white/10 py-2; }
+  .prose-anime hr { @apply border-white/10 my-8; }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-ink-700 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-sakura/50;
+}

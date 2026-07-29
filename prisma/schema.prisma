@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Profile {
+  id          String   @id @default(cuid())
+  name        String
+  title       String
+  tagline     String?
+  bio         String?
+  avatar      String?
+  email       String?
+  phone       String?
+  location    String?
+  github      String?
+  linkedin    String?
+  twitter     String?
+  website     String?
+  wechat      String?
+  resumeUrl   String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Work {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  content     String?
+  category    String   @default("project")
+  tags        String?
+  coverImage  String?
+  link        String?
+  github      String?
+  featured    Boolean  @default(false)
+  published   Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
+
+model SiteSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}

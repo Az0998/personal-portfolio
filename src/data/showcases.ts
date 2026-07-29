@@ -1,0 +1,188 @@
+export interface Metric {
+  label: string;
+  value: number;
+  display: string;
+  note?: string;
+}
+
+export interface DemoStep {
+  title: string;
+  detail: string;
+}
+
+export interface Showcase {
+  slug: string;
+  title: string;
+  mood: "hydro" | "pet" | "tool" | "plant" | "field" | "novel" | "paper";
+  heroEmoji: string;
+  tagline: string;
+  highlights: string[];
+  metrics?: Metric[];
+  demo?: DemoStep[];
+  stack: string[];
+  galleryHints?: string[];
+}
+
+export const showcases: Showcase[] = [
+  {
+    slug: "hydro-ml",
+    title: "波托马克河多时效径流深度学习预报",
+    mood: "hydro",
+    heroEmoji: "🌊",
+    tagline: "上游站点 + 气象驱动，LSTM-Attention 一日预报 NSE 达 0.93",
+    highlights: [
+      "面向 Hydrological Sciences Journal 的完整实验与文稿流水线",
+      "对比 Persistence / ARIMA / XGBoost / LSTM / LSTM-Attention",
+      "含上游信息消融、洪水 CSI、QPF 阶梯与转移学习试验",
+      "可复现的数据下载、训练、消融与论文插图脚本",
+    ],
+    metrics: [
+      { label: "LSTM-Attn · 1日 NSE", value: 0.93, display: "0.930", note: "最优一日预报" },
+      { label: "XGBoost · 1日 NSE", value: 0.92, display: "0.916" },
+      { label: "LSTM · 3日 NSE", value: 0.54, display: "0.543", note: "中期最优" },
+      { label: "Persistence · 1日 NSE", value: 0.79, display: "0.787", note: "基线" },
+    ],
+    demo: [
+      { title: "数据接入", detail: "USGS 日流量 + Open-Meteo 气象，整理为多站长表与流域元数据。" },
+      { title: "模型训练", detail: "统一评估框架输出 NSE / KGE / RMSE / MAE / PBIAS，并生成结果 JSON。" },
+      { title: "消融与洪水", detail: "关闭上游信息、评估洪峰命中 CSI，检验空间信息与极端事件表现。" },
+      { title: "文稿产出", detail: "自动生成图表、表格与 HSJ 风格稿件，形成可投稿闭环。" },
+    ],
+    stack: ["Python", "PyTorch", "XGBoost", "pandas", "matplotlib", "USGS API"],
+    galleryHints: ["流域示意图", "预报过程线", "模型对比柱状图", "消融实验结果"],
+  },
+  {
+    slug: "desktop-pet",
+    title: "庄方宜 Q 版桌面宠物",
+    mood: "pet",
+    heroEmoji: "🦉",
+    tagline: "「护生安民，职责所在」—— 天师麒麟常驻桌面陪你学习",
+    highlights: [
+      "无边框透明置顶窗口，像真正的桌宠一样漂在桌面上",
+      "站立 / 行走 / 挥手 / 开心 / 打瞌睡多套序列帧动画",
+      "点击互动语音气泡、拖拽移动、右键菜单与系统托盘",
+      "config.json 可调尺寸、位置、语速与空闲行为",
+    ],
+    demo: [
+      { title: "启动宠物", detail: "python main.py 后出现透明悬浮窗口，始终置顶。" },
+      { title: "点击互动", detail: "单击触发挥手动画与随机台词气泡。" },
+      { title: "拖拽安放", detail: "按住拖到桌面任意角落，配置文件记住偏好。" },
+      { title: "空闲打瞌睡", detail: "长时间无操作自动切换 sleepy 序列帧。" },
+    ],
+    stack: ["Python", "PyQt5", "序列帧动画", "系统托盘"],
+    galleryHints: ["悬浮截图", "挥手动画帧", "气泡台词", "托盘菜单"],
+  },
+  {
+    slug: "clipboard-viz",
+    title: "剪贴板智能可视化仪表板",
+    mood: "tool",
+    heroEmoji: "📋",
+    tagline: "监听 · 分类 · 入库 · ECharts 一眼看清复制习惯",
+    highlights: [
+      "0.5s 轮询监听，自动识别文本 / 图片 / 路径 / URL",
+      "图片自动落盘 PNG，历史全量进 SQLite",
+      "统计卡片 + 趋势图 + 饼图 + 可搜索分页表格",
+      "支持详情弹窗、复制回写与 CSV 导出",
+    ],
+    demo: [
+      { title: "启动服务", detail: "python app.py 同时启动监听器与 Flask 仪表板。" },
+      { title: "复制任意内容", detail: "复制文字、截图或路径，后台自动分类入库。" },
+      { title: "打开看板", detail: "访问 http://127.0.0.1:5000 查看今日增量与类别分布。" },
+      { title: "检索导出", detail: "按关键词筛选历史，一键导出 CSV。" },
+    ],
+    stack: ["Flask", "SQLAlchemy", "ECharts", "Pillow", "SQLite"],
+    galleryHints: ["仪表板总览", "类别饼图", "时间趋势", "图片预览弹窗"],
+  },
+  {
+    slug: "plant-ppt",
+    title: "植物叶片形态分析演示文稿",
+    mood: "plant",
+    heroEmoji: "🌿",
+    tagline: "深林绿 × 奶油学术风，跨场景解读叶片形态与生态逻辑",
+    highlights: [
+      "python-pptx 程序化生成完整学术演示稿",
+      "覆盖森林、土楼、玉米、松针、银杏、凤梨科等场景",
+      "形态特征表 + 生态功能解释，适合课程汇报",
+      "统一自然学术配色，观感精致克制",
+    ],
+    demo: [
+      { title: "准备素材", detail: "整理场景照片与形态描述表格。" },
+      { title: "一键生成", detail: "运行 create_plant_ppt.py 输出 PPTX。" },
+      { title: "课堂演示", detail: "按场景翻页讲解叶片适应策略。" },
+    ],
+    stack: ["Python", "python-pptx", "Pillow"],
+    galleryHints: ["封面页", "场景分析页", "分类总结页"],
+  },
+  {
+    slug: "eco-hydro",
+    title: "波托马克流域生态水文耦合分析",
+    mood: "hydro",
+    heroEmoji: "🌍",
+    tagline: "Budyko 水均衡 × 植被—水文耦合，课程论文级分析流水线",
+    highlights: [
+      "整合 USGS 径流、Open-Meteo 降水/潜在蒸散、NDVI",
+      "Budyko 框架刻画干湿状态与水分利用效率",
+      "输出统计表、分析图与答辩演示文稿",
+    ],
+    stack: ["Python", "pandas", "scipy", "matplotlib"],
+    galleryHints: ["Budyko 曲线", "NDVI—径流关系", "答辩 PPT"],
+  },
+  {
+    slug: "hydrology-field",
+    title: "水文测验与资料整编实践合集",
+    mood: "field",
+    heroEmoji: "📏",
+    tagline: "水位过程 · 大断面 · 绳套曲线 · 评级延长，把野外数据做成图",
+    highlights: [
+      "日水位处理与频率/历时曲线",
+      "全站仪大断面 → CSV / Excel / DXF / SWS",
+      "绳套法洪水流量与水位流量关系延长",
+      "兰州大学综合实习报告配套图表",
+    ],
+    demo: [
+      { title: "野外采集", detail: "水位观测、断面测点、测流数据入库。" },
+      { title: "脚本整编", detail: "批量清洗 Excel，生成过程线与断面图。" },
+      { title: "CAD/报表", detail: "导出 DXF 与计算表，写入实习报告。" },
+    ],
+    stack: ["Python", "Excel", "DXF", "matplotlib"],
+    galleryHints: ["水位过程线", "大断面图", "Z–Q 绳套曲线"],
+  },
+  {
+    slug: "yaohe-review",
+    title: "洮河与黄河水文地理综述",
+    mood: "paper",
+    heroEmoji: "📜",
+    tagline: "自然地理 · 水文气象 · 水资源与经济社会，兰大格式综述稿",
+    highlights: [
+      "中英标题与兰大学位论文式排版",
+      "流域示意地图自动绘制",
+      "串联自然背景与人水关系叙事",
+    ],
+    stack: ["python-docx", "matplotlib"],
+    galleryHints: ["流域示意图", "文稿封面"],
+  },
+  {
+    slug: "novel-studio",
+    title: "Novel Studio 写作工作台",
+    mood: "novel",
+    heroEmoji: "✍️",
+    tagline: "大纲 → 细纲 → 章节 → 质量门禁，个人向连载写作助手",
+    highlights: [
+      "多书目目录管理与章节流水线",
+      "质量评分门禁，低于阈值自动返工",
+      "桌面端便携打包，适合本地长期创作",
+      "强调个人写作辅助，而非平台违规自动化",
+    ],
+    demo: [
+      { title: "建立书目", detail: "创建作品档案，配置文风与更新节奏。" },
+      { title: "生成大纲", detail: "从故事种子扩展到卷纲与章纲。" },
+      { title: "章节质检", detail: "质量分 ≥ 阈值才进入待发布队列。" },
+    ],
+    stack: ["Python", "LLM", "桌面端打包"],
+    galleryHints: ["书目面板", "章节编辑", "质量评分"],
+  },
+];
+
+export function getShowcaseByTitle(title: string): Showcase | undefined {
+  return showcases.find((s) => s.title === title);
+}
