@@ -22,6 +22,7 @@ export const worksContent: WorkSeed[] = [
     featured: true,
     published: true,
     sortOrder: 0,
+    github: "https://github.com/Az0998/yili-divination",
     link: "/yili",
     content: `## 一句话
 
@@ -30,6 +31,8 @@ export const worksContent: WorkSeed[] = [
 ## 在线打开
 
 [打开易理占筮演示](/yili)
+
+源码：[github.com/Az0998/yili-divination](https://github.com/Az0998/yili-divination)
 
 > 不在顶栏占位，从本作品详情进入即可。
 
@@ -44,6 +47,7 @@ export const worksContent: WorkSeed[] = [
 ## 本地打开
 
 \`\`\`bash
+git clone https://github.com/Az0998/yili-divination.git
 cd yili-divination
 python -m http.server 8080
 \`\`\`
@@ -142,6 +146,7 @@ python run_ablation.py
     featured: true,
     published: true,
     sortOrder: 3,
+    github: "https://github.com/Az0998/novel-studio",
     link: "/novel-studio",
     content: `## 一句话
 
@@ -150,6 +155,8 @@ python run_ablation.py
 ## 在线打开
 
 [打开 Novel Studio 演示](/novel-studio)
+
+源码：[github.com/Az0998/novel-studio](https://github.com/Az0998/novel-studio)
 
 > 不在顶栏占位，从本作品详情进入即可。
 
@@ -164,7 +171,8 @@ python run_ablation.py
 ## 桌面端（完整能力）
 
 \`\`\`bash
-cd fanqie-novel/novel-studio
+git clone https://github.com/Az0998/novel-studio.git
+cd novel-studio
 pip install -r requirements.txt
 python -m app.main
 \`\`\`
@@ -185,9 +193,12 @@ python -m app.main
     featured: true,
     published: true,
     sortOrder: 3,
+    github: "https://github.com/Az0998/zhuangfangyi-desktop-pet",
     content: `## 一句话
 
 让角色住进桌面——无边框透明、始终置顶，写代码时点一下还会跟你打招呼。
+
+源码：[github.com/Az0998/zhuangfangyi-desktop-pet](https://github.com/Az0998/zhuangfangyi-desktop-pet)
 
 ## 演示看点
 
@@ -207,6 +218,7 @@ python -m app.main
 ## 本地演示
 
 \`\`\`bash
+git clone https://github.com/Az0998/zhuangfangyi-desktop-pet.git
 cd zhuangfangyi-desktop-pet
 pip install -r requirements.txt
 python generate_placeholders.py
@@ -223,13 +235,17 @@ python main.py
     featured: true,
     published: true,
     sortOrder: 4,
+    github: "https://github.com/Az0998/clipboard-visualizer",
     content: `## 一句话
 
 后台默默记下你复制的文字、图片、路径和链接，再用仪表板把习惯可视化。
 
+源码：[github.com/Az0998/clipboard-visualizer](https://github.com/Az0998/clipboard-visualizer)
+
 ## 三分钟体验
 
 \`\`\`bash
+git clone https://github.com/Az0998/clipboard-visualizer.git
 cd clipboard-visualizer
 pip install -r requirements.txt
 python app.py
