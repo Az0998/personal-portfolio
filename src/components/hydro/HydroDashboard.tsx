@@ -172,37 +172,75 @@ async function getJSON<T>(url: string): Promise<T> {
   return res.json();
 }
 
+/** 黄河干流示意折线（WGS84，便于无底图时仍能看懂站网） */
+const YELLOW_RIVER_PATH: [number, number][] = [
+  [36.061, 103.834], // 兰州
+  [37.884, 105.992], // 青铜峡
+  [39.247, 106.769], // 石嘴山
+  [40.265, 111.074], // 头道拐
+  [34.612, 110.286], // 潼关
+  [34.906, 113.671], // 花园口
+  [37.492, 118.312], // 利津
+];
+
+const TAO_RIVER_PATH: [number, number][] = [
+  [35.137, 104.211], // 渭源
+  [35.394, 103.862], // 临洮
+  [36.061, 103.834], // 汇入黄河（兰州一带示意）
+];
+
 function addChinaBasemap(L: any, map: any) {
-  // 优先国内深色底图，避免 OSM 空白 / 浅色图“发白”
-  const layers = [
-    L.tileLayer(
-      "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}",
-      { maxZoom: 16, attribution: "© GeoQ" }
-    ),
-    L.tileLayer(
-      "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetWarm/MapServer/tile/{z}/{y}/{x}",
-      { maxZoom: 16, attribution: "© GeoQ Warm" }
-    ),
-    L.tileLayer(
-      "https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=7&x={x}&y={y}&z={z}",
-      { subdomains: "1234", maxZoom: 18, attribution: "© 高德" }
-    ),
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-      subdomains: "abcd",
+  // 默认用「看得清」的浅色中文底图；深色 GeoQ 在不少网络下几乎全黑
+  const gaode = L.tileLayer(
+    "https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=7&x={x}&y={y}&z={z}",
+    { subdomains: "1234", maxZoom: 18, attribution: "© 高德", className: "hydro-tiles" }
+  );
+  const gaodeSat = L.layerGroup([
+    L.tileLayer("https://webst0{s}.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}", {
+      subdomains: "1234",
       maxZoom: 18,
-      attribution: "© CARTO",
+      attribution: "© 高德影像",
     }),
-  ];
-  layers[0].addTo(map);
-  let idx = 0;
-  const failCount = { n: 0 };
-  layers[0].on("tileerror", () => {
-    failCount.n += 1;
-    if (failCount.n < 3 || idx >= layers.length - 1) return;
-    map.removeLayer(layers[idx]);
-    idx += 1;
-    failCount.n = 0;
-    layers[idx].addTo(map);
+    L.tileLayer("https://webst0{s}.is.autonavi.com/appmaptile?style=8&x={x}&y={y}&z={z}", {
+      subdomains: "1234",
+      maxZoom: 18,
+      opacity: 0.9,
+    }),
+  ]);
+  const osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "© OpenStreetMap",
+  });
+  const carto = L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
+    subdomains: "abcd",
+    maxZoom: 18,
+    attribution: "© CARTO",
+  });
+
+  gaode.addTo(map);
+  L.control
+    .layers(
+      {
+        高德标准: gaode,
+        高德卫星: gaodeSat,
+        "OSM 国际": osm,
+        "CARTO 浅色": carto,
+      },
+      {},
+      { position: "topright", collapsed: true }
+    )
+    .addTo(map);
+
+  // 高德首屏若大量 tileerror，自动切到 CARTO
+  let errors = 0;
+  let switched = false;
+  gaode.on("tileerror", () => {
+    errors += 1;
+    if (!switched && errors >= 4) {
+      switched = true;
+      map.removeLayer(gaode);
+      carto.addTo(map);
+    }
   });
 }
 
@@ -475,34 +513,71 @@ export function HydroDashboard() {
       mapInst.current.remove();
       mapInst.current = null;
     }
-    const map = window.L.map(mapRef.current, {
+    const L = window.L;
+    const map = L.map(mapRef.current, {
       zoomControl: true,
-      preferCanvas: true,
+      preferCanvas: false,
     });
-    mapRef.current.style.background = "#0b1f2a";
-    addChinaBasemap(window.L, map);
+    mapRef.current.style.background = "#dceaf5";
+    addChinaBasemap(L, map);
+
+    // 河网示意：无底图时也能读出黄河—洮河骨架
+    L.polyline(YELLOW_RIVER_PATH, {
+      color: "#1d4ed8",
+      weight: 3.5,
+      opacity: 0.85,
+      lineJoin: "round",
+    })
+      .bindTooltip("黄河干流（示意）", { sticky: true })
+      .addTo(map);
+    L.polyline(TAO_RIVER_PATH, {
+      color: "#0d9488",
+      weight: 2.5,
+      opacity: 0.9,
+      dashArray: "6 4",
+      lineJoin: "round",
+    })
+      .bindTooltip("洮河（示意）", { sticky: true })
+      .addTo(map);
 
     const bounds: any[] = [];
     overview.stations.forEach((st) => {
       const selectedMark = st.id === stationId;
-      const color = st.status === "alert" ? "#e4572e" : st.status === "warn" ? "#e9a825" : "#2ec4b6";
-      const marker = window.L.circleMarker([st.lat, st.lon], {
-        radius: selectedMark ? 11 : st.role === "control" ? 8 : 6,
-        color: selectedMark ? "#fff" : color,
+      const color = st.status === "alert" ? "#e4572e" : st.status === "warn" ? "#e9a825" : "#0f766e";
+      const marker = L.circleMarker([st.lat, st.lon], {
+        radius: selectedMark ? 10 : 7,
+        color: selectedMark ? "#0f172a" : "#fff",
         fillColor: color,
-        fillOpacity: 0.9,
+        fillOpacity: 0.95,
         weight: selectedMark ? 3 : 2,
       }).addTo(map);
+
+      marker.bindTooltip(
+        `<b>${st.name}</b><br/>${st.river} · ${st.q} m³/s`,
+        {
+          permanent: true,
+          direction: "right",
+          offset: [10, 0],
+          className: "hydro-map-label",
+          opacity: 1,
+        }
+      );
       marker.bindPopup(
-        `<strong>${st.name}</strong>（${st.river}）<br/>Q ${st.q} m³/s<br/>Z ${st.stage} m<br/>S ${st.sediment} kg/m³<br/>状态 ${STATUS[st.status].label}`
+        `<div style="min-width:140px"><strong>${st.name}</strong>（${st.river}）<br/>
+        流域：${st.basin}<br/>
+        流量：<b>${st.q}</b> m³/s<br/>
+        水位：<b>${st.stage}</b> m<br/>
+        含沙：${st.sediment} kg/m³<br/>
+        状态：${STATUS[st.status].label}</div>`
       );
       marker.on("click", () => setStationId(st.id));
       bounds.push([st.lat, st.lon]);
     });
-    if (bounds.length) map.fitBounds(bounds, { padding: [28, 28], maxZoom: 7 });
+
+    if (bounds.length) map.fitBounds(bounds, { padding: [36, 36], maxZoom: 6 });
     mapInst.current = map;
-    setTimeout(() => map.invalidateSize(), 120);
-    setTimeout(() => map.invalidateSize(), 400);
+    setTimeout(() => map.invalidateSize(), 80);
+    setTimeout(() => map.invalidateSize(), 350);
   }, [overview, stationId]);
 
   useEffect(() => {
@@ -626,8 +701,13 @@ export function HydroDashboard() {
       <section className="hydro-grid-3">
         <article className="hydro-panel">
           <h2>Leaflet 国内站网地图</h2>
-          <p className="desc">高德/GeoQ 底图 · 点击站点切换 · 共 {overview.stations.length} 站</p>
+          <p className="desc">高德标准底图 · 黄河/洮河示意河线 · 站名常驻 · 右上角可换底图 · 共 {overview.stations.length} 站</p>
           <div ref={mapRef} className="hydro-map" />
+          <div className="hydro-map-legend">
+            <span className="lg-yr">黄河干流</span>
+            <span className="lg-tao">洮河支流</span>
+            <span className="lg-st">水文站</span>
+          </div>
         </article>
 
         <article className="hydro-panel">
