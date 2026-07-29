@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 import { parseTags, getCategoryLabel } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { getShowcaseByTitle } from "@/data/showcases";
 import { ShowcasePanel } from "@/components/ShowcasePanel";
 import { StarField } from "@/components/AnimeDecor";
@@ -103,7 +104,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
           {work.content && (
             <div className="prose-anime">
-              <ReactMarkdown>{work.content}</ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{work.content}</ReactMarkdown>
             </div>
           )}
         </article>

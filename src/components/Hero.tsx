@@ -57,8 +57,14 @@ export function Hero({ profile }: HeroProps) {
           </h1>
           <p className="text-xl md:text-2xl text-ink-200 mb-2">{profile.title}</p>
           {profile.tagline && (
-            <p className="text-lg text-ink-400 mb-8">{profile.tagline}</p>
+            <p className="text-lg text-ink-400 mb-6 max-w-xl">{profile.tagline}</p>
           )}
+
+          <div className="flex flex-wrap gap-3 mb-8 text-xs font-cute">
+            <span className="px-3 py-1 rounded-full bg-sakura/15 border border-sakura/30 text-sakura-soft">精选项目自动同步</span>
+            <span className="px-3 py-1 rounded-full bg-aqua/15 border border-aqua/30 text-aqua">演示流程 + 指标可视化</span>
+            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-ink-300">GitHub · Az0998</span>
+          </div>
 
           <div className="flex flex-wrap gap-4 mb-8">
             <a href="#works" className="btn-primary">

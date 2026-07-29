@@ -1,6 +1,15 @@
 # 部署到 zhangsjqaq.vexr.dev
 
-本项目使用 SQLite + 本地上传，适合部署到 **Render Web Service**（单机常驻进程）。不建议用 Vercel Serverless（数据库和上传会丢）。
+本项目使用 SQLite，适合部署到 **Render Web Service**。头像/封面以压缩后的 data URL 写入数据库，不依赖本地磁盘。
+
+## 懒人同步进展（推荐）
+
+1. 改 `src/data/works-content.ts`（精选项目介绍）  
+2. `git push` → Render 自动部署 → 构建时 `db:seed` 会 upsert 文案  
+3. 或登录后台点 **立即同步**（再拉 GitHub 公开仓库卡片）
+
+站点：https://zhangsjqaq.vexr.dev  
+仓库：https://github.com/Az0998/personal-portfolio
 
 ## 一、推到 GitHub
 

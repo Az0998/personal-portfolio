@@ -33,7 +33,12 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
   if (formData.has("sortOrder")) data.sortOrder = parseInt(formData.get("sortOrder") as string, 10);
 
   if (coverFile && coverFile.size > 0) {
-    data.coverImage = await saveUploadedFile(coverFile);
+    try {
+      data.coverImage = await saveUploadedFile(coverFile);
+    } catch (e) {
+      const message = e instanceof Error ? e.message : "封面上传失败";
+      return NextResponse.json({ error: message }, { status: 400 });
+    }
   }
 
   const work = await prisma.work.update({ where: { id }, data });

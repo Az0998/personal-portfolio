@@ -28,6 +28,16 @@ export async function POST(request: NextRequest) {
   const formData = await request.formData();
   const coverFile = formData.get("coverImage") as File | null;
 
+  let coverImage: string | null = null;
+  if (coverFile && coverFile.size > 0) {
+    try {
+      coverImage = await saveUploadedFile(coverFile);
+    } catch (e) {
+      const message = e instanceof Error ? e.message : "封面上传失败";
+      return NextResponse.json({ error: message }, { status: 400 });
+    }
+  }
+
   const data = {
     title: formData.get("title") as string,
     description: (formData.get("description") as string) || null,
@@ -39,7 +49,7 @@ export async function POST(request: NextRequest) {
     featured: formData.get("featured") === "true",
     published: formData.get("published") !== "false",
     sortOrder: parseInt((formData.get("sortOrder") as string) || "0", 10),
-    coverImage: coverFile && coverFile.size > 0 ? await saveUploadedFile(coverFile) : null,
+    coverImage,
   };
 
   const work = await prisma.work.create({ data });

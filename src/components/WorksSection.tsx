@@ -43,7 +43,8 @@ export function WorksSection({ works }: WorksSectionProps) {
           <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
             精选<span className="gradient-text">作品</span>
           </h2>
-          <p className="text-ink-400 mb-8">每个项目都有介绍、演示流程与可视化</p>
+          <p className="text-ink-400 mb-2">点进去看介绍舱 · 演示步骤 · 指标条</p>
+          <p className="text-ink-500 text-sm mb-8">进展跟着仓库走：改文案推送后会自动更新，也可在后台一键同步 GitHub</p>
 
           <div className="flex flex-wrap justify-center gap-2">
             {categories.map((cat) => (

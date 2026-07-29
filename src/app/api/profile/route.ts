@@ -29,7 +29,12 @@ export async function PUT(request: NextRequest) {
 
   const avatarFile = formData.get("avatar") as File | null;
   if (avatarFile && avatarFile.size > 0) {
-    data.avatar = await saveUploadedFile(avatarFile);
+    try {
+      data.avatar = await saveUploadedFile(avatarFile);
+    } catch (e) {
+      const message = e instanceof Error ? e.message : "头像上传失败";
+      return NextResponse.json({ error: message }, { status: 400 });
+    }
   }
 
   if (profile) {
@@ -40,6 +45,8 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json(updated);
   }
 
-  const created = await prisma.profile.create({ data: data as Parameters<typeof prisma.profile.create>[0]["data"] });
+  const created = await prisma.profile.create({
+    data: data as Parameters<typeof prisma.profile.create>[0]["data"],
+  });
   return NextResponse.json(created);
 }
