@@ -1,0 +1,68 @@
+.yili-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #050506;
+  color: #eee;
+}
+
+.yili-top {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 2;
+}
+
+.yili-back,
+.yili-open {
+  color: #bbb;
+  text-decoration: none;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.yili-back:hover,
+.yili-open:hover {
+  color: #fff;
+}
+
+.yili-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.yili-mark {
+  font-size: 1.4rem;
+}
+
+.yili-title {
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.yili-sub {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.yili-frame {
+  flex: 1;
+  width: 100%;
+  border: 0;
+  min-height: calc(100vh - 56px);
+  background: #050506;
+}
+
+@media (max-width: 640px) {
+  .yili-sub {
+    display: none;
+  }
+}

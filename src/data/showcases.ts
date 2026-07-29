@@ -25,6 +25,32 @@ export interface Showcase {
 
 export const showcases: Showcase[] = [
   {
+    slug: "yili",
+    title: "易理占筮 · 太极八卦六十四阵",
+    mood: "tool",
+    heroEmoji: "☯",
+    tagline: "一事一占 · 三才备物 · 多法起卦 · 朱熹动爻玩辞",
+    highlights: [
+      "挂载于个人站 /yili，黑白动态太极八卦六十四阵背景",
+      "因事推荐六爻 / 时间·人物·方位·报数梅花",
+      "体用五行合月令时辰方位，合天时地利人和",
+      "朱熹《易学启蒙》动爻法则：贞悔、用九用六",
+    ],
+    metrics: [
+      { label: "起卦算法", value: 5, display: "5" },
+      { label: "事类", value: 8, display: "8" },
+      { label: "六十四卦", value: 64, display: "64" },
+    ],
+    demo: [
+      { title: "打开 /yili", detail: "作品卡片点「打开演示」进入易理占筮。" },
+      { title: "净心立问", detail: "勾选诚意、写清一事、选择事件类型。" },
+      { title: "三才择法", detail: "填天时地利人和，确认推荐筮法后开筮。" },
+      { title: "观象玩辞", detail: "看本卦之卦、动爻主断辞与体用生克。" },
+    ],
+    stack: ["HTML/CSS/JS", "Canvas 卦阵", "象数算法", "Next.js 挂载"],
+    galleryHints: ["太极卦阵背景", "四步流程", "铜钱动效", "体用仪表"],
+  },
+  {
     slug: "hydro-info",
     title: "HydroInfo 流域水情信息平台",
     mood: "hydro",

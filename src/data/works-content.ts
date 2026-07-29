@@ -14,6 +14,44 @@ export type WorkSeed = {
 /** Single source of truth — edit here, then sync / redeploy. */
 export const worksContent: WorkSeed[] = [
   {
+    title: "易理占筮 · 太极八卦六十四阵",
+    description:
+      "周易象数学习站：一事一占、天时地利人和、六爻与梅花多算法、体用生克与朱熹动爻玩辞；黑白动态卦阵背景。挂载 /yili。",
+    category: "project",
+    tags: "周易,梅花易数,六爻,象数,前端,文化",
+    featured: true,
+    published: true,
+    sortOrder: 0,
+    link: "/yili",
+    content: `## 一句话
+
+把《周易》起卦与玩辞做成可体验的学习演示：因事取法，合天时地利人和，依体用与动爻法则观象。
+
+## 在线打开
+
+[打开易理占筮演示](/yili)
+
+> 不在顶栏占位，从本作品详情进入即可。
+
+## 能体验什么
+
+- **净心立问 → 三才备物 → 择筮成卦 → 观象玩辞** 四步流程
+- **六爻三钱**与**时间 / 人物 / 方位 / 报数梅花**五法
+- **朱熹《易学启蒙》动爻玩辞法**（贞悔、用九用六）
+- **体用五行生克**合月令、时辰、方位
+- 黑白动态**太极 · 先天八卦 · 六十四卦阵**背景
+
+## 本地打开
+
+\`\`\`bash
+cd yili-divination
+python -m http.server 8080
+\`\`\`
+
+浏览器访问 \`http://localhost:8080\`
+`,
+  },
+  {
     title: "HydroInfo 流域水情信息平台",
     description:
       "黄河—洮河公开站 CSV：10 站可切换，流量/水位/降水/气温/含沙量/过水面积可变出图，Leaflet 国内底图，挂载 /hydro。",
@@ -21,7 +59,7 @@ export const worksContent: WorkSeed[] = [
     tags: "智慧水利,水信息,Leaflet,CSV,黄河,洮河,LSTM",
     featured: true,
     published: true,
-    sortOrder: 0,
+    sortOrder: 1,
     github: "https://github.com/Az0998/hydro-info-platform",
     link: "/hydro",
     content: `## 一句话
@@ -59,7 +97,7 @@ python app.py
     tags: "深度学习,水文,PyTorch,LSTM,XGBoost,HSJ",
     featured: true,
     published: true,
-    sortOrder: 1,
+    sortOrder: 2,
     github: "https://github.com/Az0998/hydro-ml-paper",
     content: `## 一句话
 
@@ -103,7 +141,7 @@ python run_ablation.py
     tags: "LLM,写作工具,Next.js,桌面应用,产品演示",
     featured: true,
     published: true,
-    sortOrder: 2,
+    sortOrder: 3,
     link: "/novel-studio",
     content: `## 一句话
 

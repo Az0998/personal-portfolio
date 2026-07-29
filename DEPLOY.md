@@ -15,6 +15,7 @@
 
 - `/hydro` — HydroInfo  
 - `/novel-studio` — Novel Studio 写作工作台  
+- `/yili` — 易理占筮（太极八卦六十四阵）  
 
 ## 一、推到 GitHub
 
