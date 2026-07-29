@@ -220,10 +220,10 @@ export const showcases: Showcase[] = [
     heroEmoji: "✍️",
     tagline: "网页演示挂载 /novel-studio · 向导 / 流水线 / 赞助发码 / 一键验证",
     highlights: [
-      "从作品详情进入 /novel-studio，不占用顶栏主导航",
+      "挂载于个人站 /novel-studio，不占用顶栏主导航",
+      "独立仓库 github.com/Az0998/novel-studio",
       "新建书向导、工作台流水线、赞助下单发码闭环可交互验证",
       "免费 1 本额度与赞助解锁逻辑可在浏览器本地演练",
-      "桌面便携版承接本机 LLM 写作与发布引擎",
     ],
     demo: [
       { title: "打开演示", detail: "作品卡片点「打开演示」进入 /novel-studio。" },
