@@ -14,6 +14,49 @@ export type WorkSeed = {
 /** Single source of truth — edit here, then sync / redeploy. */
 export const worksContent: WorkSeed[] = [
   {
+    title: "HydroInfo 流域水情信息平台",
+    description:
+      "智慧水利 / 水信息演示：多站态势、质控预警、过程线与绳套、7 日业务基线预报，Flask + ECharts 一页看板。",
+    category: "project",
+    tags: "智慧水利,水信息,Flask,ECharts,质控,预报",
+    featured: true,
+    published: true,
+    sortOrder: 0,
+    github: "https://github.com/Az0998/hydro-info-platform",
+    link: "https://github.com/Az0998/hydro-info-platform",
+    content: `## 一句话
+
+面向智慧水利岗位的最小信息闭环：**采集 → 质控 → 态势 → 业务基线预报**，用一页看板把站网水情讲清楚。
+
+## 你现在能看到什么
+
+- **多站 KPI**：控制站 + 上游站流量 / 水位 / 日变幅 / 注意·警戒状态
+- **过程线**：流量 + 降水，叠加阈值线
+- **质控舱**：缺失、MAD 突变、阈值告警
+- **绳套图**：演示水位—流量关系
+- **7 日预报**：Persistence→MA7 混合 + 1/3/7 日回测 NSE
+
+## 本地演示
+
+\`\`\`bash
+cd hydro-info-platform
+pip install -r requirements.txt
+python app.py
+\`\`\`
+
+打开 http://127.0.0.1:5050
+
+## 和论文项目怎么分工
+
+| 项目 | 定位 |
+|------|------|
+| HydroInfo | 水信息产品形态 / 业务看板 |
+| hydro-ml-paper | 论文级 LSTM 多时效预报与投稿流水线 |
+
+后续路线：国内站网格式、洪水 CSI 回放、对接 LSTM 推理服务、Leaflet 站网地图。
+`,
+  },
+  {
     title: "波托马克河多时效径流深度学习预报",
     description:
       "多时效径流预报实验闭环：LSTM-Attention 一日 NSE 0.93，含消融、洪水评估与 HSJ 文稿流水线。",
@@ -22,7 +65,7 @@ export const worksContent: WorkSeed[] = [
     featured: true,
     published: true,
     sortOrder: 1,
-    github: "https://github.com/Az0998/personal-portfolio",
+    github: "https://github.com/Az0998/hydro-ml-paper",
     content: `## 一句话
 
 把上游水文站 + 气象场喂给深度学习，做 1/3/7 日流量预报，并用统一指标板把模型打分、消融和投稿图一锅端。
@@ -221,9 +264,9 @@ python create_plant_ppt.py
 
 export const profileContent = {
   name: "张森捷",
-  title: "水文 · 机器学习 · 二次元创作者",
-  tagline: "用模型读懂河流，用代码留下一点动漫浪漫",
-  bio: "兰州大学水文与水资源工程方向。白天和流量、Budyko、LSTM 较劲；晚上给桌面养一只麒麟天师，顺便把剪贴板和写作流水线做成工具。\n\n作品介绍以仓库数据源自动同步：你改本地/GitHub 里的作品文案并推送后，站点会在部署时更新——不用在后台逐条手工填进展。",
+  title: "智慧水利 · 水信息 · 机器学习",
+  tagline: "用信息链路读懂河流，用模型把预报落到可展示的产品形态",
+  bio: "兰州大学水文与水资源工程方向，目标从事智慧水利与水信息。白天做站网态势、质控预警和径流预报；也用深度学习把上游信息价值写进论文流水线。业余养桌宠、做小工具。\n\n作品介绍以仓库数据源自动同步：改本地/GitHub 文案并推送后，站点部署时更新。",
   email: "your.email@example.com",
   location: "兰州 / 中国",
   github: "https://github.com/Az0998",
