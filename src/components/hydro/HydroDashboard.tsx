@@ -173,17 +173,20 @@ async function getJSON<T>(url: string): Promise<T> {
 }
 
 function addChinaBasemap(L: any, map: any) {
-  // 国内可访问底图：高德矢量 → GeoQ 蓝黑 → CARTO（兜底）
+  // 优先国内深色底图，避免 OSM 空白 / 浅色图“发白”
   const layers = [
-    L.tileLayer("https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}", {
-      subdomains: "1234",
-      maxZoom: 18,
-      attribution: "© 高德",
-    }),
-    L.tileLayer("https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}", {
-      maxZoom: 16,
-      attribution: "© GeoQ",
-    }),
+    L.tileLayer(
+      "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}",
+      { maxZoom: 16, attribution: "© GeoQ" }
+    ),
+    L.tileLayer(
+      "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetWarm/MapServer/tile/{z}/{y}/{x}",
+      { maxZoom: 16, attribution: "© GeoQ Warm" }
+    ),
+    L.tileLayer(
+      "https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=7&x={x}&y={y}&z={z}",
+      { subdomains: "1234", maxZoom: 18, attribution: "© 高德" }
+    ),
     L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
       subdomains: "abcd",
       maxZoom: 18,
@@ -192,10 +195,13 @@ function addChinaBasemap(L: any, map: any) {
   ];
   layers[0].addTo(map);
   let idx = 0;
+  const failCount = { n: 0 };
   layers[0].on("tileerror", () => {
-    if (idx >= layers.length - 1) return;
+    failCount.n += 1;
+    if (failCount.n < 3 || idx >= layers.length - 1) return;
     map.removeLayer(layers[idx]);
     idx += 1;
+    failCount.n = 0;
     layers[idx].addTo(map);
   });
 }
