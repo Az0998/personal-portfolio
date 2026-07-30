@@ -14,6 +14,40 @@ export type WorkSeed = {
 /** Single source of truth — edit here, then sync / redeploy. */
 export const worksContent: WorkSeed[] = [
   {
+    title: "匿名问卷 · 分发填写与汇总",
+    description:
+      "浏览器端匿名问卷：公开/私密分发、填写汇总、结果快照，以及问卷绑定的匿名讨论区。挂载 /survey。",
+    category: "project",
+    tags: "问卷,匿名,讨论,前端,localStorage,工具,演示",
+    featured: true,
+    published: true,
+    sortOrder: 0,
+    link: "/survey",
+    content: `## 一句话
+
+在浏览器里完成「创建 → 分发 → 匿名填写 → 汇总 → 分享结果 → 匿名讨论」：适合导师评价、学校评价等场景的演示闭环。
+
+## 在线打开
+
+[打开匿名问卷演示](/survey)
+
+> 不在顶栏占位，从本作品详情进入即可。数据仅存本机 \`localStorage\`（\`anon-survey:v1\`）。
+
+## 能体验什么
+
+- **导师评价 / 学校评价** 模板一键创建
+- **公开或私密**（口令门禁，错误口令不露题）
+- **匿名提交** + 答卷码导入 / 模拟回收 / CSV
+- **结果快照**只读分享（可脱敏开放题）
+- **匿名讨论区**：随机别名发言、楼中楼回复、讨论打包码合并
+- **一键功能验证**套件
+
+## 跨设备说明
+
+无后端时无法实时多人回写。同浏览器用链接；跨设备用问卷定义码 / 答卷码 / 快照码 / 讨论打包码（\`AS4-\`）复制粘贴。
+`,
+  },
+  {
     title: "易理占筮 · 太极八卦六十四阵",
     description:
       "周易象数学习站：一事一占、天时地利人和、六爻与梅花多算法、体用生克与朱熹动爻玩辞；黑白动态卦阵背景。挂载 /yili。",
@@ -21,7 +55,7 @@ export const worksContent: WorkSeed[] = [
     tags: "周易,梅花易数,六爻,象数,前端,文化",
     featured: true,
     published: true,
-    sortOrder: 0,
+    sortOrder: 1,
     github: "https://github.com/Az0998/yili-divination",
     link: "/yili",
     content: `## 一句话

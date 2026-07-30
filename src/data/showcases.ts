@@ -260,6 +260,32 @@ export const showcases: Showcase[] = [
     stack: ["Next.js", "localStorage 演示", "Python 桌面端", "LLM"],
     galleryHints: ["向导面板", "工作台", "赞助发码", "验证表"],
   },
+  {
+    slug: "survey",
+    title: "匿名问卷 · 分发填写与汇总",
+    mood: "tool",
+    heroEmoji: "📋",
+    tagline: "公开/私密问卷 · 匿名填写汇总 · 结果快照 · 匿名讨论区",
+    highlights: [
+      "挂载于个人站 /survey，不占用顶栏主导航",
+      "导师评价 / 学校评价模板；公开或私密口令分发",
+      "结果只读快照分享 + 问卷绑定的匿名讨论板（随机别名）",
+      "讨论打包码跨设备合并；一键功能验证覆盖主路径",
+    ],
+    metrics: [
+      { label: "题型", value: 4, display: "4" },
+      { label: "预置模板", value: 2, display: "2" },
+      { label: "验证用例", value: 8, display: "8" },
+    ],
+    demo: [
+      { title: "打开 /survey", detail: "作品卡片点「打开演示」进入匿名问卷。" },
+      { title: "选模板发布", detail: "导师或学校模板，设公开/私密后发布。" },
+      { title: "汇总分享", detail: "看分布均值，生成只读快照。" },
+      { title: "匿名讨论", detail: "随机别名发言，导出讨论打包码。" },
+    ],
+    stack: ["Next.js", "React", "localStorage", "Base64 分享码"],
+    galleryHints: ["雾蓝表单背景", "填写进度", "讨论流", "验证表"],
+  },
 ];
 
 export function getShowcaseByTitle(title: string): Showcase | undefined {
