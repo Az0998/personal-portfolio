@@ -94,6 +94,50 @@ python app.py
 `,
   },
   {
+    title: "HydroBench · 水文双工作台",
+    description:
+      "室内 DAT/图片/公式一体台 + 户外应急离线录入；挂载主导航 /hydrobench，浏览器本机缓存。",
+    category: "project",
+    tags: "水文,工作台,DAT,离线,公式,Canvas,localStorage",
+    featured: true,
+    published: true,
+    sortOrder: 2,
+    link: "/hydrobench",
+    content: `## 一句话
+
+把「数据格式 · 图片处理 · 公式计算」做成室内台，另备户外无网应急台；演示挂在本站主导航 \`/hydrobench\`。
+
+## 在线打开
+
+[打开 HydroBench](/hydrobench) · [新窗口纯静态](/hydrobench/index.html)
+
+> 与「水情演示」\`/hydro\` 不同：那边是站网态势，这边是作业/实习工具。
+
+## 能做什么
+
+- **室内 Studio**：大断面 DAT / CSV / 水位解析与质控、现场照标注、断面与过程线出图、曼宁与面积公式
+- **户外 Field**：测次录入、水尺速算、出发/收工清单、JSON/CSV 导出
+- **本机缓存**：键前缀 \`hydrobench:\`，同源共享；**不写入**站点个人资料（Prisma Profile）
+
+## 数据一致性说明
+
+| 层 | 存什么 | 是否上云 |
+|----|--------|----------|
+| 站点个人资料 / 作品文案 | 姓名、简介、作品卡片 | 是（SQLite + seed） |
+| HydroBench | 测次、清单、公式历史 | 否（仅浏览器） |
+| Novel Studio | 书籍/额度演示 | 否（另一套键） |
+
+换电脑或清缓存前，请在工作台入口使用「导出本机全量备份」。
+
+## 本地打开
+
+\`\`\`bash
+cd hydro-workbench
+python -m http.server 8765
+\`\`\`
+`,
+  },
+  {
     title: "波托马克河多时效径流深度学习预报",
     description:
       "多时效径流预报实验闭环：LSTM-Attention 一日 NSE 0.93，含消融、洪水评估与 HSJ 文稿流水线。",
@@ -101,7 +145,7 @@ python app.py
     tags: "深度学习,水文,PyTorch,LSTM,XGBoost,HSJ",
     featured: true,
     published: true,
-    sortOrder: 2,
+    sortOrder: 3,
     github: "https://github.com/Az0998/hydro-ml-paper",
     content: `## 一句话
 

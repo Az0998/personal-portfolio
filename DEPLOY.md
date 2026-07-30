@@ -11,11 +11,23 @@
 站点：https://zhangsjqaq.vexr.dev  
 仓库：https://github.com/Az0998/personal-portfolio
 
-挂载演示（非主导航，从作品进入）：
+挂载演示：
 
-- `/hydro` — HydroInfo  
-- `/novel-studio` — Novel Studio 写作工作台  
-- `/yili` — 易理占筮（太极八卦六十四阵）  
+- `/hydro` — HydroInfo（主导航「水情演示」）
+- `/hydrobench` — HydroBench 水文双工作台（主导航「水文工作台」）
+- `/novel-studio` — Novel Studio 写作工作台（作品进入）
+- `/yili` — 易理占筮（作品进入）
+
+### 数据 / 缓存分层（勿混用）
+
+| 层 | 位置 | 说明 |
+|----|------|------|
+| 个人资料 + 作品文案 | Prisma SQLite；源文件 `works-content.ts` / `profileContent` | 推送后 `db:seed` 同步；后台可改头像等字段 |
+| HydroBench | 浏览器 `localStorage` 键 `hydrobench:*` | 测次/清单/公式历史；**不上云**；同源（含 iframe）共享 |
+| Novel Studio | `novel-studio-web-demo-v1` | 另一套演示状态，互不覆盖 |
+| HydroInfo | `public/hydro/*.json` 静态包 | 无用户写回 |
+
+HydroBench 静态文件目录：`public/hydrobench/`（与源码仓 `hydro-workbench` 同步拷贝）。更新工具台后请重新拷贝再部署。
 
 ## 一、推到 GitHub
 

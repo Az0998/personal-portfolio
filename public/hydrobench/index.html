@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HydroBench · 水文双工作台</title>
+  <link rel="stylesheet" href="shared/css/tokens.css" />
+  <style>
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(900px 480px at 12% -8%, #b8e0d6 0%, transparent 55%),
+        radial-gradient(700px 420px at 100% 0%, #9ec5c0 0%, transparent 50%),
+        linear-gradient(165deg, #e8f4f1 0%, #d5e8e2 48%, #c5ddd6 100%);
+      overflow-x: hidden;
+    }
+    .portal {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 4.5rem 1.25rem 3rem;
+    }
+    .brand {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: rise 0.55s ease forwards;
+    }
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 14px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      box-shadow: 0 10px 28px rgba(13, 107, 92, 0.35);
+    }
+    h1 {
+      margin: 1rem 0 0.4rem;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 750;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+    .lead {
+      margin: 0;
+      max-width: 34rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 2.75rem;
+    }
+    @media (max-width: 720px) {
+      .split { grid-template-columns: 1fr; }
+    }
+    .lane {
+      position: relative;
+      display: block;
+      padding: 1.6rem 1.5rem 1.4rem;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(13, 107, 92, 0.18);
+      box-shadow: var(--shadow);
+      color: inherit;
+      text-decoration: none;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .lane:nth-child(1) { animation: rise 0.55s ease 0.12s forwards; }
+    .lane:nth-child(2) { animation: rise 0.55s ease 0.22s forwards; }
+    .lane:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 44px rgba(15, 28, 26, 0.14);
+      text-decoration: none;
+    }
+    .lane.field {
+      border-color: rgba(180, 83, 9, 0.28);
+      background: linear-gradient(160deg, #fffdf8 0%, #fff7eb 100%);
+    }
+    .lane.field:hover { border-color: rgba(180, 83, 9, 0.5); }
+    .lane::after {
+      content: "";
+      position: absolute;
+      inset: auto -20% -40% 40%;
+      height: 120%;
+      background: radial-gradient(circle, rgba(13, 107, 92, 0.12), transparent 70%);
+      pointer-events: none;
+    }
+    .lane.field::after {
+      background: radial-gradient(circle, rgba(180, 83, 9, 0.14), transparent 70%);
+    }
+    .lane-kicker {
+      font-size: 0.78rem;
+      font-weight: 650;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .lane.field .lane-kicker { color: var(--warn); }
+    .lane h2 {
+      margin: 0.55rem 0 0.45rem;
+      font-size: 1.45rem;
+      letter-spacing: -0.02em;
+    }
+    .lane p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+    .lane-cta {
+      display: inline-block;
+      margin-top: 1.15rem;
+      font-weight: 650;
+      color: var(--accent-deep);
+    }
+    .lane.field .lane-cta { color: #92400e; }
+    .foot {
+      margin-top: 2.5rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      opacity: 0;
+      animation: rise 0.55s ease 0.35s forwards;
+    }
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <main class="portal">
+    <header class="brand">
+      <div class="brand-mark">HB</div>
+      <h1>HydroBench</h1>
+      <p class="lead">水文作业工具台：室内集成数据、图片与公式；户外应急无网录入与速算。</p>
+    </header>
+
+    <div class="split">
+      <a class="lane studio" href="studio/index.html">
+        <div class="lane-kicker">Studio</div>
+        <h2>室内集成工作台</h2>
+        <p>DAT / CSV / 水位解析 · 现场照标注 · 断面与过程线出图 · 曼宁与面积公式。</p>
+        <span class="lane-cta">进入室内台 →</span>
+      </a>
+      <a class="lane field" href="field/index.html">
+        <div class="lane-kicker">Field · Offline</div>
+        <h2>户外应急离线台</h2>
+        <p>无网测次录入 · 水尺速算 · 出发/收工清单 · 本地缓存与回城导出。</p>
+        <span class="lane-cta">进入户外台 →</span>
+      </a>
+    </div>
+
+    <p class="foot">纯前端 · 可离线打开 · 样本见 <code>samples/</code></p>
+    <div class="toolbar" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.75rem">
+      <button type="button" class="ghost" id="backupAll">导出本机全量备份</button>
+      <label class="btn ghost" style="display:inline-flex;align-items:center">
+        导入备份
+        <input type="file" id="restoreAll" accept="application/json,.json" class="sr-only" />
+      </label>
+    </div>
+  </main>
+  <script src="shared/js/storage.js"></script>
+  <script>
+    HydroStorage.mountBanner(".portal");
+    document.getElementById("backupAll").onclick = () => {
+      HydroStorage.downloadJSON("hydrobench_backup.json", HydroStorage.snapshot());
+      HydroStorage.toast("全量备份已导出");
+    };
+    document.getElementById("restoreAll").onchange = async (e) => {
+      const f = e.target.files && e.target.files[0];
+      if (!f) return;
+      try {
+        const obj = JSON.parse(await f.text());
+        HydroStorage.restore(obj, { clearFirst: true });
+        HydroStorage.toast("备份已导入本机");
+        location.reload();
+      } catch (err) {
+        HydroStorage.toast("导入失败：请选择 hydrobench-backup JSON");
+      }
+    };
+  </script>
+</body>
+</html>

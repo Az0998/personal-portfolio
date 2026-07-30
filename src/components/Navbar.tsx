@@ -8,6 +8,7 @@ export function Navbar({ name }: { name: string }) {
     { href: "#about", label: "关于" },
     { href: "#works", label: "作品" },
     { href: "/hydro", label: "水情演示" },
+    { href: "/hydrobench", label: "水文工作台" },
     { href: "#contact", label: "联系" },
   ];
 

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HydroBench Studio · 室内集成工作台</title>
+  <link rel="stylesheet" href="../shared/css/tokens.css" />
+  <link rel="stylesheet" href="css/studio.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-row">
+      <a class="brand-dot" href="../index.html" title="返回入口">HB</a>
+      <div>
+        <div class="brand-title">HydroBench Studio</div>
+        <div class="brand-sub">室内 · 数据 · 图片 · 公式</div>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button type="button" class="active" data-tab="data">数据格式</button>
+      <button type="button" data-tab="image">图片处理</button>
+      <button type="button" data-tab="calc">公式计算</button>
+    </nav>
+    <a class="btn ghost" href="../field/index.html">户外台</a>
+  </header>
+
+  <main class="layout">
+    <!-- DATA -->
+    <section class="panel active" id="panel-data">
+      <h2>数据格式</h2>
+      <p class="hint">拖入大断面 DAT / CSV，或粘贴水位文本。DAT 格式：点号,备注,X,Y,Z</p>
+      <div class="grid-2">
+        <div>
+          <div class="drop" id="dropZone">
+            <strong>拖放文件到此处</strong>
+            <p>支持 .dat /.csv /.txt · 亦可用下方按钮</p>
+            <div class="toolbar" style="justify-content:center">
+              <label class="btn">
+                选择文件
+                <input type="file" id="fileInput" accept=".dat,.csv,.txt,text/plain" class="sr-only" />
+              </label>
+              <button type="button" class="ghost" id="loadSampleDat">载入样本 DAT</button>
+              <button type="button" class="ghost" id="loadSampleCsv">载入样本水位</button>
+            </div>
+          </div>
+          <label style="display:block;margin-top:0.75rem;font-size:0.82rem;font-weight:600;color:var(--muted)">或粘贴文本</label>
+          <textarea class="paste" id="pasteBox" placeholder="粘贴 DAT 行或 日期,水位 …"></textarea>
+          <div class="toolbar">
+            <button type="button" id="parsePaste">解析粘贴</button>
+            <button type="button" class="ghost" id="exportCsv">导出 CSV</button>
+            <button type="button" class="ghost" id="exportJson">导出 JSON</button>
+          </div>
+          <ul class="issues" id="qcList"></ul>
+        </div>
+        <div>
+          <div class="toolbar">
+            <span id="dataKind" style="font-size:0.85rem;color:var(--muted)">尚未载入</span>
+          </div>
+          <div class="table-wrap">
+            <table class="data" id="dataTable">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="canvas-box" style="margin-top:0.75rem">
+            <canvas id="previewChart" width="560" height="280"></canvas>
+          </div>
+          <div class="toolbar">
+            <button type="button" class="ghost" id="downloadPreview">下载预览图 PNG</button>
+            <button type="button" class="ghost" id="sendToCalc">断面曲线 → 公式台</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMAGE -->
+    <section class="panel" id="panel-image">
+      <h2>图片处理</h2>
+      <p class="hint">上传现场照：调亮度/对比，点击标注水尺读数；或用已解析数据生成断面/过程线。</p>
+      <div class="grid-2">
+        <div>
+          <div class="toolbar">
+            <label class="btn">
+              上传照片
+              <input type="file" id="imgInput" accept="image/*" class="sr-only" />
+            </label>
+            <button type="button" class="ghost" id="clearMarks">清除标注</button>
+            <button type="button" id="exportAnno">导出 PNG + JSON</button>
+          </div>
+          <div class="form-grid">
+            <label>亮度
+              <input type="range" id="bright" min="-80" max="80" value="0" />
+            </label>
+            <label>对比度
+              <input type="range" id="contrast" min="-50" max="50" value="0" />
+            </label>
+            <label>标注读数
+              <input type="text" id="markLabel" placeholder="例如 1.24" />
+            </label>
+          </div>
+          <div class="img-stage" style="margin-top:0.75rem">
+            <canvas id="annoCanvas" width="640" height="400"></canvas>
+          </div>
+          <p class="hint" style="margin-top:0.5rem">在图上点击添加标注点（使用上方读数文本）。</p>
+        </div>
+        <div>
+          <h3 style="margin:0 0 0.5rem;font-size:1rem">由数据出图</h3>
+          <div class="toolbar">
+            <button type="button" id="genSection">生成大断面图</button>
+            <button type="button" id="genSeries">生成水位过程线</button>
+            <button type="button" class="ghost" id="dlGenChart">下载出图</button>
+          </div>
+          <div class="canvas-box">
+            <canvas id="genCanvas" width="560" height="320"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALC -->
+    <section class="panel" id="panel-calc">
+      <h2>公式计算</h2>
+      <p class="hint">离线纯 JS 计算；历史保存在本机 localStorage。</p>
+      <div class="grid-2">
+        <div>
+          <div id="formulaList"></div>
+        </div>
+        <div>
+          <div class="form-grid" id="calcFields"></div>
+          <div class="toolbar">
+            <button type="button" id="runCalc">计算</button>
+            <button type="button" class="ghost" id="clearHist">清空历史</button>
+            <button type="button" class="ghost" id="exportHist">导出历史</button>
+          </div>
+          <div class="result-box" id="calcResult">选择公式并填写参数</div>
+          <h3 style="font-size:0.95rem;margin:1rem 0 0.4rem">计算历史</h3>
+          <div class="history" id="calcHistory"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../shared/js/csv.js"></script>
+  <script src="../shared/js/dat.js"></script>
+  <script src="../shared/js/level.js"></script>
+  <script src="../shared/js/formulas.js"></script>
+  <script src="../shared/js/storage.js"></script>
+  <script src="../shared/js/chart.js"></script>
+  <script src="js/studio.js"></script>
+</body>
+</html>

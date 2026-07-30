@@ -32,9 +32,9 @@ export const showcases: Showcase[] = [
     tagline: "一事一占 · 三才备物 · 多法起卦 · 朱熹动爻玩辞",
     highlights: [
       "挂载于个人站 /yili，黑白动态太极八卦六十四阵背景",
+      "独立仓库 github.com/Az0998/yili-divination",
       "因事推荐六爻 / 时间·人物·方位·报数梅花",
-      "体用五行合月令时辰方位，合天时地利人和",
-      "朱熹《易学启蒙》动爻法则：贞悔、用九用六",
+      "体用五行合月令时辰方位；朱熹动爻玩辞法",
     ],
     metrics: [
       { label: "起卦算法", value: 5, display: "5" },
@@ -75,6 +75,32 @@ export const showcases: Showcase[] = [
     ],
     stack: ["Next.js", "ECharts", "Leaflet", "Python 导出", "LSTM 指标对接"],
     galleryHints: ["站网地图", "可变过程线", "CSI 柱状图", "洪水事件列表"],
+  },
+  {
+    slug: "hydrobench",
+    title: "HydroBench · 水文双工作台",
+    mood: "field",
+    heroEmoji: "🛠️",
+    tagline: "室内集成台 · 户外应急离线 · 本机缓存可导出",
+    highlights: [
+      "主导航「水文工作台」进入 /hydrobench",
+      "Studio：DAT/CSV/水位、图片标注、公式与出图",
+      "Field：无网录入、速算、清单、回城导出",
+      "localStorage 前缀 hydrobench:，与个人资料 CMS 隔离",
+    ],
+    metrics: [
+      { label: "工作台", value: 2, display: "2" },
+      { label: "公式模板", value: 5, display: "5" },
+      { label: "CDN 依赖", value: 0, display: "0" },
+    ],
+    demo: [
+      { title: "打开 /hydrobench", detail: "顶栏「水文工作台」或作品卡片进入。" },
+      { title: "载入样本 DAT", detail: "室内台解析断面并生成剖面图。" },
+      { title: "户外录入", detail: "断网也可追加测次，勾选清单。" },
+      { title: "备份迁移", detail: "入口页导出全量备份，换机导入。" },
+    ],
+    stack: ["HTML/CSS/JS", "Canvas", "localStorage", "Next.js 静态挂载"],
+    galleryHints: ["双台入口", "断面预览", "户外清单", "备份条"],
   },
   {
     slug: "hydro-ml",

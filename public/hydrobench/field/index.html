@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a1610" />
+  <title>HydroBench Field · 户外应急离线台</title>
+  <link rel="stylesheet" href="../shared/css/tokens.css" />
+  <link rel="stylesheet" href="css/field.css" />
+</head>
+<body>
+  <header class="field-top">
+    <div class="badge-offline" id="netBadge">离线就绪</div>
+    <div class="field-brand">
+      HydroBench Field
+      <small>户外应急 · 本地缓存</small>
+    </div>
+    <a href="../index.html">入口</a>
+    <a href="../studio/index.html">室内台</a>
+  </header>
+
+  <nav class="field-nav" role="tablist">
+    <button type="button" class="active" data-sheet="entry">录入</button>
+    <button type="button" data-sheet="calc">速算</button>
+    <button type="button" data-sheet="check">清单</button>
+    <button type="button" data-sheet="io">导出</button>
+  </nav>
+
+  <main class="field-main">
+    <section class="sheet active" id="sheet-entry">
+      <h2>现场测次录入</h2>
+      <p class="sub">数据保存在本机，断网可用。</p>
+      <form class="field-form" id="entryForm">
+        <label>站名</label>
+        <input id="fStation" required placeholder="如 左岸水尺" autocomplete="off" />
+        <label>测次</label>
+        <input id="fRun" placeholder="如 0718-A" autocomplete="off" />
+        <label>时间</label>
+        <input id="fTime" type="datetime-local" />
+        <label>水尺读数 (m)</label>
+        <input id="fReading" type="number" step="any" inputmode="decimal" />
+        <label>水位 (m)</label>
+        <input id="fLevel" type="number" step="any" inputmode="decimal" placeholder="可空，用速算填充" />
+        <label>备注</label>
+        <textarea id="fNote" placeholder="天气、流态、异常…"></textarea>
+        <div class="btn-row">
+          <button type="submit">追加记录</button>
+          <button type="button" class="secondary" id="fillNow">填入当前时间</button>
+        </div>
+      </form>
+      <ul class="record-list" id="recordList"></ul>
+    </section>
+
+    <section class="sheet" id="sheet-calc">
+      <h2>应急速算</h2>
+      <p class="sub">读数→水位 · 两点平均 · 面积包围 · 曼宁</p>
+      <form class="field-form" id="quickForm">
+        <label>模式</label>
+        <select id="qMode">
+          <option value="gauge">水尺读数 → 水位</option>
+          <option value="avg">两点平均</option>
+          <option value="area">面积包围日平均（简化）</option>
+          <option value="manning">曼宁流量</option>
+        </select>
+        <div id="qFields"></div>
+        <div class="btn-row">
+          <button type="button" id="qRun">计算</button>
+          <button type="button" class="ok" id="qToLevel">结果写入录入水位</button>
+        </div>
+      </form>
+      <div class="result" id="qResult">选择模式后计算</div>
+    </section>
+
+    <section class="sheet" id="sheet-check">
+      <h2>检查清单</h2>
+      <p class="sub">勾选状态自动保存。</p>
+      <div id="checkRoot"></div>
+      <div class="btn-row">
+        <button type="button" class="secondary" id="resetCheck">重置清单</button>
+      </div>
+    </section>
+
+    <section class="sheet" id="sheet-io">
+      <h2>本地缓存与导出</h2>
+      <p class="sub">回城后把 JSON/CSV 导入室内台粘贴解析。</p>
+      <div class="btn-row">
+        <button type="button" id="exportJson">导出 JSON</button>
+        <button type="button" id="exportCsv">导出 CSV</button>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="secondary" id="copyJson">复制 JSON</button>
+        <button type="button" class="secondary" id="clearAll">清空全部记录</button>
+      </div>
+      <label class="field-form" style="margin-top:1rem">
+        <span style="font-size:0.82rem;font-weight:700;color:#6b542e">导入 JSON（覆盖当前记录）</span>
+        <textarea id="importBox" placeholder='粘贴 {"records":[...]}'></textarea>
+      </label>
+      <div class="btn-row">
+        <button type="button" class="ok" id="importBtn">导入</button>
+      </div>
+      <p class="status-line" id="ioStatus"></p>
+    </section>
+  </main>
+
+  <script src="../shared/js/csv.js"></script>
+  <script src="../shared/js/level.js"></script>
+  <script src="../shared/js/formulas.js"></script>
+  <script src="../shared/js/storage.js"></script>
+  <script src="js/field.js"></script>
+</body>
+</html>
