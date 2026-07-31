@@ -4,16 +4,24 @@ import { worksContent, profileContent } from "@/data/works-content";
 export type SyncResult = {
   worksCreated: number;
   worksUpdated: number;
+  worksSkipped: number;
   profileUpdated: boolean;
   githubImported: number;
   message: string;
 };
 
 export async function syncCuratedWorks(options?: {
+  /** 默认 false：不覆盖个人资料 */
   updateProfile?: boolean;
-}): Promise<Pick<SyncResult, "worksCreated" | "worksUpdated" | "profileUpdated">> {
+  /** 默认 false：不覆盖已锁定作品；true 时强制用仓库文案覆盖（仍保留 coverImage） */
+  forceOverwrite?: boolean;
+}): Promise<
+  Pick<SyncResult, "worksCreated" | "worksUpdated" | "worksSkipped" | "profileUpdated">
+> {
+  const force = Boolean(options?.forceOverwrite);
   let worksCreated = 0;
   let worksUpdated = 0;
+  let worksSkipped = 0;
 
   for (const work of worksContent) {
     const existing = await prisma.work.findFirst({ where: { title: work.title } });
@@ -30,19 +38,27 @@ export async function syncCuratedWorks(options?: {
       link: work.link ?? null,
     };
 
-    if (existing) {
-      await prisma.work.update({ where: { id: existing.id }, data });
-      worksUpdated += 1;
-    } else {
-      await prisma.work.create({ data });
+    if (!existing) {
+      await prisma.work.create({ data: { ...data, locked: false } });
       worksCreated += 1;
+      continue;
     }
+
+    // 默认跳过已有作品；仅勾选「强制覆盖」时才用仓库文案覆盖（含已保护条目）
+    if (!force) {
+      worksSkipped += 1;
+      continue;
+    }
+
+    await prisma.work.update({ where: { id: existing.id }, data });
+    worksUpdated += 1;
   }
 
   let profileUpdated = false;
-  if (options?.updateProfile !== false) {
+  if (options?.updateProfile === true) {
     const profile = await prisma.profile.findFirst();
     if (profile) {
+      // 仅覆盖仓库声明的文本字段；头像/赞助/电话/微信等后台字段一律保留
       await prisma.profile.update({
         where: { id: profile.id },
         data: {
@@ -50,10 +66,9 @@ export async function syncCuratedWorks(options?: {
           title: profileContent.title,
           tagline: profileContent.tagline,
           bio: profileContent.bio,
-          email: profileContent.email,
-          location: profileContent.location,
           github: profileContent.github,
           website: profileContent.website,
+          location: profileContent.location || profile.location,
         },
       });
       profileUpdated = true;
@@ -65,10 +80,9 @@ export async function syncCuratedWorks(options?: {
     }
   }
 
-  return { worksCreated, worksUpdated, profileUpdated };
+  return { worksCreated, worksUpdated, worksSkipped, profileUpdated };
 }
 
-/** Import public GitHub repos that are not already curated by title. */
 export async function syncGithubRepos(username: string): Promise<number> {
   const res = await fetch(
     `https://api.github.com/users/${username}/repos?per_page=30&sort=updated`,
@@ -104,21 +118,21 @@ export async function syncGithubRepos(username: string): Promise<number> {
     if (curatedTitles.has(title)) continue;
 
     const existing = await prisma.work.findFirst({ where: { title } });
+    if (existing?.locked) continue;
+
     const description =
       repo.description ||
       `来自 GitHub 的公开仓库 ${repo.name}，最近更新 ${repo.updated_at.slice(0, 10)}。`;
     const tags = ["GitHub", repo.language, "自动同步"].filter(Boolean).join(",");
-    const content = `## 自动同步自 GitHub
+    const content = `## GitHub 仓库
 
-仓库：[${repo.name}](${repo.html_url})
+[${repo.name}](${repo.html_url})
 
 ${repo.description || "_暂无描述_"}
 
 - 语言：${repo.language || "未知"}
 - Stars：${repo.stargazers_count}
 - 最近更新：${repo.updated_at.slice(0, 10)}
-
-> 精选项目请编辑 \`src/data/works-content.ts\`；本卡片由 GitHub API 自动导入。
 `;
 
     const data = {
@@ -137,7 +151,7 @@ ${repo.description || "_暂无描述_"}
     if (existing) {
       await prisma.work.update({ where: { id: existing.id }, data });
     } else {
-      await prisma.work.create({ data });
+      await prisma.work.create({ data: { ...data, locked: false } });
       imported += 1;
     }
   }
@@ -145,8 +159,14 @@ ${repo.description || "_暂无描述_"}
   return imported;
 }
 
-export async function runFullSync(githubUser = "Az0998"): Promise<SyncResult> {
-  const curated = await syncCuratedWorks({ updateProfile: true });
+export async function runFullSync(
+  githubUser = "Az0998",
+  options?: { updateProfile?: boolean; forceOverwrite?: boolean }
+): Promise<SyncResult> {
+  const curated = await syncCuratedWorks({
+    updateProfile: options?.updateProfile === true,
+    forceOverwrite: options?.forceOverwrite === true,
+  });
   let githubImported = 0;
   try {
     githubImported = await syncGithubRepos(githubUser);
@@ -157,6 +177,8 @@ export async function runFullSync(githubUser = "Az0998"): Promise<SyncResult> {
   return {
     ...curated,
     githubImported,
-    message: `精选更新 ${curated.worksUpdated} · 新建 ${curated.worksCreated} · GitHub 导入 ${githubImported}`,
+    message: `新建 ${curated.worksCreated} · 更新 ${curated.worksUpdated} · 跳过锁定 ${curated.worksSkipped} · GitHub ${githubImported}${
+      curated.profileUpdated ? " · 已覆盖资料文案" : " · 资料未动"
+    }`,
   };
 }

@@ -38,12 +38,13 @@ body {
 }
 .site-bg-image {
   position: absolute;
-  inset: 0;
+  inset: -8% 0 0 0;
+  height: 116%;
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  transform: scale(1.02);
+  will-change: transform;
+  transition: transform 0.05s linear;
 }
 .site-bg-veil {
   position: absolute;
@@ -91,11 +92,17 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(228, 76, 101, 0.45);
   }
+  .btn-primary:active {
+    transform: translateY(0) scale(0.97);
+  }
 
   .btn-outline {
     @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium
            text-white/90 border border-white/30 bg-white/10 backdrop-blur-sm
            transition-all duration-300 hover:border-[#e44c65] hover:text-[#ff7a90] hover:bg-[#e44c65]/15;
+  }
+  .btn-outline:active {
+    transform: scale(0.97);
   }
 
   .input-field {
@@ -110,7 +117,10 @@ body {
 
   .anime-card {
     @apply relative overflow-hidden rounded-3xl glass-panel
-           transition-all duration-500 hover:border-[#e44c65]/40 hover:-translate-y-1;
+           transition-all duration-300 hover:border-[#e44c65]/45;
+  }
+  .anime-card:active {
+    transform: scale(0.985);
   }
 
   .nav-pill {

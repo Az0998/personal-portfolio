@@ -45,6 +45,8 @@ model Work {
   featured    Boolean  @default(false)
   published   Boolean  @default(true)
   sortOrder   Int      @default(0)
+  /// 后台编辑后锁定：部署 seed / 仓库同步默认不再覆盖
+  locked      Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

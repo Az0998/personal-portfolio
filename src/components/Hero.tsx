@@ -184,11 +184,17 @@ export function About({ profile }: HeroProps) {
 
   return (
     <section id="about" ref={ref} className="section-padding">
-      <div className="max-w-5xl mx-auto glass-panel rounded-[2rem] p-8 md:p-12 grid md:grid-cols-[0.85fr_1.15fr] gap-10 items-center">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-5xl mx-auto glass-panel rounded-[2rem] p-8 md:p-12 grid md:grid-cols-[0.85fr_1.15fr] gap-10 items-center"
+      >
         <div className="rounded-2xl bg-white/10 p-6 flex items-center justify-center">
           <img
             src="/media/undraw/scientist_5td0.svg"
-            alt="unDraw scientist"
+            alt=""
             className="w-full max-h-52 object-contain drop-shadow-lg"
           />
         </div>
@@ -209,7 +215,7 @@ export function About({ profile }: HeroProps) {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
@@ -242,12 +248,23 @@ export function Contact({ profile }: HeroProps) {
   return (
     <section id="contact" ref={ref} className="section-padding">
       <div className="max-w-5xl mx-auto">
-        <div className="glass-panel rounded-[2rem] p-8 md:p-12">
+        <motion.div
+          initial={{ opacity: 0, y: 36 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="glass-panel rounded-[2rem] p-8 md:p-12"
+        >
           <p className="eyebrow mb-3">Contact</p>
           <h2 className="font-display text-3xl md:text-4xl font-bold mb-8 text-shadow">联系与协作</h2>
           <div className="grid sm:grid-cols-3 gap-4">
             {contacts.map(({ icon, label, value, href }) => (
-              <div key={label} className="rounded-2xl bg-white/10 border border-white/15 p-5">
+              <motion.div
+                key={label}
+                whileHover={{ y: -4 }}
+                whileTap={{ scale: 0.98 }}
+                className="rounded-2xl bg-white/10 border border-white/15 p-5"
+              >
                 <Icon icon={icon} className="text-2xl text-[#ff9aab] mb-2" />
                 <p className="text-sm text-white/55 mb-1">{label}</p>
                 {href ? (
@@ -257,13 +274,13 @@ export function Contact({ profile }: HeroProps) {
                 ) : (
                   <p className="text-white">{value}</p>
                 )}
-              </div>
+              </motion.div>
             ))}
           </div>
           {profile.wechat && (
             <p className="text-white/60 text-sm mt-6">微信：{profile.wechat}</p>
           )}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -277,13 +294,19 @@ export function Sponsor({ profile }: HeroProps) {
 
   return (
     <section id="sponsor" ref={ref} className="section-padding pt-4">
-      <div className="max-w-5xl mx-auto glass-panel rounded-[2rem] p-8 md:p-12 grid md:grid-cols-2 gap-10 items-center">
+      <motion.div
+        initial={{ opacity: 0, y: 36 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-5xl mx-auto glass-panel rounded-[2rem] p-8 md:p-12 grid md:grid-cols-2 gap-10 items-center"
+      >
         <div>
           <p className="eyebrow mb-3">Sponsor</p>
           <h2 className="font-display text-3xl font-bold mb-4 text-shadow">赞助贴</h2>
           <p className="text-white/75 leading-relaxed mb-6">
             {profile.sponsorNote ||
-              "若演示或工具对你有帮助，可通过外链打开收款页 / 扫码赞助。资金用于服务器与开源维护。"}
+              "若这些演示或工具对你有帮助，欢迎赞助支持服务器与开源维护。"}
           </p>
           {hasLink ? (
             <a
@@ -294,10 +317,10 @@ export function Sponsor({ profile }: HeroProps) {
               onClick={() => trackCta("sponsor-external", "赞助外链")}
             >
               <Icon icon="mdi:open-in-new" width={18} />
-              打开赞助收款页
+              打开赞助页
             </a>
-          ) : (
-            <p className="text-sm text-white/50">后台「个人信息」可填写赞助外链与收款码。</p>
+          ) : hasQr ? null : (
+            <p className="text-sm text-white/50">赞助通道筹备中。</p>
           )}
         </div>
         <div className="rounded-2xl bg-white/10 border border-white/15 p-8 flex flex-col items-center justify-center min-h-[240px]">
@@ -308,17 +331,14 @@ export function Sponsor({ profile }: HeroProps) {
               className="w-44 h-44 object-contain rounded-xl bg-white p-2"
             />
           ) : (
-            <>
-              <img
-                src="/media/undraw/coffee-time_98vi.svg"
-                alt="unDraw coffee"
-                className="w-40 h-auto mb-3"
-              />
-              <p className="text-xs text-white/50">暂未配置收款码</p>
-            </>
+            <img
+              src="/media/undraw/coffee-time_98vi.svg"
+              alt=""
+              className="w-40 h-auto opacity-90"
+            />
           )}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
@@ -363,11 +383,11 @@ export function FeedbackForm() {
         <div className="rounded-2xl bg-white/10 p-6 flex flex-col justify-center">
           <img
             src="/media/undraw/feedback_ebmx.svg"
-            alt="unDraw feedback"
+            alt=""
             className="w-full max-h-44 object-contain mb-4"
           />
           <p className="text-sm text-white/65 leading-relaxed">
-            直接说哪里好用、哪里卡住。反馈进后台独立表，不覆盖个人资料。
+            欢迎留下体验感受或改进建议。
           </p>
         </div>
         <div>

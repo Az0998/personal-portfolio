@@ -12,6 +12,7 @@ interface Work {
   category: string;
   featured: boolean;
   published: boolean;
+  locked: boolean;
   sortOrder: number;
   coverImage: string | null;
 }
@@ -70,6 +71,11 @@ export default function WorksListPage() {
                   <h3 className="font-medium truncate">{work.title}</h3>
                   {work.featured && <Star className="w-4 h-4 text-yellow-400 flex-shrink-0" />}
                   {!work.published && <EyeOff className="w-4 h-4 text-ink-500 flex-shrink-0" />}
+                  {work.locked && (
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-aqua/20 text-aqua shrink-0">
+                      已保护
+                    </span>
+                  )}
                 </div>
                 <p className="text-sm text-ink-400">
                   {getCategoryLabel(work.category)} · 排序 {work.sortOrder}

@@ -8,6 +8,7 @@ async function main() {
   const username = process.env.ADMIN_USERNAME || "admin";
   const password = process.env.ADMIN_PASSWORD || "admin123";
   const hashed = await bcrypt.hash(password, 10);
+  const force = process.env.FORCE_SEED === "1";
 
   await prisma.admin.upsert({
     where: { username },
@@ -15,13 +16,22 @@ async function main() {
     create: { username, password: hashed },
   });
 
-  await prisma.profile.upsert({
+  const existingProfile = await prisma.profile.findUnique({
     where: { id: "default-profile" },
-    update: { ...profileContent },
-    create: { id: "default-profile", ...profileContent },
   });
+  if (!existingProfile) {
+    await prisma.profile.create({
+      data: { id: "default-profile", ...profileContent },
+    });
+    console.log("Created default profile");
+  } else {
+    console.log("Kept existing profile (avatar/sponsor/contacts preserved)");
+  }
 
-  // Always upsert curated works so deploy syncs progress from repo
+  let created = 0;
+  let updated = 0;
+  let skipped = 0;
+
   for (const work of worksContent) {
     const existing = await prisma.work.findFirst({ where: { title: work.title } });
     const data = {
@@ -36,26 +46,27 @@ async function main() {
       github: work.github ?? null,
       link: work.link ?? null,
     };
-    if (existing) {
-      await prisma.work.update({ where: { id: existing.id }, data });
-    } else {
-      await prisma.work.create({ data });
+
+    if (!existing) {
+      await prisma.work.create({ data: { ...data, locked: false } });
+      created += 1;
+      continue;
     }
+
+    // 默认永不覆盖已有作品（保护后台编辑/封面）；仅 FORCE_SEED=1 且未锁定时更新文案
+    if (!force || existing.locked) {
+      skipped += 1;
+      continue;
+    }
+
+    await prisma.work.update({ where: { id: existing.id }, data });
+    updated += 1;
   }
 
-  // Optional: wipe everything and reseed (destructive)
-  if (process.env.FORCE_SEED === "1") {
-    const keepTitles = new Set(worksContent.map((w) => w.title));
-    const all = await prisma.work.findMany();
-    for (const w of all) {
-      if (!keepTitles.has(w.title) && !w.title.startsWith("GitHub · ")) {
-        await prisma.work.delete({ where: { id: w.id } });
-      }
-    }
-  }
-
-  console.log(`Synced ${worksContent.length} curated works + profile`);
-  console.log(`Admin login: ${username} / (from ADMIN_PASSWORD)`);
+  console.log(
+    `Works seed: created ${created}, force-updated ${updated}, kept ${skipped}`
+  );
+  console.log(`Admin: ${username}`);
 }
 
 main()

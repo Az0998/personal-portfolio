@@ -2,19 +2,24 @@
 
 本项目使用 SQLite，适合部署到 **Render Web Service**。头像/封面以压缩后的 data URL 写入数据库，不依赖本地磁盘。
 
-## 懒人同步进展（推荐）
+## 内容怎么改才不会丢
 
-1. 改 `src/data/works-content.ts`（精选项目介绍）  
-2. `git push` → Render 自动部署 → 构建时 `db:seed` 会 upsert 文案  
-3. 或登录后台点 **立即同步**（再拉 GitHub 公开仓库卡片）
+**日常改站点内容：只在后台改。** 保存作品后会自动「保护」；部署 / 默认同步**不会**覆盖已有作品、头像、赞助码、反馈与点击数据。
+
+| 操作 | 是否覆盖后台已改内容 |
+|------|----------------------|
+| `git push` 自动部署 + `db:seed`（`FORCE_SEED=0`） | 否，只补缺失作品；资料不覆盖 |
+| 后台「立即同步」（默认） | 否，同上 |
+| 后台勾选「强制覆盖已锁定」 | 会覆盖作品文案（危险） |
+| `FORCE_SEED=1` 构建 | 仅覆盖**未保护**作品 |
 
 站点：https://zhangsjqaq.vexr.dev  
 仓库：https://github.com/Az0998/personal-portfolio
 
 挂载演示：
 
-- `/hydrobench` — **智慧水利枢纽**（主导航）：HydroInfo 态势 + HydroBench 作业台
-- `/hydro` — HydroInfo 水情看板（深链仍可用）
+- `/hydrobench` — **智慧水利**（主导航一页三签）：水情态势 / 室内台 / 户外台
+- `/hydro` → 重定向到 `/hydrobench?tab=info`
 - `/temp-files` — 临时文件柜
 - `/novel-studio` — Novel Studio（作品进入）
 - `/yili` — 易理占筮（作品进入）
@@ -23,15 +28,15 @@
 
 | 层 | 位置 | 说明 |
 |----|------|------|
-| 个人资料 + 作品文案 | Prisma；`works-content.ts` / `profileContent` | seed 同步；赞助外链/收款码在后台，**不被 seed 覆盖** |
+| 个人资料 + 作品 | Prisma（SQLite） | 后台全面管理；seed **不覆盖**已有；作品可锁定 |
 | 意见反馈 | `Feedback` 表 | 前台表单 → 后台「意见反馈」 |
 | 点击 / 注意力 | `AnalyticsEvent` 表 | 前台埋点 → 后台「点击/注意力」 |
-| 临时文件柜 | SQLite + `data/temp-files/` | 重部署可能丢磁盘文件 |
+| 临时文件柜 | SQLite + `data/temp-files/` | Render Free 重部署可能丢磁盘文件 |
 | HydroBench | `localStorage` `hydrobench:*` | 不上云 |
 | Novel Studio | `novel-studio-web-demo-v1` | 不上云 |
 | HydroInfo | `public/hydro/*.json` | 静态包 |
 
-HydroBench 静态目录：`public/hydrobench/`。媒体资源见 `public/media/CREDITS.md`（unDraw / Pexels / Picsum / Iconify）。
+> Render Free 实例**整盘重部署**仍可能重置 SQLite 文件本身。若需跨部署永久保留，请把 `DATABASE_URL` 换到 [Turso](https://turso.tech) / Neon，或挂付费持久盘。代码层已保证「版本同步」不会抹掉后台内容。
 
 ## 一、推到 GitHub
 

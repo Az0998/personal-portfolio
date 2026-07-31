@@ -24,7 +24,7 @@ export function ShowcasePanel({ showcase }: { showcase: Showcase }) {
         <div className="flex items-start gap-4">
           <span className="text-5xl animate-float">{showcase.heroEmoji}</span>
           <div>
-            <p className="font-cute text-sakura-soft text-sm mb-2">作品演示舱 · 不用猜怎么玩</p>
+            <p className="font-cute text-sakura-soft text-sm mb-2">作品演示舱</p>
             <p className="text-lg md:text-xl text-white/90 leading-relaxed">{showcase.tagline}</p>
           </div>
         </div>

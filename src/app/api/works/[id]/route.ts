@@ -41,6 +41,12 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     }
   }
 
+  // 后台保存后锁定，防止部署 seed / 同步覆盖
+  data.locked = true;
+  if (formData.has("locked")) {
+    data.locked = formData.get("locked") === "true";
+  }
+
   const work = await prisma.work.update({ where: { id }, data });
   return NextResponse.json(work);
 }

@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/db";
 import { Navbar, Footer } from "@/components/Navbar";
 import { SiteBackground } from "@/components/SiteBackground";
+import { SakuraPetals } from "@/components/AnimeDecor";
 import {
   Hero,
   About,
@@ -46,8 +47,11 @@ export default async function HomePage() {
       <SiteBackground />
       <AnalyticsBeacon />
       <div className="relative z-[1] min-h-screen flex flex-col">
+        <div className="pointer-events-none fixed inset-0 z-[1] overflow-hidden" aria-hidden>
+          <SakuraPetals />
+        </div>
         <Navbar name={p.name} />
-        <main className="flex-1">
+        <main className="flex-1 relative z-[2]">
           <Hero profile={p} />
           <About profile={p} />
           <WorksSection works={works} />

@@ -57,7 +57,7 @@ export const showcases: Showcase[] = [
     heroEmoji: "💧",
     tagline: "国内示范站网 · Leaflet · CSI 回放 · LSTM 指标 · 可变出图",
     highlights: [
-      "智慧水利枢纽 /hydrobench 可进入本看板",
+      "主导航「智慧水利」一页直达水情态势",
       "洮河坐标示范站网 + Leaflet 交互地图",
       "洪水 P90 事件回放与 1/3/7 日 CSI / POD / FAR",
       "可变要素：流量、水位、降水、气温、上游与多模型曲线",
@@ -68,7 +68,7 @@ export const showcases: Showcase[] = [
       { label: "示范站点", value: 3, display: "3" },
     ],
     demo: [
-      { title: "打开 /hydro", detail: "导航栏「水情演示」或作品卡片进入在线看板。" },
+      { title: "打开智慧水利", detail: "顶栏或作品「打开演示」进入，默认水情态势页签。" },
       { title: "地图点站", detail: "Leaflet 上查看临洮 / 渭源 / 康乐瞬时流量与状态。" },
       { title: "勾选出图", detail: "切换 Q/Z/P/T/上游/模型曲线，缩放查看过程。" },
       { title: "洪水回放", detail: "自动或手动切换 P90 事件窗，对照 CSI 表。" },
@@ -81,12 +81,12 @@ export const showcases: Showcase[] = [
     title: "HydroBench · 水文双工作台",
     mood: "field",
     heroEmoji: "🛠️",
-    tagline: "智慧水利枢纽 · 室内集成台 · 户外应急离线 · 本机缓存可导出",
+    tagline: "与水情态势同页 · 室内集成 · 户外应急离线 · 本机缓存可导出",
     highlights: [
-      "主导航「智慧水利」进入 /hydrobench（含 HydroInfo 入口）",
+      "同一「智慧水利」页内切换：态势 / 室内 / 户外",
       "Studio：DAT/CSV/水位、图片标注、公式与出图",
       "Field：无网录入、速算、清单、回城导出",
-      "localStorage 前缀 hydrobench:，与个人资料 CMS 隔离",
+      "本机缓存可导出迁移，与个人资料后台隔离",
     ],
     metrics: [
       { label: "工作台", value: 2, display: "2" },
@@ -94,10 +94,10 @@ export const showcases: Showcase[] = [
       { label: "CDN 依赖", value: 0, display: "0" },
     ],
     demo: [
-      { title: "打开 /hydrobench", detail: "顶栏「水文工作台」或作品卡片进入。" },
+      { title: "打开智慧水利", detail: "顶栏进入后点「室内台」或「户外台」页签即可。" },
       { title: "载入样本 DAT", detail: "室内台解析断面并生成剖面图。" },
       { title: "户外录入", detail: "断网也可追加测次，勾选清单。" },
-      { title: "备份迁移", detail: "入口页导出全量备份，换机导入。" },
+      { title: "备份迁移", detail: "工作台内导出全量备份，换机导入。" },
     ],
     stack: ["HTML/CSS/JS", "Canvas", "localStorage", "Next.js 静态挂载"],
     galleryHints: ["双台入口", "断面预览", "户外清单", "备份条"],

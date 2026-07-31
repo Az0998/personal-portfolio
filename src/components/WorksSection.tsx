@@ -39,21 +39,18 @@ export function WorksSection({ works }: WorksSectionProps) {
           className="glass-panel rounded-[2rem] p-8 md:p-10 mb-8 text-center"
         >
           <p className="eyebrow mb-3">Works</p>
-          <h2 className="font-display text-3xl md:text-5xl font-bold mb-3 text-shadow">
+          <h2 className="font-display text-3xl md:text-5xl font-bold mb-6 text-shadow">
             作品档案
           </h2>
-          <p className="text-white/70 mb-2 max-w-2xl mx-auto">
-            封面使用 undraw 插画 / Pexels 实拍 / Picsum 占位；点开看定位、能力边界与复现路径。
-          </p>
-          <p className="text-white/45 text-sm mb-6">
-            文案源 <code className="text-[#ff9aab]">works-content.ts</code>
-          </p>
 
           <div className="flex flex-wrap justify-center gap-2">
             {categories.map((cat) => (
-              <button
+              <motion.button
                 key={cat}
+                type="button"
                 onClick={() => setFilter(cat)}
+                whileTap={{ scale: 0.96 }}
+                whileHover={{ y: -1 }}
                 className={`px-4 py-2 rounded-full text-sm transition-all ${
                   filter === cat
                     ? "bg-[#e44c65] text-white shadow-sakura"
@@ -63,7 +60,7 @@ export function WorksSection({ works }: WorksSectionProps) {
                 {cat === "all"
                   ? "全部"
                   : WORK_CATEGORIES.find((c) => c.value === cat)?.label ?? cat}
-              </button>
+              </motion.button>
             ))}
           </div>
         </motion.div>

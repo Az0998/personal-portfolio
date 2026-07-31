@@ -44,10 +44,12 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 36 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.45, delay: index * 0.06 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.55, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -6, transition: { duration: 0.22 } }}
+      whileTap={{ scale: 0.985 }}
       className={`group anime-card ${large ? "md:col-span-2" : ""}`}
     >
       <Link href={`/works/${work.id}`} className="block">

@@ -50,6 +50,7 @@ export async function POST(request: NextRequest) {
     published: formData.get("published") !== "false",
     sortOrder: parseInt((formData.get("sortOrder") as string) || "0", 10),
     coverImage,
+    locked: true,
   };
 
   const work = await prisma.work.create({ data });

@@ -92,21 +92,21 @@ python -m http.server 8080
   {
     title: "HydroInfo 流域水情信息平台",
     description:
-      "公开站 CSV 驱动的水情态势看板：多站 KPI、过程线与阈值、质控预警、洪水 CSI 回放、LSTM 指标舱；挂载 /hydro，入口并入主导航「智慧水利」。",
+      "公开站 CSV 驱动的水情态势看板：多站 KPI、过程线与阈值、质控预警、洪水 CSI 回放、LSTM 指标舱；与作业台同属主导航「智慧水利」。",
     category: "project",
     tags: "智慧水利,水信息,Leaflet,CSV,质控,CSI,LSTM",
     featured: true,
     published: true,
     sortOrder: 1,
     github: "https://github.com/Az0998/hydro-info-platform",
-    link: "/hydro",
+    link: "/hydrobench?tab=info",
     content: `## 定位
 
-岗位向最小闭环演示：**采集 → 质控 → 态势 → 预报/洪水评估**。与 HydroBench（作业工具）同属「智慧水利」品牌，入口统一在 \`/hydrobench\` 枢纽页，本看板仍独立路由 \`/hydro\`。
+岗位向最小闭环演示：**采集 → 质控 → 态势 → 预报/洪水评估**。与室内/户外作业台同页签切换，无需二次跳转。
 
 ## 在线打开
 
-[打开 HydroInfo](/hydro) · [智慧水利枢纽](/hydrobench)
+[打开智慧水利 · 水情态势](/hydrobench?tab=info)
 
 ## 能力边界（可核对）
 
@@ -132,16 +132,16 @@ python app.py
   {
     title: "HydroBench · 水文双工作台",
     description:
-      "智慧水利作业台：室内 DAT/CSV/图片/公式一体处理；户外无网测次、速算与清单；本机 localStorage 备份可迁移。主导航入口 /hydrobench。",
+      "智慧水利作业台：室内 DAT/CSV/图片/公式一体处理；户外无网测次、速算与清单；与水情态势同页三页签直达。",
     category: "project",
     tags: "水文,工作台,DAT,离线,公式,Canvas,localStorage,智慧水利",
     featured: true,
     published: true,
     sortOrder: 2,
-    link: "/hydrobench",
+    link: "/hydrobench?tab=studio",
     content: `## 定位
 
-把实习/作业里反复手写的脚本能力收成**可点开的双工作台**，并与 HydroInfo 态势看板并列在「智慧水利」枢纽下。
+把实习/作业里反复手写的脚本能力收成**室内 / 户外双台**，与水情态势同属「智慧水利」一页三签，点开即用。
 
 | 台 | 职责 | 网络 |
 |----|------|------|
@@ -150,7 +150,7 @@ python app.py
 
 ## 在线打开
 
-[打开智慧水利枢纽](/hydrobench) · [纯静态工作台](/hydrobench/index.html)
+[室内台](/hydrobench?tab=studio) · [户外台](/hydrobench?tab=field)
 
 ## 数据与一致性
 
@@ -233,9 +233,6 @@ python run_experiment.py
 python run_ablation.py
 \`\`\`
 
-## 进展同步
-
-本站作品文案以仓库 \`src/data/works-content.ts\` 为准；你推 GitHub → Render 自动部署 → 构建时同步更新介绍。
 `,
   },
   {
@@ -441,7 +438,7 @@ export const profileContent = {
   name: "张森捷",
   title: "智慧水利 · 水信息 · 机器学习",
   tagline: "把站网态势、质控预警与径流预报做成可点开的产品；作业数据进 HydroBench，态势演示进 HydroInfo。",
-  bio: "兰州大学水文与水资源工程方向，目标岗位：智慧水利 / 水信息。日常工作围绕「采集 → 质控 → 态势 → 预报」闭环：用公开站网与自建 CSV 做多站看板，用实习测次与大断面 DAT 做可离线工具台，用深度学习做 1/3/7 日流量实验并统一指标板复现。\n\n本站作品文案以仓库 `src/data/works-content.ts` 为准；推送后 Render 构建时 seed 同步。访客测次与反馈另存，不覆盖个人资料字段。",
+  bio: "兰州大学水文与水资源工程方向，目标岗位：智慧水利 / 水信息。日常工作围绕「采集 → 质控 → 态势 → 预报」闭环：用公开站网与自建 CSV 做多站看板，用实习测次与大断面 DAT 做可离线工具台，用深度学习做 1/3/7 日流量实验并统一指标板复现。",
   email: "your.email@example.com",
   location: "兰州 / 中国",
   github: "https://github.com/Az0998",

@@ -9,9 +9,11 @@ export async function POST(request: NextRequest) {
 
   const body = await request.json().catch(() => ({}));
   const githubUser = String(body.githubUser || process.env.GITHUB_USER || "Az0998");
+  const updateProfile = body.updateProfile === true;
+  const forceOverwrite = body.forceOverwrite === true;
 
   try {
-    const result = await runFullSync(githubUser);
+    const result = await runFullSync(githubUser, { updateProfile, forceOverwrite });
     return NextResponse.json(result);
   } catch (e) {
     const message = e instanceof Error ? e.message : "同步失败";

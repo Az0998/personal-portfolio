@@ -14,6 +14,8 @@ export interface WorkFormData {
   github: string;
   featured: boolean;
   published: boolean;
+  /** 锁定后部署 seed / 默认同步不会覆盖 */
+  locked: boolean;
   sortOrder: number;
   coverImage?: File | null;
   coverImageUrl?: string | null;
@@ -29,6 +31,7 @@ const defaults: WorkFormData = {
   github: "",
   featured: false,
   published: true,
+  locked: true,
   sortOrder: 0,
 };
 
@@ -168,7 +171,7 @@ export function WorkForm({ initial, onSubmit, saving, submitLabel }: WorkFormPro
 
       <div className="glass rounded-2xl p-6 space-y-4">
         <h3 className="font-semibold">发布设置</h3>
-        <div className="grid sm:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <label className="label-field">排序（越小越靠前）</label>
             <input
@@ -195,6 +198,20 @@ export function WorkForm({ initial, onSubmit, saving, submitLabel }: WorkFormPro
               className="w-4 h-4 rounded accent-accent"
             />
             <span className="text-sm">立即发布</span>
+          </label>
+          <label className="flex items-start gap-3 cursor-pointer sm:col-span-2">
+            <input
+              type="checkbox"
+              checked={form.locked}
+              onChange={(e) => update("locked", e.target.checked)}
+              className="w-4 h-4 rounded accent-accent mt-0.5"
+            />
+            <span className="text-sm">
+              保护已保存内容（推荐）
+              <span className="block text-ink-400 text-xs mt-0.5">
+                勾选后，网站版本更新 / 默认同步不会覆盖本条标题、正文、封面与链接
+              </span>
+            </span>
           </label>
         </div>
       </div>
