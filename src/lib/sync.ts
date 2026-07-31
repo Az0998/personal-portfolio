@@ -44,13 +44,30 @@ export async function syncCuratedWorks(options?: {
       continue;
     }
 
-    // 默认跳过已有作品；仅勾选「强制覆盖」时才用仓库文案覆盖（含已保护条目）
-    if (!force) {
+    if (force) {
+      await prisma.work.update({ where: { id: existing.id }, data });
+      worksUpdated += 1;
+      continue;
+    }
+
+    // 默认同步：已保护条目不动；未保护只轻量更新分类/精选/排序/链接（不动正文与封面）
+    if (existing.locked) {
       worksSkipped += 1;
       continue;
     }
 
-    await prisma.work.update({ where: { id: existing.id }, data });
+    await prisma.work.update({
+      where: { id: existing.id },
+      data: {
+        category: work.category,
+        tags: work.tags,
+        featured: work.featured,
+        published: work.published,
+        sortOrder: work.sortOrder,
+        github: work.github ?? null,
+        link: work.link ?? null,
+      },
+    });
     worksUpdated += 1;
   }
 
@@ -177,7 +194,7 @@ export async function runFullSync(
   return {
     ...curated,
     githubImported,
-    message: `新建 ${curated.worksCreated} · 更新 ${curated.worksUpdated} · 跳过锁定 ${curated.worksSkipped} · GitHub ${githubImported}${
+    message: `新建 ${curated.worksCreated} · 更新 ${curated.worksUpdated} · 跳过 ${curated.worksSkipped} · GitHub ${githubImported}${
       curated.profileUpdated ? " · 已覆盖资料文案" : " · 资料未动"
     }`,
   };

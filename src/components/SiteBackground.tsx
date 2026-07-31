@@ -4,15 +4,15 @@ import { useEffect, useState } from "react";
 
 const CANDIDATES = [
   "/media/pixiv/hero.webp",
-  "/media/pixiv/hero.png",
   "/media/pixiv/hero.jpg",
+  "/media/pixiv/hero.png",
   "/media/bg/hero-loli.jpg",
 ];
 
-/** 一图流固定背景 + 轻微视差 */
+/** 固定铺满视口的背景：滚动时始终可见，仅做极轻视差 */
 export function SiteBackground() {
-  const [src, setSrc] = useState(CANDIDATES[CANDIDATES.length - 1]);
-  const [offset, setOffset] = useState(0);
+  const [src, setSrc] = useState(CANDIDATES[0]);
+  const [shift, setShift] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -36,7 +36,11 @@ export function SiteBackground() {
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setOffset(window.scrollY * 0.12);
+    const onScroll = () => {
+      // 限制在 0~24px，避免长页把背景「滚出视口」
+      const y = Math.min(window.scrollY * 0.04, 24);
+      setShift(y);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -48,10 +52,11 @@ export function SiteBackground() {
         className="site-bg-image"
         style={{
           backgroundImage: `url(${src})`,
-          transform: `translate3d(0, ${offset}px, 0) scale(1.08)`,
+          transform: `translate3d(0, ${-shift}px, 0) scale(1.12)`,
         }}
       />
       <div className="site-bg-veil" />
+      <div className="site-bg-grain" />
     </div>
   );
 }

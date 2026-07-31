@@ -53,13 +53,30 @@ async function main() {
       continue;
     }
 
-    // 默认永不覆盖已有作品（保护后台编辑/封面）；仅 FORCE_SEED=1 且未锁定时更新文案
-    if (!force || existing.locked) {
+    if (force && !existing.locked) {
+      await prisma.work.update({ where: { id: existing.id }, data });
+      updated += 1;
+      continue;
+    }
+
+    if (existing.locked) {
       skipped += 1;
       continue;
     }
 
-    await prisma.work.update({ where: { id: existing.id }, data });
+    // 轻量更新：分类 / 精选 / 排序 / 链接；保留正文与封面
+    await prisma.work.update({
+      where: { id: existing.id },
+      data: {
+        category: work.category,
+        tags: work.tags,
+        featured: work.featured,
+        published: work.published,
+        sortOrder: work.sortOrder,
+        github: work.github ?? null,
+        link: work.link ?? null,
+      },
+    });
     updated += 1;
   }
 

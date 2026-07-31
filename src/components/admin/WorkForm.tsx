@@ -25,7 +25,7 @@ const defaults: WorkFormData = {
   title: "",
   description: "",
   content: "",
-  category: "project",
+  category: "hydro",
   tags: "",
   link: "",
   github: "",

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AdminLayout, PageHeader, AddButton } from "@/components/admin/AdminLayout";
 import { Edit, Trash2, Eye, EyeOff, Star } from "lucide-react";
-import { getCategoryLabel } from "@/lib/utils";
+import { getWorkCategoryLabel } from "@/lib/utils";
 
 interface Work {
   id: string;
@@ -78,7 +78,7 @@ export default function WorksListPage() {
                   )}
                 </div>
                 <p className="text-sm text-ink-400">
-                  {getCategoryLabel(work.category)} · 排序 {work.sortOrder}
+                  {getWorkCategoryLabel(work.title, work.category)} · 排序 {work.sortOrder}
                 </p>
               </div>
 

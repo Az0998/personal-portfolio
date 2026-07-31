@@ -2,7 +2,7 @@ import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
-import { parseTags, getCategoryLabel } from "@/lib/utils";
+import { parseTags, getWorkCategoryLabel } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getShowcaseByTitle } from "@/data/showcases";
@@ -60,7 +60,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
           <div className="mb-6 flex flex-wrap gap-2">
             <span className="px-3 py-1 text-xs font-medium bg-[#e44c65]/90 text-white rounded-full">
-              {getCategoryLabel(work.category)}
+              {getWorkCategoryLabel(work.title, work.category)}
             </span>
             {work.featured && (
               <span className="px-3 py-1 text-xs bg-[#5ec8e8]/90 text-[#1a1218] rounded-full font-medium">

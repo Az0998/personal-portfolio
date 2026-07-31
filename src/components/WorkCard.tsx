@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 import Link from "next/link";
-import { parseTags, getCategoryLabel } from "@/lib/utils";
+import { parseTags, getWorkCategoryLabel, resolveWorkCategory } from "@/lib/utils";
 import { getShowcaseByTitle } from "@/data/showcases";
 import { workCovers, moodCovers } from "@/data/covers";
 
@@ -38,28 +38,38 @@ function isSvg(src: string) {
 export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
   const tags = parseTags(work.tags);
   const showcase = getShowcaseByTitle(work.title);
-  const mood = showcase?.mood ?? "tool";
+  const cat = resolveWorkCategory(work.title, work.category);
+  const mood = showcase?.mood ?? (cat === "hydro" ? "hydro" : cat === "paper" ? "paper" : "tool");
   const effectiveLink = work.link || (showcase ? `/${showcase.slug}` : null);
   const cover = resolveCover(work, mood);
+  const hasDemo = Boolean(effectiveLink);
+  const isFeatured =
+    work.featured ||
+    [
+      "HydroInfo 流域水情信息平台",
+      "HydroBench · 水文双工作台",
+      "波托马克河多时效径流深度学习预报",
+      "匿名问卷 · 分发填写与汇总",
+    ].includes(work.title);
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 36 }}
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.55, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -6, transition: { duration: 0.22 } }}
+      viewport={{ once: true, margin: "-48px" }}
+      transition={{ duration: 0.5, delay: Math.min(index, 6) * 0.05, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -5, transition: { duration: 0.2 } }}
       whileTap={{ scale: 0.985 }}
-      className={`group anime-card ${large ? "md:col-span-2" : ""}`}
+      className={`group anime-card flex flex-col ${large ? "md:col-span-2" : ""}`}
     >
-      <Link href={`/works/${work.id}`} className="block">
-        <div className={`relative overflow-hidden ${large ? "h-64 md:h-72" : "h-44"}`}>
+      <Link href={`/works/${work.id}`} className="block flex-1">
+        <div className={`relative overflow-hidden ${large ? "h-56 md:h-64" : "h-40 md:h-44"}`}>
           {isSvg(cover) ? (
             <div className="w-full h-full bg-gradient-to-br from-[#e44c65]/35 via-white/10 to-[#5ec8e8]/25 flex items-center justify-center p-6">
               <img
                 src={cover}
                 alt=""
-                className="max-h-full max-w-[80%] object-contain drop-shadow-md transition-transform duration-700 group-hover:scale-105"
+                className="max-h-full max-w-[75%] object-contain drop-shadow-md transition-transform duration-700 group-hover:scale-105"
               />
             </div>
           ) : (
@@ -69,38 +79,45 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-          <div className="absolute top-3 left-3 flex gap-2">
-            <span className="px-3 py-1 text-xs font-medium bg-[#e44c65]/90 text-white rounded-full">
-              {getCategoryLabel(work.category)}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+          <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 max-w-[70%]">
+            <span className="px-2.5 py-1 text-[11px] font-medium bg-[#e44c65]/92 text-white rounded-full">
+              {getWorkCategoryLabel(work.title, work.category)}
             </span>
-            {work.featured && (
-              <span className="px-3 py-1 text-xs bg-[#5ec8e8]/90 text-[#1a1218] rounded-full font-medium">
-                Featured
+            {isFeatured && (
+              <span className="px-2.5 py-1 text-[11px] bg-[#5ec8e8]/92 text-[#1a1218] rounded-full font-medium">
+                精选
               </span>
             )}
           </div>
+          {hasDemo && (
+            <span className="absolute top-3 right-3 px-2.5 py-1 text-[11px] bg-black/45 backdrop-blur-sm text-white/90 rounded-full border border-white/15">
+              可体验
+            </span>
+          )}
           {showcase?.tagline && (
-            <p className="absolute bottom-3 left-3 right-3 text-sm text-white/85 line-clamp-2 text-shadow">
+            <p className="absolute bottom-3 left-3 right-3 text-xs md:text-sm text-white/90 line-clamp-2 text-shadow">
               {showcase.tagline}
             </p>
           )}
         </div>
 
-        <div className="p-5 md:p-6">
-          <h3 className="text-lg md:text-xl font-semibold mb-2 group-hover:text-[#ff9aab] transition-colors flex items-center gap-2">
-            {work.title}
-            <ArrowUpRight className="w-4 h-4 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+        <div className="p-4 md:p-5">
+          <h3 className="text-base md:text-lg font-semibold mb-1.5 group-hover:text-[#ff9aab] transition-colors flex items-start gap-2 leading-snug">
+            <span className="flex-1">{work.title}</span>
+            <ArrowUpRight className="w-4 h-4 shrink-0 mt-0.5 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
           </h3>
           {work.description && (
-            <p className="text-white/65 text-sm line-clamp-2 mb-3">{work.description}</p>
+            <p className="text-white/60 text-sm line-clamp-2 mb-3 leading-relaxed">
+              {work.description}
+            </p>
           )}
           {tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {tags.slice(0, 4).map((tag) => (
+            <div className="flex flex-wrap gap-1.5">
+              {tags.slice(0, 3).map((tag) => (
                 <span
                   key={tag}
-                  className="px-2.5 py-0.5 text-xs text-white/70 bg-white/10 rounded-full"
+                  className="px-2 py-0.5 text-[11px] text-white/65 bg-white/10 rounded-full"
                 >
                   {tag}
                 </span>
@@ -111,27 +128,29 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
       </Link>
 
       {(effectiveLink || work.github) && (
-        <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-          {work.github && (
-            <a
-              href={work.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="p-2 bg-black/50 backdrop-blur-sm rounded-full hover:bg-[#e44c65] transition-colors"
-            >
-              <Github className="w-4 h-4" />
-            </a>
-          )}
+        <div className="px-4 md:px-5 pb-4 flex gap-2 -mt-1">
           {effectiveLink && (
             <a
               href={effectiveLink}
               target={effectiveLink.startsWith("http") ? "_blank" : undefined}
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="p-2 bg-black/50 backdrop-blur-sm rounded-full hover:bg-[#5ec8e8] transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-[#e44c65]/85 hover:bg-[#e44c65] text-white transition-colors"
             >
-              <ExternalLink className="w-4 h-4" />
+              <ExternalLink className="w-3.5 h-3.5" />
+              打开
+            </a>
+          )}
+          {work.github && (
+            <a
+              href={work.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white/85 transition-colors"
+            >
+              <Github className="w-3.5 h-3.5" />
+              源码
             </a>
           )}
         </div>

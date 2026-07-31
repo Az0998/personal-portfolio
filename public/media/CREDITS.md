@@ -31,7 +31,8 @@
 
 ## Background
 
-- `bg/hero-loli.jpg` — ACG 壁纸 API 兜底（可被 Pixiv 自备图覆盖）
-- `pixiv/hero.jpg|png|webp` — **请自行放入授权图片**，见该目录 README
+- `pixiv/hero.jpg` / `hero.webp` — 站点定制二次元风高清背景（1920×1280）
+- `bg/hero-loli.jpg` — 同上图的兜底副本
+- 可自行替换 `pixiv/hero.*`（须有权使用），见该目录 README
 
 ## Icons — [Iconify](https://iconify.design/) (`@iconify/react`, MDI)

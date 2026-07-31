@@ -17,11 +17,11 @@ export const worksContent: WorkSeed[] = [
     title: "匿名问卷 · 分发填写与汇总",
     description:
       "浏览器端匿名问卷：公开/私密分发、填写汇总、结果快照，以及问卷绑定的匿名讨论区。挂载 /survey。",
-    category: "project",
+    category: "demo",
     tags: "问卷,匿名,讨论,前端,localStorage,工具,演示",
     featured: true,
     published: true,
-    sortOrder: 0,
+    sortOrder: 10,
     link: "/survey",
     content: `## 一句话
 
@@ -51,11 +51,11 @@ export const worksContent: WorkSeed[] = [
     title: "易理占筮 · 太极八卦六十四阵",
     description:
       "周易象数学习站：一事一占、天时地利人和、六爻与梅花多算法、体用生克与朱熹动爻玩辞；黑白动态卦阵背景。挂载 /yili。",
-    category: "project",
+    category: "demo",
     tags: "周易,梅花易数,六爻,象数,前端,文化",
-    featured: true,
+    featured: false,
     published: true,
-    sortOrder: 1,
+    sortOrder: 11,
     github: "https://github.com/Az0998/yili-divination",
     link: "/yili",
     content: `## 一句话
@@ -93,7 +93,7 @@ python -m http.server 8080
     title: "HydroInfo 流域水情信息平台",
     description:
       "公开站 CSV 驱动的水情态势看板：多站 KPI、过程线与阈值、质控预警、洪水 CSI 回放、LSTM 指标舱；与作业台同属主导航「智慧水利」。",
-    category: "project",
+    category: "hydro",
     tags: "智慧水利,水信息,Leaflet,CSV,质控,CSI,LSTM",
     featured: true,
     published: true,
@@ -133,7 +133,7 @@ python app.py
     title: "HydroBench · 水文双工作台",
     description:
       "智慧水利作业台：室内 DAT/CSV/图片/公式一体处理；户外无网测次、速算与清单；与水情态势同页三页签直达。",
-    category: "project",
+    category: "hydro",
     tags: "水文,工作台,DAT,离线,公式,Canvas,localStorage,智慧水利",
     featured: true,
     published: true,
@@ -171,9 +171,9 @@ python app.py
       "个人站临时文件存储：拖拽上传、分享链接、1 小时～7 天 TTL，过期自动删除；主导航 /temp-files。",
     category: "tool",
     tags: "文件分享,临时存储,Render,SQLite,工具",
-    featured: true,
+    featured: false,
     published: true,
-    sortOrder: 3,
+    sortOrder: 20,
     link: "/temp-files",
     content: `## 一句话
 
@@ -239,11 +239,11 @@ python run_ablation.py
     title: "Novel Studio 写作工作台",
     description:
       "AI 连载工作台网页演示：向导建书、流水线、赞助发码与功能验证；桌面端负责本机 LLM 与发布。挂载 /novel-studio。",
-    category: "project",
+    category: "demo",
     tags: "LLM,写作工具,Next.js,桌面应用,产品演示",
-    featured: true,
+    featured: false,
     published: true,
-    sortOrder: 3,
+    sortOrder: 12,
     github: "https://github.com/Az0998/novel-studio",
     link: "/novel-studio",
     content: `## 一句话
@@ -286,11 +286,11 @@ python -m app.main
     title: "庄方宜 Q 版桌面宠物",
     description:
       "终末地麒麟天师桌宠：透明置顶、多套动画、点击台词与托盘常驻，二次元陪伴向作品。",
-    category: "code",
+    category: "design",
     tags: "PyQt5,桌面宠物,二次元,动画,庄方宜",
-    featured: true,
+    featured: false,
     published: true,
-    sortOrder: 3,
+    sortOrder: 30,
     github: "https://github.com/Az0998/zhuangfangyi-desktop-pet",
     content: `## 一句话
 
@@ -328,11 +328,11 @@ python main.py
     title: "剪贴板智能可视化仪表板",
     description:
       "监听剪贴板 → 自动分类入库 → Flask + ECharts 看板，把每一次复制变成可检索数据。",
-    category: "project",
+    category: "tool",
     tags: "Flask,ECharts,SQLite,可视化,工具",
-    featured: true,
+    featured: false,
     published: true,
-    sortOrder: 4,
+    sortOrder: 21,
     github: "https://github.com/Az0998/clipboard-visualizer",
     content: `## 一句话
 
@@ -364,9 +364,9 @@ python app.py
       "python-pptx 一键生成学术风叶片形态 PPT：跨场景观察 + 形态表 + 生态解释。",
     category: "design",
     tags: "python-pptx,植物,生态,课程汇报",
-    featured: true,
+    featured: false,
     published: true,
-    sortOrder: 5,
+    sortOrder: 31,
     content: `## 一句话
 
 深林绿学术配色，把多场景叶片观察自动排成能上台讲的 PPT。
@@ -384,11 +384,11 @@ python create_plant_ppt.py
     title: "波托马克流域生态水文耦合分析",
     description:
       "Budyko 框架下的植被—水文耦合：径流、降水、PET 与 NDVI 一体化分析流水线。",
-    category: "project",
+    category: "hydro",
     tags: "生态水文,Budyko,NDVI,课程论文",
     featured: false,
     published: true,
-    sortOrder: 5,
+    sortOrder: 4,
     content: `## 一句话
 
 用 Budyko 把气候干湿、径流和 NDVI 放进同一套故事，适合课程论文与答辩展示。
@@ -404,11 +404,11 @@ python create_plant_ppt.py
     title: "水文测验与资料整编实践合集",
     description:
       "水位过程、大断面 DXF、绳套洪水流量、评级延长——野外数据到报表的整编合集。",
-    category: "project",
+    category: "hydro",
     tags: "水文测验,断面,水位流量,实习",
     featured: false,
     published: true,
-    sortOrder: 6,
+    sortOrder: 5,
     content: `## 一句话
 
 把多个实习模块串成「采集 → 脚本整编 → 图表/CAD/报告」一条链。
@@ -426,7 +426,7 @@ python create_plant_ppt.py
     tags: "综述,洮河,黄河,兰州大学",
     featured: false,
     published: true,
-    sortOrder: 7,
+    sortOrder: 6,
     content: `## 一句话
 
 结构化综述写作 + 流域示意图，展示文献梳理与图文编排能力。
