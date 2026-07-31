@@ -8,22 +8,28 @@ datasource db {
 }
 
 model Profile {
-  id          String   @id @default(cuid())
-  name        String
-  title       String
-  tagline     String?
-  bio         String?
-  avatar      String?
-  email       String?
-  phone       String?
-  location    String?
-  github      String?
-  linkedin    String?
-  twitter     String?
-  website     String?
-  wechat      String?
-  resumeUrl   String?
-  updatedAt   DateTime @updatedAt
+  id           String   @id @default(cuid())
+  name         String
+  title        String
+  tagline      String?
+  bio          String?
+  avatar       String?
+  email        String?
+  phone        String?
+  location     String?
+  github       String?
+  linkedin     String?
+  twitter      String?
+  website      String?
+  wechat       String?
+  resumeUrl    String?
+  /// 赞助 / 收款外链（如爱发电、赞赏页）
+  sponsorUrl   String?
+  /// 收款码图片（data URL 或外链）
+  sponsorQr    String?
+  /// 赞助说明短文
+  sponsorNote  String?
+  updatedAt    DateTime @updatedAt
 }
 
 model Work {
@@ -54,4 +60,55 @@ model SiteSetting {
   id    String @id @default(cuid())
   key   String @unique
   value String
+}
+
+model TempFile {
+  id            String   @id @default(cuid())
+  code          String   @unique
+  deleteToken   String
+  originalName  String
+  mimeType      String
+  sizeBytes     Int
+  storageKey    String
+  expiresAt     DateTime
+  downloadCount Int      @default(0)
+  createdAt     DateTime @default(now())
+
+  @@index([expiresAt])
+}
+
+/// 访客意见反馈
+model Feedback {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String?
+  message   String
+  page      String?
+  userAgent String?
+  ipHash    String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([read])
+}
+
+/// 轻量点击 / 注意力埋点（页面浏览、CTA、区块停留）
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  /// pageview | click | attention | cta
+  type      String
+  path      String
+  target    String?
+  label     String?
+  /// 注意力停留毫秒（attention）
+  duration  Int?
+  meta      String?
+  sessionId String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([type])
+  @@index([path])
+  @@index([target])
 }

@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  LayoutDashboard, User, FolderOpen, LogOut, ExternalLink, Plus,
+  LayoutDashboard, User, FolderOpen, LogOut, ExternalLink, Plus, BarChart3, MessageSquare,
 } from "lucide-react";
 
 const navItems = [
   { href: "/admin/dashboard", label: "概览", icon: LayoutDashboard },
+  { href: "/admin/analytics", label: "点击/注意力", icon: BarChart3 },
+  { href: "/admin/feedback", label: "意见反馈", icon: MessageSquare },
   { href: "/admin/profile", label: "个人信息", icon: User },
   { href: "/admin/works", label: "作品管理", icon: FolderOpen },
 ];

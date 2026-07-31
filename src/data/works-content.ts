@@ -92,31 +92,33 @@ python -m http.server 8080
   {
     title: "HydroInfo 流域水情信息平台",
     description:
-      "黄河—洮河公开站 CSV：10 站可切换，流量/水位/降水/气温/含沙量/过水面积可变出图，Leaflet 国内底图，挂载 /hydro。",
+      "公开站 CSV 驱动的水情态势看板：多站 KPI、过程线与阈值、质控预警、洪水 CSI 回放、LSTM 指标舱；挂载 /hydro，入口并入主导航「智慧水利」。",
     category: "project",
-    tags: "智慧水利,水信息,Leaflet,CSV,黄河,洮河,LSTM",
+    tags: "智慧水利,水信息,Leaflet,CSV,质控,CSI,LSTM",
     featured: true,
     published: true,
     sortOrder: 1,
     github: "https://github.com/Az0998/hydro-info-platform",
     link: "/hydro",
-    content: `## 一句话
+    content: `## 定位
 
-面向智慧水利岗位的信息闭环：**采集 → 质控 → 态势 → 预报/洪水评估**，演示已挂在本站 \`/hydro\`。
+岗位向最小闭环演示：**采集 → 质控 → 态势 → 预报/洪水评估**。与 HydroBench（作业工具）同属「智慧水利」品牌，入口统一在 \`/hydrobench\` 枢纽页，本看板仍独立路由 \`/hydro\`。
 
 ## 在线打开
 
-[打开 HydroInfo 演示](/hydro)
+[打开 HydroInfo](/hydro) · [智慧水利枢纽](/hydrobench)
 
-## 能力
+## 能力边界（可核对）
 
-- **国内公开站 CSV**：10 站（兰州/临洮/渭源/康乐/青铜峡/石嘴山/头道拐/潼关/花园口/利津）
-- **站点切换**：下拉 + 站条 + 地图点击
-- **公制参数**：流量 m³/s、水位 m、降水、气温、含沙量、过水面积
-- **Leaflet**：高德/GeoQ 国内底图（修复 OSM 空白）
-- **洪水 CSI 回放** + **LSTM 指标舱**
+| 模块 | 内容 |
+|------|------|
+| 站网 | 国内示范站 CSV（可切换）；Leaflet 国内底图 |
+| 过程 | 流量 / 水位 / 降水等公制要素出图，叠加注意/警戒阈值 |
+| 质控 | 缺失统计、突变粗检、阈值预警 |
+| 洪水 | P90 事件切片与 CSI / POD / FAR 回放 |
+| 预报 | 业务基线 Persistence→MA7；LSTM 指标对接姊妹论文项目 |
 
-## 本地 Flask（同源）
+## 本地复现
 
 \`\`\`bash
 cd hydro-info-platform
@@ -124,51 +126,72 @@ pip install -r requirements.txt
 python app.py
 \`\`\`
 
-导出个人站数据包：\`python scripts/export_portfolio_bundle.py\`
+导出个人站静态包：\`python scripts/export_portfolio_bundle.py\`
 `,
   },
   {
     title: "HydroBench · 水文双工作台",
     description:
-      "室内 DAT/图片/公式一体台 + 户外应急离线录入；挂载主导航 /hydrobench，浏览器本机缓存。",
+      "智慧水利作业台：室内 DAT/CSV/图片/公式一体处理；户外无网测次、速算与清单；本机 localStorage 备份可迁移。主导航入口 /hydrobench。",
     category: "project",
-    tags: "水文,工作台,DAT,离线,公式,Canvas,localStorage",
+    tags: "水文,工作台,DAT,离线,公式,Canvas,localStorage,智慧水利",
     featured: true,
     published: true,
     sortOrder: 2,
     link: "/hydrobench",
-    content: `## 一句话
+    content: `## 定位
 
-把「数据格式 · 图片处理 · 公式计算」做成室内台，另备户外无网应急台；演示挂在本站主导航 \`/hydrobench\`。
+把实习/作业里反复手写的脚本能力收成**可点开的双工作台**，并与 HydroInfo 态势看板并列在「智慧水利」枢纽下。
+
+| 台 | 职责 | 网络 |
+|----|------|------|
+| Studio（室内） | 大断面 DAT、水位 CSV、现场照标注、断面/过程线出图、曼宁与面积公式 | 可离线静态打开 |
+| Field（户外） | 测次录入、水尺速算、出发/收工清单、JSON/CSV 导出 | **无 CDN**，断网可用 |
 
 ## 在线打开
 
-[打开 HydroBench](/hydrobench) · [新窗口纯静态](/hydrobench/index.html)
+[打开智慧水利枢纽](/hydrobench) · [纯静态工作台](/hydrobench/index.html)
 
-> 与「水情演示」\`/hydro\` 不同：那边是站网态势，这边是作业/实习工具。
+## 数据与一致性
 
-## 能做什么
+- 浏览器键前缀 \`hydrobench:\`（测次、清单、公式历史）
+- **不写入**站点 Prisma 个人资料 / 作品 CMS
+- 与 Novel Studio 的 \`novel-studio-web-demo-v1\` 隔离
+- 生产站与 localhost **不同源**；换机用入口「全量备份」
 
-- **室内 Studio**：大断面 DAT / CSV / 水位解析与质控、现场照标注、断面与过程线出图、曼宁与面积公式
-- **户外 Field**：测次录入、水尺速算、出发/收工清单、JSON/CSV 导出
-- **本机缓存**：键前缀 \`hydrobench:\`，同源共享；**不写入**站点个人资料（Prisma Profile）
+## 样本与约定
 
-## 数据一致性说明
+- \`section_demo.dat\`：\`点号,备注,X,Y,Z\`（水边备注含「水」；起点距投影对齐实习脚本）
+- \`level_demo.csv\`：\`日期,水位\`，支持截断小数相对修正
+`,
+  },
+  {
+    title: "临时文件柜 · 到期自毁分享",
+    description:
+      "个人站临时文件存储：拖拽上传、分享链接、1 小时～7 天 TTL，过期自动删除；主导航 /temp-files。",
+    category: "tool",
+    tags: "文件分享,临时存储,Render,SQLite,工具",
+    featured: true,
+    published: true,
+    sortOrder: 3,
+    link: "/temp-files",
+    content: `## 一句话
 
-| 层 | 存什么 | 是否上云 |
-|----|--------|----------|
-| 站点个人资料 / 作品文案 | 姓名、简介、作品卡片 | 是（SQLite + seed） |
-| HydroBench | 测次、清单、公式历史 | 否（仅浏览器） |
-| Novel Studio | 书籍/额度演示 | 否（另一套键） |
+像随身 U 盘，但会过期：上传 → 拿到分享链接 → 到期自动消失。
 
-换电脑或清缓存前，请在工作台入口使用「导出本机全量备份」。
+## 在线打开
 
-## 本地打开
+[打开临时文件柜](/temp-files)
 
-\`\`\`bash
-cd hydro-workbench
-python -m http.server 8765
-\`\`\`
+## 能力
+
+- 单文件上限 20 MB；有效期 1h / 6h / 1d / 3d / 7d
+- 分享页 \`/temp-files/<code>\` + 删除令牌
+- 元数据存 SQLite，文件在服务器 \`data/temp-files/\`
+
+## 注意
+
+Render 免费实例 **重新部署会清空磁盘文件**。需要跨部署保留时可接 Cloudflare R2（见 \`DEPLOY.md\`）。
 `,
   },
   {
@@ -417,8 +440,8 @@ python create_plant_ppt.py
 export const profileContent = {
   name: "张森捷",
   title: "智慧水利 · 水信息 · 机器学习",
-  tagline: "用信息链路读懂河流，用模型把预报落到可展示的产品形态",
-  bio: "兰州大学水文与水资源工程方向，目标从事智慧水利与水信息。白天做站网态势、质控预警和径流预报；也用深度学习把上游信息价值写进论文流水线。业余养桌宠、做小工具。\n\n作品介绍以仓库数据源自动同步：改本地/GitHub 文案并推送后，站点部署时更新。",
+  tagline: "把站网态势、质控预警与径流预报做成可点开的产品；作业数据进 HydroBench，态势演示进 HydroInfo。",
+  bio: "兰州大学水文与水资源工程方向，目标岗位：智慧水利 / 水信息。日常工作围绕「采集 → 质控 → 态势 → 预报」闭环：用公开站网与自建 CSV 做多站看板，用实习测次与大断面 DAT 做可离线工具台，用深度学习做 1/3/7 日流量实验并统一指标板复现。\n\n本站作品文案以仓库 `src/data/works-content.ts` 为准；推送后 Render 构建时 seed 同步。访客测次与反馈另存，不覆盖个人资料字段。",
   email: "your.email@example.com",
   location: "兰州 / 中国",
   github: "https://github.com/Az0998",

@@ -3,38 +3,49 @@ import Link from "next/link";
 import "./hydrobench.css";
 
 export const metadata: Metadata = {
-  title: "HydroBench · 水文双工作台 | 张森捷",
+  title: "智慧水利工作台 · HydroBench / HydroInfo | 张森捷",
   description:
-    "室内集成 DAT/图片/公式与户外应急离线录入；浏览器本机缓存，不写入站点个人资料库",
+    "智慧水利枢纽：水情态势看板 HydroInfo + 作业/实习双工作台 HydroBench（室内数据图片公式 · 户外应急离线）",
 };
 
 export default function HydroBenchPage() {
   return (
     <div className="hb-root">
       <header className="hb-top">
-        <Link href="/#works" className="hb-back">
-          ← 返回作品集
+        <Link href="/" className="hb-back">
+          ← 返回主站
         </Link>
         <div className="hb-brand">
-          <span className="hb-mark">HB</span>
+          <span className="hb-mark">水</span>
           <div>
-            <div className="hb-title">HydroBench</div>
-            <div className="hb-sub">水文双工作台 · 本机缓存与导出</div>
+            <div className="hb-title">智慧水利</div>
+            <div className="hb-sub">态势看板 · 作业工作台 · 同源缓存说明</div>
           </div>
         </div>
         <div className="hb-actions">
           <a className="hb-open" href="/hydrobench/index.html" target="_blank" rel="noreferrer">
-            新窗口打开
+            新窗口打开工作台
           </a>
-          <Link className="hb-open" href="/hydro">
-            水情演示
-          </Link>
         </div>
       </header>
-      <p className="hb-note">
-        测次记录、公式历史、清单勾选仅保存在你的浏览器 localStorage（键前缀{" "}
+
+      <section className="hb-hub">
+        <a className="hb-hub-card" href="/hydro">
+          <span className="hb-hub-kicker">HydroInfo</span>
+          <strong>水情态势看板</strong>
+          <p>多站 KPI · 过程线 · 质控 · 洪水 CSI · LSTM 指标。岗位向「采集→质控→态势→预报」闭环演示。</p>
+        </a>
+        <a className="hb-hub-card accent" href="#workbench">
+          <span className="hb-hub-kicker">HydroBench</span>
+          <strong>水文双工作台</strong>
+          <p>室内：DAT/CSV/图片/公式。户外：无网测次、速算、清单与全量备份。浏览器本机缓存，不上云。</p>
+        </a>
+      </section>
+
+      <p className="hb-note" id="workbench">
+        测次记录、公式历史、清单勾选仅保存在浏览器 <code>localStorage</code>（前缀{" "}
         <code>hydrobench:</code>
-        ），与站点「个人资料 / 作品 CMS」及 Novel Studio 互不覆盖。换设备请用工作台内「全量备份」迁移。
+        ），与站点个人资料 / 作品 CMS / Novel Studio 互不覆盖。换设备请用工作台「全量备份」。
       </p>
       <iframe
         className="hb-frame"

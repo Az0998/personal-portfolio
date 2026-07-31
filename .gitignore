@@ -44,3 +44,5 @@ next-env.d.ts
 !/public/uploads/.gitkeep
 /prisma/dev.db
 /prisma/dev.db-journal
+/data/temp-files/*
+!/data/temp-files/.gitkeep

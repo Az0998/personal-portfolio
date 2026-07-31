@@ -20,6 +20,9 @@ interface Profile {
   website: string;
   wechat: string;
   resumeUrl: string;
+  sponsorUrl: string;
+  sponsorNote: string;
+  sponsorQr?: string | null;
   avatar?: string | null;
 }
 
@@ -27,12 +30,15 @@ const emptyProfile: Profile = {
   name: "", title: "", tagline: "", bio: "",
   email: "", phone: "", location: "",
   github: "", linkedin: "", twitter: "", website: "", wechat: "", resumeUrl: "",
+  sponsorUrl: "", sponsorNote: "",
 };
 
 export default function ProfileEditPage() {
   const [profile, setProfile] = useState<Profile>(emptyProfile);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [qrFile, setQrFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const [qrPreview, setQrPreview] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -69,14 +75,17 @@ export default function ProfileEditPage() {
       if (key !== "id" && key !== "avatar" && value) formData.append(key, value);
     });
     if (avatarFile) formData.append("avatar", avatarFile);
+    if (qrFile) formData.append("sponsorQr", qrFile);
 
     const res = await fetch("/api/profile", { method: "PUT", body: formData });
     const data = await res.json().catch(() => ({}));
     if (res.ok) {
       setProfile({ ...emptyProfile, ...data });
       setAvatarFile(null);
+      setQrFile(null);
       setPreview(null);
-      setMessage("保存成功！前台刷新即可看到头像");
+      setQrPreview(null);
+      setMessage("保存成功！前台刷新即可看到更新");
     } else {
       setMessage(data.error || "保存失败，请换更小的图片重试");
     }
@@ -192,6 +201,52 @@ export default function ProfileEditPage() {
               <label className="label-field">个人网站</label>
               <input className="input-field" value={profile.website} onChange={(e) => updateField("website", e.target.value)} />
             </div>
+          </div>
+        </div>
+
+        <div className="anime-card p-6 space-y-4">
+          <h3 className="font-semibold mb-2">赞助贴 · 收款外链</h3>
+          <div>
+            <label className="label-field">赞助外链 URL（爱发电 / 赞赏页等）</label>
+            <input
+              className="input-field"
+              value={profile.sponsorUrl}
+              onChange={(e) => updateField("sponsorUrl", e.target.value)}
+              placeholder="https://..."
+            />
+          </div>
+          <div>
+            <label className="label-field">赞助说明</label>
+            <textarea
+              className="input-field min-h-[80px] resize-y"
+              value={profile.sponsorNote}
+              onChange={(e) => updateField("sponsorNote", e.target.value)}
+              placeholder="用于服务器与开源维护…"
+            />
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="w-28 h-28 rounded-xl overflow-hidden bg-white/5 border border-white/10 flex items-center justify-center">
+              {(qrPreview || profile.sponsorQr) ? (
+                <img src={qrPreview || profile.sponsorQr || ""} alt="收款码" className="w-full h-full object-contain bg-white" />
+              ) : (
+                <span className="text-xs text-ink-500">收款码</span>
+              )}
+            </div>
+            <label className="btn-outline text-sm cursor-pointer inline-flex">
+              <Upload className="w-4 h-4" />
+              上传收款码
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  const f = e.target.files?.[0] ?? null;
+                  if (!f) return;
+                  setQrFile(f);
+                  setQrPreview(URL.createObjectURL(f));
+                }}
+              />
+            </label>
           </div>
         </div>
 

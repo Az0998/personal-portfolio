@@ -1,0 +1,191 @@
+.tf-root {
+  min-height: 100vh;
+  color: #efeaf6;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 0%, rgba(255, 143, 184, 0.16), transparent 55%),
+    radial-gradient(ellipse 60% 45% at 90% 10%, rgba(94, 200, 232, 0.12), transparent 50%),
+    #0f0a1a;
+}
+
+.tf-top {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.tf-back {
+  font-size: 0.875rem;
+  color: #c0b0d4;
+  transition: color 0.2s;
+}
+.tf-back:hover {
+  color: #ffc2d6;
+}
+
+.tf-pill {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 143, 184, 0.35);
+  color: #ffc2d6;
+  background: rgba(255, 143, 184, 0.08);
+}
+
+.tf-shell {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0.5rem 1.5rem 3rem;
+}
+
+.tf-hero {
+  border-radius: 1.5rem;
+  padding: 1.75rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.tf-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: #ffc2d6;
+  background: rgba(255, 143, 184, 0.12);
+  border: 1px solid rgba(255, 143, 184, 0.25);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  margin-bottom: 0.9rem;
+}
+
+.tf-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 900px) {
+  .tf-grid {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+}
+
+.tf-card {
+  border-radius: 1.25rem;
+  padding: 1.4rem 1.25rem 1.5rem;
+}
+
+.tf-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+  color: #efeaf6;
+}
+
+.tf-drop {
+  border: 1.5px dashed rgba(255, 143, 184, 0.35);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  min-height: 10rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.tf-drop-active {
+  border-color: #ff8fb8;
+  background: rgba(255, 143, 184, 0.08);
+}
+
+.tf-drop-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 10rem;
+  padding: 1.25rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.tf-chip {
+  font-size: 0.8rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #c0b0d4;
+  background: transparent;
+  transition: all 0.2s;
+}
+.tf-chip:hover {
+  border-color: rgba(94, 200, 232, 0.45);
+  color: #a8e4f5;
+}
+.tf-chip-on {
+  border-color: rgba(255, 143, 184, 0.55);
+  background: rgba(255, 143, 184, 0.15);
+  color: #ffc2d6;
+}
+
+.tf-error {
+  color: #ff8fb8;
+  font-size: 0.875rem;
+  background: rgba(255, 107, 157, 0.1);
+  border: 1px solid rgba(255, 143, 184, 0.25);
+  border-radius: 0.75rem;
+  padding: 0.65rem 0.8rem;
+}
+
+.tf-empty {
+  min-height: 14rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #9a84b5;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.tf-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 0.9rem;
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tf-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 0.55rem 0.65rem;
+}
+
+.tf-field code {
+  flex: 1;
+  font-size: 0.75rem;
+  word-break: break-all;
+  color: #ddd3ea;
+}
+
+.tf-copy {
+  flex-shrink: 0;
+  padding: 0.35rem;
+  border-radius: 0.5rem;
+  color: #c0b0d4;
+}
+.tf-copy:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffc2d6;
+}
+
+.tf-share {
+  border-radius: 1.25rem;
+  padding: 1.75rem 1.5rem;
+}

@@ -9,39 +9,53 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // 深炭 + 暖琥珀点缀（科技但不冰冷）
         ink: {
-          50: "#f8f6fb",
-          100: "#efeaf6",
-          200: "#ddd3ea",
-          300: "#c0b0d4",
-          400: "#9a84b5",
-          500: "#7c6598",
-          600: "#644f7c",
-          700: "#524065",
-          800: "#453754",
-          900: "#3b3047",
-          950: "#1a1424",
+          50: "#f7f4ef",
+          100: "#ebe4d8",
+          200: "#d4c8b4",
+          300: "#b3a48c",
+          400: "#8f816c",
+          500: "#746857",
+          600: "#5c5246",
+          700: "#463f37",
+          800: "#312c27",
+          900: "#1f1c19",
+          950: "#12100e",
         },
-        sakura: {
-          DEFAULT: "#ff8fb8",
-          soft: "#ffc2d6",
-          deep: "#e85a8c",
-          glow: "#ff6b9d",
+        ember: {
+          DEFAULT: "#e8a06a",
+          soft: "#f0c29a",
+          deep: "#c8783f",
+          glow: "#ffb37a",
         },
-        aqua: {
-          DEFAULT: "#5ec8e8",
-          soft: "#a8e4f5",
-          deep: "#2a9fc4",
+        teal: {
+          DEFAULT: "#3d9b8f",
+          soft: "#7ec4bb",
+          deep: "#2a6f67",
         },
         night: {
-          DEFAULT: "#0f0a1a",
-          card: "#1a1228",
-          mist: "#261a38",
+          DEFAULT: "#0e1114",
+          card: "#161b20",
+          mist: "#1e262d",
+          lift: "#242d36",
+        },
+        // 兼容旧类名 → 映射到新色板
+        sakura: {
+          DEFAULT: "#e8a06a",
+          soft: "#f0c29a",
+          deep: "#c8783f",
+          glow: "#ffb37a",
+        },
+        aqua: {
+          DEFAULT: "#3d9b8f",
+          soft: "#7ec4bb",
+          deep: "#2a6f67",
         },
         accent: {
-          DEFAULT: "#ff8fb8",
-          light: "#ffc2d6",
-          dark: "#e85a8c",
+          DEFAULT: "#e8a06a",
+          light: "#f0c29a",
+          dark: "#c8783f",
         },
       },
       fontFamily: {
@@ -50,8 +64,9 @@ const config: Config = {
         cute: ["var(--font-cute)", "system-ui", "sans-serif"],
       },
       boxShadow: {
-        sakura: "0 0 40px rgba(255, 143, 184, 0.25)",
-        aqua: "0 0 40px rgba(94, 200, 232, 0.2)",
+        sakura: "0 0 40px rgba(232, 160, 106, 0.22)",
+        aqua: "0 0 40px rgba(61, 155, 143, 0.18)",
+        soft: "0 24px 60px rgba(0, 0, 0, 0.35)",
       },
       animation: {
         "fade-up": "fadeUp 0.6s ease-out forwards",

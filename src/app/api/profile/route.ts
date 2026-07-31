@@ -20,6 +20,7 @@ export async function PUT(request: NextRequest) {
   const fields = [
     "name", "title", "tagline", "bio", "email", "phone",
     "location", "github", "linkedin", "twitter", "website", "wechat", "resumeUrl",
+    "sponsorUrl", "sponsorNote",
   ];
 
   for (const field of fields) {
@@ -35,6 +36,21 @@ export async function PUT(request: NextRequest) {
       const message = e instanceof Error ? e.message : "头像上传失败";
       return NextResponse.json({ error: message }, { status: 400 });
     }
+  }
+
+  const qrFile = formData.get("sponsorQr") as File | null;
+  if (qrFile && qrFile.size > 0) {
+    try {
+      data.sponsorQr = await saveUploadedFile(qrFile);
+    } catch (e) {
+      const message = e instanceof Error ? e.message : "收款码上传失败";
+      return NextResponse.json({ error: message }, { status: 400 });
+    }
+  }
+
+  const sponsorQrUrl = formData.get("sponsorQrUrl");
+  if (typeof sponsorQrUrl === "string" && sponsorQrUrl.trim()) {
+    data.sponsorQr = sponsorQrUrl.trim();
   }
 
   if (profile) {

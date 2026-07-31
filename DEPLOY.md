@@ -13,21 +13,25 @@
 
 挂载演示：
 
-- `/hydro` — HydroInfo（主导航「水情演示」）
-- `/hydrobench` — HydroBench 水文双工作台（主导航「水文工作台」）
-- `/novel-studio` — Novel Studio 写作工作台（作品进入）
+- `/hydrobench` — **智慧水利枢纽**（主导航）：HydroInfo 态势 + HydroBench 作业台
+- `/hydro` — HydroInfo 水情看板（深链仍可用）
+- `/temp-files` — 临时文件柜
+- `/novel-studio` — Novel Studio（作品进入）
 - `/yili` — 易理占筮（作品进入）
 
 ### 数据 / 缓存分层（勿混用）
 
 | 层 | 位置 | 说明 |
 |----|------|------|
-| 个人资料 + 作品文案 | Prisma SQLite；源文件 `works-content.ts` / `profileContent` | 推送后 `db:seed` 同步；后台可改头像等字段 |
-| HydroBench | 浏览器 `localStorage` 键 `hydrobench:*` | 测次/清单/公式历史；**不上云**；同源（含 iframe）共享 |
-| Novel Studio | `novel-studio-web-demo-v1` | 另一套演示状态，互不覆盖 |
-| HydroInfo | `public/hydro/*.json` 静态包 | 无用户写回 |
+| 个人资料 + 作品文案 | Prisma；`works-content.ts` / `profileContent` | seed 同步；赞助外链/收款码在后台，**不被 seed 覆盖** |
+| 意见反馈 | `Feedback` 表 | 前台表单 → 后台「意见反馈」 |
+| 点击 / 注意力 | `AnalyticsEvent` 表 | 前台埋点 → 后台「点击/注意力」 |
+| 临时文件柜 | SQLite + `data/temp-files/` | 重部署可能丢磁盘文件 |
+| HydroBench | `localStorage` `hydrobench:*` | 不上云 |
+| Novel Studio | `novel-studio-web-demo-v1` | 不上云 |
+| HydroInfo | `public/hydro/*.json` | 静态包 |
 
-HydroBench 静态文件目录：`public/hydrobench/`（与源码仓 `hydro-workbench` 同步拷贝）。更新工具台后请重新拷贝再部署。
+HydroBench 静态目录：`public/hydrobench/`。媒体资源见 `public/media/CREDITS.md`（unDraw / Pexels / Picsum / Iconify）。
 
 ## 一、推到 GitHub
 
@@ -107,4 +111,25 @@ Render 服务 → **Settings → Custom Domains** → Add：
 ## 注意
 
 - Render Free **重新部署后** SQLite / 上传文件可能重置；首次部署已自动 seed。之后改内容尽量在后台改，或本地改完再 `FORCE_SEED=1 npm run db:seed` 后重新部署。  
+- 临时文件柜依赖本机磁盘：过期会自动删，但 **Redeploy 也会清空未过期文件**。需要跨部署保留时，接 Cloudflare R2（见下方）。
 - 长期正式使用建议升级磁盘方案，或改用 Turso / PostgreSQL + 云存储。
+
+## 五、可免费接入的服务（推荐）
+
+| 用途 | 服务 | 免费额度（约） | 和本站怎么配合 |
+|------|------|----------------|----------------|
+| **站点主机（已在用）** | [Render](https://render.com) Web Service | 免费实例会休眠 | 当前 `render.yaml` / Node + SQLite |
+| **对象存储（临时文件持久化）** | [Cloudflare R2](https://www.cloudflare.com/products/r2/) | 10 GB 存储 + 每月出站免费额度 | 以后把 `data/temp-files` 换成 R2；国内访问也可挂自定义域名 |
+| **数据库托管** | [Turso](https://turso.tech) / [Neon](https://neon.tech) | 免费 SQLite/Postgres 层 | 解决 Render 重部署丢库 |
+| **边缘/静态备选** | [Cloudflare Pages](https://pages.cloudflare.com) | 免费 | 纯静态友好；本站有 Node API+SQLite，不如继续用 Render |
+| **Hobby 备选** | [Railway](https://railway.app) / [Fly.io](https://fly.io) | 有试用额度 | 可挂持久卷，比 Render Free 更适合文件柜 |
+| **域名** | 已有 `vexr.dev` 子域 | — | CNAME → Render |
+
+**临时文件柜当前策略（零额外账号）：** 直接用 Render 本机磁盘 + SQLite 元数据 + TTL（1h–7d）。适合作业互传；不适合当网盘。
+
+**想更稳（仍免费）的下一步：**
+
+1. 注册 Cloudflare → R2 → 建 bucket（如 `portfolio-temp`）  
+2. 创建 API Token（Object Read & Write）  
+3. 以后可在环境变量加：`R2_ACCOUNT_ID` / `R2_ACCESS_KEY_ID` / `R2_SECRET_ACCESS_KEY` / `R2_BUCKET`（代码预留扩展位，默认仍走本地磁盘）  
+4. 或把整站迁到 Fly/Railway 并挂 **Persistent Volume**

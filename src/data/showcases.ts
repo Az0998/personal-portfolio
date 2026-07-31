@@ -57,7 +57,7 @@ export const showcases: Showcase[] = [
     heroEmoji: "💧",
     tagline: "国内示范站网 · Leaflet · CSI 回放 · LSTM 指标 · 可变出图",
     highlights: [
-      "挂载于个人站 /hydro，一页完成水情态势演示",
+      "智慧水利枢纽 /hydrobench 可进入本看板",
       "洮河坐标示范站网 + Leaflet 交互地图",
       "洪水 P90 事件回放与 1/3/7 日 CSI / POD / FAR",
       "可变要素：流量、水位、降水、气温、上游与多模型曲线",
@@ -81,9 +81,9 @@ export const showcases: Showcase[] = [
     title: "HydroBench · 水文双工作台",
     mood: "field",
     heroEmoji: "🛠️",
-    tagline: "室内集成台 · 户外应急离线 · 本机缓存可导出",
+    tagline: "智慧水利枢纽 · 室内集成台 · 户外应急离线 · 本机缓存可导出",
     highlights: [
-      "主导航「水文工作台」进入 /hydrobench",
+      "主导航「智慧水利」进入 /hydrobench（含 HydroInfo 入口）",
       "Studio：DAT/CSV/水位、图片标注、公式与出图",
       "Field：无网录入、速算、清单、回城导出",
       "localStorage 前缀 hydrobench:，与个人资料 CMS 隔离",

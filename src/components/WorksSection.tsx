@@ -40,11 +40,15 @@ export function WorksSection({ works }: WorksSectionProps) {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-            精选<span className="gradient-text">作品</span>
+          <h2 className="font-display text-3xl md:text-5xl font-bold mb-4 text-left">
+            作品档案
           </h2>
-          <p className="text-ink-400 mb-2">点进去看介绍舱 · 演示步骤 · 指标条</p>
-          <p className="text-ink-500 text-sm mb-8">进展跟着仓库走：改文案推送后会自动更新，也可在后台一键同步 GitHub</p>
+          <p className="text-ink-400 mb-2 max-w-2xl mx-auto">
+            每条介绍写清定位、能力边界与复现路径；点开可见演示舱、步骤与指标。
+          </p>
+          <p className="text-ink-500 text-sm mb-8">
+            文案源：仓库 <code className="text-ember-soft">works-content.ts</code> · 推送后 seed 同步
+          </p>
 
           <div className="flex flex-wrap justify-center gap-2">
             {categories.map((cat) => (
