@@ -40,6 +40,27 @@ export function AnalyticsBeacon() {
   return null;
 }
 
+/** 打字机一行（对齐 dayabolg Typewriter） */
+function TypeLine({ text }: { text: string }) {
+  const [shown, setShown] = useState("");
+  useEffect(() => {
+    setShown("");
+    let i = 0;
+    const t = setInterval(() => {
+      i += 1;
+      setShown(text.slice(0, i));
+      if (i >= text.length) clearInterval(t);
+    }, 70);
+    return () => clearInterval(t);
+  }, [text]);
+  return (
+    <span className="inline-block min-h-[1.5em]">
+      {shown}
+      <span className="inline-block w-[0.55ch] h-[1em] ml-0.5 align-[-0.1em] bg-[#e44c65] animate-pulse" />
+    </span>
+  );
+}
+
 export function Hero({ profile }: HeroProps) {
   const socialLinks = [
     { icon: "mdi:github", href: profile.github, label: "GitHub", target: "social-github" },
@@ -49,74 +70,65 @@ export function Hero({ profile }: HeroProps) {
   ].filter((l) => l.href);
 
   return (
-    <section className="relative min-h-[92vh] flex items-center section-padding overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute inset-0 opacity-[0.18]"
-          style={{
-            backgroundImage: "url(/media/photos/river-pexels.jpg)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-night via-night/85 to-night" />
-      </div>
-
-      <div className="relative max-w-6xl mx-auto w-full grid lg:grid-cols-[1.15fr_0.85fr] gap-16 lg:gap-24 items-center">
+    <section className="relative z-[1] min-h-[calc(100vh-4rem)] flex items-center justify-center px-6 py-10">
+      <div className="w-full max-w-5xl flex flex-col-reverse sm:flex-row gap-10 sm:gap-14 items-center justify-center">
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col text-center sm:text-left justify-center gap-4 text-white text-shadow
+                     transform transition-transform duration-500 hover:scale-[1.03]"
         >
-          <p className="eyebrow mb-5 flex items-center gap-2">
-            <Icon icon="mdi:waves" className="text-lg text-teal-soft" />
-            智慧水利 · 水信息 · 可演示工具
+          <p className="text-[#ff9aab] text-sm tracking-[0.2em] uppercase">
+            二次元 × 智慧水利
           </p>
-          <h1 className="font-display text-5xl md:text-7xl font-bold mb-5 leading-[1.08] tracking-tight">
+          <h1 className="font-display text-4xl md:text-6xl font-bold leading-tight">
             {profile.name}
           </h1>
-          <p className="text-xl md:text-2xl text-ink-200 mb-3">{profile.title}</p>
+          <p className="text-xl md:text-2xl text-white/90 font-light">
+            <TypeLine text={profile.title || "智慧水利 · 水信息"} />
+          </p>
           {profile.tagline && (
-            <p className="text-base md:text-lg text-ink-400 mb-8 max-w-xl leading-relaxed">
+            <p className="text-base md:text-lg text-white/75 max-w-md leading-relaxed mx-auto sm:mx-0">
               {profile.tagline}
             </p>
           )}
 
-          <div className="flex flex-wrap gap-3 mb-10">
+          <div className="flex flex-wrap gap-3 justify-center sm:justify-start mt-2">
             <a
               href="/hydrobench"
               className="btn-primary"
               onClick={() => trackCta("nav-hydrobench", "hero-智慧水利")}
             >
-              <Icon icon="mdi:water-pump" width={18} />
-              进入智慧水利工作台
+              <Icon icon="mdi:water" width={18} />
+              智慧水利
             </a>
             <a
               href="#works"
               className="btn-outline"
               onClick={() => trackClick("hero-works", "作品")}
             >
-              查看作品档案
+              作品档案
             </a>
             <a
               href="#sponsor"
               className="btn-outline"
               onClick={() => trackClick("hero-sponsor", "赞助")}
             >
-              <Icon icon="mdi:coffee-outline" width={18} />
+              <Icon icon="mdi:coffee" width={18} />
               赞助
             </a>
           </div>
 
           {socialLinks.length > 0 && (
-            <div className="flex gap-3">
+            <div className="flex gap-3 justify-center sm:justify-start mt-2">
               {socialLinks.map(({ icon, href, label, target }) => (
                 <a
                   key={label}
                   href={href!}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 glass rounded-2xl hover:border-ember/40 transition-all"
+                  className="p-2.5 rounded-full bg-white/15 backdrop-blur-sm hover:bg-[#e44c65]/35 transition-colors"
                   aria-label={label}
                   onClick={() => trackClick(target, label)}
                 >
@@ -128,37 +140,29 @@ export function Hero({ profile }: HeroProps) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
+          initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.12 }}
+          transition={{ duration: 0.65, delay: 0.08 }}
           className="relative"
         >
-          <div className="absolute -inset-6 bg-ember/10 blur-3xl rounded-full" />
-          <div className="media-panel relative p-6 md:p-8">
-            <img
-              src="/media/undraw/scientist_5td0.svg"
-              alt="unDraw scientist illustration"
-              className="w-full h-auto max-h-[320px] object-contain mb-4"
-            />
-            <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-2xl overflow-hidden aspect-[4/3] border border-white/10">
-                <img
-                  src="/media/photos/ocean-pexels.jpg"
-                  alt="Pexels ocean"
-                  className="w-full h-full object-cover"
-                />
+          <div
+            className="rounded-full overflow-hidden w-56 h-56 md:w-72 md:h-72
+                       transform transition-transform duration-500 hover:scale-110 shadow-avatar
+                       ring-4 ring-white/25"
+          >
+            {profile.avatar ? (
+              <img
+                src={profile.avatar}
+                alt={profile.name}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-[#e44c65]/80 to-[#f5ae73]/70 flex items-center justify-center">
+                <span className="font-display text-6xl text-white drop-shadow-lg">
+                  {profile.name.slice(0, 1)}
+                </span>
               </div>
-              <div className="rounded-2xl overflow-hidden aspect-[4/3] border border-white/10">
-                <img
-                  src="/media/placeholders/river-1015.jpg"
-                  alt="Picsum river placeholder"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-            <p className="mt-4 text-xs text-ink-500 leading-relaxed">
-              插画 unDraw · 实拍 Pexels · 占位 Picsum · 图标 Iconify
-            </p>
+            )}
           </div>
         </motion.div>
       </div>
@@ -169,7 +173,6 @@ export function Hero({ profile }: HeroProps) {
 export function About({ profile }: HeroProps) {
   const ref = useRef<HTMLElement>(null);
   useEffect(() => observeAttention(ref.current, "section-about"), []);
-
   if (!profile.bio) return null;
 
   const traits = [
@@ -181,27 +184,27 @@ export function About({ profile }: HeroProps) {
 
   return (
     <section id="about" ref={ref} className="section-padding">
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-16 items-center">
-        <div className="media-panel p-8">
+      <div className="max-w-5xl mx-auto glass-panel rounded-[2rem] p-8 md:p-12 grid md:grid-cols-[0.85fr_1.15fr] gap-10 items-center">
+        <div className="rounded-2xl bg-white/10 p-6 flex items-center justify-center">
           <img
-            src="/media/undraw/data-analysis.svg"
-            alt="unDraw data analysis"
-            className="w-full max-h-64 object-contain"
+            src="/media/undraw/scientist_5td0.svg"
+            alt="unDraw scientist"
+            className="w-full max-h-52 object-contain drop-shadow-lg"
           />
         </div>
         <div>
           <p className="eyebrow mb-3">About</p>
-          <h2 className="font-display text-3xl md:text-5xl font-bold mb-6 leading-tight">
-            用信息链路读懂河流，<span className="gradient-text">把预报做成可点开的产品</span>
+          <h2 className="font-display text-3xl md:text-4xl font-bold mb-5 text-shadow">
+            关于我
           </h2>
-          <p className="text-ink-300 leading-relaxed whitespace-pre-line mb-8 text-base md:text-lg">
+          <p className="text-white/85 leading-relaxed whitespace-pre-line mb-8">
             {profile.bio}
           </p>
           <div className="grid grid-cols-2 gap-3">
             {traits.map((t) => (
-              <div key={t.label} className="anime-card p-4 flex items-center gap-3">
-                <Icon icon={t.icon} className="text-ember-soft text-xl shrink-0" />
-                <span className="text-sm text-ink-200">{t.label}</span>
+              <div key={t.label} className="rounded-2xl bg-white/10 border border-white/15 px-3 py-3 flex items-center gap-2">
+                <Icon icon={t.icon} className="text-[#ff9aab] text-xl shrink-0" />
+                <span className="text-sm text-white/90">{t.label}</span>
               </div>
             ))}
           </div>
@@ -238,36 +241,29 @@ export function Contact({ profile }: HeroProps) {
 
   return (
     <section id="contact" ref={ref} className="section-padding">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-14 max-w-2xl">
+      <div className="max-w-5xl mx-auto">
+        <div className="glass-panel rounded-[2rem] p-8 md:p-12">
           <p className="eyebrow mb-3">Contact</p>
-          <h2 className="font-display text-3xl md:text-5xl font-bold mb-4">
-            联系与协作
-          </h2>
-          <p className="text-ink-400 leading-relaxed">
-            欢迎就智慧水利岗位、水文工具、演示部署或开源协作写信。以下渠道均可触达。
-          </p>
+          <h2 className="font-display text-3xl md:text-4xl font-bold mb-8 text-shadow">联系与协作</h2>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {contacts.map(({ icon, label, value, href }) => (
+              <div key={label} className="rounded-2xl bg-white/10 border border-white/15 p-5">
+                <Icon icon={icon} className="text-2xl text-[#ff9aab] mb-2" />
+                <p className="text-sm text-white/55 mb-1">{label}</p>
+                {href ? (
+                  <a href={href} className="text-white hover:text-[#ff9aab] break-all">
+                    {value}
+                  </a>
+                ) : (
+                  <p className="text-white">{value}</p>
+                )}
+              </div>
+            ))}
+          </div>
+          {profile.wechat && (
+            <p className="text-white/60 text-sm mt-6">微信：{profile.wechat}</p>
+          )}
         </div>
-
-        <div className="grid sm:grid-cols-3 gap-5 mb-10">
-          {contacts.map(({ icon, label, value, href }) => (
-            <div key={label} className="anime-card p-6">
-              <Icon icon={icon} className="text-2xl text-ember-soft mb-3" />
-              <p className="text-sm text-ink-500 mb-1">{label}</p>
-              {href ? (
-                <a href={href} className="text-ink-100 hover:text-ember-soft transition-colors break-all">
-                  {value}
-                </a>
-              ) : (
-                <p className="text-ink-100">{value}</p>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {profile.wechat && (
-          <p className="text-ink-500 text-sm">微信：{profile.wechat}</p>
-        )}
       </div>
     </section>
   );
@@ -276,21 +272,18 @@ export function Contact({ profile }: HeroProps) {
 export function Sponsor({ profile }: HeroProps) {
   const ref = useRef<HTMLElement>(null);
   useEffect(() => observeAttention(ref.current, "section-sponsor"), []);
-
   const hasLink = Boolean(profile.sponsorUrl);
   const hasQr = Boolean(profile.sponsorQr);
 
   return (
-    <section id="sponsor" ref={ref} className="section-padding pt-8">
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+    <section id="sponsor" ref={ref} className="section-padding pt-4">
+      <div className="max-w-5xl mx-auto glass-panel rounded-[2rem] p-8 md:p-12 grid md:grid-cols-2 gap-10 items-center">
         <div>
           <p className="eyebrow mb-3">Sponsor</p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-            赞助贴 · 一杯咖啡的温度
-          </h2>
-          <p className="text-ink-400 leading-relaxed mb-6">
+          <h2 className="font-display text-3xl font-bold mb-4 text-shadow">赞助贴</h2>
+          <p className="text-white/75 leading-relaxed mb-6">
             {profile.sponsorNote ||
-              "若演示或工具对你有帮助，可通过外链打开收款页 / 扫码赞助。资金用于服务器与开源维护，与站点个人资料、作品 CMS 数据分离。"}
+              "若演示或工具对你有帮助，可通过外链打开收款页 / 扫码赞助。资金用于服务器与开源维护。"}
           </p>
           {hasLink ? (
             <a
@@ -304,28 +297,24 @@ export function Sponsor({ profile }: HeroProps) {
               打开赞助收款页
             </a>
           ) : (
-            <p className="text-sm text-ink-500">
-              管理员可在后台「个人信息」填写赞助外链与收款码。
-            </p>
+            <p className="text-sm text-white/50">后台「个人信息」可填写赞助外链与收款码。</p>
           )}
         </div>
-        <div className="media-panel p-8 flex flex-col items-center justify-center min-h-[280px]">
+        <div className="rounded-2xl bg-white/10 border border-white/15 p-8 flex flex-col items-center justify-center min-h-[240px]">
           {hasQr ? (
             <img
               src={profile.sponsorQr!}
               alt="赞助收款码"
-              className="w-48 h-48 object-contain rounded-2xl bg-white p-3"
+              className="w-44 h-44 object-contain rounded-xl bg-white p-2"
             />
           ) : (
             <>
               <img
                 src="/media/undraw/coffee-time_98vi.svg"
                 alt="unDraw coffee"
-                className="w-48 h-auto mb-4 opacity-90"
+                className="w-40 h-auto mb-3"
               />
-              <p className="text-xs text-ink-500 text-center">
-                暂未配置收款码图片 · 请走外链或后台上传
-              </p>
+              <p className="text-xs text-white/50">暂未配置收款码</p>
             </>
           )}
         </div>
@@ -337,7 +326,6 @@ export function Sponsor({ profile }: HeroProps) {
 export function FeedbackForm() {
   const ref = useRef<HTMLElement>(null);
   useEffect(() => observeAttention(ref.current, "section-feedback"), []);
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -371,20 +359,20 @@ export function FeedbackForm() {
 
   return (
     <section id="feedback" ref={ref} className="section-padding">
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-[0.85fr_1.15fr] gap-14 items-start">
-        <div className="media-panel p-8">
+      <div className="max-w-5xl mx-auto glass-panel rounded-[2rem] p-8 md:p-12 grid md:grid-cols-[0.8fr_1.2fr] gap-10">
+        <div className="rounded-2xl bg-white/10 p-6 flex flex-col justify-center">
           <img
             src="/media/undraw/feedback_ebmx.svg"
             alt="unDraw feedback"
-            className="w-full max-h-56 object-contain"
+            className="w-full max-h-44 object-contain mb-4"
           />
-          <p className="text-sm text-ink-400 mt-6 leading-relaxed">
-            直接说哪里好用、哪里卡住、想加什么能力。后台可逐条查看，不与个人资料字段混写。
+          <p className="text-sm text-white/65 leading-relaxed">
+            直接说哪里好用、哪里卡住。反馈进后台独立表，不覆盖个人资料。
           </p>
         </div>
         <div>
           <p className="eyebrow mb-3">Feedback</p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-6">意见反馈</h2>
+          <h2 className="font-display text-3xl font-bold mb-6 text-shadow">意见反馈</h2>
           <form onSubmit={submit} className="space-y-4">
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
@@ -404,21 +392,20 @@ export function FeedbackForm() {
             <div>
               <label className="label-field">想说的话 *</label>
               <textarea
-                className="input-field min-h-[140px] resize-y"
+                className="input-field min-h-[120px] resize-y"
                 required
                 minLength={4}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="例如：HydroBench 户外台希望增加……"
               />
             </div>
             <div className="flex items-center gap-4">
               <button type="submit" disabled={busy} className="btn-primary disabled:opacity-50">
-                <Icon icon="mdi:send-outline" width={18} />
+                <Icon icon="mdi:send" width={18} />
                 {busy ? "提交中…" : "发送反馈"}
               </button>
-              {status === "ok" && <span className="text-teal-soft text-sm">已收到，谢谢。</span>}
-              {status === "err" && <span className="text-ember text-sm">提交失败，请稍后重试。</span>}
+              {status === "ok" && <span className="text-[#a8e4f5] text-sm">已收到，谢谢。</span>}
+              {status === "err" && <span className="text-[#ff9aab] text-sm">提交失败，请稍后重试。</span>}
             </div>
           </form>
         </div>

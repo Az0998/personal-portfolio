@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db";
 import { Navbar, Footer } from "@/components/Navbar";
+import { SiteBackground } from "@/components/SiteBackground";
 import {
   Hero,
   About,
@@ -42,17 +43,20 @@ export default async function HomePage() {
 
   return (
     <>
+      <SiteBackground />
       <AnalyticsBeacon />
-      <Navbar name={p.name} />
-      <main>
-        <Hero profile={p} />
-        <About profile={p} />
-        <WorksSection works={works} />
-        <Sponsor profile={p} />
-        <FeedbackForm />
-        <Contact profile={p} />
-      </main>
-      <Footer name={p.name} />
+      <div className="relative z-[1] min-h-screen flex flex-col">
+        <Navbar name={p.name} />
+        <main className="flex-1">
+          <Hero profile={p} />
+          <About profile={p} />
+          <WorksSection works={works} />
+          <Sponsor profile={p} />
+          <FeedbackForm />
+          <Contact profile={p} />
+        </main>
+        <Footer name={p.name} />
+      </div>
     </>
   );
 }

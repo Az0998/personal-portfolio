@@ -21,11 +21,9 @@ export function WorksSection({ works }: WorksSectionProps) {
   if (works.length === 0) {
     return (
       <section id="works" className="section-padding">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-            精选<span className="gradient-text">作品</span>
-          </h2>
-          <p className="text-ink-400">暂无作品，请前往后台添加</p>
+        <div className="max-w-5xl mx-auto glass-panel rounded-[2rem] p-10 text-center">
+          <h2 className="font-display text-3xl font-bold mb-3 text-shadow">作品档案</h2>
+          <p className="text-white/60">暂无作品，请前往后台添加</p>
         </div>
       </section>
     );
@@ -35,19 +33,20 @@ export function WorksSection({ works }: WorksSectionProps) {
     <section id="works" className="section-padding">
       <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="glass-panel rounded-[2rem] p-8 md:p-10 mb-8 text-center"
         >
-          <h2 className="font-display text-3xl md:text-5xl font-bold mb-4 text-left">
+          <p className="eyebrow mb-3">Works</p>
+          <h2 className="font-display text-3xl md:text-5xl font-bold mb-3 text-shadow">
             作品档案
           </h2>
-          <p className="text-ink-400 mb-2 max-w-2xl mx-auto">
-            每条介绍写清定位、能力边界与复现路径；点开可见演示舱、步骤与指标。
+          <p className="text-white/70 mb-2 max-w-2xl mx-auto">
+            封面使用 undraw 插画 / Pexels 实拍 / Picsum 占位；点开看定位、能力边界与复现路径。
           </p>
-          <p className="text-ink-500 text-sm mb-8">
-            文案源：仓库 <code className="text-ember-soft">works-content.ts</code> · 推送后 seed 同步
+          <p className="text-white/45 text-sm mb-6">
+            文案源 <code className="text-[#ff9aab]">works-content.ts</code>
           </p>
 
           <div className="flex flex-wrap justify-center gap-2">
@@ -55,10 +54,10 @@ export function WorksSection({ works }: WorksSectionProps) {
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`px-4 py-2 rounded-full text-sm transition-all font-cute ${
+                className={`px-4 py-2 rounded-full text-sm transition-all ${
                   filter === cat
-                    ? "bg-gradient-to-r from-sakura to-aqua text-night"
-                    : "glass text-ink-300 hover:text-white hover:border-sakura/40"
+                    ? "bg-[#e44c65] text-white shadow-sakura"
+                    : "bg-white/10 text-white/75 hover:bg-white/20"
                 }`}
               >
                 {cat === "all"
@@ -70,7 +69,7 @@ export function WorksSection({ works }: WorksSectionProps) {
         </motion.div>
 
         {featured.length > 0 && (
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div className="grid md:grid-cols-2 gap-5 mb-5">
             {featured.map((work, i) => (
               <WorkCard key={work.id} work={work} index={i} large />
             ))}
@@ -78,7 +77,7 @@ export function WorksSection({ works }: WorksSectionProps) {
         )}
 
         {rest.length > 0 && (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {rest.map((work, i) => (
               <WorkCard key={work.id} work={work} index={i + featured.length} />
             ))}

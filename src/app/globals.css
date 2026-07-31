@@ -1,15 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+XiaoWei&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+XiaoWei&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-body: 'DM Sans', 'Noto Sans SC', system-ui, sans-serif;
+  --font-body: 'Noto Sans SC', system-ui, sans-serif;
   --font-display: 'ZCOOL XiaoWei', Georgia, serif;
-  --font-cute: 'DM Sans', 'Noto Sans SC', system-ui, sans-serif;
-  --warm: #e8a06a;
-  --teal: #3d9b8f;
+  --font-cute: 'Noto Sans SC', system-ui, sans-serif;
+  --rose: #e44c65;
+  --rose-soft: #ff7a90;
+  --warm-glow: rgba(245, 174, 115, 0.55);
 }
 
 html {
@@ -17,80 +18,127 @@ html {
 }
 
 body {
-  @apply bg-night text-ink-100 antialiased;
-  background-image:
-    radial-gradient(ellipse 70% 50% at 8% -5%, rgba(232, 160, 106, 0.14), transparent 55%),
-    radial-gradient(ellipse 55% 45% at 95% 5%, rgba(61, 155, 143, 0.12), transparent 50%),
-    linear-gradient(180deg, #0e1114 0%, #12171c 50%, #0e1114 100%);
-  background-attachment: fixed;
+  @apply text-white antialiased;
+  font-family: var(--font-body);
+  background: #1a1218;
+  min-height: 100vh;
 }
 
 ::selection {
-  @apply bg-ember/40 text-white;
+  background: rgba(228, 76, 101, 0.45);
+  color: #fff;
+}
+
+/* —— 一图流背景（对齐 dayabolg） —— */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.site-bg-image {
+  position: absolute;
+  inset: 0;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  transform: scale(1.02);
+}
+.site-bg-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(20, 12, 18, 0.35) 0%, rgba(20, 12, 18, 0.55) 45%, rgba(20, 12, 18, 0.78) 100%),
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(228, 76, 101, 0.12), transparent 60%);
+}
+
+.text-shadow {
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55), 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 @layer components {
   .glass {
-    @apply bg-white/[0.04] backdrop-blur-xl border border-white/[0.08];
+    @apply bg-white/10 backdrop-blur-md border border-white/15;
+  }
+
+  .glass-panel {
+    @apply bg-white/[0.12] backdrop-blur-xl border border-white/20 shadow-xl;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   }
 
   .glass-sakura {
-    @apply bg-ember/10 backdrop-blur-xl border border-ember/25;
+    @apply bg-[#e44c65]/20 backdrop-blur-md border border-[#e44c65]/35;
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-ember-soft via-ink-100 to-teal-soft bg-clip-text text-transparent;
+    background: linear-gradient(90deg, #ffb3c1, #fff, #ffd6a8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   .section-padding {
-    @apply px-6 md:px-12 lg:px-28 py-24 md:py-32;
+    @apply relative z-[1] px-5 md:px-10 lg:px-20 py-16 md:py-24;
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3
-           bg-gradient-to-r from-ember to-ember-deep
-           text-night font-semibold rounded-2xl transition-all duration-300
-           hover:shadow-sakura hover:-translate-y-0.5;
+    @apply inline-flex items-center gap-2 px-5 py-2.5
+           rounded-full font-medium text-white transition-all duration-300;
+    background: linear-gradient(135deg, #e44c65, #c73a52);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(228, 76, 101, 0.45);
   }
 
   .btn-outline {
-    @apply inline-flex items-center gap-2 px-6 py-3 border border-white/15
-           hover:border-ember hover:text-ember-soft rounded-2xl font-medium
-           transition-all duration-300;
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium
+           text-white/90 border border-white/30 bg-white/10 backdrop-blur-sm
+           transition-all duration-300 hover:border-[#e44c65] hover:text-[#ff7a90] hover:bg-[#e44c65]/15;
   }
 
   .input-field {
-    @apply w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl
-           text-white placeholder:text-ink-400 focus:outline-none focus:border-ember/50
-           focus:ring-1 focus:ring-ember/30 transition-colors;
+    @apply w-full px-4 py-3 rounded-2xl text-white placeholder:text-white/40
+           bg-white/10 border border-white/20 backdrop-blur-md
+           focus:outline-none focus:border-[#e44c65]/60 focus:ring-1 focus:ring-[#e44c65]/40 transition-colors;
   }
 
   .label-field {
-    @apply block text-sm font-medium text-ink-300 mb-1.5;
+    @apply block text-sm font-medium text-white/70 mb-1.5;
   }
 
   .anime-card {
-    @apply relative overflow-hidden rounded-3xl glass
-           transition-all duration-500 hover:border-ember/35 hover:shadow-soft;
+    @apply relative overflow-hidden rounded-3xl glass-panel
+           transition-all duration-500 hover:border-[#e44c65]/40 hover:-translate-y-1;
+  }
+
+  .nav-pill {
+    @apply flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2
+           text-sm text-white/80 transition-colors hover:text-[#e44c65];
+  }
+  .nav-pill-active {
+    @apply bg-[#e44c65]/30 text-white;
   }
 
   .metric-bar {
-    @apply h-2.5 rounded-full bg-white/10 overflow-hidden;
+    @apply h-2.5 rounded-full bg-white/15 overflow-hidden;
   }
 
   .metric-bar-fill {
-    @apply h-full rounded-full bg-gradient-to-r from-teal to-ember;
+    @apply h-full rounded-full;
+    background: linear-gradient(90deg, #5ec8e8, #e44c65);
   }
 
   .prose-anime {
-    @apply max-w-none text-ink-200 leading-relaxed text-lg;
+    @apply max-w-none text-white/85 leading-relaxed text-lg;
   }
 
   .prose-anime h1,
   .prose-anime h2,
   .prose-anime h3,
   .prose-anime h4 {
-    @apply font-display text-ember-soft font-bold mt-8 mb-4;
+    @apply font-display text-[#ffb3c1] font-bold mt-8 mb-4;
   }
 
   .prose-anime h1 { @apply text-3xl; }
@@ -98,25 +146,25 @@ body {
   .prose-anime h3 { @apply text-xl; }
 
   .prose-anime p { @apply mb-4; }
-  .prose-anime a { @apply text-teal-soft underline-offset-2 hover:underline; }
+  .prose-anime a { @apply text-[#ff9aab] underline-offset-2 hover:underline; }
   .prose-anime strong { @apply text-white font-semibold; }
-  .prose-anime code { @apply text-ember-soft text-sm bg-white/5 px-1.5 py-0.5 rounded; }
-  .prose-anime pre { @apply bg-night-card border border-white/10 rounded-xl p-4 overflow-x-auto mb-4 text-sm; }
+  .prose-anime code { @apply text-[#ffb3c1] text-sm bg-black/30 px-1.5 py-0.5 rounded; }
+  .prose-anime pre { @apply bg-black/40 border border-white/10 rounded-xl p-4 overflow-x-auto mb-4 text-sm; }
   .prose-anime pre code { @apply bg-transparent p-0; }
   .prose-anime ul { @apply list-disc pl-6 mb-4 space-y-2; }
   .prose-anime ol { @apply list-decimal pl-6 mb-4 space-y-2; }
-  .prose-anime blockquote { @apply border-l-4 border-ember/40 pl-4 italic text-ink-300 mb-4; }
+  .prose-anime blockquote { @apply border-l-4 border-[#e44c65]/50 pl-4 italic text-white/70 mb-4; }
   .prose-anime table { @apply w-full text-sm mb-6 border-collapse; }
-  .prose-anime th { @apply text-left border-b border-white/20 py-2 text-ember-soft; }
+  .prose-anime th { @apply text-left border-b border-white/20 py-2 text-[#ffb3c1]; }
   .prose-anime td { @apply border-b border-white/10 py-2; }
-  .prose-anime hr { @apply border-white/10 my-8; }
+  .prose-anime hr { @apply border-white/15 my-8; }
 
   .media-panel {
-    @apply relative overflow-hidden rounded-[2rem] border border-white/10 bg-night-card;
+    @apply relative overflow-hidden rounded-[2rem] glass-panel;
   }
 
   .eyebrow {
-    @apply text-xs tracking-[0.22em] uppercase text-ember-soft font-semibold;
+    @apply text-xs tracking-[0.22em] uppercase text-[#ff9aab] font-semibold;
   }
 }
 
@@ -127,8 +175,6 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-ink-700 rounded-full;
-}
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-ember/50;
+  background: rgba(228, 76, 101, 0.45);
+  border-radius: 999px;
 }

@@ -9,53 +9,57 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // 深炭 + 暖琥珀点缀（科技但不冰冷）
-        ink: {
-          50: "#f7f4ef",
-          100: "#ebe4d8",
-          200: "#d4c8b4",
-          300: "#b3a48c",
-          400: "#8f816c",
-          500: "#746857",
-          600: "#5c5246",
-          700: "#463f37",
-          800: "#312c27",
-          900: "#1f1c19",
-          950: "#12100e",
+        rose: {
+          DEFAULT: "#e44c65",
+          soft: "#ff7a90",
+          deep: "#c73a52",
         },
-        ember: {
-          DEFAULT: "#e8a06a",
-          soft: "#f0c29a",
-          deep: "#c8783f",
-          glow: "#ffb37a",
-        },
-        teal: {
-          DEFAULT: "#3d9b8f",
-          soft: "#7ec4bb",
-          deep: "#2a6f67",
-        },
-        night: {
-          DEFAULT: "#0e1114",
-          card: "#161b20",
-          mist: "#1e262d",
-          lift: "#242d36",
-        },
-        // 兼容旧类名 → 映射到新色板
+        // 兼容旧类名
         sakura: {
-          DEFAULT: "#e8a06a",
-          soft: "#f0c29a",
-          deep: "#c8783f",
-          glow: "#ffb37a",
+          DEFAULT: "#e44c65",
+          soft: "#ff7a90",
+          deep: "#c73a52",
+          glow: "#ff9aab",
         },
         aqua: {
-          DEFAULT: "#3d9b8f",
-          soft: "#7ec4bb",
-          deep: "#2a6f67",
+          DEFAULT: "#5ec8e8",
+          soft: "#a8e4f5",
+          deep: "#2a9fc4",
+        },
+        ember: {
+          DEFAULT: "#e44c65",
+          soft: "#ff7a90",
+          deep: "#c73a52",
+          glow: "#ff9aab",
+        },
+        teal: {
+          DEFAULT: "#5ec8e8",
+          soft: "#a8e4f5",
+          deep: "#2a9fc4",
+        },
+        ink: {
+          50: "#fff5f7",
+          100: "#ffe4ea",
+          200: "#ffc2d0",
+          300: "#e8b0bc",
+          400: "#c49aa6",
+          500: "#9a7884",
+          600: "#735860",
+          700: "#4d3a40",
+          800: "#2e2226",
+          900: "#1a1218",
+          950: "#120c10",
+        },
+        night: {
+          DEFAULT: "#1a1218",
+          card: "rgba(255,255,255,0.12)",
+          mist: "rgba(255,255,255,0.08)",
+          lift: "rgba(255,255,255,0.16)",
         },
         accent: {
-          DEFAULT: "#e8a06a",
-          light: "#f0c29a",
-          dark: "#c8783f",
+          DEFAULT: "#e44c65",
+          light: "#ff7a90",
+          dark: "#c73a52",
         },
       },
       fontFamily: {
@@ -64,9 +68,10 @@ const config: Config = {
         cute: ["var(--font-cute)", "system-ui", "sans-serif"],
       },
       boxShadow: {
-        sakura: "0 0 40px rgba(232, 160, 106, 0.22)",
-        aqua: "0 0 40px rgba(61, 155, 143, 0.18)",
-        soft: "0 24px 60px rgba(0, 0, 0, 0.35)",
+        sakura: "0 8px 28px rgba(228, 76, 101, 0.4)",
+        aqua: "0 8px 28px rgba(94, 200, 232, 0.25)",
+        soft: "0 16px 40px rgba(0, 0, 0, 0.35)",
+        avatar: "1rem 0.25rem 1.25rem rgba(245, 174, 115, 0.55)",
       },
       animation: {
         "fade-up": "fadeUp 0.6s ease-out forwards",
