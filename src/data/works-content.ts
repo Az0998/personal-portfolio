@@ -48,6 +48,46 @@ export const worksContent: WorkSeed[] = [
 `,
   },
   {
+    title: "Graph-RAG Vault · 知识图谱检索",
+    description:
+      "Obsidian 式双向链接笔记 × Graph-RAG：TF-IDF 种子检索、1-hop 邻居扩展、关系图高亮出处；可对比纯向量模式。挂载 /graph-rag。",
+    category: "demo",
+    tags: "RAG,知识图谱,Obsidian,检索,TF-IDF,前端演示",
+    featured: true,
+    published: true,
+    sortOrder: 9,
+    link: "/graph-rag",
+    github: "https://github.com/Az0998/deep-learning/tree/master/code/graph-rag-vault",
+    content: `## 一句话
+
+把 Obsidian 的「原子笔记 + 双向链接 + 关系图」与 RAG 检索增强合在一起：提问时先找相似种子，再沿链接扩邻居，并在图上高亮出处。
+
+## 在线打开
+
+[打开 Graph-RAG Vault](/graph-rag)
+
+> 不在顶栏占位，从本作品详情进入即可。检索在浏览器内完成，无需后端。
+
+## 能体验什么
+
+- **Graph-RAG / 纯向量** 一键切换对比
+- 力导向**关系图**：种子亮绿、邻居亮蓝
+- 引用卡片显示分数与「经由」路径
+- 笔记库筛选与 Markdown 预览
+
+## 本地跑（Python）
+
+\`\`\`bash
+cd code/graph-rag-vault
+pip install -r requirements.txt
+python scripts/export_vault.py
+python -m src.app
+\`\`\`
+
+浏览器访问 \`http://127.0.0.1:5055\`
+`,
+  },
+  {
     title: "易理占筮 · 太极八卦六十四阵",
     description:
       "周易象数学习站：一事一占、天时地利人和、六爻与梅花多算法、体用生克与朱熹动爻玩辞；黑白动态卦阵背景。挂载 /yili。",

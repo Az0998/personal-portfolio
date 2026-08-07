@@ -1,0 +1,680 @@
+{
+  "notes": [
+    {
+      "id": "Embedding",
+      "title": "Embedding",
+      "body": "# Embedding\n\nEmbedding 把文本映射到稠密向量空间：语义相近的句子，向量距离更近。\n\n## 在 RAG 中的角色\n\n问题与笔记块都编码成向量后，用余弦相似度等完成 [[向量检索]]。本 demo 用 TF-IDF 近似「稀疏向量检索」，不下载大模型也能跑通 [[RAG]] 流程。\n\n稠密 embedding 更擅长同义改写；图谱边（[[双向链接]]）则补偿「用词不同、主题相邻」的情况——这正是 [[Graph-RAG]] 的动机。\n\n标签：#技术 #向量\n",
+      "links": [
+        "向量检索",
+        "RAG",
+        "双向链接",
+        "Graph-RAG"
+      ],
+      "tags": [
+        "向量"
+      ],
+      "resolved_links": [
+        "向量检索",
+        "RAG",
+        "双向链接",
+        "Graph-RAG"
+      ]
+    },
+    {
+      "id": "Graph-RAG",
+      "title": "Graph-RAG",
+      "body": "# Graph-RAG\n\nGraph-RAG 把 [[关系图]] 与 [[RAG]] 结合：先用文本相似找到种子笔记，再沿 [[双向链接]] 扩展邻居，最后重排并拼上下文回答。\n\n## 本 demo 的公式\n\n`score = similarity + λ·link_bonus + μ·centrality_bonus`\n\n- **similarity**：TF-IDF 余弦（近似 [[向量检索]]）  \n- **link_bonus**：是否为种子的 1-hop 邻居  \n- **centrality_bonus**：度中心性，略抬高枢纽概念  \n\n回答仍要标注出处，对抗 [[引用与幻觉]]。理念侧对照 [[原子笔记]]、[[本地优先]]；总览 [[Home]]。\n\n标签：#合流 #检索\n",
+      "links": [
+        "关系图",
+        "RAG",
+        "双向链接",
+        "向量检索",
+        "引用与幻觉",
+        "原子笔记",
+        "本地优先",
+        "Home"
+      ],
+      "tags": [
+        "检索"
+      ],
+      "resolved_links": [
+        "关系图",
+        "RAG",
+        "双向链接",
+        "向量检索",
+        "引用与幻觉",
+        "原子笔记",
+        "本地优先",
+        "Home"
+      ]
+    },
+    {
+      "id": "Home",
+      "title": "Home",
+      "body": "# Home\n\n这是本知识库的入口。知识不以文件夹树为主，而以 [[双向链接]] 织成 [[关系图]]。\n\n## 两条线索\n\n- **笔记理念**：[[原子笔记]]、[[双向链接]]、[[关系图]]、[[本地优先]]\n- **检索技术**：[[RAG]]、[[分块]]、[[Embedding]]、[[向量检索]]\n\n二者在 [[Graph-RAG]] 汇合：提问时既看文本相似，也顺着链接邻居扩展。回答时留意 [[引用与幻觉]]。\n\n标签：#入口 #图谱\n",
+      "links": [
+        "双向链接",
+        "关系图",
+        "原子笔记",
+        "本地优先",
+        "RAG",
+        "分块",
+        "Embedding",
+        "向量检索",
+        "Graph-RAG",
+        "引用与幻觉"
+      ],
+      "tags": [
+        "图谱"
+      ],
+      "resolved_links": [
+        "双向链接",
+        "关系图",
+        "原子笔记",
+        "本地优先",
+        "RAG",
+        "分块",
+        "Embedding",
+        "向量检索",
+        "Graph-RAG",
+        "引用与幻觉"
+      ]
+    },
+    {
+      "id": "RAG",
+      "title": "RAG",
+      "body": "# RAG\n\nRAG（Retrieval-Augmented Generation，检索增强生成）在回答前先从外部知识库取出相关片段，再交给生成模型，降低幻觉并接入私有资料。\n\n## 流水线\n\n1. [[分块]]：把文档切成可检索单元  \n2. [[Embedding]]：把文本变成向量  \n3. [[向量检索]]：按问题相似度取 top-k  \n4. 生成：把片段当作上下文写答案，并做好 [[引用与幻觉]] 管理  \n\nObsidian 式 [[原子笔记]] 很适合当 RAG 语料。若再加上链接扩展，就进入 [[Graph-RAG]]。入口见 [[Home]]。\n\n标签：#技术 #检索\n",
+      "links": [
+        "分块",
+        "Embedding",
+        "向量检索",
+        "引用与幻觉",
+        "原子笔记",
+        "Graph-RAG",
+        "Home"
+      ],
+      "tags": [
+        "检索"
+      ],
+      "resolved_links": [
+        "分块",
+        "Embedding",
+        "向量检索",
+        "引用与幻觉",
+        "原子笔记",
+        "Graph-RAG",
+        "Home"
+      ]
+    },
+    {
+      "id": "关系图",
+      "title": "关系图",
+      "body": "# 关系图\n\n关系图把笔记画成节点、把 [[双向链接]] 画成边。力导向布局让高度连接的枢纽聚在中心，孤立笔记漂在外围。\n\n## 怎么读图\n\n- **枢纽**：被多方引用的概念（如 [[RAG]]、[[双向链接]]）\n- **群落**：理念簇与技术簇往往自然分开，再由 [[Graph-RAG]] 等桥接节点连起来\n- **孤儿**：没有链接的笔记——提醒你补边，而不是再开新文件夹\n\n关系图是导航，也是结构体检。回到 [[Home]] 可总览两条线索。\n\n标签：#理念 #可视化\n",
+      "links": [
+        "双向链接",
+        "RAG",
+        "Graph-RAG",
+        "Home"
+      ],
+      "tags": [
+        "可视化"
+      ],
+      "resolved_links": [
+        "双向链接",
+        "RAG",
+        "Graph-RAG",
+        "Home"
+      ]
+    },
+    {
+      "id": "分块",
+      "title": "分块",
+      "body": "# 分块\n\n分块（chunking）把长文档切成适合检索的小段。块太大则噪声多，太小则上下文碎。\n\n## 常见策略\n\n- 固定长度 + 重叠窗口  \n- 按标题 / 段落语义切  \n- 直接以 [[原子笔记]] 为块——本 demo 采用后者，简单且对齐笔记理念  \n\n分块质量会直接影响 [[向量检索]] 与 [[RAG]] 答案。桥接到图结构时见 [[Graph-RAG]]。\n\n标签：#技术 #预处理\n",
+      "links": [
+        "原子笔记",
+        "向量检索",
+        "RAG",
+        "Graph-RAG"
+      ],
+      "tags": [
+        "预处理"
+      ],
+      "resolved_links": [
+        "原子笔记",
+        "向量检索",
+        "RAG",
+        "Graph-RAG"
+      ]
+    },
+    {
+      "id": "原子笔记",
+      "title": "原子笔记",
+      "body": "# 原子笔记\n\n原子笔记主张「一笔记一事」：每个文件只承载一个清晰想法，便于链接与复用。\n\n## 为什么重要\n\n- 过长的综合文档难检索、难链接；原子化后，[[向量检索]] 更容易命中精确段落。\n- 与 [[双向链接]] 配合：小节点 + 多边，[[关系图]] 才有可读结构。\n- 写 [[RAG]] 知识库时，原子笔记等于天然分块，可减少粗暴 [[分块]] 带来的语义断裂。\n\n来自 [[Home]] 的理念簇；可对照 [[本地优先]] 理解「笔记即资产」。\n\n标签：#理念 #笔记\n",
+      "links": [
+        "向量检索",
+        "双向链接",
+        "关系图",
+        "RAG",
+        "分块",
+        "Home",
+        "本地优先"
+      ],
+      "tags": [
+        "笔记"
+      ],
+      "resolved_links": [
+        "向量检索",
+        "双向链接",
+        "关系图",
+        "RAG",
+        "分块",
+        "Home",
+        "本地优先"
+      ]
+    },
+    {
+      "id": "双向链接",
+      "title": "双向链接",
+      "body": "# 双向链接\n\n双向链接用 `[[笔记名]]` 连接两篇笔记。Obsidian 会同时记录「我链向谁」与「谁链向我」，形成可回溯的网。\n\n## 与文件夹的差别\n\n文件夹是树：父→子。双向链接是图：任意节点可互通。同一篇 [[原子笔记]] 可同时属于多个主题群落。\n\n## 对检索的意义\n\n链接是显式的语义边。[[Graph-RAG]] 在 TF-IDF / [[Embedding]] 找到种子后，沿这些边做 1-hop 扩展，能捞到「用词不同但主题相邻」的笔记。\n\n另见 [[关系图]]、[[Home]]。\n\n标签：#理念 #链接\n",
+      "links": [
+        "笔记名",
+        "原子笔记",
+        "Graph-RAG",
+        "Embedding",
+        "关系图",
+        "Home"
+      ],
+      "tags": [
+        "链接"
+      ],
+      "resolved_links": [
+        "原子笔记",
+        "Graph-RAG",
+        "Embedding",
+        "关系图",
+        "Home"
+      ]
+    },
+    {
+      "id": "向量检索",
+      "title": "向量检索",
+      "body": "# 向量检索\n\n向量检索根据查询与文档块的向量相似度返回候选。常见库：FAISS、Chroma、Qdrant；本项目用 scikit-learn 的 TF-IDF + 余弦相似度做轻量替代。\n\n## 局限\n\n- 只看文本相似，可能漏掉链接邻居里的关键背景  \n- 同义词、概念跳转依赖 embedding 质量  \n\n因此 [[Graph-RAG]] 在种子命中后，沿 [[双向链接]] 扩 1-hop，再重排。上游见 [[Embedding]]、[[分块]]、[[RAG]]。\n\n标签：#技术 #检索\n",
+      "links": [
+        "Graph-RAG",
+        "双向链接",
+        "Embedding",
+        "分块",
+        "RAG"
+      ],
+      "tags": [
+        "检索"
+      ],
+      "resolved_links": [
+        "Graph-RAG",
+        "双向链接",
+        "Embedding",
+        "分块",
+        "RAG"
+      ]
+    },
+    {
+      "id": "引用与幻觉",
+      "title": "引用与幻觉",
+      "body": "# 引用与幻觉\n\n大模型可能编造事实（幻觉）。[[RAG]] 用检索片段约束回答，但若片段无关或拼错，幻觉仍会出现。\n\n## 实践要点\n\n- 答案旁列出引用笔记标题与关键句  \n- 图谱高亮命中节点，让人一眼核对「模型是否真的读过这些笔记」  \n- [[Graph-RAG]] 扩展邻居时要降权，避免枢纽节点淹没真正相关的叶子  \n\n从 [[RAG]] 与 [[Graph-RAG]] 出发的质量护栏；理念上呼应可追溯的 [[双向链接]]。\n\n标签：#技术 #质量\n",
+      "links": [
+        "RAG",
+        "Graph-RAG",
+        "双向链接"
+      ],
+      "tags": [
+        "质量"
+      ],
+      "resolved_links": [
+        "RAG",
+        "Graph-RAG",
+        "双向链接"
+      ]
+    },
+    {
+      "id": "本地优先",
+      "title": "本地优先",
+      "body": "# 本地优先\n\n本地优先：笔记以普通 Markdown 文件存在本机，工具可读可写，数据不锁在云端专有格式里。\n\n## 与 Obsidian / RAG\n\n- Obsidian 库可以直接当 [[RAG]] 的语料：路径清晰、可版本管理。\n- 隐私与可迁移性更好；[[Embedding]] 与索引也可本地构建。\n- 配合 [[原子笔记]]，库即知识资产，而非某一 SaaS 的附属品。\n\n从 [[Home]] 出发的理念簇终点之一；技术侧见 [[向量检索]]。\n\n标签：#理念 #本地\n",
+      "links": [
+        "RAG",
+        "Embedding",
+        "原子笔记",
+        "Home",
+        "向量检索"
+      ],
+      "tags": [
+        "本地"
+      ],
+      "resolved_links": [
+        "RAG",
+        "Embedding",
+        "原子笔记",
+        "Home",
+        "向量检索"
+      ]
+    }
+  ],
+  "graph": {
+    "nodes": [
+      {
+        "id": "Embedding",
+        "label": "Embedding",
+        "tags": [
+          "向量"
+        ],
+        "degree": 6,
+        "centrality": 0.6
+      },
+      {
+        "id": "Graph-RAG",
+        "label": "Graph-RAG",
+        "tags": [
+          "检索"
+        ],
+        "degree": 10,
+        "centrality": 1.0
+      },
+      {
+        "id": "Home",
+        "label": "Home",
+        "tags": [
+          "图谱"
+        ],
+        "degree": 10,
+        "centrality": 1.0
+      },
+      {
+        "id": "RAG",
+        "label": "RAG",
+        "tags": [
+          "检索"
+        ],
+        "degree": 9,
+        "centrality": 0.9
+      },
+      {
+        "id": "关系图",
+        "label": "关系图",
+        "tags": [
+          "可视化"
+        ],
+        "degree": 5,
+        "centrality": 0.5
+      },
+      {
+        "id": "分块",
+        "label": "分块",
+        "tags": [
+          "预处理"
+        ],
+        "degree": 5,
+        "centrality": 0.5
+      },
+      {
+        "id": "原子笔记",
+        "label": "原子笔记",
+        "tags": [
+          "笔记"
+        ],
+        "degree": 8,
+        "centrality": 0.8
+      },
+      {
+        "id": "双向链接",
+        "label": "双向链接",
+        "tags": [
+          "链接"
+        ],
+        "degree": 7,
+        "centrality": 0.7
+      },
+      {
+        "id": "向量检索",
+        "label": "向量检索",
+        "tags": [
+          "检索"
+        ],
+        "degree": 8,
+        "centrality": 0.8
+      },
+      {
+        "id": "引用与幻觉",
+        "label": "引用与幻觉",
+        "tags": [
+          "质量"
+        ],
+        "degree": 4,
+        "centrality": 0.4
+      },
+      {
+        "id": "本地优先",
+        "label": "本地优先",
+        "tags": [
+          "本地"
+        ],
+        "degree": 6,
+        "centrality": 0.6
+      }
+    ],
+    "edges": [
+      {
+        "from": "Embedding",
+        "to": "向量检索"
+      },
+      {
+        "from": "Embedding",
+        "to": "RAG"
+      },
+      {
+        "from": "Embedding",
+        "to": "双向链接"
+      },
+      {
+        "from": "Embedding",
+        "to": "Graph-RAG"
+      },
+      {
+        "from": "Embedding",
+        "to": "Home"
+      },
+      {
+        "from": "Embedding",
+        "to": "本地优先"
+      },
+      {
+        "from": "Graph-RAG",
+        "to": "关系图"
+      },
+      {
+        "from": "Graph-RAG",
+        "to": "RAG"
+      },
+      {
+        "from": "Graph-RAG",
+        "to": "双向链接"
+      },
+      {
+        "from": "Graph-RAG",
+        "to": "向量检索"
+      },
+      {
+        "from": "Graph-RAG",
+        "to": "引用与幻觉"
+      },
+      {
+        "from": "Graph-RAG",
+        "to": "原子笔记"
+      },
+      {
+        "from": "Graph-RAG",
+        "to": "本地优先"
+      },
+      {
+        "from": "Graph-RAG",
+        "to": "Home"
+      },
+      {
+        "from": "Graph-RAG",
+        "to": "分块"
+      },
+      {
+        "from": "Home",
+        "to": "双向链接"
+      },
+      {
+        "from": "Home",
+        "to": "关系图"
+      },
+      {
+        "from": "Home",
+        "to": "原子笔记"
+      },
+      {
+        "from": "Home",
+        "to": "本地优先"
+      },
+      {
+        "from": "Home",
+        "to": "RAG"
+      },
+      {
+        "from": "Home",
+        "to": "分块"
+      },
+      {
+        "from": "Home",
+        "to": "向量检索"
+      },
+      {
+        "from": "Home",
+        "to": "引用与幻觉"
+      },
+      {
+        "from": "RAG",
+        "to": "分块"
+      },
+      {
+        "from": "RAG",
+        "to": "向量检索"
+      },
+      {
+        "from": "RAG",
+        "to": "引用与幻觉"
+      },
+      {
+        "from": "RAG",
+        "to": "原子笔记"
+      },
+      {
+        "from": "RAG",
+        "to": "关系图"
+      },
+      {
+        "from": "RAG",
+        "to": "本地优先"
+      },
+      {
+        "from": "关系图",
+        "to": "双向链接"
+      },
+      {
+        "from": "关系图",
+        "to": "原子笔记"
+      },
+      {
+        "from": "分块",
+        "to": "原子笔记"
+      },
+      {
+        "from": "分块",
+        "to": "向量检索"
+      },
+      {
+        "from": "原子笔记",
+        "to": "向量检索"
+      },
+      {
+        "from": "原子笔记",
+        "to": "双向链接"
+      },
+      {
+        "from": "原子笔记",
+        "to": "本地优先"
+      },
+      {
+        "from": "双向链接",
+        "to": "向量检索"
+      },
+      {
+        "from": "双向链接",
+        "to": "引用与幻觉"
+      },
+      {
+        "from": "向量检索",
+        "to": "本地优先"
+      }
+    ]
+  },
+  "resolved_edges": [
+    {
+      "from": "Embedding",
+      "to": "向量检索"
+    },
+    {
+      "from": "Embedding",
+      "to": "RAG"
+    },
+    {
+      "from": "Embedding",
+      "to": "双向链接"
+    },
+    {
+      "from": "Embedding",
+      "to": "Graph-RAG"
+    },
+    {
+      "from": "Embedding",
+      "to": "Home"
+    },
+    {
+      "from": "Embedding",
+      "to": "本地优先"
+    },
+    {
+      "from": "Graph-RAG",
+      "to": "关系图"
+    },
+    {
+      "from": "Graph-RAG",
+      "to": "RAG"
+    },
+    {
+      "from": "Graph-RAG",
+      "to": "双向链接"
+    },
+    {
+      "from": "Graph-RAG",
+      "to": "向量检索"
+    },
+    {
+      "from": "Graph-RAG",
+      "to": "引用与幻觉"
+    },
+    {
+      "from": "Graph-RAG",
+      "to": "原子笔记"
+    },
+    {
+      "from": "Graph-RAG",
+      "to": "本地优先"
+    },
+    {
+      "from": "Graph-RAG",
+      "to": "Home"
+    },
+    {
+      "from": "Graph-RAG",
+      "to": "分块"
+    },
+    {
+      "from": "Home",
+      "to": "双向链接"
+    },
+    {
+      "from": "Home",
+      "to": "关系图"
+    },
+    {
+      "from": "Home",
+      "to": "原子笔记"
+    },
+    {
+      "from": "Home",
+      "to": "本地优先"
+    },
+    {
+      "from": "Home",
+      "to": "RAG"
+    },
+    {
+      "from": "Home",
+      "to": "分块"
+    },
+    {
+      "from": "Home",
+      "to": "向量检索"
+    },
+    {
+      "from": "Home",
+      "to": "引用与幻觉"
+    },
+    {
+      "from": "RAG",
+      "to": "分块"
+    },
+    {
+      "from": "RAG",
+      "to": "向量检索"
+    },
+    {
+      "from": "RAG",
+      "to": "引用与幻觉"
+    },
+    {
+      "from": "RAG",
+      "to": "原子笔记"
+    },
+    {
+      "from": "RAG",
+      "to": "关系图"
+    },
+    {
+      "from": "RAG",
+      "to": "本地优先"
+    },
+    {
+      "from": "关系图",
+      "to": "双向链接"
+    },
+    {
+      "from": "关系图",
+      "to": "原子笔记"
+    },
+    {
+      "from": "分块",
+      "to": "原子笔记"
+    },
+    {
+      "from": "分块",
+      "to": "向量检索"
+    },
+    {
+      "from": "原子笔记",
+      "to": "向量检索"
+    },
+    {
+      "from": "原子笔记",
+      "to": "双向链接"
+    },
+    {
+      "from": "原子笔记",
+      "to": "本地优先"
+    },
+    {
+      "from": "双向链接",
+      "to": "向量检索"
+    },
+    {
+      "from": "双向链接",
+      "to": "引用与幻觉"
+    },
+    {
+      "from": "向量检索",
+      "to": "本地优先"
+    }
+  ]
+}

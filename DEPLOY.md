@@ -23,6 +23,7 @@
 - `/temp-files` — 临时文件柜
 - `/novel-studio` — Novel Studio（作品进入）
 - `/yili` — 易理占筮（作品进入）
+- `/graph-rag` — Graph-RAG Vault（作品进入）
 
 ### 数据 / 缓存分层（勿混用）
 
@@ -34,6 +35,7 @@
 | 临时文件柜 | SQLite 元数据 + **Cloudflare R2**（未配则本机磁盘） | 浏览器预签名直传；见第六节 |
 | HydroBench | `localStorage` `hydrobench:*` | 不上云 |
 | Novel Studio | `novel-studio-web-demo-v1` | 不上云 |
+| Graph-RAG | `public/graph-rag/*` | 静态包（浏览器内检索） |
 | HydroInfo | `public/hydro/*.json` | 静态包 |
 
 > Render Free 实例**整盘重部署**仍可能重置 SQLite 文件本身。若需跨部署永久保留，请把 `DATABASE_URL` 换到 [Turso](https://turso.tech) / Neon，或挂付费持久盘。代码层已保证「版本同步」不会抹掉后台内容。
