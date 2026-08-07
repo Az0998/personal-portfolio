@@ -324,7 +324,7 @@ python run_ablation.py
     featured: false,
     published: true,
     sortOrder: 12,
-    github: "https://github.com/Az0998/deep-learning/tree/master/code/fanqie-novel/novel-studio",
+    github: "https://github.com/Az0998/novel-studio",
     link: "/novel-studio",
     content: `## 一句话
 
@@ -334,7 +334,7 @@ python run_ablation.py
 
 [打开 Novel Studio 演示](/novel-studio)
 
-源码：[fanqie-novel/novel-studio](https://github.com/Az0998/deep-learning/tree/master/code/fanqie-novel/novel-studio)
+源码：[github.com/Az0998/novel-studio](https://github.com/Az0998/novel-studio) · Agent 引擎在 [deep-learning/fanqie-novel/automation](https://github.com/Az0998/deep-learning/tree/master/code/fanqie-novel/automation)
 
 > 不在顶栏占位，从本作品详情进入即可。
 
@@ -347,12 +347,17 @@ python run_ablation.py
 ## 本地
 
 \`\`\`bash
-cd code/fanqie-novel/automation
-python scripts/write_novel.py --slug <slug> --chapter 1 --agentic
-
-cd ../novel-studio
+git clone https://github.com/Az0998/novel-studio.git
+cd novel-studio
 pip install -r requirements-saas.txt
 uvicorn saas.app.main:app --port 8787
+\`\`\`
+
+写作 Agent（需 monorepo automation）：
+
+\`\`\`bash
+cd code/fanqie-novel/automation
+python scripts/write_novel.py --slug <slug> --chapter 1 --agentic
 \`\`\`
 
 ## 定位
