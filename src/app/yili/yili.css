@@ -3,7 +3,8 @@
   display: flex;
   flex-direction: column;
   background: #050506;
-  color: #eee;
+  color: #ececec;
+  font-family: "Noto Serif SC", "Songti SC", serif;
 }
 
 .yili-top {
@@ -12,19 +13,22 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 10px 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.85);
+  padding: 8px 14px;
+  padding-top: max(8px, env(safe-area-inset-top));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(5, 5, 6, 0.92);
   backdrop-filter: blur(10px);
   z-index: 2;
 }
 
 .yili-back,
 .yili-open {
-  color: #bbb;
+  color: #9a9a9a;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
   white-space: nowrap;
+  transition: color 0.15s ease;
 }
 
 .yili-back:hover,
@@ -32,40 +36,17 @@
   color: #fff;
 }
 
-.yili-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-}
-
-.yili-mark {
-  font-size: 1.4rem;
-}
-
-.yili-title {
-  font-weight: 700;
-  letter-spacing: 0.12em;
-}
-
-.yili-sub {
-  font-size: 0.75rem;
-  color: #888;
-}
-
 .yili-frame {
   flex: 1;
   width: 100%;
   border: 0;
-  min-height: calc(100dvh - 56px);
+  min-height: calc(100dvh - 42px);
   background: #050506;
 }
 
-@media (max-width: 640px) {
-  .yili-sub {
-    display: none;
+@media (prefers-reduced-motion: reduce) {
+  .yili-back,
+  .yili-open {
+    transition: none;
   }
 }
-
-@media (prefers-reduced-motion: reduce) { .yili-root * { scroll-behavior: auto; } }
-

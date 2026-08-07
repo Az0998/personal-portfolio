@@ -9,6 +9,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function () {
+      var q = new URLSearchParams(location.search);
+      if (q.get("embed") === "1" || window.parent !== window) {
+        document.documentElement.classList.add("embed");
+      }
+    })();
+  </script>
 </head>
 <body>
   <div id="bagua-field" class="bagua-field" aria-hidden="true"></div>

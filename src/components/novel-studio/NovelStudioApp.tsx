@@ -53,14 +53,14 @@ const FREE_LIMIT = 1;
 const SPONSOR_YUAN = 8;
 const SPONSOR_DAYS = 7;
 
-const TABS: { id: Tab; label: string }[] = [
-  { id: "overview", label: "总览" },
-  { id: "wizard", label: "新建书向导" },
-  { id: "workbench", label: "工作台" },
-  { id: "sponsor", label: "赞助解锁" },
-  { id: "seller", label: "卖家发码" },
-  { id: "settings", label: "设置 / API" },
-  { id: "verify", label: "功能验证" },
+const TABS: { id: Tab; label: string; group?: "main" | "more" }[] = [
+  { id: "overview", label: "总览", group: "main" },
+  { id: "wizard", label: "新建书", group: "main" },
+  { id: "workbench", label: "工作台", group: "main" },
+  { id: "sponsor", label: "赞助", group: "main" },
+  { id: "verify", label: "验证", group: "main" },
+  { id: "seller", label: "卖家发码", group: "more" },
+  { id: "settings", label: "设置", group: "more" },
 ];
 
 const PIPELINE = ["概念设定", "批量梗概", "正文写作", "严格审查", "定时发布"] as const;
@@ -444,7 +444,8 @@ export function NovelStudioApp() {
   return (
     <div className="ns-shell">
       <aside className="ns-nav">
-        {TABS.map((t) => (
+        <p className="ns-nav-label">主流程</p>
+        {TABS.filter((t) => t.group === "main").map((t) => (
           <button
             key={t.id}
             type="button"
@@ -454,9 +455,20 @@ export function NovelStudioApp() {
             {t.label}
           </button>
         ))}
-        <div style={{ marginTop: 16, padding: "0 8px" }}>
+        <p className="ns-nav-label">更多</p>
+        {TABS.filter((t) => t.group === "more").map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            className={tab === t.id ? "active" : ""}
+            onClick={() => setTab(t.id)}
+          >
+            {t.label}
+          </button>
+        ))}
+        <div className="ns-nav-foot">
           <div className="ns-live">Web Demo</div>
-          <p className="muted" style={{ fontSize: 11, marginTop: 8, color: "var(--ns-muted)" }}>
+          <p className="ns-license">
             [{license.mode}] {license.message}
           </p>
         </div>
@@ -466,12 +478,10 @@ export function NovelStudioApp() {
         {tab === "overview" && (
           <>
             <div className="ns-hero">
-              <div className="ns-title" style={{ color: "var(--ns-accent)", marginBottom: 6 }}>
-                Novel Studio
-              </div>
+              <p className="ns-kicker">写作工作台演示</p>
               <h1>从一粒故事种子，走到可连载的章表</h1>
               <p>
-                网页端用于体验与验证：新建书向导、流水线、赞助发码、API 导入。真实 LLM 写作与平台发布在桌面便携版完成——本页挂在作品详情里进入，不占用站点主导航。
+                体验新建书向导、流水线状态与赞助发码闭环。真实 LLM 写作与平台发布在桌面便携版完成。
               </p>
               <div className="ns-hero-actions">
                 <button type="button" className="ns-btn" onClick={() => setTab("wizard")}>

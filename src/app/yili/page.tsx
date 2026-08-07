@@ -13,23 +13,16 @@ export default function YiliPage() {
     <div className="yili-root">
       <header className="yili-top">
         <Link href="/#works" className="yili-back">
-          ← 返回作品集
+          ← 作品集
         </Link>
-        <div className="yili-brand">
-          <span className="yili-mark">☯</span>
-          <div>
-            <div className="yili-title">易理占筮</div>
-            <div className="yili-sub">太极八卦六十四阵 · 象数学习演示</div>
-          </div>
-        </div>
         <a className="yili-open" href="/yili/app.html" target="_blank" rel="noreferrer">
-          新窗口打开
+          新窗口
         </a>
       </header>
       <iframe
         className="yili-frame"
         title="易理占筮"
-        src="/yili/app.html"
+        src="/yili/app.html?embed=1"
         allow="clipboard-write"
       />
     </div>

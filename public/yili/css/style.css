@@ -801,3 +801,33 @@ input:focus, select:focus {
   font-size: 0.85rem;
   margin-bottom: 2px;
 }
+
+html.embed .hero { padding-top: 4px; margin-bottom: 16px; }
+.hero h1 {
+  text-wrap: balance;
+  text-shadow: 0 0 24px rgba(255, 255, 255, 0.12);
+}
+.subtitle { text-wrap: pretty; }
+.ritual-steps {
+  border-radius: 14px;
+  gap: 4px 10px;
+  justify-content: flex-start;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.ritual-steps li {
+  border-radius: 10px;
+  flex: 1 1 auto;
+  justify-content: center;
+  min-width: 4.5rem;
+}
+.btn.primary.glow { box-shadow: 0 0 18px rgba(255, 255, 255, 0.14); }
+.tab.active { box-shadow: none; }
+@media (prefers-reduced-motion: reduce) {
+  .panel.active,
+  .coin.flip .coin-inner {
+    animation: none !important;
+  }
+  .btn { transition: none; }
+}

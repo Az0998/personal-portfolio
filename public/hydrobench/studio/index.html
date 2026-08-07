@@ -6,22 +6,30 @@
   <title>HydroBench Studio · 室内集成工作台</title>
   <link rel="stylesheet" href="../shared/css/tokens.css" />
   <link rel="stylesheet" href="css/studio.css" />
+  <script>
+    (function () {
+      var q = new URLSearchParams(location.search);
+      if (q.get("embed") === "1" || window.parent !== window) {
+        document.documentElement.classList.add("embed");
+      }
+    })();
+  </script>
 </head>
 <body>
   <header class="topbar">
     <div class="brand-row">
-      <a class="brand-dot" href="../index.html" title="返回入口">HB</a>
+      <a class="brand-dot" href="../index.html" title="返回入口">室</a>
       <div>
-        <div class="brand-title">HydroBench Studio</div>
-        <div class="brand-sub">室内 · 数据 · 图片 · 公式</div>
+        <div class="brand-title">室内集成工作台</div>
+        <div class="brand-sub">数据 · 图片 · 公式</div>
       </div>
     </div>
-    <nav class="tabs" role="tablist">
+    <nav class="tabs" role="tablist" aria-label="室内台功能">
       <button type="button" class="active" data-tab="data">数据格式</button>
       <button type="button" data-tab="image">图片处理</button>
       <button type="button" data-tab="calc">公式计算</button>
     </nav>
-    <a class="btn ghost" href="../field/index.html">户外台</a>
+    <a class="btn ghost cross-link" href="../field/index.html">户外台</a>
   </header>
 
   <main class="layout">

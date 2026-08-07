@@ -262,3 +262,23 @@
 .hydro-card .label {
   text-wrap: balance;
 }
+
+.hydro-main { max-width: 1280px; margin: 0 auto; width: 100%; }
+.hydro-card .value { font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+.hydro-panel h2 { text-wrap: balance; }
+.hydro-panel p.desc { text-wrap: pretty; }
+.hydro-map,
+.hydro-map .leaflet-container {
+  background: #0b2430;
+}
+.hydro-map .leaflet-control-attribution {
+  background: rgba(4, 16, 24, 0.75) !important;
+  color: var(--h-muted) !important;
+}
+.hydro-chip {
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+.hydro-chip:active { transform: scale(0.98); }
+@media (prefers-reduced-motion: reduce) {
+  .hydro-chip { transition: none; }
+}

@@ -237,3 +237,23 @@ body {
 }
 .hb-storage-banner strong { color: #9a3412 !important; }
 .hb-storage-dot { background: #c2410c !important; box-shadow: 0 0 0 4px rgba(194, 65, 12, 0.18) !important; }
+
+html.embed .cross-link { display: none !important; }
+html.embed .field-top {
+  padding: 0.7rem 0.85rem;
+  padding-top: max(0.7rem, env(safe-area-inset-top));
+}
+html.embed body { min-height: 100dvh; }
+.field-nav button {
+  min-height: 44px;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.field-nav button:active { transform: scale(0.98); }
+.field-main {
+  padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+}
+.sheet h2 { text-wrap: balance; }
+.status-line { color: #e8d9c0; }
+@media (prefers-reduced-motion: reduce) {
+  .badge-offline { animation: none !important; }
+}

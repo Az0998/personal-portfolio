@@ -7,16 +7,24 @@
   <title>HydroBench Field · 户外应急离线台</title>
   <link rel="stylesheet" href="../shared/css/tokens.css" />
   <link rel="stylesheet" href="css/field.css" />
+  <script>
+    (function () {
+      var q = new URLSearchParams(location.search);
+      if (q.get("embed") === "1" || window.parent !== window) {
+        document.documentElement.classList.add("embed");
+      }
+    })();
+  </script>
 </head>
 <body>
   <header class="field-top">
     <div class="badge-offline" id="netBadge">离线就绪</div>
     <div class="field-brand">
-      HydroBench Field
-      <small>户外应急 · 本地缓存</small>
+      户外应急台
+      <small>本地缓存 · 断网可用</small>
     </div>
-    <a href="../index.html">入口</a>
-    <a href="../studio/index.html">室内台</a>
+    <a class="cross-link" href="../index.html">入口</a>
+    <a class="cross-link" href="../studio/index.html">室内台</a>
   </header>
 
   <nav class="field-nav" role="tablist">

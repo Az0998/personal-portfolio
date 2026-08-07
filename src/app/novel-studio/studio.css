@@ -71,13 +71,34 @@
   font-size: 12px;
   color: var(--ns-muted);
 }
-.ns-badge {
+.ns-nav-label {
+  margin: 12px 8px 6px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ns-muted);
+}
+.ns-nav-label:first-child {
+  margin-top: 0;
+}
+.ns-nav-foot {
+  margin-top: 16px;
+  padding: 0 8px;
+}
+.ns-license {
   font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--ns-line);
+  margin-top: 8px;
+  color: var(--ns-muted);
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+.ns-kicker {
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--ns-accent);
-  background: rgba(159, 191, 143, 0.08);
+  font-weight: 600;
 }
 
 .ns-shell {
@@ -163,13 +184,15 @@
   font-size: clamp(1.6rem, 3.2vw, 2.35rem);
   margin: 0 0 10px;
   line-height: 1.2;
+  text-wrap: balance;
 }
 .ns-hero p {
   margin: 0;
-  max-width: 52ch;
+  max-width: 48ch;
   color: var(--ns-muted);
   line-height: 1.65;
   font-size: 14px;
+  text-wrap: pretty;
 }
 .ns-hero-actions {
   display: flex;
@@ -274,24 +297,45 @@
 .ns-steps {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin: 8px 0 14px;
+  gap: 0;
+  margin: 10px 0 16px;
+  border: 1px solid var(--ns-line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.18);
 }
 .ns-step {
+  flex: 1 1 auto;
+  min-width: 5.5rem;
   font-size: 12px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--ns-line);
+  padding: 10px 12px;
+  border-right: 1px solid var(--ns-line);
   color: var(--ns-muted);
+  text-align: center;
+}
+.ns-step:last-child {
+  border-right: none;
 }
 .ns-step.on {
   color: var(--ns-text);
-  border-color: rgba(159, 191, 143, 0.45);
-  background: rgba(159, 191, 143, 0.12);
+  background: rgba(159, 191, 143, 0.14);
 }
 .ns-step.done {
   color: var(--ns-ok);
-  border-color: rgba(107, 207, 142, 0.35);
+  background: rgba(107, 207, 142, 0.08);
+}
+@media (max-width: 720px) {
+  .ns-steps {
+    flex-direction: column;
+  }
+  .ns-step {
+    border-right: none;
+    border-bottom: 1px solid var(--ns-line);
+    text-align: left;
+  }
+  .ns-step:last-child {
+    border-bottom: none;
+  }
 }
 
 .ns-log {

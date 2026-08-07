@@ -234,3 +234,28 @@ textarea.paste {
   font-family: var(--mono);
   font-size: 0.82rem;
 }
+
+html.embed .cross-link { display: none !important; }
+html.embed .brand-dot { pointer-events: none; cursor: default; text-decoration: none; }
+html.embed .topbar {
+  padding: 0.65rem 1rem;
+  background: rgba(255, 255, 255, 0.96);
+}
+html.embed body { min-height: 100dvh; }
+.brand-dot {
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(13, 107, 92, 0.28);
+}
+.panel h2 { text-wrap: balance; }
+.panel .hint { text-wrap: pretty; }
+.drop {
+  border-style: dashed;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+.drop:hover {
+  border-color: var(--accent);
+  background: rgba(13, 107, 92, 0.04);
+}
+@media (prefers-reduced-motion: reduce) {
+  .panel { animation: none !important; }
+}

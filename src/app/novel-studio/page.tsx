@@ -20,10 +20,9 @@ export default function NovelStudioPage() {
           <span className="ns-mark">N</span>
           <div>
             <div className="ns-title">Novel Studio</div>
-            <div className="ns-sub">写作工作台 · 网页演示 / 功能验证</div>
+            <div className="ns-sub">网页演示 · 流水线与赞助验证</div>
           </div>
         </div>
-        <span className="ns-badge">非主导航 · 项目内进入</span>
       </header>
       <NovelStudioApp />
     </div>
