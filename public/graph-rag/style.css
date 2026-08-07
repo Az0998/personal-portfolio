@@ -187,10 +187,35 @@ body {
 
 .mode-toggle {
   display: inline-flex;
+  flex-wrap: wrap;
   padding: 0.15rem;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: var(--bg0);
+  margin-top: 0.55rem;
+}
+
+.mode-toggle.wrap {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.llm-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.llm-toggle input:disabled + span {
+  opacity: 0.45;
+}
+
+.stats dd.small {
+  font-size: 0.95rem;
 }
 
 .mode {

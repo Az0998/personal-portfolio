@@ -85,6 +85,17 @@
     return Object.fromEntries(ids.map((id) => [id, deg[id] / n]));
   }
 
+  function adjacency(ids, edges) {
+    const adj = Object.fromEntries(ids.map((id) => [id, new Set()]));
+    for (const e of edges) {
+      if (adj[e.from] && adj[e.to]) {
+        adj[e.from].add(e.to);
+        adj[e.to].add(e.from);
+      }
+    }
+    return adj;
+  }
+
   function oneHop(seeds, edges) {
     const seedSet = new Set(seeds);
     const reached = new Map();
@@ -99,6 +110,82 @@
       }
     }
     return reached;
+  }
+
+  function kHop(seeds, edges, hop = 2) {
+    const ids = [...new Set(edges.flatMap((e) => [e.from, e.to]).concat(seeds))];
+    const adj = adjacency(ids, edges);
+    const seedSet = new Set(seeds);
+    const best = new Map();
+    const queue = [];
+    const seen = {};
+    for (const s of seeds) {
+      queue.push([s, 0, [s]]);
+      seen[s] = 0;
+    }
+    while (queue.length) {
+      const [node, dist, path] = queue.shift();
+      if (dist >= hop) continue;
+      for (const nb of adj[node] || []) {
+        const nd = dist + 1;
+        if (seen[nb] != null && seen[nb] <= nd) continue;
+        seen[nb] = nd;
+        const npath = path.concat(nb);
+        if (!seedSet.has(nb)) best.set(nb, { dist: nd, path: npath });
+        queue.push([nb, nd, npath]);
+      }
+    }
+    return best;
+  }
+
+  function personalizedPagerank(seeds, edges, ids, { alpha = 0.85, iters = 40 } = {}) {
+    const adj = adjacency(ids, edges);
+    const n = ids.length || 1;
+    const pers = Object.fromEntries(ids.map((id) => [id, 0]));
+    seeds.forEach((s) => {
+      if (pers[s] != null) pers[s] = 1 / seeds.length;
+    });
+    let rank = Object.fromEntries(ids.map((id) => [id, 1 / n]));
+    for (let t = 0; t < iters; t++) {
+      const next = Object.fromEntries(ids.map((id) => [id, (1 - alpha) * (pers[id] || 0)]));
+      for (const u of ids) {
+        const nbrs = [...(adj[u] || [])];
+        const share = nbrs.length ? (alpha * rank[u]) / nbrs.length : 0;
+        if (!nbrs.length) {
+          // dangling: distribute by personalization
+          for (const v of ids) next[v] += alpha * rank[u] * (pers[v] || 0);
+        } else {
+          for (const v of nbrs) next[v] += share;
+        }
+      }
+      rank = next;
+    }
+    return rank;
+  }
+
+  function simpleCommunities(ids, edges) {
+    // connected-component style fallback + greedy merge by shared edges
+    const adj = adjacency(ids, edges);
+    const seen = new Set();
+    const groups = [];
+    for (const id of ids) {
+      if (seen.has(id)) continue;
+      const stack = [id];
+      const group = [];
+      seen.add(id);
+      while (stack.length) {
+        const u = stack.pop();
+        group.push(u);
+        for (const v of adj[u] || []) {
+          if (!seen.has(v)) {
+            seen.add(v);
+            stack.push(v);
+          }
+        }
+      }
+      groups.push(group);
+    }
+    return groups;
   }
 
   function bestSnippet(body, query, maxLen = 220) {
@@ -171,7 +258,7 @@
         };
       }
 
-      if (mode !== "vector") {
+      if (mode === "graph") {
         const neighborMap = oneHop(seeds, edges);
         for (const [nb, viaSet] of neighborMap) {
           const note = byId[nb];
@@ -186,8 +273,88 @@
             score: 0.55 * sim + linkBonus + muCentrality * (centrality[nb] || 0),
             role: "neighbor",
             via,
+            hop: 1,
           };
         }
+      } else if (mode === "multihop") {
+        const expanded = kHop(seeds, edges, 2);
+        for (const [nb, info] of expanded) {
+          const note = byId[nb];
+          if (!note) continue;
+          const sim = simMap[nb] ?? sims.find((s) => s.id === nb)?.sim ?? 0;
+          const decay = info.dist === 1 ? 0.55 : 0.32;
+          const via = info.path.slice(0, -1);
+          candidates[nb] = {
+            note_id: nb,
+            title: note.title,
+            similarity: sim,
+            score: decay * sim + lambdaLink / info.dist + muCentrality * (centrality[nb] || 0),
+            role: info.dist === 1 ? "neighbor" : "hop2",
+            via,
+            hop: info.dist,
+          };
+        }
+      } else if (mode === "pagerank") {
+        const pr = personalizedPagerank(seeds, edges, ids);
+        const neighborMap = oneHop(seeds, edges);
+        for (const id of ids) {
+          if (seeds.includes(id)) continue;
+          const note = byId[id];
+          if (!note) continue;
+          const sim = simMap[id] ?? sims.find((s) => s.id === id)?.sim ?? 0;
+          const via = [...(neighborMap.get(id) || [])].sort();
+          candidates[id] = {
+            note_id: id,
+            title: note.title,
+            similarity: sim,
+            score: 0.35 * sim + 1.8 * (pr[id] || 0),
+            role: "pagerank",
+            via,
+            hop: via.length ? 1 : 2,
+          };
+        }
+      } else if (mode === "community") {
+        const neighborMap = oneHop(seeds, edges);
+        for (const [nb, viaSet] of neighborMap) {
+          const note = byId[nb];
+          if (!note) continue;
+          const sim = simMap[nb] ?? sims.find((s) => s.id === nb)?.sim ?? 0;
+          const via = [...viaSet].sort();
+          candidates[nb] = {
+            note_id: nb,
+            title: note.title,
+            similarity: sim,
+            score: 0.55 * sim + lambdaLink + muCentrality * (centrality[nb] || 0),
+            role: "neighbor",
+            via,
+            hop: 1,
+          };
+        }
+        const groups = simpleCommunities(ids, edges);
+        const seedGroups = new Set(
+          groups.flatMap((g, i) => (g.some((x) => seeds.includes(x)) ? [i] : []))
+        );
+        groups.forEach((g, i) => {
+          if (!seedGroups.has(i)) return;
+          for (const nb of g) {
+            if (seeds.includes(nb)) continue;
+            const note = byId[nb];
+            if (!note) continue;
+            const sim = simMap[nb] ?? sims.find((s) => s.id === nb)?.sim ?? 0;
+            const score = 0.4 * sim + 0.12 + muCentrality * (centrality[nb] || 0);
+            if (!candidates[nb] || score > candidates[nb].score) {
+              candidates[nb] = {
+                note_id: nb,
+                title: note.title,
+                similarity: sim,
+                score,
+                role: "community",
+                via: [],
+                hop: 0,
+              };
+            }
+          }
+        });
       }
 
       return Object.values(candidates)
@@ -205,7 +372,9 @@
         };
       }
       const seeds = hits.filter((h) => h.role === "seed").map((h) => h.note_id);
-      const neighbors = hits.filter((h) => h.role === "neighbor").map((h) => h.note_id);
+      const neighbors = hits
+        .filter((h) => h.role !== "seed")
+        .map((h) => h.note_id);
       const citations = hits.map((h) => {
         const note = byId[h.note_id];
         const snippet = bestSnippet(note.body, query);

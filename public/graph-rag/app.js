@@ -12,6 +12,8 @@
   const modeBadge = document.getElementById("mode-badge");
   const statNotes = document.getElementById("stat-notes");
   const statEdges = document.getElementById("stat-edges");
+  const statBackend = document.getElementById("stat-backend");
+  const useLlmEl = document.getElementById("use-llm");
 
   const COLORS = {
     base: "#d2b76a",
@@ -22,6 +24,14 @@
     edgeHot: "rgba(98, 210, 154, 0.75)",
   };
 
+  const MODE_LABEL = {
+    graph: "1-hop",
+    multihop: "多跳",
+    pagerank: "PageRank",
+    community: "社区",
+    vector: "纯向量",
+  };
+
   let engine = null;
   let network = null;
   let nodesDS = null;
@@ -29,6 +39,8 @@
   let allNodeIds = [];
   let mode = "graph";
   let activeNoteId = null;
+  let apiAvailable = false;
+  let llmEnabled = false;
 
   if (new URLSearchParams(location.search).get("embed") === "1") {
     document.body.classList.add("embed");
@@ -146,14 +158,22 @@
       const li = document.createElement("li");
       const via =
         c.via?.length > 0
-          ? `<div class="via">经由 ${c.via.map(escapeHtml).join(" · ")}</div>`
+          ? `<div class="via">经由 ${c.via.map(escapeHtml).join(" → ")}</div>`
           : "";
+      const roleLabel =
+        {
+          seed: "种子",
+          neighbor: "1-hop",
+          hop2: "2-hop",
+          pagerank: "PPR",
+          community: "社区",
+        }[c.role] || c.role;
       li.innerHTML = `
         <div class="meta">
           <span class="title">${escapeHtml(c.title)}</span>
-          <span class="${c.role === "seed" ? "role-seed" : "role-neighbor"}">${
-            c.role === "seed" ? "种子" : "邻居"
-          } · ${c.score}</span>
+          <span class="${c.role === "seed" ? "role-seed" : "role-neighbor"}">${roleLabel} · ${
+            c.score
+          }</span>
         </div>
         <div class="snippet">${escapeHtml(c.snippet)}</div>
         ${via}`;
@@ -162,21 +182,53 @@
     }
   }
 
-  function ask(query) {
+  async function askViaApi(query) {
+    const res = await fetch("/api/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        query,
+        mode,
+        use_llm: Boolean(useLlmEl?.checked),
+      }),
+    });
+    if (!res.ok) throw new Error(`API ${res.status}`);
+    return res.json();
+  }
+
+  async function ask(query) {
     if (!engine) return;
     askBtn.disabled = true;
     answerEl.classList.remove("empty");
     answerEl.textContent = "检索中…";
     try {
-      const data = engine.ask(query, mode);
+      let data;
+      if (apiAvailable) {
+        data = await askViaApi(query);
+      } else {
+        data = engine.ask(query, mode);
+        data.provider = "extractive";
+        data.used_llm = false;
+      }
       answerEl.textContent = data.answer;
       renderCitations(data.citations || []);
       applyHighlights(data.highlights || {});
-      modeBadge.textContent = mode === "graph" ? "Graph-RAG" : "纯向量";
+      const llmTag = data.used_llm ? ` · ${data.provider}` : "";
+      modeBadge.textContent = `${MODE_LABEL[mode] || mode}${llmTag}`;
       modeBadge.classList.add("hot");
       if (data.highlights?.all?.length) showNote(data.highlights.all[0]);
     } catch (err) {
-      answerEl.textContent = `出错：${err.message}`;
+      // API failed — fall back to local engine
+      try {
+        const data = engine.ask(query, mode);
+        answerEl.textContent = data.answer + `\n\n（API 失败已回退本地：${err.message}）`;
+        renderCitations(data.citations || []);
+        applyHighlights(data.highlights || {});
+        modeBadge.textContent = `${MODE_LABEL[mode] || mode} · 本地`;
+        modeBadge.classList.add("hot");
+      } catch (err2) {
+        answerEl.textContent = `出错：${err2.message}`;
+      }
     } finally {
       askBtn.disabled = false;
     }
@@ -243,8 +295,7 @@
     modeBadge.textContent = "等待提问";
     modeBadge.classList.remove("hot");
     answerEl.classList.add("empty");
-    answerEl.textContent =
-      "选择模式后提问：Graph-RAG 会沿链接扩邻居；纯向量只看文本相似。";
+    answerEl.textContent = "选模式后提问。本地服务开启 LLM 时可生成串联回答。";
   });
 
   document.querySelectorAll(".mode").forEach((btn) => {
@@ -265,6 +316,33 @@
 
   noteFilter.addEventListener("input", () => renderNoteList(noteFilter.value));
 
+  async function probeApi() {
+    try {
+      const res = await fetch("/api/health");
+      if (!res.ok) return false;
+      const health = await res.json();
+      apiAvailable = true;
+      llmEnabled = Boolean(health.llm?.enabled);
+      statBackend.textContent = llmEnabled ? health.llm.provider : "API";
+      if (useLlmEl) {
+        useLlmEl.disabled = !llmEnabled;
+        useLlmEl.checked = llmEnabled;
+        useLlmEl.parentElement.title = llmEnabled
+          ? `使用 ${health.llm.provider}`
+          : "设置 GRAPH_RAG_LLM=ollama|deepseek 后重启";
+      }
+      return true;
+    } catch {
+      apiAvailable = false;
+      statBackend.textContent = "静态";
+      if (useLlmEl) {
+        useLlmEl.disabled = true;
+        useLlmEl.checked = false;
+      }
+      return false;
+    }
+  }
+
   async function boot() {
     const res = await fetch("./vault.json");
     if (!res.ok) throw new Error("无法加载 vault.json");
@@ -274,6 +352,7 @@
     statEdges.textContent = String(vault.graph.edges.length);
     mountGraph(vault);
     renderNoteList();
+    await probeApi();
   }
 
   boot().catch((err) => {

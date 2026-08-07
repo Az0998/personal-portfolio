@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Graph-RAG Vault · 知识图谱检索</title>
-  <meta name="description" content="Obsidian 式双向链接 × Graph-RAG：种子检索 + 邻居扩展，关系图同步高亮出处。" />
+  <meta name="description" content="Obsidian 式双向链接 × Graph-RAG：多跳检索、社区、本地/云端 LLM 增强回答。" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
@@ -17,11 +17,12 @@
       <div class="brand-block">
         <p class="eyebrow">Obsidian graph × RAG</p>
         <h1>Graph-RAG Vault</h1>
-        <p class="lede">用双向链接织网，用检索增强回答。对比「纯向量」与「图谱扩展」，看邻居如何补全上下文。</p>
+        <p class="lede">多跳链接推理 · 社区感知 · 可选 Ollama / DeepSeek 生成。静态站用浏览器检索；本地 Flask 可启用真正 LLM。</p>
       </div>
       <dl class="stats" aria-label="库统计">
         <div><dt>笔记</dt><dd id="stat-notes">—</dd></div>
         <div><dt>链接</dt><dd id="stat-edges">—</dd></div>
+        <div><dt>后端</dt><dd id="stat-backend" class="small">本地</dd></div>
       </dl>
     </header>
 
@@ -30,11 +31,11 @@
         <div class="panel-head">
           <div>
             <h2>关系图</h2>
-            <p>点击节点阅读；问答后种子 / 邻居高亮。</p>
+            <p>点击节点阅读；问答后种子 / 扩展节点高亮。</p>
           </div>
           <ul class="legend" aria-label="图例">
             <li><span class="dot seed"></span>种子</li>
-            <li><span class="dot neighbor"></span>邻居</li>
+            <li><span class="dot neighbor"></span>扩展</li>
             <li><span class="dot base"></span>其余</li>
           </ul>
         </div>
@@ -45,14 +46,21 @@
         <section class="ask-block" aria-label="提问">
           <div class="row-between">
             <h2>提问</h2>
-            <div class="mode-toggle" role="group" aria-label="检索模式">
-              <button type="button" class="mode active" data-mode="graph">Graph-RAG</button>
-              <button type="button" class="mode" data-mode="vector">纯向量</button>
-            </div>
+            <label class="llm-toggle" title="需本地 Flask + GRAPH_RAG_LLM">
+              <input type="checkbox" id="use-llm" />
+              <span>LLM 生成</span>
+            </label>
+          </div>
+          <div class="mode-toggle wrap" role="group" aria-label="检索模式">
+            <button type="button" class="mode active" data-mode="graph">1-hop</button>
+            <button type="button" class="mode" data-mode="multihop">多跳</button>
+            <button type="button" class="mode" data-mode="pagerank">PageRank</button>
+            <button type="button" class="mode" data-mode="community">社区</button>
+            <button type="button" class="mode" data-mode="vector">纯向量</button>
           </div>
           <form id="ask-form">
             <label class="sr-only" for="query">问题</label>
-            <textarea id="query" rows="3" placeholder="例如：Graph-RAG 怎么结合双向链接？" required></textarea>
+            <textarea id="query" rows="3" placeholder="例如：原子笔记如何支撑 Graph-RAG 多跳推理？" required></textarea>
             <div class="ask-actions">
               <button type="submit" id="ask-btn">检索并回答</button>
               <button type="button" id="reset-btn" class="ghost">清除</button>
@@ -61,9 +69,8 @@
           <div class="chips" aria-label="示例问题">
             <button type="button" class="chip" data-q="什么是原子笔记？">原子笔记</button>
             <button type="button" class="chip" data-q="RAG 的流水线有哪些步骤？">RAG 流水线</button>
-            <button type="button" class="chip" data-q="Graph-RAG 如何扩展邻居？">Graph-RAG</button>
+            <button type="button" class="chip" data-q="Graph-RAG 如何把双向链接用于多跳推理？">多跳 Graph-RAG</button>
             <button type="button" class="chip" data-q="为什么本地优先适合做知识库？">本地优先</button>
-            <button type="button" class="chip" data-q="双向链接和文件夹有什么差别？">双向链接</button>
           </div>
         </section>
 
@@ -72,7 +79,7 @@
             <h2>回答</h2>
             <span id="mode-badge" class="badge">等待提问</span>
           </div>
-          <div id="answer" class="answer empty">选择模式后提问：Graph-RAG 会沿链接扩邻居；纯向量只看文本相似。</div>
+          <div id="answer" class="answer empty">选模式后提问。本地服务开启 LLM 时可生成串联回答。</div>
           <ul id="citations" class="citations"></ul>
         </section>
 
