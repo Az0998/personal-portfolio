@@ -857,7 +857,19 @@ export function AnonSurveyApp() {
           <div className="as-panel as-fade">
             <section className="as-card">
               <h2>我的问卷</h2>
-              {state.surveys.length === 0 && <p className="muted">还没有问卷，去总览选一个模板开始。</p>}
+              {state.surveys.length === 0 && (
+                <div className="as-empty">
+                  <p className="muted">还没有问卷。用模板一键开始，或回总览挑选。</p>
+                  <div className="as-row" style={{ marginTop: 12 }}>
+                    <button type="button" className="as-btn" onClick={() => startFromTemplate("mentor")}>
+                      用导师模板创建
+                    </button>
+                    <button type="button" className="as-btn ghost" onClick={() => setTab("overview")}>
+                      去总览
+                    </button>
+                  </div>
+                </div>
+              )}
               <div className="as-list">
                 {state.surveys.map((s) => {
                   const n = state.responses.filter((r) => r.surveyId === s.id).length;

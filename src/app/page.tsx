@@ -46,7 +46,7 @@ export default async function HomePage() {
     <>
       <SiteBackground />
       <AnalyticsBeacon />
-      <div className="relative z-[1] min-h-screen flex flex-col">
+      <div className="relative z-[1] min-h-dvh flex flex-col">
         <div className="pointer-events-none fixed inset-0 z-[1] overflow-hidden" aria-hidden>
           <SakuraPetals />
         </div>

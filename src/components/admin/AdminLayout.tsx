@@ -24,7 +24,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-dvh flex">
       <aside className="w-64 glass border-r border-sakura/10 flex flex-col">
         <div className="p-6 border-b border-sakura/10">
           <h1 className="font-display text-lg font-bold text-sakura-soft">✦ Portfolio CMS</h1>

@@ -8,6 +8,7 @@ import {
   resolveWorkCategory,
   orderedWorkCategories,
 } from "@/lib/utils";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 interface WorksSectionProps {
@@ -70,8 +71,11 @@ export function WorksSection({ works }: WorksSectionProps) {
     return (
       <section id="works" className="section-padding">
         <div className="max-w-5xl mx-auto glass-panel rounded-[2rem] p-10 text-center">
-          <h2 className="font-display text-3xl font-bold mb-3 text-shadow">作品档案</h2>
-          <p className="text-white/60">暂无作品，请前往后台添加</p>
+          <h2 className="font-display text-3xl font-bold mb-3 text-shadow text-balance">作品档案</h2>
+          <p className="text-white/60 mb-5 text-pretty">暂无作品，去后台添加第一条吧。</p>
+          <Link href="/admin/works/new" className="btn-primary">
+            前往后台添加
+          </Link>
         </div>
       </section>
     );
@@ -87,10 +91,10 @@ export function WorksSection({ works }: WorksSectionProps) {
           className="glass-panel rounded-[2rem] p-8 md:p-10 mb-8 text-center"
         >
           <p className="eyebrow mb-3">Works</p>
-          <h2 className="font-display text-3xl md:text-5xl font-bold mb-3 text-shadow">
+          <h2 className="font-display text-3xl md:text-5xl font-bold mb-3 text-shadow text-balance">
             作品档案
           </h2>
-          <p className="text-white/60 text-sm mb-6 max-w-xl mx-auto">
+          <p className="text-white/60 text-sm mb-6 max-w-xl mx-auto text-pretty">
             按智慧水利、在线演示、论文与工具分组浏览
           </p>
 
@@ -117,7 +121,7 @@ export function WorksSection({ works }: WorksSectionProps) {
         {featured.length > 0 && (
           <div className="mb-10">
             {filter === "all" && (
-              <h3 className="font-display text-xl text-white/90 mb-4 px-1 text-shadow">
+              <h3 className="font-display text-xl text-white/90 mb-4 px-1 text-shadow text-balance">
                 精选
               </h3>
             )}
@@ -134,17 +138,26 @@ export function WorksSection({ works }: WorksSectionProps) {
           </div>
         )}
 
+        {filter !== "all" && featured.length === 0 && rest.length === 0 && (
+          <div className="glass-panel rounded-[2rem] p-10 text-center mb-8">
+            <p className="text-white/70 mb-4">该分类暂无作品</p>
+            <button type="button" className="btn-outline" onClick={() => setFilter("all")}>
+              查看全部
+            </button>
+          </div>
+        )}
+
         {filter === "all" && grouped
           ? grouped.map((group) => (
               <div key={group.key} className="mb-10">
                 <div className="flex items-baseline justify-between gap-3 mb-4 px-1">
-                  <h3 className="font-display text-xl text-white/90 text-shadow">
+                  <h3 className="font-display text-xl text-white/90 text-shadow text-balance">
                     {group.label}
                   </h3>
                   <button
                     type="button"
                     onClick={() => setFilter(group.key)}
-                    className="text-xs text-[#ff9aab] hover:text-white transition-colors"
+                    className="text-xs text-[#ff9aab] hover:text-white transition-colors duration-150"
                   >
                     只看此类 →
                   </button>

@@ -19,6 +19,8 @@ type Config = {
   ttlHours: number[];
   defaultTtlHours: number;
   note: string;
+  storageBackend?: "r2" | "local";
+  directUpload?: boolean;
 };
 
 type UploadResult = {
@@ -93,13 +95,61 @@ export function TempFilesApp() {
     setBusy(true);
     setError("");
     try {
-      const fd = new FormData();
-      fd.append("file", file);
-      fd.append("ttlHours", String(ttl));
-      const res = await fetch("/api/temp-files", { method: "POST", body: fd });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "上传失败");
-      setResult(data);
+      // R2：浏览器预签名直传；本地：FormData 回退
+      if (config?.directUpload) {
+        const initRes = await fetch("/api/temp-files", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: file.name,
+            size: file.size,
+            mimeType: file.type || "application/octet-stream",
+            ttlHours: ttl,
+          }),
+        });
+        const initData = await initRes.json();
+        if (!initRes.ok) throw new Error(initData.error || "初始化上传失败");
+
+        const putRes = await fetch(initData.uploadUrl as string, {
+          method: "PUT",
+          headers: {
+            "Content-Type":
+              (initData.uploadHeaders?.["Content-Type"] as string) ||
+              file.type ||
+              "application/octet-stream",
+          },
+          body: file,
+        });
+        if (!putRes.ok) {
+          throw new Error(`直传 R2 失败（HTTP ${putRes.status}）。请检查 Bucket CORS 是否允许本站域名。`);
+        }
+
+        const confirmRes = await fetch("/api/temp-files/confirm", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ code: initData.code }),
+        });
+        const confirmData = await confirmRes.json();
+        if (!confirmRes.ok) throw new Error(confirmData.error || "确认上传失败");
+
+        setResult({
+          code: initData.code,
+          name: initData.name,
+          sizeLabel: initData.sizeLabel,
+          expiresAt: initData.expiresAt,
+          deleteToken: initData.deleteToken,
+          shareUrl: initData.shareUrl,
+          downloadUrl: initData.downloadUrl,
+        });
+      } else {
+        const fd = new FormData();
+        fd.append("file", file);
+        fd.append("ttlHours", String(ttl));
+        const res = await fetch("/api/temp-files", { method: "POST", body: fd });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "上传失败");
+        setResult(data);
+      }
       setFile(null);
     } catch (e) {
       setError(e instanceof Error ? e.message : "上传失败");
@@ -149,7 +199,11 @@ export function TempFilesApp() {
         <p className="text-ink-300 mt-3 max-w-2xl leading-relaxed">
           适合作业稿、截图、压缩包等短期互传。单文件上限{" "}
           <span className="text-sakura-soft">{config?.maxLabel ?? "…"}</span>
-          ，过期后自动清理。{config?.note}
+          ，过期后自动清理。
+          {config?.directUpload ? (
+            <span className="text-aqua-soft"> 当前：Cloudflare R2 浏览器直传。</span>
+          ) : null}
+          <span className="block text-ink-500 text-sm mt-2">{config?.note}</span>
         </p>
       </section>
 
@@ -239,6 +293,13 @@ export function TempFilesApp() {
             <div className="tf-empty">
               <p>上传成功后，这里会出现分享链接与删除令牌。</p>
               <p className="text-ink-500 text-sm mt-2">请妥善保存删除令牌，离开页面后无法再找回。</p>
+              <button
+                type="button"
+                className="btn-outline mt-4"
+                onClick={() => document.getElementById("tf-file")?.click()}
+              >
+                去上传文件
+              </button>
             </div>
           ) : (
             <div className="space-y-4">
@@ -308,8 +369,14 @@ function Field({
     <div>
       <div className="text-ink-400 text-xs mb-1">{label}</div>
       <div className="tf-field">
-        <code className={secret ? "blur-[3px] hover:blur-0 transition" : ""}>{value}</code>
-        <button type="button" onClick={onCopy} className="tf-copy" title="复制">
+        <code className={secret ? "tf-secret" : ""}>{value}</code>
+        <button
+          type="button"
+          onClick={onCopy}
+          className="tf-copy"
+          title="复制"
+          aria-label={copied ? "已复制" : `复制${label}`}
+        >
           {copied ? <Check className="w-4 h-4 text-aqua" /> : <Copy className="w-4 h-4" />}
         </button>
       </div>

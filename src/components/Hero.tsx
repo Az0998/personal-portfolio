@@ -40,10 +40,17 @@ export function AnalyticsBeacon() {
   return null;
 }
 
-/** 打字机一行（对齐 dayabolg Typewriter） */
+/** 打字机一行（对齐 dayabolg Typewriter）；尊重 reduced-motion */
 function TypeLine({ text }: { text: string }) {
-  const [shown, setShown] = useState("");
+  const [shown, setShown] = useState(text);
   useEffect(() => {
+    const reduced =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      setShown(text);
+      return;
+    }
     setShown("");
     let i = 0;
     const t = setInterval(() => {
@@ -54,9 +61,9 @@ function TypeLine({ text }: { text: string }) {
     return () => clearInterval(t);
   }, [text]);
   return (
-    <span className="inline-block min-h-[1.5em]">
+    <span className="inline-block min-h-[1.5em] text-pretty">
       {shown}
-      <span className="inline-block w-[0.55ch] h-[1em] ml-0.5 align-[-0.1em] bg-[#e44c65] animate-pulse" />
+      <span className="inline-block w-[0.55ch] h-[1em] ml-0.5 align-[-0.1em] bg-[#e44c65] animate-pulse motion-reduce:hidden" />
     </span>
   );
 }
@@ -70,19 +77,19 @@ export function Hero({ profile }: HeroProps) {
   ].filter((l) => l.href);
 
   return (
-    <section className="relative z-[1] min-h-[calc(100vh-4rem)] flex items-center justify-center px-6 py-10">
+    <section className="relative z-[1] min-h-[calc(100dvh-4rem)] flex items-center justify-center px-6 py-10">
       <div className="w-full max-w-5xl flex flex-col-reverse sm:flex-row gap-10 sm:gap-14 items-center justify-center">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
           className="flex flex-col text-center sm:text-left justify-center gap-4 text-white text-shadow
-                     transform transition-transform duration-500 hover:scale-[1.03]"
+                     transform transition-transform duration-150 ease-out hover:scale-[1.02]"
         >
           <p className="text-[#ff9aab] text-sm tracking-[0.2em] uppercase">
             二次元 × 智慧水利
           </p>
-          <h1 className="font-display text-4xl md:text-6xl font-bold leading-tight">
+          <h1 className="font-display text-4xl md:text-6xl font-bold leading-tight text-balance">
             {profile.name}
           </h1>
           <p className="text-xl md:text-2xl text-white/90 font-light">

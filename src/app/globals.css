@@ -21,7 +21,23 @@ body {
   @apply text-white antialiased;
   font-family: var(--font-body);
   background: #1a1218;
-  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-drift,
+  .animate-twinkle,
+  .animate-float,
+  .animate-float-slow,
+  .animate-pulse-soft {
+    animation: none !important;
+  }
+  .site-bg-image {
+    transform: none !important;
+  }
 }
 
 ::selection {
@@ -40,12 +56,11 @@ body {
 }
 .site-bg-image {
   position: absolute;
-  /* 四周多留余量，配合轻微上移视差仍铺满 */
-  inset: -12% -4% -12% -4%;
+  inset: 0;
   background-position: center 28%;
   background-size: cover;
   background-repeat: no-repeat;
-  will-change: transform;
+  transform: scale(1.06);
 }
 .site-bg-veil {
   position: absolute;
@@ -100,7 +115,8 @@ body {
 
   .btn-primary {
     @apply inline-flex items-center gap-2 px-5 py-2.5
-           rounded-full font-medium text-white transition-all duration-300;
+           rounded-full font-medium text-white
+           transition-[transform,box-shadow,background-color] duration-150 ease-out;
     background: linear-gradient(135deg, #e44c65, #c73a52);
   }
   .btn-primary:hover {
@@ -114,7 +130,8 @@ body {
   .btn-outline {
     @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium
            text-white/90 border border-white/30 bg-white/10 backdrop-blur-sm
-           transition-all duration-300 hover:border-[#e44c65] hover:text-[#ff7a90] hover:bg-[#e44c65]/15;
+           transition-[transform,color,background-color,border-color] duration-150 ease-out
+           hover:border-[#e44c65] hover:text-[#ff7a90] hover:bg-[#e44c65]/15;
   }
   .btn-outline:active {
     transform: scale(0.97);
@@ -132,10 +149,15 @@ body {
 
   .anime-card {
     @apply relative overflow-hidden rounded-3xl glass-panel
-           transition-all duration-300 hover:border-[#e44c65]/45;
+           transition-[transform,border-color,box-shadow] duration-150 ease-out
+           hover:border-[#e44c65]/45;
   }
   .anime-card:active {
     transform: scale(0.985);
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
   }
 
   .nav-pill {

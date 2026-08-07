@@ -603,6 +603,16 @@ export function NovelStudioApp() {
                     </option>
                   ))}
                 </select>
+                {state.books.length === 0 && (
+                  <button
+                    type="button"
+                    className="ns-btn"
+                    style={{ marginTop: 10 }}
+                    onClick={() => setTab("wizard")}
+                  >
+                    打开新建书向导
+                  </button>
+                )}
               </div>
               <div className="ns-row">
                 <div className="ns-field" style={{ flex: 1 }}>

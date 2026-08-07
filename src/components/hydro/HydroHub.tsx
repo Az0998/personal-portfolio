@@ -74,7 +74,7 @@ export function HydroHub() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.28 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
           >
             <div className="hydro-root">
               <HydroDashboard />
@@ -87,7 +87,7 @@ export function HydroHub() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
           >
             <iframe
               className="hb-frame"

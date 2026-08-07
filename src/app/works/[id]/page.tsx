@@ -32,7 +32,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
   const svg = cover.endsWith(".svg");
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-dvh relative">
       <SiteBackground />
       <nav className="fixed top-0 left-0 right-0 z-50">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center">

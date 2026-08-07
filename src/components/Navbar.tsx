@@ -49,8 +49,9 @@ export function Navbar({ name }: { name: string }) {
         <li>
           <Link
             href="/admin"
-            className="p-2 rounded-full bg-white/15 backdrop-blur-sm text-white/80 hover:text-[#e44c65]"
+            className="p-2 rounded-full bg-white/15 backdrop-blur-sm text-white/80 hover:text-[#e44c65] transition-colors duration-150"
             title="管理后台"
+            aria-label="管理后台"
           >
             <Icon icon="mdi:cog-outline" width={18} />
           </Link>
@@ -60,7 +61,7 @@ export function Navbar({ name }: { name: string }) {
       <Link
         href="/admin"
         className="sm:hidden p-2 rounded-full bg-white/20 backdrop-blur-sm text-white"
-        aria-label="菜单"
+        aria-label="管理后台"
       >
         <Icon icon="mdi:apps" width={22} />
       </Link>

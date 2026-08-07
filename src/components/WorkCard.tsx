@@ -57,8 +57,8 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-48px" }}
-      transition={{ duration: 0.5, delay: Math.min(index, 6) * 0.05, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -5, transition: { duration: 0.2 } }}
+      transition={{ duration: 0.35, delay: Math.min(index, 6) * 0.04, ease: "easeOut" }}
+      whileHover={{ y: -4, transition: { duration: 0.15 } }}
       whileTap={{ scale: 0.985 }}
       className={`group anime-card flex flex-col ${large ? "md:col-span-2" : ""}`}
     >
@@ -69,14 +69,14 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
               <img
                 src={cover}
                 alt=""
-                className="max-h-full max-w-[75%] object-contain drop-shadow-md transition-transform duration-700 group-hover:scale-105"
+                className="max-h-full max-w-[75%] object-contain drop-shadow-md transition-transform duration-150 ease-out group-hover:scale-105"
               />
             </div>
           ) : (
             <img
               src={cover}
               alt={work.title}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              className="w-full h-full object-cover transition-transform duration-150 ease-out group-hover:scale-105"
             />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
@@ -103,12 +103,12 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
         </div>
 
         <div className="p-4 md:p-5">
-          <h3 className="text-base md:text-lg font-semibold mb-1.5 group-hover:text-[#ff9aab] transition-colors flex items-start gap-2 leading-snug">
+          <h3 className="text-base md:text-lg font-semibold mb-1.5 group-hover:text-[#ff9aab] transition-colors duration-150 flex items-start gap-2 leading-snug text-balance">
             <span className="flex-1">{work.title}</span>
-            <ArrowUpRight className="w-4 h-4 shrink-0 mt-0.5 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+            <ArrowUpRight className="w-4 h-4 shrink-0 mt-0.5 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-[opacity,transform] duration-150" />
           </h3>
           {work.description && (
-            <p className="text-white/60 text-sm line-clamp-2 mb-3 leading-relaxed">
+            <p className="text-white/60 text-sm line-clamp-2 mb-3 leading-relaxed text-pretty">
               {work.description}
             </p>
           )}

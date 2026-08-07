@@ -15,7 +15,7 @@
   --as-text: var(--as-ink);
   position: relative;
   isolation: isolate;
-  min-height: 100vh;
+  min-height: 100dvh;
   color: var(--as-text);
   font-family: Figtree, "Noto Sans SC", system-ui, sans-serif;
   background-color: var(--as-bg);
@@ -176,7 +176,7 @@
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 0;
-  min-height: calc(100vh - 74px);
+  min-height: calc(100dvh - 74px);
 }
 @media (max-width: 860px) {
   .as-shell {
@@ -803,4 +803,25 @@
     opacity: 0.7;
     transform: rotate(18deg) scale(1);
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .as-blob,
+  .as-stamp,
+  .as-fade {
+    animation: none !important;
+  }
+}
+.as-hero h1 {
+  text-wrap: balance;
+}
+.as-hero p {
+  text-wrap: pretty;
+}
+.as-metric strong,
+.as-bar-n {
+  font-variant-numeric: tabular-nums;
+}
+.as-empty {
+  margin-bottom: 12px;
 }

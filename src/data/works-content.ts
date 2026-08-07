@@ -191,7 +191,7 @@ python app.py
 
 ## 注意
 
-Render 免费实例 **重新部署会清空磁盘文件**。需要跨部署保留时可接 Cloudflare R2（见 \`DEPLOY.md\`）。
+文件实体写入 **Cloudflare R2**（浏览器预签名直传）；元数据在 SQLite。未配置 \`R2_*\` 时本地开发回退本机磁盘。详见 \`DEPLOY.md\` 第六节。
 `,
   },
   {

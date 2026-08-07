@@ -11,7 +11,7 @@
   --ns-warn: #c9a227;
   --ns-ok: #6bcf8e;
   --ns-danger: #d96b6b;
-  min-height: 100vh;
+  min-height: 100dvh;
   color: var(--ns-text);
   font-family: "IBM Plex Sans", "Noto Sans SC", system-ui, sans-serif;
   background:
@@ -84,7 +84,7 @@
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 0;
-  min-height: calc(100vh - 74px);
+  min-height: calc(100dvh - 74px);
 }
 @media (max-width: 860px) {
   .ns-shell {
@@ -376,4 +376,23 @@
   border-radius: 50%;
   background: var(--ns-ok);
   animation: ns-pulse 1.6s ease infinite;
+}
+
+.ns-hero h1 {
+  text-wrap: balance;
+}
+.ns-hero p {
+  text-wrap: pretty;
+}
+.ns-steps,
+.ns-field input,
+td {
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ns-live::before,
+  .ns-hero,
+  .ns-fade-up {
+    animation: none !important;
+  }
 }

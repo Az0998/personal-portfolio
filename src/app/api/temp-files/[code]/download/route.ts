@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
   bumpDownloadCount,
+  getDownloadRedirectUrl,
   getTempFileByCode,
   readTempFileBuffer,
 } from "@/lib/temp-files";
@@ -17,6 +18,12 @@ export async function GET(_request: NextRequest, ctx: Ctx) {
   }
 
   try {
+    const signed = await getDownloadRedirectUrl(row.storageKey, row.originalName);
+    if (signed) {
+      await bumpDownloadCount(row.id);
+      return NextResponse.redirect(signed, 302);
+    }
+
     const buf = await readTempFileBuffer(row.storageKey);
     await bumpDownloadCount(row.id);
     const asciiName = row.originalName.replace(/[^\x20-\x7E]/g, "_");

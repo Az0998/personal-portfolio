@@ -1,5 +1,5 @@
 .tf-root {
-  min-height: 100vh;
+  min-height: 100dvh;
   color: #efeaf6;
   background:
     radial-gradient(ellipse 70% 50% at 15% 0%, rgba(255, 143, 184, 0.16), transparent 55%),
@@ -188,4 +188,21 @@
 .tf-share {
   border-radius: 1.25rem;
   padding: 1.75rem 1.5rem;
+}
+
+.tf-hero h1 {
+  text-wrap: balance;
+}
+.tf-meta,
+.tf-field code {
+  font-variant-numeric: tabular-nums;
+}
+.tf-secret {
+  filter: none;
+  -webkit-text-security: disc;
+  font-family: ui-monospace, monospace;
+}
+.tf-field:focus-within .tf-secret,
+.tf-secret:hover {
+  -webkit-text-security: none;
 }

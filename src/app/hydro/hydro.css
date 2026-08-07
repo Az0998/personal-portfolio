@@ -9,7 +9,7 @@
   --h-warn: #e9a825;
   --h-alert: #e4572e;
   --h-ok: #3ddc97;
-  min-height: 100vh;
+  min-height: 100dvh;
   color: var(--h-text);
   background:
     radial-gradient(1000px 500px at 8% -8%, rgba(46, 196, 182, 0.16), transparent 55%),
@@ -251,4 +251,14 @@
 @media (max-width: 1100px) {
   .hydro-grid-2, .hydro-grid-3 { grid-template-columns: 1fr; }
   .hydro-chart, .hydro-map { height: 280px; }
+}
+
+.hydro-card .value,
+.hydro-csi-table td,
+.hydro-metrics {
+  font-variant-numeric: tabular-nums;
+}
+.hydro-panel h2,
+.hydro-card .label {
+  text-wrap: balance;
 }
