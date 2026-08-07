@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AlphaZero 中国象棋</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/dist/ort.min.js"></script>
+  </head>
+  <body>
+    <script>
+      if (new URLSearchParams(location.search).get("embed") === "1") {
+        document.documentElement.classList.add("embed");
+        document.body.classList.add("embed");
+      }
+    </script>
+    <div class="wrap">
+      <header>
+        <h1>中国象棋 · 策略网络</h1>
+        <p class="sub">ONNX 浏览器推理 · policy argmax（轻量演示）</p>
+      </header>
+      <div class="toolbar">
+        <button id="btn-new" type="button">新局</button>
+        <button id="btn-hint" type="button">提示</button>
+        <span id="status">初始化…</span>
+      </div>
+      <canvas id="board" aria-label="象棋棋盘"></canvas>
+      <p class="note">
+        你执红。AI 使用自对弈训练导出的 ResNet 策略头选着；完整 MCTS 在本地 Python 训练管线中。
+      </p>
+    </div>
+    <script src="./board.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

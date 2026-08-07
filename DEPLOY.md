@@ -24,6 +24,7 @@
 - `/novel-studio` — Novel Studio（作品进入）
 - `/yili` — 易理占筮（作品进入）
 - `/graph-rag` — Graph-RAG Vault（作品进入）
+- `/xiangqi` — 中国象棋 AlphaZero 策略网（作品进入；`public/xiangqi` 静态包 + ONNX）
 
 ### 数据 / 缓存分层（勿混用）
 
@@ -36,6 +37,7 @@
 | HydroBench | `localStorage` `hydrobench:*` | 不上云 |
 | Novel Studio | `novel-studio-web-demo-v1` | 不上云 |
 | Graph-RAG | `public/graph-rag/*` | 静态包（浏览器内检索） |
+| 象棋策略网 | `public/xiangqi/*` | 静态包 + ONNX（浏览器内推理） |
 | HydroInfo | `public/hydro/*.json` | 静态包 |
 
 > Render Free 实例**整盘重部署**仍可能重置 SQLite 文件本身。若需跨部署永久保留，请把 `DATABASE_URL` 换到 [Turso](https://turso.tech) / Neon，或挂付费持久盘。代码层已保证「版本同步」不会抹掉后台内容。

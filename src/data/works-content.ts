@@ -14,6 +14,46 @@ export type WorkSeed = {
 /** Single source of truth — edit here, then sync / redeploy. */
 export const worksContent: WorkSeed[] = [
   {
+    title: "中国象棋 · AlphaZero 策略网",
+    description:
+      "自对弈 + MCTS 训练的中国象棋策略网络：本地 CUDA 闭环训练，浏览器 ONNX 对弈。挂载 /xiangqi。",
+    category: "demo",
+    tags: "象棋,AlphaZero,MCTS,ONNX,深度学习,自对弈,前端演示",
+    featured: true,
+    published: true,
+    sortOrder: 8,
+    link: "/xiangqi",
+    github: "https://github.com/Az0998/deep-learning/tree/master/chess_game",
+    content: `## 一句话
+
+中国象棋的 AlphaZero 风格管线：PUCT-MCTS 自对弈生成数据 → 训练 ResNet → 新旧版本对抗晋升；策略网导出 ONNX 后可在浏览器里对弈。
+
+## 在线打开
+
+[打开象棋策略网演示](/xiangqi)
+
+> 不在顶栏占位，从本作品详情进入即可。浏览器端用 policy argmax（轻量）；完整 MCTS 在本地 Python。
+
+## 能体验什么
+
+- 红方点选走子，黑方由 ONNX 策略网应着
+- **提示**按钮查看网络建议着法
+- 规则引擎含将帅对面、炮架、蹩马腿等
+
+## 本地训练（Python / CUDA）
+
+\`\`\`bash
+cd chess_game
+pip install -r requirements.txt
+python -m ai.loop --gens 2 --games 50 --sims 100
+python scripts/export_onnx.py
+python main.py
+\`\`\`
+
+按 \`A\` 在 NeuralMCTS 与 Minimax 基线之间切换。
+`,
+  },
+  {
     title: "匿名问卷 · 分发填写与汇总",
     description:
       "浏览器端匿名问卷：公开/私密分发、填写汇总、结果快照，以及问卷绑定的匿名讨论区。挂载 /survey。",
@@ -278,44 +318,42 @@ python run_ablation.py
   {
     title: "Novel Studio 写作工作台",
     description:
-      "AI 连载工作台网页演示：向导建书、流水线、赞助发码与功能验证；桌面端负责本机 LLM 与发布。挂载 /novel-studio。",
+      "AI 连载工作台：LangGraph 多角色写作环 + FastAPI SaaS 额度壳；网页演示挂载 /novel-studio。",
     category: "demo",
-    tags: "LLM,写作工具,Next.js,桌面应用,产品演示",
+    tags: "LLM,LangGraph,FastAPI,写作工具,SaaS,产品演示",
     featured: false,
     published: true,
     sortOrder: 12,
-    github: "https://github.com/Az0998/novel-studio",
+    github: "https://github.com/Az0998/deep-learning/tree/master/code/fanqie-novel/novel-studio",
     link: "/novel-studio",
     content: `## 一句话
 
-把「种子 → 大纲 → 梗概 → 正文 → 审查 → 排期」做成可体验的工作台：网页验证交互，桌面跑真引擎。
+把「种子 → 大纲 → 梗概 → 正文 → 审查 → 排期」做成可体验的工作台：网页验证交互，桌面跑真引擎；一期已加 **Agent 写作环** 与 **SaaS 额度 API**。
 
 ## 在线打开
 
 [打开 Novel Studio 演示](/novel-studio)
 
-源码：[github.com/Az0998/novel-studio](https://github.com/Az0998/novel-studio)
+源码：[fanqie-novel/novel-studio](https://github.com/Az0998/deep-learning/tree/master/code/fanqie-novel/novel-studio)
 
 > 不在顶栏占位，从本作品详情进入即可。
 
-## 网页能验证什么
+## 一期能力
 
-- **新建书向导**与免费 1 本额度
-- **工作台流水线**步骤状态
-- **赞助 ¥8 / 7 天**：下单 → 发码 → 激活闭环
-- **一键功能验证**套件
-- API Key / 模型配置预演（仅存浏览器本地）
+- **LangGraph Agent**：策划 → 编剧 → 审稿 ⇄ 改稿（\`--agentic\`）
+- **SaaS MVP**：注册登录、免费 1 本、mock 赞助解锁（\`uvicorn saas.app.main:app\`）
+- 网页向导 / 流水线 / 赞助发码 UX 验证
 
-## 桌面端（完整能力）
+## 本地
 
 \`\`\`bash
-git clone https://github.com/Az0998/novel-studio.git
-cd novel-studio
-pip install -r requirements.txt
-python -m app.main
-\`\`\`
+cd code/fanqie-novel/automation
+python scripts/write_novel.py --slug <slug> --chapter 1 --agentic
 
-便携包：\`python tools/build_portable.py\`
+cd ../novel-studio
+pip install -r requirements-saas.txt
+uvicorn saas.app.main:app --port 8787
+\`\`\`
 
 ## 定位
 
