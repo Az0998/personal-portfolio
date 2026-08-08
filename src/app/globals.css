@@ -215,6 +215,67 @@ body {
   }
 }
 
+/* —— 冷启动 / 路由过渡加载屏 —— */
+.boot-screen {
+  min-height: 100dvh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.75rem;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 30%, rgba(228, 76, 101, 0.22), transparent 60%),
+    #1a1218;
+  padding: 2rem;
+}
+.boot-screen__orb {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 999px;
+  background: linear-gradient(145deg, #ff9aab, #e44c65 55%, #5ec8e8);
+  box-shadow: 0 0 40px rgba(228, 76, 101, 0.45);
+  animation: boot-pulse 1.4s ease-in-out infinite;
+}
+.boot-screen__brand {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+}
+.boot-screen__hint {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+.boot-screen__bar {
+  width: min(220px, 60vw);
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+.boot-screen__bar span {
+  display: block;
+  height: 100%;
+  width: 40%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #5ec8e8, #e44c65);
+  animation: boot-slide 1.1s ease-in-out infinite;
+}
+@keyframes boot-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.06); opacity: 0.88; }
+}
+@keyframes boot-slide {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(320%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .boot-screen__orb,
+  .boot-screen__bar span {
+    animation: none;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }

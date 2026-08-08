@@ -88,7 +88,7 @@ git push -u origin main
 5. 点 **Create Web Service**，等构建成功。  
    你会得到类似：`https://personal-portfolio-xxxx.onrender.com`
 
-> Free 实例会休眠，首次打开可能要等 30–60 秒。
+> Free 实例会休眠，首次打开可能要等 30–60 秒（平台冷启动）。健康检查已改为轻量 `/api/health`（不打 Prisma 首页），唤醒后应更快变绿；站内另有加载过渡页。
 
 ## 三、绑定 zhangsjqaq.vexr.dev
 

@@ -284,15 +284,20 @@ python app.py
     published: true,
     sortOrder: 3,
     github: "https://github.com/Az0998/hydro-ml-paper",
+    link: "/presentations/hydro-ml",
     content: `## 一句话
 
 把上游水文站 + 气象场喂给深度学习，做 1/3/7 日流量预报，并用统一指标板把模型打分、消融和投稿图一锅端。
 
+## 在线汇报
+
+[打开 PPT 级项目介绍](/presentations/hydro-ml)
+
 ## 你现在能看到什么
 
-- **指标舱**：详情页顶部 NSE 对比条，一眼看出谁在一日/三日赢
-- **演示流**：数据 → 训练 → 消融/洪水 → 文稿，四步复现
+- **网页汇报**：封面 → 动机 → 方法 → 指标 → 复现路径
 - **结果表**：LSTM-Attention 一日 NSE **0.930**；三日 LSTM **0.543**
+- **本地闭环**：数据下载、训练、消融与 HSJ 文稿脚本
 
 ## 方法速览
 
@@ -375,9 +380,14 @@ python scripts/write_novel.py --slug <slug> --chapter 1 --agentic
     published: true,
     sortOrder: 30,
     github: "https://github.com/Az0998/zhuangfangyi-desktop-pet",
+    link: "/presentations/desktop-pet",
     content: `## 一句话
 
 让角色住进桌面——无边框透明、始终置顶，写代码时点一下还会跟你打招呼。
+
+## 在线汇报
+
+[打开 PPT 级项目介绍](/presentations/desktop-pet)
 
 源码：[github.com/Az0998/zhuangfangyi-desktop-pet](https://github.com/Az0998/zhuangfangyi-desktop-pet)
 
@@ -417,9 +427,14 @@ python main.py
     published: true,
     sortOrder: 21,
     github: "https://github.com/Az0998/clipboard-visualizer",
+    link: "/presentations/clipboard-viz",
     content: `## 一句话
 
 后台默默记下你复制的文字、图片、路径和链接，再用仪表板把习惯可视化。
+
+## 在线汇报
+
+[打开 PPT 级项目介绍](/presentations/clipboard-viz)
 
 源码：[github.com/Az0998/clipboard-visualizer](https://github.com/Az0998/clipboard-visualizer)
 
@@ -450,11 +465,16 @@ python app.py
     featured: false,
     published: true,
     sortOrder: 31,
+    link: "/presentations/plant-ppt",
     content: `## 一句话
 
 深林绿学术配色，把多场景叶片观察自动排成能上台讲的 PPT。
 
-## 怎么出片
+## 在线汇报
+
+[打开网页版演示汇报](/presentations/plant-ppt)
+
+## 怎么出片（本地 PPTX）
 
 \`\`\`bash
 python create_plant_ppt.py
@@ -472,9 +492,14 @@ python create_plant_ppt.py
     featured: false,
     published: true,
     sortOrder: 4,
+    link: "/presentations/eco-hydro",
     content: `## 一句话
 
 用 Budyko 把气候干湿、径流和 NDVI 放进同一套故事，适合课程论文与答辩展示。
+
+## 在线汇报
+
+[打开 PPT 级项目介绍](/presentations/eco-hydro)
 
 ## 流水线
 
@@ -492,9 +517,14 @@ python create_plant_ppt.py
     featured: false,
     published: true,
     sortOrder: 5,
+    link: "/presentations/hydrology-field",
     content: `## 一句话
 
 把多个实习模块串成「采集 → 脚本整编 → 图表/CAD/报告」一条链。
+
+## 在线汇报
+
+[打开 PPT 级项目介绍](/presentations/hydrology-field)
 
 ## 推荐三图
 
@@ -510,9 +540,14 @@ python create_plant_ppt.py
     featured: false,
     published: true,
     sortOrder: 6,
+    link: "/presentations/yaohe-review",
     content: `## 一句话
 
 结构化综述写作 + 流域示意图，展示文献梳理与图文编排能力。
+
+## 在线汇报
+
+[打开 PPT 级项目介绍](/presentations/yaohe-review)
 `,
   },
   {

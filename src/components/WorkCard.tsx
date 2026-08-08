@@ -1,10 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
+import { ArrowUpRight, Github, ExternalLink, Presentation } from "lucide-react";
 import Link from "next/link";
 import { parseTags, getWorkCategoryLabel, resolveWorkCategory } from "@/lib/utils";
 import { getShowcaseByTitle } from "@/data/showcases";
+import { presentationHrefForTitle } from "@/data/presentations";
 import { workCovers, moodCovers } from "@/data/covers";
 
 export interface WorkItem {
@@ -35,14 +36,20 @@ function isSvg(src: string) {
   return src.endsWith(".svg");
 }
 
+function isPresentationLink(href: string) {
+  return href.startsWith("/presentations/");
+}
+
 export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
   const tags = parseTags(work.tags);
   const showcase = getShowcaseByTitle(work.title);
   const cat = resolveWorkCategory(work.title, work.category);
   const mood = showcase?.mood ?? (cat === "hydro" ? "hydro" : cat === "paper" ? "paper" : "tool");
-  const effectiveLink = work.link || (showcase ? `/${showcase.slug}` : null);
+  const deckHref = presentationHrefForTitle(work.title);
+  const demoHref = work.link && !isPresentationLink(work.link) ? work.link : null;
+  const openHref = demoHref || work.link || deckHref;
   const cover = resolveCover(work, mood);
-  const hasDemo = Boolean(effectiveLink);
+  const hasLiveDemo = Boolean(demoHref);
   const isFeatured =
     work.featured ||
     [
@@ -90,9 +97,9 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
               </span>
             )}
           </div>
-          {hasDemo && (
+          {(hasLiveDemo || deckHref) && (
             <span className="absolute top-3 right-3 px-2.5 py-1 text-[11px] bg-black/45 backdrop-blur-sm text-white/90 rounded-full border border-white/15">
-              可体验
+              {hasLiveDemo ? "可体验" : "汇报"}
             </span>
           )}
           {showcase?.tagline && (
@@ -127,18 +134,32 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
         </div>
       </Link>
 
-      {(effectiveLink || work.github) && (
-        <div className="px-4 md:px-5 pb-4 flex gap-2 -mt-1">
-          {effectiveLink && (
+      {(openHref || work.github || deckHref) && (
+        <div className="px-4 md:px-5 pb-4 flex flex-wrap gap-2 -mt-1">
+          {openHref && (
             <a
-              href={effectiveLink}
-              target={effectiveLink.startsWith("http") ? "_blank" : undefined}
+              href={openHref}
+              target={openHref.startsWith("http") ? "_blank" : undefined}
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-[#e44c65]/85 hover:bg-[#e44c65] text-white transition-colors"
             >
-              <ExternalLink className="w-3.5 h-3.5" />
-              打开
+              {isPresentationLink(openHref) ? (
+                <Presentation className="w-3.5 h-3.5" />
+              ) : (
+                <ExternalLink className="w-3.5 h-3.5" />
+              )}
+              {isPresentationLink(openHref) ? "汇报" : "打开"}
+            </a>
+          )}
+          {deckHref && demoHref && (
+            <a
+              href={deckHref}
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white/85 transition-colors"
+            >
+              <Presentation className="w-3.5 h-3.5" />
+              介绍
             </a>
           )}
           {work.github && (

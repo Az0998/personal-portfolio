@@ -1,11 +1,12 @@
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink, Github } from "lucide-react";
+import { ArrowLeft, ExternalLink, Github, Presentation } from "lucide-react";
 import { parseTags, getWorkCategoryLabel } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getShowcaseByTitle } from "@/data/showcases";
+import { presentationHrefForTitle } from "@/data/presentations";
 import { ShowcasePanel } from "@/components/ShowcasePanel";
 import { SiteBackground } from "@/components/SiteBackground";
 import { workCovers, moodCovers } from "@/data/covers";
@@ -22,7 +23,10 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
   const tags = parseTags(work.tags);
   const showcase = getShowcaseByTitle(work.title);
-  const effectiveLink = work.link || (showcase ? `/${showcase.slug}` : null);
+  const deckHref = presentationHrefForTitle(work.title);
+  const demoHref =
+    work.link && !work.link.startsWith("/presentations/") ? work.link : null;
+  const primaryHref = demoHref || work.link || deckHref;
   const mood = showcase?.mood ?? "tool";
   const cover =
     work.coverImage ||
@@ -90,17 +94,31 @@ export default async function WorkDetailPage({ params }: PageProps) {
             </div>
           )}
 
-          <div className="flex gap-4 mb-12">
-            {effectiveLink && (
+          <div className="flex flex-wrap gap-3 mb-12">
+            {primaryHref && (
               <a
-                href={effectiveLink}
-                {...(effectiveLink.startsWith("http")
+                href={primaryHref}
+                {...(primaryHref.startsWith("http")
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
                 className="btn-primary"
               >
-                <ExternalLink className="w-4 h-4" />
-                {effectiveLink.startsWith("/") ? "打开演示" : "查看项目"}
+                {primaryHref.startsWith("/presentations/") ? (
+                  <Presentation className="w-4 h-4" />
+                ) : (
+                  <ExternalLink className="w-4 h-4" />
+                )}
+                {primaryHref.startsWith("/presentations/")
+                  ? "打开汇报"
+                  : primaryHref.startsWith("/")
+                    ? "打开演示"
+                    : "查看项目"}
+              </a>
+            )}
+            {deckHref && demoHref && (
+              <a href={deckHref} className="btn-outline">
+                <Presentation className="w-4 h-4" />
+                项目介绍
               </a>
             )}
             {work.github && (
