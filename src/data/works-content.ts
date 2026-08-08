@@ -553,38 +553,41 @@ python create_plant_ppt.py
   {
     title: "东海陆架溶解氧中长期预报",
     description:
-      "东海陆架 1–3 个月溶解氧预报与稀疏观测压力测试：ST-Transformer + 气候态混合，附 GitHub Pages 项目页与 WOA-informed 结果。",
+      "可见产品：lead-1 氧场交互 Demo + NetCDF。科学侧含物理驱动、Mask-View 消融、季节技巧与沿岸失败模态；主投 AIES。",
     category: "paper",
-    tags: "海洋,溶解氧,预报,Transformer,稀疏观测,AIES",
+    tags: "海洋,溶解氧,预报,Transformer,稀疏观测,AIES,产品Demo",
     featured: true,
     published: true,
     sortOrder: 7,
     github: "https://github.com/Az0998/ocean-do-forecast",
-    link: "https://az0998.github.io/ocean-do-forecast/",
+    link: "https://az0998.github.io/ocean-do-forecast/demo.html",
     content: `## 一句话
 
-在东海陆架做 1–3 个月溶解氧中长期预报，强调稀疏 Argo 压力下的预见期技能，而不是全球氧场重建。
+在东海陆架做 1–3 个月溶解氧中长期预报，并提供可点开的 lead-1 场产品 Demo——不只是论文表。
 
 ## 在线入口
 
+- [**交互预报 Demo**](https://az0998.github.io/ocean-do-forecast/demo.html) ← 优先看这个
+- [项目总览页](https://az0998.github.io/ocean-do-forecast/)
 - [PPT 级项目介绍](/presentations/ocean-do)
-- [GitHub Pages 项目页](https://az0998.github.io/ocean-do-forecast/)
+- [GitHub](https://github.com/Az0998/ocean-do-forecast)
 
 ## 你现在能看到什么
 
-- **站内汇报**：动机 → 方法 → 指标 → 复现路径
-- **项目页**：图板、多 lead 表、复现命令
-- **结果**：Lead-1 ST RMSE **3.84**，skill **0.78**，缺氧 F1 **0.74**（WOA-informed）
+- **产品**：按深度切换氧预报 / 距平 / 气候态；可下载 NetCDF
+- **科学证据**：物理消融、Mask-View 全模式、季节技巧、bootstrap CI
+- **失败模态**：沿岸误差更高；50 dbar 最难点（锋区叙事待 GOBAI）
+- **主结果**：Lead-1 ST RMSE **3.88**（physics），skill vs clim **0.47**；O₂-only 上界 **3.84 / 0.78**
 
 ## 方法速览
 
 | 模块 | 做法 |
 |------|------|
 | 区域 | 118–128°E, 26–35°N 东海陆架冻结 |
-| 数据 | WOA18 气候态 + 合成距平（GOBAI 可替换） |
+| 数据 | WOA18 + OISST + Open-Meteo 风（GOBAI 可替换） |
 | 模型 | Persistence / Clim / LSTM / ST-Transformer / hybrid |
-| 稀疏 | station / point / block 压力测试 |
-| 产出 | 多 lead 表、组合图、手稿草稿 |
+| 稀疏 | point / block / block_time / sensor / station / mixed / argo |
+| 产出 | 交互 Demo、NetCDF、消融表、手稿草稿 |
 
 ## 本地跑一遍
 
@@ -592,13 +595,15 @@ python create_plant_ppt.py
 cd ocean-do-forecast
 pip install -r requirements.txt
 python scripts/bootstrap_and_smoke.py
-python run_multilead.py --demo --quick
+python scripts/export_forecast_product.py --quick
+python scripts/export_web_forecast.py
 \`\`\`
 
 ## 链接
 
-- [GitHub](https://github.com/Az0998/ocean-do-forecast)
+- [Forecast demo](https://az0998.github.io/ocean-do-forecast/demo.html)
 - [Project site](https://az0998.github.io/ocean-do-forecast/)
+- [GitHub](https://github.com/Az0998/ocean-do-forecast)
 - 姐妹项目：[Dianchi Mask-View](https://az0998.github.io/dianchi-maskview-imputation/)
 `,
   },
