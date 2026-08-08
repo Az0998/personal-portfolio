@@ -243,6 +243,33 @@ const EXTRAS: Extra[] = [
     ],
     closing: ["轻量工具向作品", "展示全栈上传与对象存储接入"],
   },
+  {
+    slug: "ocean-do",
+    title: "东海陆架溶解氧中长期预报",
+    mood: "paper",
+    emoji: "🌊",
+    tagline: "1–3 个月溶解氧预报 · 稀疏观测压力 · ST-Transformer",
+    demoHref: "https://az0998.github.io/ocean-do-forecast/",
+    github: "https://github.com/Az0998/ocean-do-forecast",
+    highlights: [
+      "东海陆架冻结区域，面向中长期预见期而非全球氧场重建",
+      "ST-Transformer + 气候态混合，对比 Persistence / Clim / LSTM",
+      "station / point / block 稀疏观测压力测试",
+      "GitHub Pages 项目页展示多 lead 表与复现命令",
+    ],
+    stack: ["PyTorch", "ST-Transformer", "WOA18", "稀疏压力测试"],
+    metrics: [
+      { label: "Lead-1 ST RMSE", value: "3.84" },
+      { label: "Skill", value: "0.78" },
+      { label: "缺氧 F1", value: "0.74", note: "WOA-informed" },
+    ],
+    steps: [
+      { title: "打开项目页", detail: "浏览图板、多 lead 表与复现命令。" },
+      { title: "本地冒烟", detail: "bootstrap_and_smoke → run_multilead --demo。" },
+      { title: "读压力测试", detail: "对比稀疏掩膜下预见期技能变化。" },
+    ],
+    closing: ["适合海洋 AI / 环境预报方向答辩叙事", "完整训练与结果在仓库与 Pages 项目页"],
+  },
 ];
 
 function buildFromShowcase(s: Showcase): Presentation {

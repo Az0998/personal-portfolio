@@ -565,10 +565,15 @@ python create_plant_ppt.py
 
 在东海陆架做 1–3 个月溶解氧中长期预报，强调稀疏 Argo 压力下的预见期技能，而不是全球氧场重建。
 
+## 在线入口
+
+- [PPT 级项目介绍](/presentations/ocean-do)
+- [GitHub Pages 项目页](https://az0998.github.io/ocean-do-forecast/)
+
 ## 你现在能看到什么
 
+- **站内汇报**：动机 → 方法 → 指标 → 复现路径
 - **项目页**：图板、多 lead 表、复现命令
-- **仓库**：调查 → 立方体 → multilead 训练评估闭环
 - **结果**：Lead-1 ST RMSE **3.84**，skill **0.78**，缺氧 F1 **0.74**（WOA-informed）
 
 ## 方法速览
