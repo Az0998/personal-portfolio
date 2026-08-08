@@ -515,6 +515,53 @@ python create_plant_ppt.py
 结构化综述写作 + 流域示意图，展示文献梳理与图文编排能力。
 `,
   },
+  {
+    title: "东海陆架溶解氧中长期预报",
+    description:
+      "东海陆架 1–3 个月溶解氧预报与稀疏观测压力测试：ST-Transformer + 气候态混合，附 GitHub Pages 项目页与 WOA-informed 结果。",
+    category: "paper",
+    tags: "海洋,溶解氧,预报,Transformer,稀疏观测,AIES",
+    featured: true,
+    published: true,
+    sortOrder: 7,
+    github: "https://github.com/Az0998/ocean-do-forecast",
+    link: "https://az0998.github.io/ocean-do-forecast/",
+    content: `## 一句话
+
+在东海陆架做 1–3 个月溶解氧中长期预报，强调稀疏 Argo 压力下的预见期技能，而不是全球氧场重建。
+
+## 你现在能看到什么
+
+- **项目页**：图板、多 lead 表、复现命令
+- **仓库**：调查 → 立方体 → multilead 训练评估闭环
+- **结果**：Lead-1 ST RMSE **3.84**，skill **0.78**，缺氧 F1 **0.74**（WOA-informed）
+
+## 方法速览
+
+| 模块 | 做法 |
+|------|------|
+| 区域 | 118–128°E, 26–35°N 东海陆架冻结 |
+| 数据 | WOA18 气候态 + 合成距平（GOBAI 可替换） |
+| 模型 | Persistence / Clim / LSTM / ST-Transformer / hybrid |
+| 稀疏 | station / point / block 压力测试 |
+| 产出 | 多 lead 表、组合图、手稿草稿 |
+
+## 本地跑一遍
+
+\`\`\`bash
+cd ocean-do-forecast
+pip install -r requirements.txt
+python scripts/bootstrap_and_smoke.py
+python run_multilead.py --demo --quick
+\`\`\`
+
+## 链接
+
+- [GitHub](https://github.com/Az0998/ocean-do-forecast)
+- [Project site](https://az0998.github.io/ocean-do-forecast/)
+- 姐妹项目：[Dianchi Mask-View](https://az0998.github.io/dianchi-maskview-imputation/)
+`,
+  },
 ];
 
 export const profileContent = {
