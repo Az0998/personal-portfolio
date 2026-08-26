@@ -33,6 +33,7 @@ const LEGACY_CATEGORY: Record<string, WorkCategory> = {
 
 /** 按标题纠偏（库内仍是旧 category 时也能正确分组） */
 const TITLE_CATEGORY: Record<string, WorkCategory> = {
+  "智慧水利管理系统": "hydro",
   "HydroInfo 流域水情信息平台": "hydro",
   "HydroBench · 水文双工作台": "hydro",
   "波托马克流域生态水文耦合分析": "hydro",

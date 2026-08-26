@@ -41,6 +41,7 @@ type Extra = {
 };
 
 const DEMO_BY_SLUG: Record<string, string> = {
+  "smart-water": "/smart-water",
   "hydro-info": "/hydrobench?tab=info",
   hydrobench: "/hydrobench?tab=studio",
   yili: "/yili",
@@ -64,6 +65,23 @@ const GITHUB_BY_SLUG: Record<string, string> = {
 
 /** Richer narrative overrides for PPT decks (beyond showcase bullets). */
 const NARRATIVE: Record<string, { problem: string[]; method: string[]; outcome: string[] }> = {
+  "smart-water": {
+    problem: [
+      "水文岗位需要把巡测考勤、任务、测报和仪器出库收成一套可演示系统",
+      "纯态势看板不够，答辩还要看到角色权限与审核闭环",
+      "农场类课程设计可复用，但业务对象必须换成测站与防汛物资",
+    ],
+    method: [
+      "前后端分离：Vue + Element 前台 / 管理端，SpringBoot + MyBatis-Plus 后端",
+      "模块映射：采收→测报，农具→仪器，农资→防汛物资",
+      "在线演示走本机存储；本地可切 MySQL 真库",
+    ],
+    outcome: [
+      "巡测员与管理员两套工作台可当场演示",
+      "考勤日历、测报登记、借用审核与库存预警齐全",
+      "可作为课程设计 / 实习项目的完整管理系统",
+    ],
+  },
   "hydro-ml": {
     problem: [
       "多时效径流预报要同时扛住基流与洪峰，单模型很难全面领先",

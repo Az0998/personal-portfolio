@@ -50,3 +50,7 @@ next-env.d.ts
 # local agent skills (junctions to user profile)
 .cursor/skills/
 
+# SpringBoot demo
+smart-water-mgmt/backend/target/
+
+

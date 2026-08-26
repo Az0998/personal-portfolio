@@ -14,6 +14,38 @@ export type WorkSeed = {
 /** Single source of truth — edit here, then sync / redeploy. */
 export const worksContent: WorkSeed[] = [
   {
+    title: "智慧水利管理系统",
+    description:
+      "SpringBoot + Vue 前后端分离：巡测员考勤/请假/任务/测报/仪器借用，管理员看板与审核。挂载 /smart-water。",
+    category: "hydro",
+    tags: "SpringBoot,Vue,MyBatis-Plus,Element-UI,ECharts,智慧水利,管理系统",
+    featured: true,
+    published: true,
+    sortOrder: 0,
+    link: "/smart-water",
+    content: `## 一句话
+
+把农场管理系统的「考勤 · 任务 · 上报 · 借用」换成水利岗位：测站测报、水事任务、测验仪器与防汛物资。
+
+## 在线打开
+
+[打开智慧水利管理系统](/smart-water)
+
+演示账号：巡测员 \`lintao / 123456\` · 管理员 \`admin / admin123\`
+
+## 角色
+
+| 端 | 能力 |
+|----|------|
+| 巡测员 | 登录注册、首页测站、上下班打卡与日历、请假、任务反馈、测报登记/改删、仪器申请归还、个人中心 |
+| 管理员 | 看板、用户/测站/任务、测报、考勤时间、请假与借用审核、物资出入库、轮播图、日志 |
+
+## 本地完整栈
+
+见仓库 \`smart-water-mgmt/\`：MySQL 建库 + SpringBoot 8088。在线演示为 Vue 静态前端（数据在本机浏览器）。
+`,
+  },
+  {
     title: "中国象棋 · AlphaZero 策略网",
     description:
       "自对弈 + MCTS 训练的中国象棋策略网络：本地 CUDA 闭环训练，浏览器 ONNX 对弈。挂载 /xiangqi。",

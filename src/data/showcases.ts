@@ -25,6 +25,31 @@ export interface Showcase {
 
 export const showcases: Showcase[] = [
   {
+    slug: "smart-water",
+    title: "智慧水利管理系统",
+    mood: "hydro",
+    heroEmoji: "🏞️",
+    tagline: "SpringBoot + Vue · 考勤打卡 · 水事任务 · 测报上报 · 仪器借用",
+    highlights: [
+      "对照农场系统模块，换成洮河测站 / 测报 / 仪器 / 防汛物资",
+      "巡测员前台：首页快捷入口、打卡日历、请假、任务反馈、测报与借用",
+      "管理员后台：ECharts 看板、审核流、库存预警、操作日志",
+      "在线可玩；本地可接 MySQL + SpringBoot 8088",
+    ],
+    metrics: [
+      { label: "角色", value: 2, display: "2" },
+      { label: "前台模块", value: 6, display: "6" },
+      { label: "后台模块", value: 12, display: "12+" },
+    ],
+    demo: [
+      { title: "巡测员登录", detail: "lintao / 123456 进入首页与考勤页。" },
+      { title: "打卡与测报", detail: "上班打卡后登记临洮站水位。" },
+      { title: "管理员审核", detail: "admin / admin123 处理请假与仪器借用。" },
+    ],
+    stack: ["Vue 3", "Element Plus", "ECharts", "SpringBoot", "MyBatis-Plus", "MySQL"],
+    galleryHints: ["首页测站卡", "考勤日历", "后台看板", "仪器借用"],
+  },
+  {
     slug: "yili",
     title: "易理占筮 · 太极八卦六十四阵",
     mood: "tool",
