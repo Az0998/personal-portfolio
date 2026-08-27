@@ -5,7 +5,7 @@ import "./yili.css";
 export const metadata: Metadata = {
   title: "易理占筮 · 太极八卦六十四阵 | 张森捷",
   description:
-    "周易象数学习演示：一事一占、天时地利人和、六爻与梅花易数、体用生克与朱熹动爻玩辞法",
+    "周易象数与韦特塔罗学习演示：一事一占、事不过三、因地制宜、六爻梅花与塔罗对照",
 };
 
 export default function YiliPage() {
