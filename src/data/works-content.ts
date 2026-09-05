@@ -14,6 +14,49 @@ export type WorkSeed = {
 /** Single source of truth — edit here, then sync / redeploy. */
 export const worksContent: WorkSeed[] = [
   {
+    title: "流域「一张图」GIS 小站",
+    description:
+      "波托马克公开流域：水系/子流域/站点/水库 GeoJSON + Leaflet 图层开关、点选弹窗与距河道距离统计；挂载 /watershed-map。",
+    category: "hydro",
+    tags: "GIS,GeoJSON,Leaflet,Turf,空间统计,流域,智慧水利",
+    featured: true,
+    published: true,
+    sortOrder: 0,
+    link: "/watershed-map",
+    content: `## 一句话
+
+把「水系 · 子流域 · 测站 · 水库」叠在一张可交互底图上，点一下就算到河道的距离。
+
+## 在线打开
+
+[打开流域一张图](/watershed-map) · [智慧水利枢纽](/hydrobench)
+
+## 图层与规范
+
+| 图层 | 文件 | 说明 |
+|------|------|------|
+| 流域边界 | \`basin.geojson\` | EPSG:4326，名义面积 14670 km² |
+| 子流域 | \`subbasins.geojson\` | Shenandoah / North Branch / Monocacy / Lower |
+| 水系 | \`rivers.geojson\` | 干流 + 主要支流，含河序 |
+| 水文站 | \`stations.geojson\` | USGS 站码与角色 |
+| 水库 | \`reservoirs.geojson\` | 防洪/供水示意点 |
+| 坡度示意 | \`slope-hint.geojson\` | 合成 DEM 派生，非工程精度 |
+
+## 空间统计
+
+- 站点数、水库数、流域面积、河网示意长度
+- 地图点击：Turf \`nearestPointOnLine\` → 距最近河道距离 (km)
+
+## 本地再生数据
+
+\`\`\`bash
+python scripts/generate_watershed_geojson.py
+\`\`\`
+
+> 边界与河网为教学简化；坡度为示意图层。
+`,
+  },
+  {
     title: "智慧水利管理系统",
     description:
       "SpringBoot + Vue 前后端分离：巡测员考勤/请假/任务/测报/仪器借用，管理员看板与审核。挂载 /smart-water。",

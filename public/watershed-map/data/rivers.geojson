@@ -1,0 +1,168 @@
+{
+  "type": "FeatureCollection",
+  "name": "potomac_rivers",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:4326"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "R-MAIN",
+        "name": "Potomac 干流",
+        "name_en": "Potomac Main Stem",
+        "stream_order": 1
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -79.35,
+            39.4
+          ],
+          [
+            -78.95,
+            39.35
+          ],
+          [
+            -78.55,
+            39.3
+          ],
+          [
+            -78.1,
+            39.28
+          ],
+          [
+            -77.73,
+            39.32
+          ],
+          [
+            -77.45,
+            39.2
+          ],
+          [
+            -77.25,
+            39.05
+          ],
+          [
+            -77.13,
+            38.95
+          ],
+          [
+            -77.05,
+            38.8
+          ],
+          [
+            -77.02,
+            38.6
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "R-SHEN",
+        "name": "Shenandoah 河",
+        "name_en": "Shenandoah River",
+        "stream_order": 2
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -78.85,
+            38.8
+          ],
+          [
+            -78.55,
+            38.9
+          ],
+          [
+            -78.25,
+            39.05
+          ],
+          [
+            -77.95,
+            39.2
+          ],
+          [
+            -77.79,
+            39.29
+          ],
+          [
+            -77.73,
+            39.32
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "R-MONO",
+        "name": "Monocacy 河",
+        "name_en": "Monocacy River",
+        "stream_order": 2
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -77.45,
+            39.65
+          ],
+          [
+            -77.4,
+            39.45
+          ],
+          [
+            -77.35,
+            39.25
+          ],
+          [
+            -77.3,
+            39.1
+          ],
+          [
+            -77.25,
+            39.05
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "R-ANAC",
+        "name": "Anacostia 河",
+        "name_en": "Anacostia River",
+        "stream_order": 3
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -76.95,
+            38.95
+          ],
+          [
+            -77.0,
+            38.9
+          ],
+          [
+            -77.05,
+            38.88
+          ],
+          [
+            -77.1,
+            38.87
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,204 @@
+{
+  "type": "FeatureCollection",
+  "name": "potomac_subbasins",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:4326"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SB-SHEN",
+        "name": "Shenandoah 子流域",
+        "name_en": "Shenandoah Subbasin",
+        "area_km2": 3040
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.2,
+              39.45
+            ],
+            [
+              -78.7,
+              39.55
+            ],
+            [
+              -78.15,
+              39.35
+            ],
+            [
+              -77.85,
+              39.05
+            ],
+            [
+              -78.05,
+              38.75
+            ],
+            [
+              -78.55,
+              38.7
+            ],
+            [
+              -79.05,
+              38.95
+            ],
+            [
+              -79.2,
+              39.25
+            ],
+            [
+              -79.2,
+              39.45
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SB-NORTH",
+        "name": "北支 Potomac 子流域",
+        "name_en": "North Branch Potomac",
+        "area_km2": 3480
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.48,
+              39.55
+            ],
+            [
+              -79.0,
+              39.85
+            ],
+            [
+              -78.35,
+              39.75
+            ],
+            [
+              -78.1,
+              39.45
+            ],
+            [
+              -78.45,
+              39.2
+            ],
+            [
+              -79.05,
+              39.15
+            ],
+            [
+              -79.48,
+              39.35
+            ],
+            [
+              -79.48,
+              39.55
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SB-MONO",
+        "name": "Monocacy 子流域",
+        "name_en": "Monocacy Subbasin",
+        "area_km2": 1880
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.7,
+              39.7
+            ],
+            [
+              -77.2,
+              39.65
+            ],
+            [
+              -77.0,
+              39.35
+            ],
+            [
+              -77.15,
+              39.05
+            ],
+            [
+              -77.55,
+              39.1
+            ],
+            [
+              -77.75,
+              39.35
+            ],
+            [
+              -77.7,
+              39.7
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SB-LOWER",
+        "name": "下游潮汐段子流域",
+        "name_en": "Lower Potomac Tidal",
+        "area_km2": 6270
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.55,
+              39.1
+            ],
+            [
+              -77.05,
+              39.2
+            ],
+            [
+              -76.85,
+              38.85
+            ],
+            [
+              -76.95,
+              38.45
+            ],
+            [
+              -77.35,
+              38.4
+            ],
+            [
+              -77.75,
+              38.65
+            ],
+            [
+              -77.7,
+              38.95
+            ],
+            [
+              -77.55,
+              39.1
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

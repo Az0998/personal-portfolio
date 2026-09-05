@@ -1,0 +1,15 @@
+{
+  "basin": "Potomac River Basin / 波托马克河流域",
+  "epsg": 4326,
+  "area_km2_nominal": 14670,
+  "layers": [
+    "basin.geojson",
+    "subbasins.geojson",
+    "rivers.geojson",
+    "stations.geojson",
+    "reservoirs.geojson",
+    "slope-hint.geojson"
+  ],
+  "disclaimer": "教学示意数据：边界与河网已简化；坡度为合成 DEM 示意，不可用于工程设计。",
+  "stations_source": "USGS NWIS site coordinates (approx.)"
+}

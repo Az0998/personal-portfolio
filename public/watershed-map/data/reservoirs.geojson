@@ -1,0 +1,63 @@
+{
+  "type": "FeatureCollection",
+  "name": "potomac_reservoirs",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:4326"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "RSV-JENNINGS",
+        "name": "Jennings Randolph Lake",
+        "name_zh": "Jennings Randolph 水库",
+        "purpose": "防洪 / 供水",
+        "capacity_e6m3": 158
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.365,
+          39.428
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "RSV-BLOOM",
+        "name": "Bloomington Lake",
+        "name_zh": "Bloomington 水库",
+        "purpose": "防洪",
+        "capacity_e6m3": 92
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.21,
+          39.465
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "RSV-SAVAGE",
+        "name": "Savage River Reservoir",
+        "name_zh": "Savage 河水库",
+        "purpose": "补水 / 生态",
+        "capacity_e6m3": 25
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.115,
+          39.505
+        ]
+      }
+    }
+  ]
+}

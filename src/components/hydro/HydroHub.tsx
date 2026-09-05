@@ -69,6 +69,9 @@ export function HydroHub() {
               {t.label}
             </button>
           ))}
+          <Link href="/watershed-map" className="hb-map-link" title="流域一张图 GIS">
+            空间图
+          </Link>
         </div>
       </header>
 

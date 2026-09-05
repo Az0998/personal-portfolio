@@ -1,0 +1,5196 @@
+{
+  "type": "FeatureCollection",
+  "name": "potomac_slope_hint",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:4326"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 356.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              38.4
+            ],
+            [
+              -79.2375,
+              38.4
+            ],
+            [
+              -79.2375,
+              38.525
+            ],
+            [
+              -79.45,
+              38.525
+            ],
+            [
+              -79.45,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 334.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              38.525
+            ],
+            [
+              -79.2375,
+              38.525
+            ],
+            [
+              -79.2375,
+              38.65
+            ],
+            [
+              -79.45,
+              38.65
+            ],
+            [
+              -79.45,
+              38.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 311.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              38.65
+            ],
+            [
+              -79.2375,
+              38.65
+            ],
+            [
+              -79.2375,
+              38.775
+            ],
+            [
+              -79.45,
+              38.775
+            ],
+            [
+              -79.45,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 289.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              38.775
+            ],
+            [
+              -79.2375,
+              38.775
+            ],
+            [
+              -79.2375,
+              38.9
+            ],
+            [
+              -79.45,
+              38.9
+            ],
+            [
+              -79.45,
+              38.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 266.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              38.9
+            ],
+            [
+              -79.2375,
+              38.9
+            ],
+            [
+              -79.2375,
+              39.025
+            ],
+            [
+              -79.45,
+              39.025
+            ],
+            [
+              -79.45,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 244.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              39.025
+            ],
+            [
+              -79.2375,
+              39.025
+            ],
+            [
+              -79.2375,
+              39.15
+            ],
+            [
+              -79.45,
+              39.15
+            ],
+            [
+              -79.45,
+              39.025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 221.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              39.15
+            ],
+            [
+              -79.2375,
+              39.15
+            ],
+            [
+              -79.2375,
+              39.275
+            ],
+            [
+              -79.45,
+              39.275
+            ],
+            [
+              -79.45,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 199.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              39.275
+            ],
+            [
+              -79.2375,
+              39.275
+            ],
+            [
+              -79.2375,
+              39.4
+            ],
+            [
+              -79.45,
+              39.4
+            ],
+            [
+              -79.45,
+              39.275
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 176.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              39.4
+            ],
+            [
+              -79.2375,
+              39.4
+            ],
+            [
+              -79.2375,
+              39.525
+            ],
+            [
+              -79.45,
+              39.525
+            ],
+            [
+              -79.45,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 154.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              39.525
+            ],
+            [
+              -79.2375,
+              39.525
+            ],
+            [
+              -79.2375,
+              39.65
+            ],
+            [
+              -79.45,
+              39.65
+            ],
+            [
+              -79.45,
+              39.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 131.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              39.65
+            ],
+            [
+              -79.2375,
+              39.65
+            ],
+            [
+              -79.2375,
+              39.775
+            ],
+            [
+              -79.45,
+              39.775
+            ],
+            [
+              -79.45,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 109.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              39.775
+            ],
+            [
+              -79.2375,
+              39.775
+            ],
+            [
+              -79.2375,
+              39.9
+            ],
+            [
+              -79.45,
+              39.9
+            ],
+            [
+              -79.45,
+              39.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 348.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.2375,
+              38.4
+            ],
+            [
+              -79.025,
+              38.4
+            ],
+            [
+              -79.025,
+              38.525
+            ],
+            [
+              -79.2375,
+              38.525
+            ],
+            [
+              -79.2375,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 325.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.2375,
+              38.525
+            ],
+            [
+              -79.025,
+              38.525
+            ],
+            [
+              -79.025,
+              38.65
+            ],
+            [
+              -79.2375,
+              38.65
+            ],
+            [
+              -79.2375,
+              38.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 303.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.2375,
+              38.65
+            ],
+            [
+              -79.025,
+              38.65
+            ],
+            [
+              -79.025,
+              38.775
+            ],
+            [
+              -79.2375,
+              38.775
+            ],
+            [
+              -79.2375,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 280.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.2375,
+              38.775
+            ],
+            [
+              -79.025,
+              38.775
+            ],
+            [
+              -79.025,
+              38.9
+            ],
+            [
+              -79.2375,
+              38.9
+            ],
+            [
+              -79.2375,
+              38.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 258.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.2375,
+              38.9
+            ],
+            [
+              -79.025,
+              38.9
+            ],
+            [
+              -79.025,
+              39.025
+            ],
+            [
+              -79.2375,
+              39.025
+            ],
+            [
+              -79.2375,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 235.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.2375,
+              39.025
+            ],
+            [
+              -79.025,
+              39.025
+            ],
+            [
+              -79.025,
+              39.15
+            ],
+            [
+              -79.2375,
+              39.15
+            ],
+            [
+              -79.2375,
+              39.025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 213.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.2375,
+              39.15
+            ],
+            [
+              -79.025,
+              39.15
+            ],
+            [
+              -79.025,
+              39.275
+            ],
+            [
+              -79.2375,
+              39.275
+            ],
+            [
+              -79.2375,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 190.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.2375,
+              39.275
+            ],
+            [
+              -79.025,
+              39.275
+            ],
+            [
+              -79.025,
+              39.4
+            ],
+            [
+              -79.2375,
+              39.4
+            ],
+            [
+              -79.2375,
+              39.275
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 168.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.2375,
+              39.4
+            ],
+            [
+              -79.025,
+              39.4
+            ],
+            [
+              -79.025,
+              39.525
+            ],
+            [
+              -79.2375,
+              39.525
+            ],
+            [
+              -79.2375,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 145.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.2375,
+              39.525
+            ],
+            [
+              -79.025,
+              39.525
+            ],
+            [
+              -79.025,
+              39.65
+            ],
+            [
+              -79.2375,
+              39.65
+            ],
+            [
+              -79.2375,
+              39.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 123.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.2375,
+              39.65
+            ],
+            [
+              -79.025,
+              39.65
+            ],
+            [
+              -79.025,
+              39.775
+            ],
+            [
+              -79.2375,
+              39.775
+            ],
+            [
+              -79.2375,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 100.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.2375,
+              39.775
+            ],
+            [
+              -79.025,
+              39.775
+            ],
+            [
+              -79.025,
+              39.9
+            ],
+            [
+              -79.2375,
+              39.9
+            ],
+            [
+              -79.2375,
+              39.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 339.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              38.4
+            ],
+            [
+              -78.8125,
+              38.4
+            ],
+            [
+              -78.8125,
+              38.525
+            ],
+            [
+              -79.025,
+              38.525
+            ],
+            [
+              -79.025,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 317.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              38.525
+            ],
+            [
+              -78.8125,
+              38.525
+            ],
+            [
+              -78.8125,
+              38.65
+            ],
+            [
+              -79.025,
+              38.65
+            ],
+            [
+              -79.025,
+              38.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 294.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              38.65
+            ],
+            [
+              -78.8125,
+              38.65
+            ],
+            [
+              -78.8125,
+              38.775
+            ],
+            [
+              -79.025,
+              38.775
+            ],
+            [
+              -79.025,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 272.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              38.775
+            ],
+            [
+              -78.8125,
+              38.775
+            ],
+            [
+              -78.8125,
+              38.9
+            ],
+            [
+              -79.025,
+              38.9
+            ],
+            [
+              -79.025,
+              38.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 249.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              38.9
+            ],
+            [
+              -78.8125,
+              38.9
+            ],
+            [
+              -78.8125,
+              39.025
+            ],
+            [
+              -79.025,
+              39.025
+            ],
+            [
+              -79.025,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 227.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              39.025
+            ],
+            [
+              -78.8125,
+              39.025
+            ],
+            [
+              -78.8125,
+              39.15
+            ],
+            [
+              -79.025,
+              39.15
+            ],
+            [
+              -79.025,
+              39.025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 204.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              39.15
+            ],
+            [
+              -78.8125,
+              39.15
+            ],
+            [
+              -78.8125,
+              39.275
+            ],
+            [
+              -79.025,
+              39.275
+            ],
+            [
+              -79.025,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 182.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              39.275
+            ],
+            [
+              -78.8125,
+              39.275
+            ],
+            [
+              -78.8125,
+              39.4
+            ],
+            [
+              -79.025,
+              39.4
+            ],
+            [
+              -79.025,
+              39.275
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 159.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              39.4
+            ],
+            [
+              -78.8125,
+              39.4
+            ],
+            [
+              -78.8125,
+              39.525
+            ],
+            [
+              -79.025,
+              39.525
+            ],
+            [
+              -79.025,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 137.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              39.525
+            ],
+            [
+              -78.8125,
+              39.525
+            ],
+            [
+              -78.8125,
+              39.65
+            ],
+            [
+              -79.025,
+              39.65
+            ],
+            [
+              -79.025,
+              39.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 114.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              39.65
+            ],
+            [
+              -78.8125,
+              39.65
+            ],
+            [
+              -78.8125,
+              39.775
+            ],
+            [
+              -79.025,
+              39.775
+            ],
+            [
+              -79.025,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 92.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              39.775
+            ],
+            [
+              -78.8125,
+              39.775
+            ],
+            [
+              -78.8125,
+              39.9
+            ],
+            [
+              -79.025,
+              39.9
+            ],
+            [
+              -79.025,
+              39.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 331.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.8125,
+              38.4
+            ],
+            [
+              -78.60000000000001,
+              38.4
+            ],
+            [
+              -78.60000000000001,
+              38.525
+            ],
+            [
+              -78.8125,
+              38.525
+            ],
+            [
+              -78.8125,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 309.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.8125,
+              38.525
+            ],
+            [
+              -78.60000000000001,
+              38.525
+            ],
+            [
+              -78.60000000000001,
+              38.65
+            ],
+            [
+              -78.8125,
+              38.65
+            ],
+            [
+              -78.8125,
+              38.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 286.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.8125,
+              38.65
+            ],
+            [
+              -78.60000000000001,
+              38.65
+            ],
+            [
+              -78.60000000000001,
+              38.775
+            ],
+            [
+              -78.8125,
+              38.775
+            ],
+            [
+              -78.8125,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 264.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.8125,
+              38.775
+            ],
+            [
+              -78.60000000000001,
+              38.775
+            ],
+            [
+              -78.60000000000001,
+              38.9
+            ],
+            [
+              -78.8125,
+              38.9
+            ],
+            [
+              -78.8125,
+              38.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 241.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.8125,
+              38.9
+            ],
+            [
+              -78.60000000000001,
+              38.9
+            ],
+            [
+              -78.60000000000001,
+              39.025
+            ],
+            [
+              -78.8125,
+              39.025
+            ],
+            [
+              -78.8125,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 219.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.8125,
+              39.025
+            ],
+            [
+              -78.60000000000001,
+              39.025
+            ],
+            [
+              -78.60000000000001,
+              39.15
+            ],
+            [
+              -78.8125,
+              39.15
+            ],
+            [
+              -78.8125,
+              39.025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 196.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.8125,
+              39.15
+            ],
+            [
+              -78.60000000000001,
+              39.15
+            ],
+            [
+              -78.60000000000001,
+              39.275
+            ],
+            [
+              -78.8125,
+              39.275
+            ],
+            [
+              -78.8125,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 174.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.8125,
+              39.275
+            ],
+            [
+              -78.60000000000001,
+              39.275
+            ],
+            [
+              -78.60000000000001,
+              39.4
+            ],
+            [
+              -78.8125,
+              39.4
+            ],
+            [
+              -78.8125,
+              39.275
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 151.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.8125,
+              39.4
+            ],
+            [
+              -78.60000000000001,
+              39.4
+            ],
+            [
+              -78.60000000000001,
+              39.525
+            ],
+            [
+              -78.8125,
+              39.525
+            ],
+            [
+              -78.8125,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 129.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.8125,
+              39.525
+            ],
+            [
+              -78.60000000000001,
+              39.525
+            ],
+            [
+              -78.60000000000001,
+              39.65
+            ],
+            [
+              -78.8125,
+              39.65
+            ],
+            [
+              -78.8125,
+              39.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 106.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.8125,
+              39.65
+            ],
+            [
+              -78.60000000000001,
+              39.65
+            ],
+            [
+              -78.60000000000001,
+              39.775
+            ],
+            [
+              -78.8125,
+              39.775
+            ],
+            [
+              -78.8125,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 84.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.8125,
+              39.775
+            ],
+            [
+              -78.60000000000001,
+              39.775
+            ],
+            [
+              -78.60000000000001,
+              39.9
+            ],
+            [
+              -78.8125,
+              39.9
+            ],
+            [
+              -78.8125,
+              39.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 322.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              38.4
+            ],
+            [
+              -78.3875,
+              38.4
+            ],
+            [
+              -78.3875,
+              38.525
+            ],
+            [
+              -78.60000000000001,
+              38.525
+            ],
+            [
+              -78.60000000000001,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 300.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              38.525
+            ],
+            [
+              -78.3875,
+              38.525
+            ],
+            [
+              -78.3875,
+              38.65
+            ],
+            [
+              -78.60000000000001,
+              38.65
+            ],
+            [
+              -78.60000000000001,
+              38.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 278.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              38.65
+            ],
+            [
+              -78.3875,
+              38.65
+            ],
+            [
+              -78.3875,
+              38.775
+            ],
+            [
+              -78.60000000000001,
+              38.775
+            ],
+            [
+              -78.60000000000001,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 255.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              38.775
+            ],
+            [
+              -78.3875,
+              38.775
+            ],
+            [
+              -78.3875,
+              38.9
+            ],
+            [
+              -78.60000000000001,
+              38.9
+            ],
+            [
+              -78.60000000000001,
+              38.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 232.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              38.9
+            ],
+            [
+              -78.3875,
+              38.9
+            ],
+            [
+              -78.3875,
+              39.025
+            ],
+            [
+              -78.60000000000001,
+              39.025
+            ],
+            [
+              -78.60000000000001,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 210.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              39.025
+            ],
+            [
+              -78.3875,
+              39.025
+            ],
+            [
+              -78.3875,
+              39.15
+            ],
+            [
+              -78.60000000000001,
+              39.15
+            ],
+            [
+              -78.60000000000001,
+              39.025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 188.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              39.15
+            ],
+            [
+              -78.3875,
+              39.15
+            ],
+            [
+              -78.3875,
+              39.275
+            ],
+            [
+              -78.60000000000001,
+              39.275
+            ],
+            [
+              -78.60000000000001,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 165.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              39.275
+            ],
+            [
+              -78.3875,
+              39.275
+            ],
+            [
+              -78.3875,
+              39.4
+            ],
+            [
+              -78.60000000000001,
+              39.4
+            ],
+            [
+              -78.60000000000001,
+              39.275
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 142.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              39.4
+            ],
+            [
+              -78.3875,
+              39.4
+            ],
+            [
+              -78.3875,
+              39.525
+            ],
+            [
+              -78.60000000000001,
+              39.525
+            ],
+            [
+              -78.60000000000001,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 120.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              39.525
+            ],
+            [
+              -78.3875,
+              39.525
+            ],
+            [
+              -78.3875,
+              39.65
+            ],
+            [
+              -78.60000000000001,
+              39.65
+            ],
+            [
+              -78.60000000000001,
+              39.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 98.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              39.65
+            ],
+            [
+              -78.3875,
+              39.65
+            ],
+            [
+              -78.3875,
+              39.775
+            ],
+            [
+              -78.60000000000001,
+              39.775
+            ],
+            [
+              -78.60000000000001,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 75.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              39.775
+            ],
+            [
+              -78.3875,
+              39.775
+            ],
+            [
+              -78.3875,
+              39.9
+            ],
+            [
+              -78.60000000000001,
+              39.9
+            ],
+            [
+              -78.60000000000001,
+              39.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 314.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.3875,
+              38.4
+            ],
+            [
+              -78.17500000000001,
+              38.4
+            ],
+            [
+              -78.17500000000001,
+              38.525
+            ],
+            [
+              -78.3875,
+              38.525
+            ],
+            [
+              -78.3875,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 291.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.3875,
+              38.525
+            ],
+            [
+              -78.17500000000001,
+              38.525
+            ],
+            [
+              -78.17500000000001,
+              38.65
+            ],
+            [
+              -78.3875,
+              38.65
+            ],
+            [
+              -78.3875,
+              38.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 269.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.3875,
+              38.65
+            ],
+            [
+              -78.17500000000001,
+              38.65
+            ],
+            [
+              -78.17500000000001,
+              38.775
+            ],
+            [
+              -78.3875,
+              38.775
+            ],
+            [
+              -78.3875,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 246.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.3875,
+              38.775
+            ],
+            [
+              -78.17500000000001,
+              38.775
+            ],
+            [
+              -78.17500000000001,
+              38.9
+            ],
+            [
+              -78.3875,
+              38.9
+            ],
+            [
+              -78.3875,
+              38.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 224.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.3875,
+              38.9
+            ],
+            [
+              -78.17500000000001,
+              38.9
+            ],
+            [
+              -78.17500000000001,
+              39.025
+            ],
+            [
+              -78.3875,
+              39.025
+            ],
+            [
+              -78.3875,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 201.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.3875,
+              39.025
+            ],
+            [
+              -78.17500000000001,
+              39.025
+            ],
+            [
+              -78.17500000000001,
+              39.15
+            ],
+            [
+              -78.3875,
+              39.15
+            ],
+            [
+              -78.3875,
+              39.025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 179.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.3875,
+              39.15
+            ],
+            [
+              -78.17500000000001,
+              39.15
+            ],
+            [
+              -78.17500000000001,
+              39.275
+            ],
+            [
+              -78.3875,
+              39.275
+            ],
+            [
+              -78.3875,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 156.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.3875,
+              39.275
+            ],
+            [
+              -78.17500000000001,
+              39.275
+            ],
+            [
+              -78.17500000000001,
+              39.4
+            ],
+            [
+              -78.3875,
+              39.4
+            ],
+            [
+              -78.3875,
+              39.275
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 134.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.3875,
+              39.4
+            ],
+            [
+              -78.17500000000001,
+              39.4
+            ],
+            [
+              -78.17500000000001,
+              39.525
+            ],
+            [
+              -78.3875,
+              39.525
+            ],
+            [
+              -78.3875,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 111.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.3875,
+              39.525
+            ],
+            [
+              -78.17500000000001,
+              39.525
+            ],
+            [
+              -78.17500000000001,
+              39.65
+            ],
+            [
+              -78.3875,
+              39.65
+            ],
+            [
+              -78.3875,
+              39.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 89.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.3875,
+              39.65
+            ],
+            [
+              -78.17500000000001,
+              39.65
+            ],
+            [
+              -78.17500000000001,
+              39.775
+            ],
+            [
+              -78.3875,
+              39.775
+            ],
+            [
+              -78.3875,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 66.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.3875,
+              39.775
+            ],
+            [
+              -78.17500000000001,
+              39.775
+            ],
+            [
+              -78.17500000000001,
+              39.9
+            ],
+            [
+              -78.3875,
+              39.9
+            ],
+            [
+              -78.3875,
+              39.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 306.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              38.4
+            ],
+            [
+              -77.9625,
+              38.4
+            ],
+            [
+              -77.9625,
+              38.525
+            ],
+            [
+              -78.17500000000001,
+              38.525
+            ],
+            [
+              -78.17500000000001,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 283.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              38.525
+            ],
+            [
+              -77.9625,
+              38.525
+            ],
+            [
+              -77.9625,
+              38.65
+            ],
+            [
+              -78.17500000000001,
+              38.65
+            ],
+            [
+              -78.17500000000001,
+              38.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 261.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              38.65
+            ],
+            [
+              -77.9625,
+              38.65
+            ],
+            [
+              -77.9625,
+              38.775
+            ],
+            [
+              -78.17500000000001,
+              38.775
+            ],
+            [
+              -78.17500000000001,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 238.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              38.775
+            ],
+            [
+              -77.9625,
+              38.775
+            ],
+            [
+              -77.9625,
+              38.9
+            ],
+            [
+              -78.17500000000001,
+              38.9
+            ],
+            [
+              -78.17500000000001,
+              38.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 216.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              38.9
+            ],
+            [
+              -77.9625,
+              38.9
+            ],
+            [
+              -77.9625,
+              39.025
+            ],
+            [
+              -78.17500000000001,
+              39.025
+            ],
+            [
+              -78.17500000000001,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 193.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              39.025
+            ],
+            [
+              -77.9625,
+              39.025
+            ],
+            [
+              -77.9625,
+              39.15
+            ],
+            [
+              -78.17500000000001,
+              39.15
+            ],
+            [
+              -78.17500000000001,
+              39.025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 171.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              39.15
+            ],
+            [
+              -77.9625,
+              39.15
+            ],
+            [
+              -77.9625,
+              39.275
+            ],
+            [
+              -78.17500000000001,
+              39.275
+            ],
+            [
+              -78.17500000000001,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 148.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              39.275
+            ],
+            [
+              -77.9625,
+              39.275
+            ],
+            [
+              -77.9625,
+              39.4
+            ],
+            [
+              -78.17500000000001,
+              39.4
+            ],
+            [
+              -78.17500000000001,
+              39.275
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 126.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              39.4
+            ],
+            [
+              -77.9625,
+              39.4
+            ],
+            [
+              -77.9625,
+              39.525
+            ],
+            [
+              -78.17500000000001,
+              39.525
+            ],
+            [
+              -78.17500000000001,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 103.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              39.525
+            ],
+            [
+              -77.9625,
+              39.525
+            ],
+            [
+              -77.9625,
+              39.65
+            ],
+            [
+              -78.17500000000001,
+              39.65
+            ],
+            [
+              -78.17500000000001,
+              39.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 81.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              39.65
+            ],
+            [
+              -77.9625,
+              39.65
+            ],
+            [
+              -77.9625,
+              39.775
+            ],
+            [
+              -78.17500000000001,
+              39.775
+            ],
+            [
+              -78.17500000000001,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 58.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              39.775
+            ],
+            [
+              -77.9625,
+              39.775
+            ],
+            [
+              -77.9625,
+              39.9
+            ],
+            [
+              -78.17500000000001,
+              39.9
+            ],
+            [
+              -78.17500000000001,
+              39.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 297.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.9625,
+              38.4
+            ],
+            [
+              -77.75,
+              38.4
+            ],
+            [
+              -77.75,
+              38.525
+            ],
+            [
+              -77.9625,
+              38.525
+            ],
+            [
+              -77.9625,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 274.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.9625,
+              38.525
+            ],
+            [
+              -77.75,
+              38.525
+            ],
+            [
+              -77.75,
+              38.65
+            ],
+            [
+              -77.9625,
+              38.65
+            ],
+            [
+              -77.9625,
+              38.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 252.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.9625,
+              38.65
+            ],
+            [
+              -77.75,
+              38.65
+            ],
+            [
+              -77.75,
+              38.775
+            ],
+            [
+              -77.9625,
+              38.775
+            ],
+            [
+              -77.9625,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 229.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.9625,
+              38.775
+            ],
+            [
+              -77.75,
+              38.775
+            ],
+            [
+              -77.75,
+              38.9
+            ],
+            [
+              -77.9625,
+              38.9
+            ],
+            [
+              -77.9625,
+              38.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 207.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.9625,
+              38.9
+            ],
+            [
+              -77.75,
+              38.9
+            ],
+            [
+              -77.75,
+              39.025
+            ],
+            [
+              -77.9625,
+              39.025
+            ],
+            [
+              -77.9625,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 184.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.9625,
+              39.025
+            ],
+            [
+              -77.75,
+              39.025
+            ],
+            [
+              -77.75,
+              39.15
+            ],
+            [
+              -77.9625,
+              39.15
+            ],
+            [
+              -77.9625,
+              39.025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 162.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.9625,
+              39.15
+            ],
+            [
+              -77.75,
+              39.15
+            ],
+            [
+              -77.75,
+              39.275
+            ],
+            [
+              -77.9625,
+              39.275
+            ],
+            [
+              -77.9625,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 139.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.9625,
+              39.275
+            ],
+            [
+              -77.75,
+              39.275
+            ],
+            [
+              -77.75,
+              39.4
+            ],
+            [
+              -77.9625,
+              39.4
+            ],
+            [
+              -77.9625,
+              39.275
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 117.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.9625,
+              39.4
+            ],
+            [
+              -77.75,
+              39.4
+            ],
+            [
+              -77.75,
+              39.525
+            ],
+            [
+              -77.9625,
+              39.525
+            ],
+            [
+              -77.9625,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 94.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.9625,
+              39.525
+            ],
+            [
+              -77.75,
+              39.525
+            ],
+            [
+              -77.75,
+              39.65
+            ],
+            [
+              -77.9625,
+              39.65
+            ],
+            [
+              -77.9625,
+              39.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 72.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.9625,
+              39.65
+            ],
+            [
+              -77.75,
+              39.65
+            ],
+            [
+              -77.75,
+              39.775
+            ],
+            [
+              -77.9625,
+              39.775
+            ],
+            [
+              -77.9625,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 49.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.9625,
+              39.775
+            ],
+            [
+              -77.75,
+              39.775
+            ],
+            [
+              -77.75,
+              39.9
+            ],
+            [
+              -77.9625,
+              39.9
+            ],
+            [
+              -77.9625,
+              39.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 289.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              38.4
+            ],
+            [
+              -77.53750000000001,
+              38.4
+            ],
+            [
+              -77.53750000000001,
+              38.525
+            ],
+            [
+              -77.75,
+              38.525
+            ],
+            [
+              -77.75,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 266.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              38.525
+            ],
+            [
+              -77.53750000000001,
+              38.525
+            ],
+            [
+              -77.53750000000001,
+              38.65
+            ],
+            [
+              -77.75,
+              38.65
+            ],
+            [
+              -77.75,
+              38.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 244.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              38.65
+            ],
+            [
+              -77.53750000000001,
+              38.65
+            ],
+            [
+              -77.53750000000001,
+              38.775
+            ],
+            [
+              -77.75,
+              38.775
+            ],
+            [
+              -77.75,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 221.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              38.775
+            ],
+            [
+              -77.53750000000001,
+              38.775
+            ],
+            [
+              -77.53750000000001,
+              38.9
+            ],
+            [
+              -77.75,
+              38.9
+            ],
+            [
+              -77.75,
+              38.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 199.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              38.9
+            ],
+            [
+              -77.53750000000001,
+              38.9
+            ],
+            [
+              -77.53750000000001,
+              39.025
+            ],
+            [
+              -77.75,
+              39.025
+            ],
+            [
+              -77.75,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 176.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              39.025
+            ],
+            [
+              -77.53750000000001,
+              39.025
+            ],
+            [
+              -77.53750000000001,
+              39.15
+            ],
+            [
+              -77.75,
+              39.15
+            ],
+            [
+              -77.75,
+              39.025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 154.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              39.15
+            ],
+            [
+              -77.53750000000001,
+              39.15
+            ],
+            [
+              -77.53750000000001,
+              39.275
+            ],
+            [
+              -77.75,
+              39.275
+            ],
+            [
+              -77.75,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 131.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              39.275
+            ],
+            [
+              -77.53750000000001,
+              39.275
+            ],
+            [
+              -77.53750000000001,
+              39.4
+            ],
+            [
+              -77.75,
+              39.4
+            ],
+            [
+              -77.75,
+              39.275
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 109.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              39.4
+            ],
+            [
+              -77.53750000000001,
+              39.4
+            ],
+            [
+              -77.53750000000001,
+              39.525
+            ],
+            [
+              -77.75,
+              39.525
+            ],
+            [
+              -77.75,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 86.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              39.525
+            ],
+            [
+              -77.53750000000001,
+              39.525
+            ],
+            [
+              -77.53750000000001,
+              39.65
+            ],
+            [
+              -77.75,
+              39.65
+            ],
+            [
+              -77.75,
+              39.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 64.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              39.65
+            ],
+            [
+              -77.53750000000001,
+              39.65
+            ],
+            [
+              -77.53750000000001,
+              39.775
+            ],
+            [
+              -77.75,
+              39.775
+            ],
+            [
+              -77.75,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 41.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              39.775
+            ],
+            [
+              -77.53750000000001,
+              39.775
+            ],
+            [
+              -77.53750000000001,
+              39.9
+            ],
+            [
+              -77.75,
+              39.9
+            ],
+            [
+              -77.75,
+              39.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 280.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.53750000000001,
+              38.4
+            ],
+            [
+              -77.325,
+              38.4
+            ],
+            [
+              -77.325,
+              38.525
+            ],
+            [
+              -77.53750000000001,
+              38.525
+            ],
+            [
+              -77.53750000000001,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 258.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.53750000000001,
+              38.525
+            ],
+            [
+              -77.325,
+              38.525
+            ],
+            [
+              -77.325,
+              38.65
+            ],
+            [
+              -77.53750000000001,
+              38.65
+            ],
+            [
+              -77.53750000000001,
+              38.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 235.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.53750000000001,
+              38.65
+            ],
+            [
+              -77.325,
+              38.65
+            ],
+            [
+              -77.325,
+              38.775
+            ],
+            [
+              -77.53750000000001,
+              38.775
+            ],
+            [
+              -77.53750000000001,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 212.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.53750000000001,
+              38.775
+            ],
+            [
+              -77.325,
+              38.775
+            ],
+            [
+              -77.325,
+              38.9
+            ],
+            [
+              -77.53750000000001,
+              38.9
+            ],
+            [
+              -77.53750000000001,
+              38.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 190.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.53750000000001,
+              38.9
+            ],
+            [
+              -77.325,
+              38.9
+            ],
+            [
+              -77.325,
+              39.025
+            ],
+            [
+              -77.53750000000001,
+              39.025
+            ],
+            [
+              -77.53750000000001,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 168.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.53750000000001,
+              39.025
+            ],
+            [
+              -77.325,
+              39.025
+            ],
+            [
+              -77.325,
+              39.15
+            ],
+            [
+              -77.53750000000001,
+              39.15
+            ],
+            [
+              -77.53750000000001,
+              39.025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 145.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.53750000000001,
+              39.15
+            ],
+            [
+              -77.325,
+              39.15
+            ],
+            [
+              -77.325,
+              39.275
+            ],
+            [
+              -77.53750000000001,
+              39.275
+            ],
+            [
+              -77.53750000000001,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 122.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.53750000000001,
+              39.275
+            ],
+            [
+              -77.325,
+              39.275
+            ],
+            [
+              -77.325,
+              39.4
+            ],
+            [
+              -77.53750000000001,
+              39.4
+            ],
+            [
+              -77.53750000000001,
+              39.275
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 100.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.53750000000001,
+              39.4
+            ],
+            [
+              -77.325,
+              39.4
+            ],
+            [
+              -77.325,
+              39.525
+            ],
+            [
+              -77.53750000000001,
+              39.525
+            ],
+            [
+              -77.53750000000001,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 78.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.53750000000001,
+              39.525
+            ],
+            [
+              -77.325,
+              39.525
+            ],
+            [
+              -77.325,
+              39.65
+            ],
+            [
+              -77.53750000000001,
+              39.65
+            ],
+            [
+              -77.53750000000001,
+              39.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 55.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.53750000000001,
+              39.65
+            ],
+            [
+              -77.325,
+              39.65
+            ],
+            [
+              -77.325,
+              39.775
+            ],
+            [
+              -77.53750000000001,
+              39.775
+            ],
+            [
+              -77.53750000000001,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 32.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.53750000000001,
+              39.775
+            ],
+            [
+              -77.325,
+              39.775
+            ],
+            [
+              -77.325,
+              39.9
+            ],
+            [
+              -77.53750000000001,
+              39.9
+            ],
+            [
+              -77.53750000000001,
+              39.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 271.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              38.4
+            ],
+            [
+              -77.11250000000001,
+              38.4
+            ],
+            [
+              -77.11250000000001,
+              38.525
+            ],
+            [
+              -77.325,
+              38.525
+            ],
+            [
+              -77.325,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 249.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              38.525
+            ],
+            [
+              -77.11250000000001,
+              38.525
+            ],
+            [
+              -77.11250000000001,
+              38.65
+            ],
+            [
+              -77.325,
+              38.65
+            ],
+            [
+              -77.325,
+              38.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 226.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              38.65
+            ],
+            [
+              -77.11250000000001,
+              38.65
+            ],
+            [
+              -77.11250000000001,
+              38.775
+            ],
+            [
+              -77.325,
+              38.775
+            ],
+            [
+              -77.325,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 204.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              38.775
+            ],
+            [
+              -77.11250000000001,
+              38.775
+            ],
+            [
+              -77.11250000000001,
+              38.9
+            ],
+            [
+              -77.325,
+              38.9
+            ],
+            [
+              -77.325,
+              38.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 181.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              38.9
+            ],
+            [
+              -77.11250000000001,
+              38.9
+            ],
+            [
+              -77.11250000000001,
+              39.025
+            ],
+            [
+              -77.325,
+              39.025
+            ],
+            [
+              -77.325,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 159.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              39.025
+            ],
+            [
+              -77.11250000000001,
+              39.025
+            ],
+            [
+              -77.11250000000001,
+              39.15
+            ],
+            [
+              -77.325,
+              39.15
+            ],
+            [
+              -77.325,
+              39.025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 136.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              39.15
+            ],
+            [
+              -77.11250000000001,
+              39.15
+            ],
+            [
+              -77.11250000000001,
+              39.275
+            ],
+            [
+              -77.325,
+              39.275
+            ],
+            [
+              -77.325,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 114.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              39.275
+            ],
+            [
+              -77.11250000000001,
+              39.275
+            ],
+            [
+              -77.11250000000001,
+              39.4
+            ],
+            [
+              -77.325,
+              39.4
+            ],
+            [
+              -77.325,
+              39.275
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 91.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              39.4
+            ],
+            [
+              -77.11250000000001,
+              39.4
+            ],
+            [
+              -77.11250000000001,
+              39.525
+            ],
+            [
+              -77.325,
+              39.525
+            ],
+            [
+              -77.325,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 69.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              39.525
+            ],
+            [
+              -77.11250000000001,
+              39.525
+            ],
+            [
+              -77.11250000000001,
+              39.65
+            ],
+            [
+              -77.325,
+              39.65
+            ],
+            [
+              -77.325,
+              39.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 46.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              39.65
+            ],
+            [
+              -77.11250000000001,
+              39.65
+            ],
+            [
+              -77.11250000000001,
+              39.775
+            ],
+            [
+              -77.325,
+              39.775
+            ],
+            [
+              -77.325,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 24.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              39.775
+            ],
+            [
+              -77.11250000000001,
+              39.775
+            ],
+            [
+              -77.11250000000001,
+              39.9
+            ],
+            [
+              -77.325,
+              39.9
+            ],
+            [
+              -77.325,
+              39.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 263.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.11250000000001,
+              38.4
+            ],
+            [
+              -76.9,
+              38.4
+            ],
+            [
+              -76.9,
+              38.525
+            ],
+            [
+              -77.11250000000001,
+              38.525
+            ],
+            [
+              -77.11250000000001,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 241.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.11250000000001,
+              38.525
+            ],
+            [
+              -76.9,
+              38.525
+            ],
+            [
+              -76.9,
+              38.65
+            ],
+            [
+              -77.11250000000001,
+              38.65
+            ],
+            [
+              -77.11250000000001,
+              38.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 218.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.11250000000001,
+              38.65
+            ],
+            [
+              -76.9,
+              38.65
+            ],
+            [
+              -76.9,
+              38.775
+            ],
+            [
+              -77.11250000000001,
+              38.775
+            ],
+            [
+              -77.11250000000001,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 196.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.11250000000001,
+              38.775
+            ],
+            [
+              -76.9,
+              38.775
+            ],
+            [
+              -76.9,
+              38.9
+            ],
+            [
+              -77.11250000000001,
+              38.9
+            ],
+            [
+              -77.11250000000001,
+              38.775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 173.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.11250000000001,
+              38.9
+            ],
+            [
+              -76.9,
+              38.9
+            ],
+            [
+              -76.9,
+              39.025
+            ],
+            [
+              -77.11250000000001,
+              39.025
+            ],
+            [
+              -77.11250000000001,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 151.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.11250000000001,
+              39.025
+            ],
+            [
+              -76.9,
+              39.025
+            ],
+            [
+              -76.9,
+              39.15
+            ],
+            [
+              -77.11250000000001,
+              39.15
+            ],
+            [
+              -77.11250000000001,
+              39.025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 128.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.11250000000001,
+              39.15
+            ],
+            [
+              -76.9,
+              39.15
+            ],
+            [
+              -76.9,
+              39.275
+            ],
+            [
+              -77.11250000000001,
+              39.275
+            ],
+            [
+              -77.11250000000001,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 106.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.11250000000001,
+              39.275
+            ],
+            [
+              -76.9,
+              39.275
+            ],
+            [
+              -76.9,
+              39.4
+            ],
+            [
+              -77.11250000000001,
+              39.4
+            ],
+            [
+              -77.11250000000001,
+              39.275
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 83.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.11250000000001,
+              39.4
+            ],
+            [
+              -76.9,
+              39.4
+            ],
+            [
+              -76.9,
+              39.525
+            ],
+            [
+              -77.11250000000001,
+              39.525
+            ],
+            [
+              -77.11250000000001,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 61.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.11250000000001,
+              39.525
+            ],
+            [
+              -76.9,
+              39.525
+            ],
+            [
+              -76.9,
+              39.65
+            ],
+            [
+              -77.11250000000001,
+              39.65
+            ],
+            [
+              -77.11250000000001,
+              39.525
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 38.0,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.11250000000001,
+              39.65
+            ],
+            [
+              -76.9,
+              39.65
+            ],
+            [
+              -76.9,
+              39.775
+            ],
+            [
+              -77.11250000000001,
+              39.775
+            ],
+            [
+              -77.11250000000001,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "slope_class": 3,
+        "slope_label": "陡坡 (>15° 示意)",
+        "elev_proxy_m": 20,
+        "note": "DEM 派生示意，非实测精度"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.11250000000001,
+              39.775
+            ],
+            [
+              -76.9,
+              39.775
+            ],
+            [
+              -76.9,
+              39.9
+            ],
+            [
+              -77.11250000000001,
+              39.9
+            ],
+            [
+              -77.11250000000001,
+              39.775
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
