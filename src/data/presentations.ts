@@ -41,6 +41,7 @@ type Extra = {
 };
 
 const DEMO_BY_SLUG: Record<string, string> = {
+  "water-balance-report": "/water-balance-report",
   "smart-water": "/smart-water",
   "hydro-info": "/hydrobench?tab=info",
   hydrobench: "/hydrobench?tab=studio",
@@ -65,6 +66,23 @@ const GITHUB_BY_SLUG: Record<string, string> = {
 
 /** Richer narrative overrides for PPT decks (beyond showcase bullets). */
 const NARRATIVE: Record<string, { problem: string[]; method: string[]; outcome: string[] }> = {
+  "water-balance-report": {
+    problem: [
+      "设计院与咨询室内岗大量时间在写水资源论证，户外演示不够用",
+      "再做一个态势看板同质化；缺的是「业务文档自动化」",
+      "本科也能讲清取水、退水、保证率与水平衡闭合",
+    ],
+    method: [
+      "表单采集取水/退水/损耗/需水结构与保证率",
+      "演算耗水率、退水率、闭合差并生成规范章节骨架",
+      "导出 Markdown 与 Word，便于室内讨论和作品集演示",
+    ],
+    outcome: [
+      "一分钟出简化水平衡报告底稿",
+      "明确演示边界，不假装法定论证",
+      "对标东南岗位：会写、会算、会交付文件",
+    ],
+  },
   "smart-water": {
     problem: [
       "水文岗位需要把巡测考勤、任务、测报和仪器出库收成一套可演示系统",

@@ -2,6 +2,7 @@
 export const workCovers: Record<string, string> = {
   "易理占筮 · 太极八卦六十四阵": "/media/undraw/book-book-writer_ri5u.svg",
   "HydroInfo 流域水情信息平台": "/media/covers/storm-sky.jpg",
+  "水资源论证 / 水平衡报告生成器": "/media/undraw/notes-notes_dyq8.svg",
   "智慧水利管理系统": "/media/covers/storm-sky.jpg",
   "HydroBench · 水文双工作台": "/media/undraw/data-processing.svg",
   "波托马克河多时效径流深度学习预报": "/media/undraw/data-analysis.svg",

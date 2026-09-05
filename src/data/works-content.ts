@@ -14,6 +14,34 @@ export type WorkSeed = {
 /** Single source of truth — edit here, then sync / redeploy. */
 export const worksContent: WorkSeed[] = [
   {
+    title: "水资源论证 / 水平衡报告生成器",
+    description:
+      "室内岗文档自动化：填取水、退水、保证率与需水结构，生成水平衡表与合理性简述，下载 Word / Markdown。挂载 /water-balance-report。",
+    category: "hydro",
+    tags: "水资源论证,水平衡,报告生成,室内岗,Word,Markdown",
+    featured: true,
+    published: true,
+    sortOrder: 1,
+    link: "/water-balance-report",
+    content: `## 一句话
+
+东南设计院、咨询大量时间在写报告。这个演示把「取用水规模 → 水平衡表 → 合理性简述」收成可下载文稿，比再做一个看板更贴室内岗。
+
+## 打开
+
+[水平衡报告生成器](/water-balance-report)
+
+## 能做什么
+
+- 输入取水量、退水、保证率、简单需水结构
+- 输出水平衡表、闭合差、取用水合理性简述
+- 章节骨架对照常见水资源论证报告（**简化演示，非正式文本**）
+- 下载 Markdown 或 Word（.doc，WPS / Word 可开）
+
+数据只存在本机 \`localStorage\`（\`water-balance-report:v1\`）。
+`,
+  },
+  {
     title: "新安江机理预报对照台",
     description:
       "日降水→三水源产汇流→出口流量；与 Persistence / Lag-LSTM 同数据对照 NSE。会讲产汇流，挂载 /xaj-bench。",

@@ -56,6 +56,7 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
       "HydroInfo 流域水情信息平台",
       "HydroBench · 水文双工作台",
       "智慧水利管理系统",
+      "水资源论证 / 水平衡报告生成器",
       "波托马克河多时效径流深度学习预报",
       "匿名问卷 · 分发填写与汇总",
     ].includes(work.title);
