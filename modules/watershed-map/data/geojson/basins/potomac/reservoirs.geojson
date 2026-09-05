@@ -1,0 +1,75 @@
+{
+  "type": "FeatureCollection",
+  "name": "potomac_reservoirs",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:4326"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "RSV-JENNINGS",
+        "name": "Jennings Randolph 水库",
+        "name_en": "Jennings Randolph Lake",
+        "type": "reservoir",
+        "schematic": true,
+        "purpose": "防洪 / 供水",
+        "capacity_e6m3": 158,
+        "note": "库容量级示意，非工程设计值",
+        "source": "public names + schematic capacity order-of-magnitude"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.365,
+          39.428
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "RSV-BLOOM",
+        "name": "Bloomington 水库",
+        "name_en": "Bloomington Lake",
+        "type": "reservoir",
+        "schematic": true,
+        "purpose": "防洪",
+        "capacity_e6m3": 92,
+        "note": "库容量级示意，非工程设计值",
+        "source": "public names + schematic capacity order-of-magnitude"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.21,
+          39.465
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "RSV-SAVAGE",
+        "name": "Savage 河水库",
+        "name_en": "Savage River Reservoir",
+        "type": "reservoir",
+        "schematic": true,
+        "purpose": "补水 / 生态",
+        "capacity_e6m3": 25,
+        "note": "库容量级示意，非工程设计值",
+        "source": "public names + schematic capacity order-of-magnitude"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.115,
+          39.505
+        ]
+      }
+    }
+  ]
+}

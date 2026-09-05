@@ -1,0 +1,21 @@
+{
+  "default": "potomac",
+  "basins": [
+    {
+      "id": "potomac",
+      "title": "波托马克河流域",
+      "title_en": "Potomac River Basin",
+      "region": "USA / Mid-Atlantic",
+      "schematic": true,
+      "path": "basins/potomac"
+    },
+    {
+      "id": "hanjiang-schematic",
+      "title": "汉江丹江口以上（示意）",
+      "title_en": "Upper Hanjiang schematic",
+      "region": "China / 汉江上游",
+      "schematic": true,
+      "path": "basins/hanjiang-schematic"
+    }
+  ]
+}

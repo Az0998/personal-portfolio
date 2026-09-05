@@ -11,7 +11,9 @@
     "db:seed": "tsx prisma/seed.ts",
     "sync": "tsx prisma/seed.ts",
     "reset-admin": "tsx prisma/reset-admin.ts",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "wm:generate": "python modules/watershed-map/scripts/generate.py",
+    "wm:docs": "echo See modules/watershed-map/README.md"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1100.0",

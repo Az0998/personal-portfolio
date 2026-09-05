@@ -1,0 +1,33 @@
+{
+  "title": "汉江丹江口以上（示意）",
+  "title_en": "Upper Hanjiang schematic",
+  "region": "China / 汉江上游",
+  "area_km2_nominal": 95000,
+  "default": false,
+  "center": [
+    33.0,
+    109.0
+  ],
+  "zoom": 7,
+  "disclaimer": "中国示范流域为手绘示意（schematic=true）：站网与库容非实测产品，仅供国内语境讲解数据谱系与交互。",
+  "lineage": {
+    "basin": "手绘示意边界；名义面积为公开量级，非官方矢量",
+    "subbasins": "教学分区示意多边形",
+    "rivers": "干流+堵河/丹江示意折线",
+    "stations": "虚构示意站（非水文年鉴站网）",
+    "reservoirs": "公开水库名 + 示意库容量级",
+    "slope": "合成 DEM 代理色块，非实测"
+  },
+  "id": "hanjiang-schematic",
+  "epsg": 4326,
+  "schematic": true,
+  "layers": [
+    "basin.geojson",
+    "subbasins.geojson",
+    "rivers.geojson",
+    "stations.geojson",
+    "reservoirs.geojson",
+    "slope-hint.geojson"
+  ],
+  "property_schema": "/watershed-map/schema.json"
+}

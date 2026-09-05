@@ -21,7 +21,7 @@
 - `/hydrobench` — **智慧水利**（主导航一页三签）：水情态势 / 室内台 / 户外台
 - `/hydro` → 重定向到 `/hydrobench?tab=info`
 - `/temp-files` — 临时文件柜
-- `/watershed-map` — 流域一张图 GIS
+- `/watershed-map` — 流域一张图 GIS（默认 Esri Dark Gray 零密钥底图；可选 `NEXT_PUBLIC_MAP_TILE_*` / `NEXT_PUBLIC_HYDRO_HUB_URL`，见 README）
 - `/novel-studio` — Novel Studio（作品进入）
 - `/yili` — 易理占筮（作品进入）
 - `/graph-rag` — Graph-RAG Vault（作品进入）

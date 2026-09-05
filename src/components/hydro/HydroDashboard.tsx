@@ -211,11 +211,14 @@ function addChinaBasemap(L: any, map: any) {
     maxZoom: 19,
     attribution: "© OpenStreetMap",
   });
-  const carto = L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
-    subdomains: "abcd",
-    maxZoom: 18,
-    attribution: "© CARTO",
-  });
+  // Esri Light Gray — zero-key fallback (avoid Carto "API KEY REQUIRED" watermark)
+  const esriGray = L.tileLayer(
+    "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+    {
+      maxZoom: 16,
+      attribution: "© Esri",
+    }
+  );
 
   gaode.addTo(map);
   L.control
@@ -224,14 +227,14 @@ function addChinaBasemap(L: any, map: any) {
         高德标准: gaode,
         高德卫星: gaodeSat,
         "OSM 国际": osm,
-        "CARTO 浅色": carto,
+        "Esri 浅灰": esriGray,
       },
       {},
       { position: "topright", collapsed: true }
     )
     .addTo(map);
 
-  // 高德首屏若大量 tileerror，自动切到 CARTO
+  // 高德首屏若大量 tileerror，自动切到 OSM（零密钥）
   let errors = 0;
   let switched = false;
   gaode.on("tileerror", () => {
@@ -239,7 +242,7 @@ function addChinaBasemap(L: any, map: any) {
     if (!switched && errors >= 4) {
       switched = true;
       map.removeLayer(gaode);
-      carto.addTo(map);
+      osm.addTo(map);
     }
   });
 }

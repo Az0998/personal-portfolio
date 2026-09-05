@@ -1,0 +1,133 @@
+{
+  "type": "FeatureCollection",
+  "name": "hanjiang-schematic_rivers",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:4326"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "R-HJ-MAIN",
+        "name": "汉江干流（示意）",
+        "name_en": "Hanjiang main stem (schematic)",
+        "type": "river",
+        "schematic": true,
+        "stream_order": 1,
+        "length_km": 476.2,
+        "note": "示意干流折线",
+        "source": "干流+堵河/丹江示意折线"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.6,
+            33.5
+          ],
+          [
+            107.4,
+            33.3
+          ],
+          [
+            108.2,
+            32.95
+          ],
+          [
+            109.0,
+            32.8
+          ],
+          [
+            109.8,
+            32.7
+          ],
+          [
+            110.6,
+            32.6
+          ],
+          [
+            111.2,
+            32.55
+          ],
+          [
+            111.5,
+            32.45
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "R-HJ-DU",
+        "name": "堵河（示意）",
+        "name_en": "Du River (schematic)",
+        "type": "river",
+        "schematic": true,
+        "stream_order": 2,
+        "length_km": 129.5,
+        "note": "示意支流折线",
+        "source": "干流+堵河/丹江示意折线"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            109.6,
+            33.4
+          ],
+          [
+            109.9,
+            33.1
+          ],
+          [
+            110.3,
+            32.85
+          ],
+          [
+            110.6,
+            32.6
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "R-HJ-DAN",
+        "name": "丹江（示意）",
+        "name_en": "Dan River (schematic)",
+        "type": "river",
+        "schematic": true,
+        "stream_order": 2,
+        "length_km": 95.7,
+        "note": "示意支流折线",
+        "source": "干流+堵河/丹江示意折线"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            111.0,
+            33.3
+          ],
+          [
+            111.1,
+            32.95
+          ],
+          [
+            111.2,
+            32.7
+          ],
+          [
+            111.35,
+            32.5
+          ]
+        ]
+      }
+    }
+  ]
+}

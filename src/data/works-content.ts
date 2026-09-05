@@ -16,9 +16,9 @@ export const worksContent: WorkSeed[] = [
   {
     title: "流域「一张图」GIS 小站",
     description:
-      "波托马克公开流域：水系/子流域/站点/水库 GeoJSON + Leaflet 图层开关、点选弹窗与距河道距离统计；挂载 /watershed-map。",
+      "示意流域 GIS「一张图」：图层开关、测距与阈值过程线，数据谱系可讲清，挂载 /watershed-map。",
     category: "hydro",
-    tags: "GIS,GeoJSON,Leaflet,Turf,空间统计,流域,智慧水利",
+    tags: "GIS,GeoJSON,空间统计",
     featured: true,
     published: true,
     sortOrder: 0,

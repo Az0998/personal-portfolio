@@ -1,0 +1,85 @@
+{
+  "type": "FeatureCollection",
+  "name": "potomac_basin",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:4326"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "BASIN-POTOMAC",
+        "name": "波托马克河流域",
+        "name_en": "Potomac River Basin",
+        "type": "basin",
+        "schematic": true,
+        "area_km2": 14670,
+        "outlet_id": "01646500",
+        "note": "教育示意边界，非官方精确划界；名义面积约 14670 km²",
+        "source": "hand-digitized schematic outline (educational)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.48,
+              39.72
+            ],
+            [
+              -78.95,
+              39.95
+            ],
+            [
+              -78.2,
+              39.88
+            ],
+            [
+              -77.55,
+              39.7
+            ],
+            [
+              -77.05,
+              39.35
+            ],
+            [
+              -76.85,
+              38.95
+            ],
+            [
+              -76.95,
+              38.55
+            ],
+            [
+              -77.25,
+              38.35
+            ],
+            [
+              -77.85,
+              38.45
+            ],
+            [
+              -78.55,
+              38.7
+            ],
+            [
+              -79.15,
+              39.05
+            ],
+            [
+              -79.48,
+              39.45
+            ],
+            [
+              -79.48,
+              39.72
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

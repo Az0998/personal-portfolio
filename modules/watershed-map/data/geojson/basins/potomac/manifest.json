@@ -1,0 +1,33 @@
+{
+  "title": "波托马克河流域",
+  "title_en": "Potomac River Basin",
+  "region": "USA / Mid-Atlantic",
+  "area_km2_nominal": 14670,
+  "default": true,
+  "center": [
+    39.15,
+    -77.75
+  ],
+  "zoom": 8,
+  "disclaimer": "教学示意数据（schematic）：边界与河网已简化；坡度为合成 DEM 示意，不可用于工程设计。",
+  "lineage": {
+    "basin": "手绘简化边界；名义面积参考公开文献量级",
+    "subbasins": "按干/支流分区的示意多边形，非官方 HUC 边界",
+    "rivers": "干流+主要支流示意折线；length_km 由折线估算",
+    "stations": "USGS NWIS 站码；坐标近似，用于叠图",
+    "reservoirs": "公开水库名称；库容为示意量级",
+    "slope": "合成高程代理 → 坡度分级色块，非实测 DEM"
+  },
+  "id": "potomac",
+  "epsg": 4326,
+  "schematic": true,
+  "layers": [
+    "basin.geojson",
+    "subbasins.geojson",
+    "rivers.geojson",
+    "stations.geojson",
+    "reservoirs.geojson",
+    "slope-hint.geojson"
+  ],
+  "property_schema": "/watershed-map/schema.json"
+}

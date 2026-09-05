@@ -1,0 +1,167 @@
+{
+  "type": "FeatureCollection",
+  "name": "potomac_stations",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:4326"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "01636500",
+        "name": "Shenandoah 河 Millville 站",
+        "name_en": "Shenandoah River at Millville, WV",
+        "type": "station",
+        "schematic": true,
+        "role": "支流控制站",
+        "agency": "USGS",
+        "param": "日均流量",
+        "q": 85,
+        "stage": 2.35,
+        "warn_stage": 3.2,
+        "alert_stage": 3.8,
+        "warn_q": 400,
+        "alert_q": 800,
+        "status": "normal",
+        "dist_to_river_km": 0.28,
+        "series": "series/01636500.json",
+        "note": "站码真实；水位/阈值为示意",
+        "source": "USGS NWIS site id (coords approx.)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.7867,
+          39.2886
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "01638480",
+        "name": "Potomac 河 Harpers Ferry 站",
+        "name_en": "Potomac River at Harpers Ferry, WV",
+        "type": "station",
+        "schematic": true,
+        "role": "中游控制站",
+        "agency": "USGS",
+        "param": "日均流量",
+        "q": 420,
+        "stage": 3.05,
+        "warn_stage": 3.2,
+        "alert_stage": 3.9,
+        "warn_q": 900,
+        "alert_q": 1600,
+        "status": "near",
+        "dist_to_river_km": 0.32,
+        "series": "series/01638480.json",
+        "note": "站码真实；水位接近警戒（示意 near/warn）",
+        "source": "USGS NWIS site id (coords approx.)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.7283,
+          39.3226
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "01646500",
+        "name": "Potomac 河 Washington 出口站",
+        "name_en": "Potomac River at Washington, DC",
+        "type": "station",
+        "schematic": true,
+        "role": "下游出口控制站",
+        "agency": "USGS",
+        "param": "日均流量",
+        "q": 980,
+        "stage": 2.1,
+        "warn_stage": 3.5,
+        "alert_stage": 4.2,
+        "warn_q": 2000,
+        "alert_q": 3500,
+        "status": "normal",
+        "dist_to_river_km": 0.17,
+        "series": "series/01646500.json",
+        "note": "站码真实；水位/阈值为示意",
+        "source": "USGS NWIS site id (coords approx.)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1278,
+          38.9498
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "01638500",
+        "name": "Potomac 河 Point of Rocks 站",
+        "name_en": "Potomac River at Point of Rocks, MD",
+        "type": "station",
+        "schematic": true,
+        "role": "中游站",
+        "agency": "USGS",
+        "param": "日均流量",
+        "q": 610,
+        "stage": 4.15,
+        "warn_stage": 3.4,
+        "alert_stage": 4.0,
+        "warn_q": 1200,
+        "alert_q": 2200,
+        "status": "alert",
+        "dist_to_river_km": 3.47,
+        "series": "series/01638500.json",
+        "note": "站码真实；示意超保证水位（alert）",
+        "source": "USGS NWIS site id (coords approx.)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.539,
+          39.274
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "01643000",
+        "name": "Monocacy 河 Bridgeport 站",
+        "name_en": "Monocacy River at Bridgeport, MD",
+        "type": "station",
+        "schematic": true,
+        "role": "支流站",
+        "agency": "USGS",
+        "param": "日均流量",
+        "q": 45,
+        "stage": 1.55,
+        "warn_stage": 2.8,
+        "alert_stage": 3.4,
+        "warn_q": 200,
+        "alert_q": 450,
+        "status": "normal",
+        "dist_to_river_km": 8.87,
+        "series": "series/01643000.json",
+        "note": "站码真实；水位/阈值为示意",
+        "source": "USGS NWIS site id (coords approx.)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.28,
+          39.39
+        ]
+      }
+    }
+  ]
+}

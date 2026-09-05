@@ -1,0 +1,1524 @@
+{
+  "type": "FeatureCollection",
+  "name": "potomac_slope_hint",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:4326"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-00-00",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 359.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              38.4
+            ],
+            [
+              -79.025,
+              38.4
+            ],
+            [
+              -79.025,
+              38.65
+            ],
+            [
+              -79.45,
+              38.65
+            ],
+            [
+              -79.45,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-00-01",
+        "name": "缓坡示意",
+        "name_en": "缓坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 1,
+        "slope_label": "缓坡示意",
+        "elev_proxy_m": 329.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              38.65
+            ],
+            [
+              -79.025,
+              38.65
+            ],
+            [
+              -79.025,
+              38.9
+            ],
+            [
+              -79.45,
+              38.9
+            ],
+            [
+              -79.45,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-00-02",
+        "name": "缓坡示意",
+        "name_en": "缓坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 1,
+        "slope_label": "缓坡示意",
+        "elev_proxy_m": 299.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              38.9
+            ],
+            [
+              -79.025,
+              38.9
+            ],
+            [
+              -79.025,
+              39.15
+            ],
+            [
+              -79.45,
+              39.15
+            ],
+            [
+              -79.45,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-00-03",
+        "name": "缓坡示意",
+        "name_en": "缓坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 1,
+        "slope_label": "缓坡示意",
+        "elev_proxy_m": 269.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              39.15
+            ],
+            [
+              -79.025,
+              39.15
+            ],
+            [
+              -79.025,
+              39.4
+            ],
+            [
+              -79.45,
+              39.4
+            ],
+            [
+              -79.45,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-00-04",
+        "name": "缓坡示意",
+        "name_en": "缓坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 1,
+        "slope_label": "缓坡示意",
+        "elev_proxy_m": 239.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              39.4
+            ],
+            [
+              -79.025,
+              39.4
+            ],
+            [
+              -79.025,
+              39.65
+            ],
+            [
+              -79.45,
+              39.65
+            ],
+            [
+              -79.45,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-00-05",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 209.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.45,
+              39.65
+            ],
+            [
+              -79.025,
+              39.65
+            ],
+            [
+              -79.025,
+              39.9
+            ],
+            [
+              -79.45,
+              39.9
+            ],
+            [
+              -79.45,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-01-00",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 346.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              38.4
+            ],
+            [
+              -78.60000000000001,
+              38.4
+            ],
+            [
+              -78.60000000000001,
+              38.65
+            ],
+            [
+              -79.025,
+              38.65
+            ],
+            [
+              -79.025,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-01-01",
+        "name": "缓坡示意",
+        "name_en": "缓坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 1,
+        "slope_label": "缓坡示意",
+        "elev_proxy_m": 316.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              38.65
+            ],
+            [
+              -78.60000000000001,
+              38.65
+            ],
+            [
+              -78.60000000000001,
+              38.9
+            ],
+            [
+              -79.025,
+              38.9
+            ],
+            [
+              -79.025,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-01-02",
+        "name": "缓坡示意",
+        "name_en": "缓坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 1,
+        "slope_label": "缓坡示意",
+        "elev_proxy_m": 286.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              38.9
+            ],
+            [
+              -78.60000000000001,
+              38.9
+            ],
+            [
+              -78.60000000000001,
+              39.15
+            ],
+            [
+              -79.025,
+              39.15
+            ],
+            [
+              -79.025,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-01-03",
+        "name": "缓坡示意",
+        "name_en": "缓坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 1,
+        "slope_label": "缓坡示意",
+        "elev_proxy_m": 256.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              39.15
+            ],
+            [
+              -78.60000000000001,
+              39.15
+            ],
+            [
+              -78.60000000000001,
+              39.4
+            ],
+            [
+              -79.025,
+              39.4
+            ],
+            [
+              -79.025,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-01-04",
+        "name": "缓坡示意",
+        "name_en": "缓坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 1,
+        "slope_label": "缓坡示意",
+        "elev_proxy_m": 226.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              39.4
+            ],
+            [
+              -78.60000000000001,
+              39.4
+            ],
+            [
+              -78.60000000000001,
+              39.65
+            ],
+            [
+              -79.025,
+              39.65
+            ],
+            [
+              -79.025,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-01-05",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 196.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -79.025,
+              39.65
+            ],
+            [
+              -78.60000000000001,
+              39.65
+            ],
+            [
+              -78.60000000000001,
+              39.9
+            ],
+            [
+              -79.025,
+              39.9
+            ],
+            [
+              -79.025,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-02-00",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 333.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              38.4
+            ],
+            [
+              -78.17500000000001,
+              38.4
+            ],
+            [
+              -78.17500000000001,
+              38.65
+            ],
+            [
+              -78.60000000000001,
+              38.65
+            ],
+            [
+              -78.60000000000001,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-02-01",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 303.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              38.65
+            ],
+            [
+              -78.17500000000001,
+              38.65
+            ],
+            [
+              -78.17500000000001,
+              38.9
+            ],
+            [
+              -78.60000000000001,
+              38.9
+            ],
+            [
+              -78.60000000000001,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-02-02",
+        "name": "缓坡示意",
+        "name_en": "缓坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 1,
+        "slope_label": "缓坡示意",
+        "elev_proxy_m": 273.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              38.9
+            ],
+            [
+              -78.17500000000001,
+              38.9
+            ],
+            [
+              -78.17500000000001,
+              39.15
+            ],
+            [
+              -78.60000000000001,
+              39.15
+            ],
+            [
+              -78.60000000000001,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-02-03",
+        "name": "缓坡示意",
+        "name_en": "缓坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 1,
+        "slope_label": "缓坡示意",
+        "elev_proxy_m": 243.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              39.15
+            ],
+            [
+              -78.17500000000001,
+              39.15
+            ],
+            [
+              -78.17500000000001,
+              39.4
+            ],
+            [
+              -78.60000000000001,
+              39.4
+            ],
+            [
+              -78.60000000000001,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-02-04",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 213.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              39.4
+            ],
+            [
+              -78.17500000000001,
+              39.4
+            ],
+            [
+              -78.17500000000001,
+              39.65
+            ],
+            [
+              -78.60000000000001,
+              39.65
+            ],
+            [
+              -78.60000000000001,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-02-05",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 183.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.60000000000001,
+              39.65
+            ],
+            [
+              -78.17500000000001,
+              39.65
+            ],
+            [
+              -78.17500000000001,
+              39.9
+            ],
+            [
+              -78.60000000000001,
+              39.9
+            ],
+            [
+              -78.60000000000001,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-03-00",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 320.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              38.4
+            ],
+            [
+              -77.75,
+              38.4
+            ],
+            [
+              -77.75,
+              38.65
+            ],
+            [
+              -78.17500000000001,
+              38.65
+            ],
+            [
+              -78.17500000000001,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-03-01",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 290.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              38.65
+            ],
+            [
+              -77.75,
+              38.65
+            ],
+            [
+              -77.75,
+              38.9
+            ],
+            [
+              -78.17500000000001,
+              38.9
+            ],
+            [
+              -78.17500000000001,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-03-02",
+        "name": "缓坡示意",
+        "name_en": "缓坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 1,
+        "slope_label": "缓坡示意",
+        "elev_proxy_m": 260.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              38.9
+            ],
+            [
+              -77.75,
+              38.9
+            ],
+            [
+              -77.75,
+              39.15
+            ],
+            [
+              -78.17500000000001,
+              39.15
+            ],
+            [
+              -78.17500000000001,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-03-03",
+        "name": "缓坡示意",
+        "name_en": "缓坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 1,
+        "slope_label": "缓坡示意",
+        "elev_proxy_m": 230.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              39.15
+            ],
+            [
+              -77.75,
+              39.15
+            ],
+            [
+              -77.75,
+              39.4
+            ],
+            [
+              -78.17500000000001,
+              39.4
+            ],
+            [
+              -78.17500000000001,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-03-04",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 200.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              39.4
+            ],
+            [
+              -77.75,
+              39.4
+            ],
+            [
+              -77.75,
+              39.65
+            ],
+            [
+              -78.17500000000001,
+              39.65
+            ],
+            [
+              -78.17500000000001,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-03-05",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 170.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.17500000000001,
+              39.65
+            ],
+            [
+              -77.75,
+              39.65
+            ],
+            [
+              -77.75,
+              39.9
+            ],
+            [
+              -78.17500000000001,
+              39.9
+            ],
+            [
+              -78.17500000000001,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-04-00",
+        "name": "陡坡示意",
+        "name_en": "陡坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 3,
+        "slope_label": "陡坡示意",
+        "elev_proxy_m": 308.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              38.4
+            ],
+            [
+              -77.325,
+              38.4
+            ],
+            [
+              -77.325,
+              38.65
+            ],
+            [
+              -77.75,
+              38.65
+            ],
+            [
+              -77.75,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-04-01",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 278.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              38.65
+            ],
+            [
+              -77.325,
+              38.65
+            ],
+            [
+              -77.325,
+              38.9
+            ],
+            [
+              -77.75,
+              38.9
+            ],
+            [
+              -77.75,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-04-02",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 248.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              38.9
+            ],
+            [
+              -77.325,
+              38.9
+            ],
+            [
+              -77.325,
+              39.15
+            ],
+            [
+              -77.75,
+              39.15
+            ],
+            [
+              -77.75,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-04-03",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 218.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              39.15
+            ],
+            [
+              -77.325,
+              39.15
+            ],
+            [
+              -77.325,
+              39.4
+            ],
+            [
+              -77.75,
+              39.4
+            ],
+            [
+              -77.75,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-04-04",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 188.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              39.4
+            ],
+            [
+              -77.325,
+              39.4
+            ],
+            [
+              -77.325,
+              39.65
+            ],
+            [
+              -77.75,
+              39.65
+            ],
+            [
+              -77.75,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-04-05",
+        "name": "陡坡示意",
+        "name_en": "陡坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 3,
+        "slope_label": "陡坡示意",
+        "elev_proxy_m": 158.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.75,
+              39.65
+            ],
+            [
+              -77.325,
+              39.65
+            ],
+            [
+              -77.325,
+              39.9
+            ],
+            [
+              -77.75,
+              39.9
+            ],
+            [
+              -77.75,
+              39.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-05-00",
+        "name": "陡坡示意",
+        "name_en": "陡坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 3,
+        "slope_label": "陡坡示意",
+        "elev_proxy_m": 295.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              38.4
+            ],
+            [
+              -76.9,
+              38.4
+            ],
+            [
+              -76.9,
+              38.65
+            ],
+            [
+              -77.325,
+              38.65
+            ],
+            [
+              -77.325,
+              38.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-05-01",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 265.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              38.65
+            ],
+            [
+              -76.9,
+              38.65
+            ],
+            [
+              -76.9,
+              38.9
+            ],
+            [
+              -77.325,
+              38.9
+            ],
+            [
+              -77.325,
+              38.65
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-05-02",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 235.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              38.9
+            ],
+            [
+              -76.9,
+              38.9
+            ],
+            [
+              -76.9,
+              39.15
+            ],
+            [
+              -77.325,
+              39.15
+            ],
+            [
+              -77.325,
+              38.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-05-03",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 205.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              39.15
+            ],
+            [
+              -76.9,
+              39.15
+            ],
+            [
+              -76.9,
+              39.4
+            ],
+            [
+              -77.325,
+              39.4
+            ],
+            [
+              -77.325,
+              39.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-05-04",
+        "name": "中坡示意",
+        "name_en": "中坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 2,
+        "slope_label": "中坡示意",
+        "elev_proxy_m": 175.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              39.4
+            ],
+            [
+              -76.9,
+              39.4
+            ],
+            [
+              -76.9,
+              39.65
+            ],
+            [
+              -77.325,
+              39.65
+            ],
+            [
+              -77.325,
+              39.4
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "SLP-05-05",
+        "name": "陡坡示意",
+        "name_en": "陡坡示意",
+        "type": "slope_cell",
+        "schematic": true,
+        "slope_class": 3,
+        "slope_label": "陡坡示意",
+        "elev_proxy_m": 145.0,
+        "note": "合成 DEM 派生示意，非实测坡度",
+        "source": "synthetic DEM proxy (schematic)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -77.325,
+              39.65
+            ],
+            [
+              -76.9,
+              39.65
+            ],
+            [
+              -76.9,
+              39.9
+            ],
+            [
+              -77.325,
+              39.9
+            ],
+            [
+              -77.325,
+              39.65
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
