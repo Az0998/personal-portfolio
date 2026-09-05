@@ -46,7 +46,11 @@ export function SyncPanel() {
             </h3>
             <p className="text-sm text-ink-400 flex items-start gap-2">
               <Shield className="w-4 h-4 mt-0.5 shrink-0 text-aqua" />
-              默认只补全新作品，绝不覆盖已有条目。后台保存的作品文案/封面、头像、赞助码、反馈与点击数据，不会因网站版本更新而丢失。
+              <span>
+                <strong className="text-ink-200">锁定作品不会被 seed 覆盖。</strong>{" "}
+                默认同步：新建缺失作品；已锁定跳过；未锁定仅轻量更新分类 / 精选 / 排序 /
+                标签 / 链接（保留正文与封面）。头像、赞助码、反馈与点击数据始终保留。勾选下方「强制覆盖」才会改写锁定条目——面试前勿误开。
+              </span>
             </p>
           </div>
           <button
@@ -67,7 +71,7 @@ export function SyncPanel() {
               checked={forceOverwrite}
               onChange={(e) => setForceOverwrite(e.target.checked)}
             />
-            强制覆盖已锁定作品文案（危险）
+            强制用仓库种子覆盖文案（含已锁定，危险）
           </label>
           <label className="inline-flex items-center gap-2 cursor-pointer">
             <input

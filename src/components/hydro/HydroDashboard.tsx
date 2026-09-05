@@ -1,6 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { resolveHydroStationId } from "@/lib/hydro-station-map";
 
 type StationCard = {
   id: string;
@@ -248,6 +250,8 @@ function addChinaBasemap(L: any, map: any) {
 }
 
 export function HydroDashboard() {
+  const searchParams = useSearchParams();
+  const stationFromUrl = searchParams.get("station");
   const [ready, setReady] = useState(false);
   const [libsReady, setLibsReady] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -294,8 +298,14 @@ export function HydroDashboard() {
         setElements(el);
         setForecast(fb);
         setActive(el.defaults || ["q", "stage", "precip"]);
-        const prefer = o.stations.find((x) => x.id === "YR-HYK")?.id || o.stations[0]?.id;
-        if (prefer) setStationId(prefer);
+        const ids = o.stations.map((x) => x.id);
+        setStationId(
+          stationFromUrl
+            ? resolveHydroStationId(stationFromUrl, ids)
+            : ids.includes("YR-HYK")
+              ? "YR-HYK"
+              : ids[0] || "YR-HYK",
+        );
         setReady(true);
 
         try {
@@ -322,6 +332,13 @@ export function HydroDashboard() {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    if (!overview?.stations.length) return;
+    if (!stationFromUrl) return;
+    const ids = overview.stations.map((x) => x.id);
+    setStationId(resolveHydroStationId(stationFromUrl, ids));
+  }, [stationFromUrl, overview]);
 
   const selected = useMemo(
     () => overview?.stations.find((s) => s.id === stationId) || overview?.stations[0],
@@ -728,7 +745,9 @@ export function HydroDashboard() {
               </button>
             ))}
           </div>
-          <div ref={chartRef} className="hydro-chart" />
+          <div className="hydro-chart-scroll">
+            <div ref={chartRef} className="hydro-chart" />
+          </div>
         </article>
 
         <article className="hydro-panel">
@@ -802,7 +821,9 @@ export function HydroDashboard() {
               1 日 KGE <strong>{m1?.KGE?.toFixed(3) ?? "—"}</strong>
             </div>
           </div>
-          <div ref={csiChartRef} className="hydro-chart" style={{ height: 260 }} />
+          <div className="hydro-chart-scroll">
+            <div ref={csiChartRef} className="hydro-chart" style={{ height: 260 }} />
+          </div>
           <table className="hydro-csi-table">
             <thead>
               <tr>
@@ -832,7 +853,9 @@ export function HydroDashboard() {
         <article className="hydro-panel">
           <h2>7 日业务基线预报 · 花园口</h2>
           <p className="desc">Persistence→MA7；单位 m³/s</p>
-          <div ref={forecastRef} className="hydro-chart" />
+          <div className="hydro-chart-scroll">
+            <div ref={forecastRef} className="hydro-chart" />
+          </div>
           <div className="hydro-metrics">
             <div className="pill">
               起报 <strong>{forecast?.as_of}</strong>

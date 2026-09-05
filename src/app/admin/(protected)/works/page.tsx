@@ -38,9 +38,12 @@ export default function WorksListPage() {
     <AdminLayout>
       <PageHeader
         title="作品管理"
-        description="管理你的项目、论文、设计等各类作品"
+        description="管理你的项目、论文、设计等各类作品。带「已保护」的条目不会被 npm run sync / 默认同步覆盖正文与封面。"
         action={<AddButton href="/admin/works/new" />}
       />
+      <p className="text-xs text-ink-400 mb-4 rounded-xl border border-aqua/25 bg-aqua/5 px-3 py-2">
+        精选策略：首页精选仅主链 + Hydro-ML。demo 类请保持「精选」关闭。同步前确认需保留的条目已勾选「保护已保存内容」。
+      </p>
 
       {loading ? (
         <p className="text-ink-400">加载中...</p>

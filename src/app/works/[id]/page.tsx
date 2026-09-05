@@ -10,6 +10,14 @@ import { presentationHrefForTitle } from "@/data/presentations";
 import { ShowcasePanel } from "@/components/ShowcasePanel";
 import { SiteBackground } from "@/components/SiteBackground";
 import { workCovers, moodCovers } from "@/data/covers";
+import { WorkChainRelated } from "@/components/WorkChainRelated";
+import {
+  FEATURED_WORK_TITLES,
+  HYDRO_CHAIN_STEPS,
+  HYDRO_ML_TITLE,
+  getHydroChainMeta,
+  getHydroLane,
+} from "@/lib/hydro-guide";
 
 export const dynamic = "force-dynamic";
 
@@ -34,16 +42,28 @@ export default async function WorkDetailPage({ params }: PageProps) {
     moodCovers[mood] ||
     "/media/covers/picsum-29.jpg";
   const svg = cover.endsWith(".svg");
+  const chainMeta = getHydroChainMeta(work.title);
+  const hydroLane = getHydroLane(work.title);
+
+  const relatedTitles = Array.from(
+    new Set([
+      ...HYDRO_CHAIN_STEPS.map((s) => s.title),
+      HYDRO_ML_TITLE,
+      ...FEATURED_WORK_TITLES,
+    ])
+  );
+  const relatedRows = await prisma.work.findMany({
+    where: { published: true, title: { in: relatedTitles } },
+    select: { id: true, title: true, description: true },
+  });
+  const byTitle = new Map(relatedRows.map((w) => [w.title, w]));
 
   return (
     <div className="min-h-dvh relative">
       <SiteBackground />
       <nav className="fixed top-0 left-0 right-0 z-50">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center">
-          <Link
-            href="/#works"
-            className="nav-pill text-white/85"
-          >
+          <Link href="/#works" className="nav-pill text-white/85" aria-label="返回作品列表">
             <ArrowLeft className="w-4 h-4" />
             返回作品
           </Link>
@@ -66,6 +86,16 @@ export default async function WorkDetailPage({ params }: PageProps) {
             <span className="px-3 py-1 text-xs font-medium bg-[#e44c65]/90 text-white rounded-full">
               {getWorkCategoryLabel(work.title, work.category)}
             </span>
+            {chainMeta && (
+              <span className="px-3 py-1 text-xs bg-[#2ec4b6]/95 text-[#041018] rounded-full font-bold tabular-nums">
+                链路 {chainMeta.badge}
+              </span>
+            )}
+            {hydroLane && (
+              <span className="px-3 py-1 text-xs bg-white/10 text-[#7bdff2] rounded-full border border-[#2ec4b6]/30">
+                {hydroLane}
+              </span>
+            )}
             {work.featured && (
               <span className="px-3 py-1 text-xs bg-[#5ec8e8]/90 text-[#1a1218] rounded-full font-medium">
                 Featured
@@ -136,6 +166,8 @@ export default async function WorkDetailPage({ params }: PageProps) {
               <ReactMarkdown remarkPlugins={[remarkGfm]}>{work.content}</ReactMarkdown>
             </div>
           )}
+
+          <WorkChainRelated currentTitle={work.title} byTitle={byTitle} />
         </article>
       </main>
     </div>

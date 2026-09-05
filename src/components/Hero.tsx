@@ -69,12 +69,7 @@ function TypeLine({ text }: { text: string }) {
 }
 
 export function Hero({ profile }: HeroProps) {
-  const socialLinks = [
-    { icon: "mdi:github", href: profile.github, label: "GitHub", target: "social-github" },
-    { icon: "mdi:linkedin", href: profile.linkedin, label: "LinkedIn", target: "social-linkedin" },
-    { icon: "mdi:twitter", href: profile.twitter, label: "Twitter", target: "social-twitter" },
-    { icon: "mdi:web", href: profile.website, label: "Website", target: "social-website" },
-  ].filter((l) => l.href);
+  const loop = "采集 → 空间 → 态势 → 预报 → 文档";
 
   return (
     <section className="relative z-[1] min-h-[calc(100dvh-4rem)] flex items-center justify-center px-6 py-10">
@@ -86,64 +81,31 @@ export function Hero({ profile }: HeroProps) {
           className="flex flex-col text-center sm:text-left justify-center gap-4 text-white text-shadow
                      transform transition-transform duration-150 ease-out hover:scale-[1.02]"
         >
-          <p className="text-[#ff9aab] text-sm tracking-[0.2em] uppercase">
-            二次元 × 智慧水利
-          </p>
+          <p className="text-[#ff9aab] text-sm tracking-[0.2em] uppercase">智慧水利 / 水信息</p>
           <h1 className="font-display text-4xl md:text-6xl font-bold leading-tight text-balance">
             {profile.name}
           </h1>
           <p className="text-xl md:text-2xl text-white/90 font-light">
             <TypeLine text={profile.title || "智慧水利 · 水信息"} />
           </p>
-          {profile.tagline && (
-            <p className="text-base md:text-lg text-white/75 max-w-md leading-relaxed mx-auto sm:mx-0">
-              {profile.tagline}
-            </p>
-          )}
+          <p className="text-base md:text-lg text-white/85 max-w-lg leading-relaxed mx-auto sm:mx-0 font-medium tracking-wide">
+            {loop}
+          </p>
+          <p className="text-sm text-white/55 max-w-md leading-relaxed mx-auto sm:mx-0">
+            面向河海水信息导师、南京 / 广州智慧水利与设计院信息化岗位的可演示主链。
+          </p>
 
           <div className="flex flex-wrap gap-3 justify-center sm:justify-start mt-2">
             <a
               href="/hydrobench"
               className="btn-primary"
-              onClick={() => trackCta("nav-hydrobench", "hero-智慧水利")}
+              aria-label="进入智慧水利总览"
+              onClick={() => trackCta("nav-hydro-hub", "hero-进入智慧水利")}
             >
               <Icon icon="mdi:water" width={18} />
-              智慧水利
-            </a>
-            <a
-              href="#works"
-              className="btn-outline"
-              onClick={() => trackClick("hero-works", "作品")}
-            >
-              作品档案
-            </a>
-            <a
-              href="#sponsor"
-              className="btn-outline"
-              onClick={() => trackClick("hero-sponsor", "赞助")}
-            >
-              <Icon icon="mdi:coffee" width={18} />
-              赞助
+              进入智慧水利
             </a>
           </div>
-
-          {socialLinks.length > 0 && (
-            <div className="flex gap-3 justify-center sm:justify-start mt-2">
-              {socialLinks.map(({ icon, href, label, target }) => (
-                <a
-                  key={label}
-                  href={href!}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2.5 rounded-full bg-white/15 backdrop-blur-sm hover:bg-[#e44c65]/35 transition-colors"
-                  aria-label={label}
-                  onClick={() => trackClick(target, label)}
-                >
-                  <Icon icon={icon} width={20} />
-                </a>
-              ))}
-            </div>
-          )}
         </motion.div>
 
         <motion.div
@@ -183,10 +145,10 @@ export function About({ profile }: HeroProps) {
   if (!profile.bio) return null;
 
   const traits = [
-    { icon: "mdi:chart-timeline-variant", label: "站网态势与质控" },
-    { icon: "mdi:brain", label: "径流预报实验" },
-    { icon: "mdi:hammer-wrench", label: "野外数据工具台" },
-    { icon: "mdi:palette-outline", label: "可演示产品形态" },
+    { icon: "mdi:database-import-outline", label: "采集与整编" },
+    { icon: "mdi:map-outline", label: "空间落点" },
+    { icon: "mdi:chart-timeline-variant", label: "态势与质控" },
+    { icon: "mdi:weather-pouring", label: "预报与论证文档" },
   ];
 
   return (
@@ -213,6 +175,24 @@ export function About({ profile }: HeroProps) {
           <p className="text-white/85 leading-relaxed whitespace-pre-line mb-8">
             {profile.bio}
           </p>
+          <div className="flex flex-wrap gap-3 mb-8">
+            <a href="/hydrobench" className="btn-primary">
+              <Icon icon="mdi:water" width={18} />
+              进入智慧水利
+            </a>
+            {profile.github && (
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline"
+                onClick={() => trackClick("about-github", "GitHub")}
+              >
+                <Icon icon="mdi:github" width={18} />
+                GitHub
+              </a>
+            )}
+          </div>
           <div className="grid grid-cols-2 gap-3">
             {traits.map((t) => (
               <div key={t.label} className="rounded-2xl bg-white/10 border border-white/15 px-3 py-3 flex items-center gap-2">

@@ -11,6 +11,8 @@
   --rose: #e44c65;
   --rose-soft: #ff7a90;
   --warm-glow: rgba(245, 174, 115, 0.55);
+  /* 主站侧「智慧水利主链」点缀（完整 ops token 见 styles/hydro-tokens.css） */
+  --hydro-chain: #2ec4b6;
 }
 
 html {

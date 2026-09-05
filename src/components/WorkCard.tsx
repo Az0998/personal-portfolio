@@ -7,6 +7,7 @@ import { parseTags, getWorkCategoryLabel, resolveWorkCategory } from "@/lib/util
 import { getShowcaseByTitle } from "@/data/showcases";
 import { presentationHrefForTitle } from "@/data/presentations";
 import { workCovers, moodCovers } from "@/data/covers";
+import { getHydroChainMeta, getHydroLane, isFeaturedWorkTitle } from "@/lib/hydro-guide";
 
 export interface WorkItem {
   id: string;
@@ -50,16 +51,10 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
   const openHref = demoHref || work.link || deckHref;
   const cover = resolveCover(work, mood);
   const hasLiveDemo = Boolean(demoHref);
-  const isFeatured =
-    work.featured ||
-    [
-      "HydroInfo 流域水情信息平台",
-      "HydroBench · 水文双工作台",
-      "智慧水利管理系统",
-      "水资源论证 / 水平衡报告生成器",
-      "波托马克河多时效径流深度学习预报",
-      "匿名问卷 · 分发填写与汇总",
-    ].includes(work.title);
+  const isFeatured = work.featured || isFeaturedWorkTitle(work.title);
+  const chainMeta = getHydroChainMeta(work.title);
+  const isHydroChain = Boolean(chainMeta);
+  const hydroLane = getHydroLane(work.title);
 
   return (
     <motion.article
@@ -69,8 +64,15 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
       transition={{ duration: 0.35, delay: Math.min(index, 6) * 0.04, ease: "easeOut" }}
       whileHover={{ y: -4, transition: { duration: 0.15 } }}
       whileTap={{ scale: 0.985 }}
-      className={`group anime-card flex flex-col ${large ? "md:col-span-2" : ""}`}
+      className={`group anime-card flex flex-col relative overflow-hidden ${large ? "md:col-span-2" : ""}`}
     >
+      {isHydroChain && (
+        <span
+          className="absolute left-0 top-0 bottom-0 w-1 z-10 bg-[var(--hydro-chain,#2ec4b6)] shadow-[0_0_12px_rgba(46,196,182,0.45)]"
+          title="智慧水利主链"
+          aria-hidden
+        />
+      )}
       <Link href={`/works/${work.id}`} className="block flex-1">
         <div className={`relative overflow-hidden ${large ? "h-56 md:h-64" : "h-40 md:h-44"}`}>
           {isSvg(cover) ? (
@@ -89,11 +91,24 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
             />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
-          <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 max-w-[70%]">
+          <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 max-w-[75%]">
             <span className="px-2.5 py-1 text-[11px] font-medium bg-[#e44c65]/92 text-white rounded-full">
               {getWorkCategoryLabel(work.title, work.category)}
             </span>
-            {isFeatured && (
+            {chainMeta && (
+              <span
+                className="px-2.5 py-1 text-[11px] bg-[#2ec4b6]/95 text-[#041018] rounded-full font-bold tabular-nums"
+                title={`智慧水利主链 ${chainMeta.badge}`}
+              >
+                链路 {chainMeta.badge}
+              </span>
+            )}
+            {hydroLane && (
+              <span className="px-2.5 py-1 text-[11px] bg-black/50 backdrop-blur-sm text-[#7bdff2] rounded-full border border-[#2ec4b6]/35">
+                {hydroLane}
+              </span>
+            )}
+            {isFeatured && !isHydroChain && (
               <span className="px-2.5 py-1 text-[11px] bg-[#5ec8e8]/92 text-[#1a1218] rounded-full font-medium">
                 精选
               </span>

@@ -1,11 +1,23 @@
+@import "../../styles/hydro-tokens.css";
+
 .wm-root {
   min-height: 100dvh;
   height: 100dvh;
   display: flex;
   flex-direction: column;
-  background: #06141c;
-  color: #e7f6f5;
+  background: var(--hydro-bg, #06141c);
+  color: var(--hydro-text, #e7f6f5);
   overflow: hidden;
+  font-family: var(--hydro-font, "Noto Sans SC", system-ui, sans-serif);
+}
+.wm-root.wm-embed {
+  height: 100%;
+  min-height: 100%;
+}
+.wm-loading-page {
+  display: grid;
+  place-items: center;
+  color: var(--hydro-muted, #8fb3c0);
 }
 
 .wm-top {
@@ -361,6 +373,28 @@
   font-size: 0.78rem;
   line-height: 1.45;
   color: #9bb8c2;
+}
+
+.wm-lineage-block {
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.45rem;
+  border: 1px solid rgba(46, 196, 182, 0.22);
+  background: rgba(8, 28, 36, 0.55);
+}
+.wm-lineage-block strong {
+  display: block;
+  font-size: 0.8rem;
+  color: #ffd166;
+  margin-bottom: 0.25rem;
+}
+.wm-lineage-block p {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #9bb8c2;
+}
+.wm-lineage-block .wm-warn {
+  margin: 0;
 }
 
 .wm-detail-title .wm-tag {

@@ -5,8 +5,9 @@ import "../hydro/hydro.css";
 import "./hydrobench.css";
 
 export const metadata: Metadata = {
-  title: "智慧水利 | 张森捷",
-  description: "水情态势、室内作业台与户外应急台，同一入口三页签直达",
+  title: "智慧水利总览 | 张森捷",
+  description:
+    "总览→态势·作业台·空间·模型·文档：站网态势、室内/户外作业、流域一张图、产汇流对照与水平衡论证草稿",
 };
 
 export default function HydroBenchPage() {

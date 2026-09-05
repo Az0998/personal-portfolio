@@ -2,6 +2,9 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { HydroGuideBar } from "@/components/hydro/HydroGuideBar";
 
 const WatershedMapApp = dynamic(
   () =>
@@ -21,20 +24,14 @@ const WatershedMapApp = dynamic(
   }
 );
 
-/** Default: in-site Hydro hub. Override with NEXT_PUBLIC_HYDRO_HUB_URL (absolute or path). */
 const HYDRO_HUB_URL =
-  process.env.NEXT_PUBLIC_HYDRO_HUB_URL?.trim() || "/hydrobench";
+  process.env.NEXT_PUBLIC_HYDRO_HUB_URL?.trim() || "/hydrobench?tab=info";
 
 function HydroHubLink({ className }: { className?: string }) {
   const external = /^https?:\/\//i.test(HYDRO_HUB_URL);
   if (external) {
     return (
-      <a
-        href={HYDRO_HUB_URL}
-        className={className}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href={HYDRO_HUB_URL} className={className} target="_blank" rel="noopener noreferrer">
         智慧水利
       </a>
     );
@@ -46,27 +43,48 @@ function HydroHubLink({ className }: { className?: string }) {
   );
 }
 
+function WatershedBody() {
+  const search = useSearchParams();
+  const embed = search.get("embed") === "1";
+
+  return (
+    <div className={`wm-root hydro-skin${embed ? " wm-embed" : ""}`}>
+      {!embed && (
+        <Suspense fallback={null}>
+          <HydroGuideBar stepHint={2} />
+        </Suspense>
+      )}
+      {!embed && (
+        <header className="wm-top">
+          <Link href="/" className="wm-back">
+            ← 返回主站
+          </Link>
+          <div>
+            <div className="wm-top-title">流域「一张图」</div>
+            <div className="wm-top-sub">空间 · 水系 / 子流域 / 测站叠图</div>
+          </div>
+          <div className="wm-top-actions">
+            <HydroHubLink className="wm-pill" />
+            <span className="hydro-badge-sketch">示意</span>
+            <span className="hb-kind">空间</span>
+          </div>
+        </header>
+      )}
+      <WatershedMapApp hydroHubUrl={HYDRO_HUB_URL} />
+      {!embed && (
+        <footer className="wm-foot">
+          智慧水利「空间」入口：叠图与断面示意在此完成；态势 / 作业台见{" "}
+          <HydroHubLink className="wm-foot-link" />。
+        </footer>
+      )}
+    </div>
+  );
+}
+
 export function WatershedMapClient() {
   return (
-    <div className="wm-root">
-      <header className="wm-top">
-        <Link href="/" className="wm-back">
-          ← 返回主站
-        </Link>
-        <div>
-          <div className="wm-top-title">流域「一张图」GIS 小站</div>
-          <div className="wm-top-sub">/watershed-map · GeoJSON · Leaflet · 空间统计</div>
-        </div>
-        <div className="wm-top-actions">
-          <HydroHubLink className="wm-pill" />
-          <span className="wm-pill">EPSG:4326</span>
-        </div>
-      </header>
-      <WatershedMapApp hydroHubUrl={HYDRO_HUB_URL} />
-      <footer className="wm-foot">
-        本页是智慧水利「空间一张图」入口：GIS 叠图与阈值示意在此完成；水情态势 / 室内台 / 户外台由{" "}
-        <HydroHubLink className="wm-foot-link" />（HydroInfo + HydroBench）承接过程线与业务台账。
-      </footer>
-    </div>
+    <Suspense fallback={<div className="wm-root hydro-skin wm-loading-page">加载流域图…</div>}>
+      <WatershedBody />
+    </Suspense>
   );
 }

@@ -53,6 +53,18 @@ const OSM_DARK_CSS: BasemapOptions = {
 function fromEnv(): BasemapOptions | null {
   const url = process.env.NEXT_PUBLIC_MAP_TILE_URL?.trim();
   if (!url) return null;
+  // New Carto accounts watermark "API KEY REQUIRED" without a key — never use for demos.
+  if (
+    /basemaps\.cartocdn\.com/i.test(url) &&
+    !/[?&](api[_-]?key|access_token)=/i.test(url)
+  ) {
+    if (typeof console !== "undefined") {
+      console.warn(
+        "[map-basemap] Ignoring Carto URL without API key; falling back to Esri (zero-key).",
+      );
+    }
+    return null;
+  }
   const sub = process.env.NEXT_PUBLIC_MAP_TILE_SUBDOMAINS?.trim();
   return {
     url,

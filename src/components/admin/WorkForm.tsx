@@ -207,9 +207,11 @@ export function WorkForm({ initial, onSubmit, saving, submitLabel }: WorkFormPro
               className="w-4 h-4 rounded accent-accent mt-0.5"
             />
             <span className="text-sm">
-              保护已保存内容（推荐）
+              保护已保存内容（推荐勾选）
               <span className="block text-ink-400 text-xs mt-0.5">
-                勾选后，网站版本更新 / 默认同步不会覆盖本条标题、正文、封面与链接
+                勾选后默认同步 / <code className="text-aqua">npm run sync</code>{" "}
+                不会覆盖本条标题、正文、封面与链接。未勾选时仍可能轻量更新分类 / 精选 /
+                排序 / 标签。强制覆盖需在同步面板显式勾选危险选项。
               </span>
             </span>
           </label>

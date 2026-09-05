@@ -169,6 +169,15 @@ export function WaterBalanceApp() {
   };
 
   const requestExport = (kind: "md" | "doc") => {
+    const blocked = qc.findings.some(
+      (f) =>
+        f.level === "hard" &&
+        (f.id === "return-exceeds-withdrawal" || f.id === "consume-negative")
+    );
+    if (blocked) {
+      setCopyTip("退水>取水（或耗水为负）属硬阻断，请先改数后再导出。");
+      return;
+    }
     if (qc.canExport) doExport(kind);
     else setPendingExport(kind);
   };
@@ -191,6 +200,11 @@ export function WaterBalanceApp() {
 
   return (
     <div className="wbr-app">
+      <div className="wbr-sticky-disclaimer" role="note">
+        <strong>演示草稿 · 非正式论证</strong>
+        <span>不得作为行政许可、评审或取水许可材料；定额与影响评价须另编正式件。</span>
+      </div>
+
       <div className="wbr-hero">
         <div>
           <p className="wbr-kicker">报告生成 / 室内岗</p>
@@ -251,15 +265,15 @@ export function WaterBalanceApp() {
 
       <aside className="wbr-formulas" aria-label="水量关系主口径">
         <article>
-          <code>D = Σ Qi</code>
+          <code>{result.formulas.demand}</code>
           <p>需水合计 = 表内分项之和，不另开表外合计</p>
         </article>
         <article>
-          <code>C = Q − R</code>
+          <code>{result.formulas.consume}</code>
           <p>耗水唯一口径：取水 − 退水，不用工艺耗水</p>
         </article>
         <article>
-          <code>Δ = Q − (D + L)</code>
+          <code>{result.formulas.residual}</code>
           <p>供给闭合；退水不进 Δ。|Δ|&lt;0.005 才可称闭合</p>
         </article>
       </aside>
@@ -523,7 +537,7 @@ export function WaterBalanceApp() {
 
           {!qc.canExport ? (
             <p className="wbr-block" role="alert">
-              存在 {qc.hardCount} 条硬校验。仍可导出，但须确认「仍要导出草稿」；封面与页眉将标注非正式 / 质控未通过。
+              存在 {qc.hardCount} 条硬校验。退水&gt;取水等物理硬阻断不可导出；其余硬项须确认后才可导出标注「质控未通过」的草稿。
             </p>
           ) : null}
           {copyTip ? (

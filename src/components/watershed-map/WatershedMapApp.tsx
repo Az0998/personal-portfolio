@@ -763,20 +763,27 @@ export function WatershedMapApp({ hydroHubUrl = "/hydrobench" }: AppProps) {
                 </li>
               </ul>
               <div className="wm-lineage-list">
+                <div className="wm-lineage-block">
+                  <strong>数据谱系</strong>
+                  <p>按图层说明来源与示意程度；切换图层后右侧统计只计可见要素。</p>
+                </div>
                 {LAYER_META.map((l) => (
                   <div key={l.key} className="wm-lineage-item">
                     <strong>{l.label}</strong>
                     <p>{manifest?.lineage?.[l.lineageKey] || "—"}</p>
                   </div>
                 ))}
+                <div className="wm-lineage-block">
+                  <strong>示意免责</strong>
+                  <p>
+                    {manifest?.disclaimer ||
+                      "教学示意数据：边界与河网已简化；坡度为合成 DEM 示意，不可用于工程设计或报汛决策。"}
+                  </p>
+                  <p className="wm-warn">
+                    坡度图层仅为合成 DEM 代理分级，禁止当作实测地形或工程依据。
+                  </p>
+                </div>
               </div>
-              <p className="wm-disclaimer">
-                {manifest?.disclaimer ||
-                  "教学示意数据：边界与河网已简化；坡度为合成 DEM 示意，不可用于工程设计。"}
-              </p>
-              <p className="wm-warn">
-                坡度图层仅为合成 DEM 代理分级，禁止当作实测地形或工程依据。
-              </p>
             </div>
           )}
         </section>

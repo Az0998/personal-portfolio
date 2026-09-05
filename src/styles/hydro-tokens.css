@@ -1,0 +1,154 @@
+/**
+ * Hydro Ops 设计令牌（一套 token、多皮肤）
+ * -----------------------------------------
+ * 主站：rose / anime（globals.css）
+ * Hydro 子站：本文件（深色 ops）
+ *
+ * 引用：各 hydro 路由 CSS 顶部 `@import "../../styles/hydro-tokens.css";`
+ * 禁止再散落第三套无说明的深色变量。
+ *
+ * 一致性检查（截图式）：
+ * 1. 顶栏：返回链 + 标题(≈1.05rem/650) + 副标(12px muted) + 徽章「演示/示意」
+ * 2. 按钮：主色 --hydro-accent 填充；幽灵按钮描边 --hydro-line
+ * 3. 卡片：--hydro-panel / --hydro-radius / --hydro-space
+ * 抽查页：/hydrobench · /watershed-map · /xaj-bench · /water-balance-report
+ */
+
+:root,
+.hydro-skin {
+  --hydro-bg: #06141c;
+  --hydro-bg-deep: #041018;
+  --hydro-bg-end: #071820;
+  --hydro-panel: rgba(10, 34, 46, 0.88);
+  --hydro-panel-solid: rgba(8, 24, 32, 0.92);
+  --hydro-line: rgba(46, 196, 182, 0.22);
+  --hydro-text: #e7f4f8;
+  --hydro-muted: #8fb3c0;
+  --hydro-accent: #2ec4b6;
+  --hydro-accent-deep: #1a9e92;
+  --hydro-blue: #3d8bfd;
+  --hydro-warn: #e9a825;
+  --hydro-alert: #e4572e;
+  --hydro-ok: #3ddc97;
+  --hydro-radius: 16px;
+  --hydro-radius-sm: 10px;
+  --hydro-space: 14px;
+  --hydro-space-lg: 22px;
+  --hydro-font: "Noto Sans SC", "DM Sans", system-ui, sans-serif;
+  --hydro-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+  --hydro-top-bg: rgba(4, 16, 24, 0.82);
+  --hydro-glow-a: rgba(46, 196, 182, 0.16);
+  --hydro-glow-b: rgba(61, 139, 253, 0.12);
+}
+
+/* 兼容旧变量名（hydro.css / hydrobench.css） */
+.hydro-root,
+.hb-root,
+.wm-root,
+.xaj-root,
+.wbr-root {
+  --h-bg: var(--hydro-bg);
+  --h-panel: var(--hydro-panel);
+  --h-line: var(--hydro-line);
+  --h-text: var(--hydro-text);
+  --h-muted: var(--hydro-muted);
+  --h-accent: var(--hydro-accent);
+  --h-blue: var(--hydro-blue);
+  --h-warn: var(--hydro-warn);
+  --h-alert: var(--hydro-alert);
+  --h-ok: var(--hydro-ok);
+  --hb-bg: var(--hydro-bg);
+  --hb-panel: var(--hydro-panel-solid);
+  --hb-line: var(--hydro-line);
+  --hb-text: var(--hydro-text);
+  --hb-muted: var(--hydro-muted);
+  --hb-accent: var(--hydro-accent);
+  --hb-accent-deep: var(--hydro-accent-deep);
+  --wbr-bg: var(--hydro-bg);
+  --wbr-accent: var(--hydro-accent);
+  --wbr-text: var(--hydro-text);
+  --wbr-muted: var(--hydro-muted);
+}
+
+.hydro-surface {
+  min-height: 100dvh;
+  color: var(--hydro-text);
+  font-family: var(--hydro-font);
+  background:
+    radial-gradient(1000px 500px at 8% -8%, var(--hydro-glow-a), transparent 55%),
+    radial-gradient(800px 420px at 92% 0%, var(--hydro-glow-b), transparent 50%),
+    linear-gradient(180deg, var(--hydro-bg-deep), var(--hydro-bg) 45%, var(--hydro-bg-end));
+}
+
+.hydro-badge-demo,
+.hydro-badge-sketch {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: 1px solid var(--hydro-line);
+  color: var(--hydro-accent);
+  background: rgba(46, 196, 182, 0.1);
+  letter-spacing: 0.04em;
+}
+.hydro-badge-sketch {
+  color: var(--hydro-muted);
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.hb-kind {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--hydro-accent);
+  border: 1px solid rgba(46, 196, 182, 0.35);
+  background: rgba(46, 196, 182, 0.1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+
+/* 导览条 */
+.hydro-guide-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--hydro-line);
+  background: rgba(46, 196, 182, 0.08);
+  font-size: 0.82rem;
+}
+.hydro-guide-bar strong {
+  color: var(--hydro-accent);
+  font-variant-numeric: tabular-nums;
+}
+.hydro-guide-bar .hg-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: auto;
+}
+.hydro-guide-bar a,
+.hydro-guide-bar button {
+  appearance: none;
+  border: 1px solid var(--hydro-line);
+  background: rgba(46, 196, 182, 0.16);
+  color: var(--hydro-text);
+  text-decoration: none;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 650;
+  padding: 0.35rem 0.7rem;
+  border-radius: var(--hydro-radius-sm);
+  cursor: pointer;
+}
+.hydro-guide-bar a.ghost,
+.hydro-guide-bar button.ghost {
+  background: transparent;
+  color: var(--hydro-muted);
+}

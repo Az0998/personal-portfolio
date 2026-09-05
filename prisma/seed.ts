@@ -25,7 +25,25 @@ async function main() {
     });
     console.log("Created default profile");
   } else {
-    console.log("Kept existing profile (avatar/sponsor/contacts preserved)");
+    const email = existingProfile.email || "";
+    const placeholderEmail =
+      !email || /example\.com|placeholder|your@|TODO|changeme/i.test(email);
+    // Soft-fix career contact fields when email still looks like a placeholder.
+    // Never wipe avatar / sponsor / phone / wechat.
+    if (placeholderEmail || process.env.UPDATE_PROFILE_CONTACT === "1") {
+      await prisma.profile.update({
+        where: { id: existingProfile.id },
+        data: {
+          email: profileContent.email,
+          location: profileContent.location,
+          title: profileContent.title,
+          tagline: profileContent.tagline,
+        },
+      });
+      console.log("Soft-updated profile contact/career fields (avatar/sponsor kept)");
+    } else {
+      console.log("Kept existing profile (avatar/sponsor/contacts preserved)");
+    }
   }
 
   let created = 0;

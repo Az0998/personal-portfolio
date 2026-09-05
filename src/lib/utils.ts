@@ -34,6 +34,8 @@ const LEGACY_CATEGORY: Record<string, WorkCategory> = {
 /** 按标题纠偏（库内仍是旧 category 时也能正确分组） */
 const TITLE_CATEGORY: Record<string, WorkCategory> = {
   "水资源论证 / 水平衡报告生成器": "hydro",
+  "新安江机理预报对照台": "hydro",
+  "流域「一张图」GIS 小站": "hydro",
   "智慧水利管理系统": "hydro",
   "HydroInfo 流域水情信息平台": "hydro",
   "HydroBench · 水文双工作台": "hydro",
@@ -41,9 +43,12 @@ const TITLE_CATEGORY: Record<string, WorkCategory> = {
   "水文测验与资料整编实践合集": "hydro",
   "波托马克河多时效径流深度学习预报": "paper",
   "洮河与黄河水文地理综述": "paper",
+  "东海陆架溶解氧中长期预报": "paper",
   "匿名问卷 · 分发填写与汇总": "demo",
   "易理占筮 · 太极八卦六十四阵": "demo",
   "Novel Studio 写作工作台": "demo",
+  "中国象棋 · AlphaZero 策略网": "demo",
+  "Graph-RAG Vault · 知识图谱检索": "demo",
   "临时文件柜 · 到期自毁分享": "tool",
   "剪贴板智能可视化仪表板": "tool",
   "庄方宜 Q 版桌面宠物": "design",

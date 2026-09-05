@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { hydroInfoHref } from "@/lib/hydro-station-map";
 
 export type StationSeriesPayload = {
   station_id: string;
@@ -98,7 +99,7 @@ export function StationSeriesDrawer({
         const res = await fetch(
           `/watershed-map/basins/${basinId}/series/${stationId}.json`
         );
-        if (!res.ok) throw new Error("过程线文件未找到");
+        if (!res.ok) throw new Error("过程线文件未找到（仍可跳转 HydroInfo 示意站）");
         const json = (await res.json()) as StationSeriesPayload;
         if (!cancelled) setData(json);
       } catch (e) {
@@ -111,6 +112,15 @@ export function StationSeriesDrawer({
       cancelled = true;
     };
   }, [open, basinId, stationId]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
 
   useEffect(() => {
     if (!data || !open) return;
@@ -133,9 +143,7 @@ export function StationSeriesDrawer({
   const csvHref = stationId
     ? `/watershed-map/basins/${basinId}/series/${stationId}.csv`
     : "#";
-  const hubHref = hydroHubUrl.includes("?")
-    ? `${hydroHubUrl}&station=${encodeURIComponent(stationId || "")}`
-    : `${hydroHubUrl}?tab=info&station=${encodeURIComponent(stationId || "")}`;
+  const hubHref = hydroInfoHref(stationId, hydroHubUrl);
 
   return (
     <div className="wm-drawer-root" role="dialog" aria-modal="true" aria-label="站点过程线">
@@ -166,16 +174,19 @@ export function StationSeriesDrawer({
               <canvas ref={qRef} className="wm-chart" />
             </div>
             <p className="wm-hint">{data.note || "示意序列，不可用于报汛。"}</p>
-            <div className="wm-drawer-actions">
-              <a className="wm-pill" href={csvHref} download>
-                下载 CSV
-              </a>
-              <a className="wm-pill" href={hubHref}>
-                打开 Hydro 枢纽
-              </a>
-            </div>
           </>
         )}
+
+        <div className="wm-drawer-actions">
+          {data && (
+            <a className="wm-pill" href={csvHref} download>
+              下载 CSV
+            </a>
+          )}
+          <a className="wm-pill" href={hubHref}>
+            打开 HydroInfo 示意过程线
+          </a>
+        </div>
       </aside>
     </div>
   );

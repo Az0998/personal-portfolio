@@ -1,14 +1,20 @@
+@import "../../styles/hydro-tokens.css";
+
 .wbr-root {
-  --wbr-bg: #06141c;
-  --wbr-accent: #2ec4b6;
-  --wbr-text: #e7f4f8;
-  --wbr-muted: #8fb3c0;
+  --wbr-bg: var(--hydro-bg, #06141c);
+  --wbr-accent: var(--hydro-accent, #2ec4b6);
+  --wbr-text: var(--hydro-text, #e7f4f8);
+  --wbr-muted: var(--hydro-muted, #8fb3c0);
   min-height: 100dvh;
   background:
-    radial-gradient(900px 420px at 8% -12%, rgba(46, 196, 182, 0.16), transparent 55%),
-    linear-gradient(180deg, #041018, var(--wbr-bg) 48%, #071820);
+    radial-gradient(900px 420px at 8% -12%, var(--hydro-glow-a, rgba(46, 196, 182, 0.16)), transparent 55%),
+    linear-gradient(180deg, var(--hydro-bg-deep, #041018), var(--wbr-bg) 48%, var(--hydro-bg-end, #071820));
   color: var(--wbr-text);
-  font-family: "Noto Sans SC", system-ui, sans-serif;
+  font-family: var(--hydro-font, "Noto Sans SC", system-ui, sans-serif);
+}
+.wbr-root.wbr-embed {
+  min-height: 100%;
+  background: var(--wbr-bg);
 }
 
 .wbr-top {
@@ -249,6 +255,30 @@
   border-radius: 999px;
   border: 1px solid rgba(255, 209, 102, 0.4);
   color: #ffd166;
+}
+
+.wbr-sticky-disclaimer {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.75rem;
+  padding: 0.55rem 0.85rem;
+  margin: 0 0 0.75rem;
+  border: 1px solid rgba(255, 209, 102, 0.35);
+  border-radius: 0.5rem;
+  background: rgba(28, 24, 10, 0.94);
+  backdrop-filter: blur(10px);
+  color: #f0e2b8;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+.wbr-sticky-disclaimer strong {
+  color: #ffd166;
+  font-weight: 650;
+  white-space: nowrap;
 }
 
 .wbr-btn {

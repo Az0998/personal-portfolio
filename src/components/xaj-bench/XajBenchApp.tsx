@@ -490,7 +490,7 @@ export function XajBenchApp({
     ma3: false,
     lag_lstm: true,
   });
-  const [windowDays, setWindowDays] = useState(180);
+  const [windowDays, setWindowDays] = useState(730);
   const [guideStep, setGuideStep] = useState<GuideStepId>("evap");
   const [guideOpen, setGuideOpen] = useState(true);
   const [sensKey, setSensKey] = useState<keyof XajParams>("K");
@@ -704,12 +704,26 @@ export function XajBenchApp({
   }, []);
 
   const selectGuideStep = (id: Exclude<GuideStepId, null>) => {
-    setGuideStep((prev) => (prev === id ? null : id));
+    setGuideStep(id);
     setGuideOpen(true);
     setWindowDays(730);
     requestAnimationFrame(() => {
       paramsPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
+  };
+
+  const guideIndex = Math.max(
+    0,
+    GUIDE_STEPS.findIndex((s) => s.id === guideStep)
+  );
+
+  const stepGuide = (delta: number) => {
+    if (!guideStep) {
+      selectGuideStep(GUIDE_STEPS[delta >= 0 ? 0 : GUIDE_STEPS.length - 1].id);
+      return;
+    }
+    const next = Math.min(GUIDE_STEPS.length - 1, Math.max(0, guideIndex + delta));
+    selectGuideStep(GUIDE_STEPS[next].id);
   };
 
   const exportParamsJson = () => {
@@ -744,8 +758,9 @@ export function XajBenchApp({
   const exportSeriesCsv = () => {
     if (!data || !live) return;
     const { date, precip_mm, em_mm, q_obs } = data.series;
+    const t = live.trace;
     const rows = [
-      "date,precip_mm,em_mm,q_obs_m3s,q_xaj_m3s,q_lag_lstm_m3s,q_persistence_m3s,q_ma3_m3s",
+      "date,precip_mm,em_mm,q_obs_m3s,q_xaj_m3s,RS_mm,RI_mm,RG_mm,E_mm,storage_mm,q_lag_lstm_m3s,q_persistence_m3s,q_ma3_m3s",
     ];
     for (let i = 0; i < q_obs.length; i++) {
       rows.push(
@@ -755,6 +770,11 @@ export function XajBenchApp({
           em_mm[i],
           q_obs[i],
           live.q_xaj[i],
+          t.RS[i],
+          t.RI[i],
+          t.RG[i],
+          t.e[i],
+          t.storage_mm[i],
           live.q_lag_lstm[i],
           live.q_persistence[i],
           live.q_ma3[i],
@@ -929,15 +949,27 @@ export function XajBenchApp({
                   );
                 })}
               </ol>
-              {guideStep && (
+              <div className="xaj-guide-nav">
+                <button
+                  type="button"
+                  className="xaj-btn ghost"
+                  disabled={guideIndex <= 0}
+                  onClick={() => stepGuide(-1)}
+                >
+                  上一步
+                </button>
+                <span className="xaj-muted">
+                  {guideStep ? `${guideIndex + 1} / ${GUIDE_STEPS.length}` : "未选步骤"}
+                </span>
                 <button
                   type="button"
                   className="xaj-btn"
-                  onClick={() => setGuideStep(null)}
+                  disabled={guideIndex >= GUIDE_STEPS.length - 1 && !!guideStep}
+                  onClick={() => stepGuide(1)}
                 >
-                  清除高亮
+                  下一步
                 </button>
-              )}
+              </div>
             </>
           )}
         </aside>

@@ -83,6 +83,7 @@ export async function syncCuratedWorks(options?: {
           title: profileContent.title,
           tagline: profileContent.tagline,
           bio: profileContent.bio,
+          email: profileContent.email,
           github: profileContent.github,
           website: profileContent.website,
           location: profileContent.location || profile.location,

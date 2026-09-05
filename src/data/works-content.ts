@@ -18,10 +18,10 @@ export const worksContent: WorkSeed[] = [
     description:
       "信息化交付里的业务文档自动化：填取用水与需水结构，生成水平衡与论证草稿，软硬质控后导出 Word / Markdown，便于室内岗交付与作品集附送。",
     category: "hydro",
-    tags: "水平衡,论证草稿,Word/Markdown,质控校验,室内岗",
+    tags: "文档,水平衡,论证草稿,Word/Markdown,质控校验,室内岗",
     featured: true,
     published: true,
-    sortOrder: 1,
+    sortOrder: 4,
     link: "/water-balance-report",
     content: `## 一句话
 
@@ -49,10 +49,10 @@ export const worksContent: WorkSeed[] = [
     description:
       "日降水→新安江产汇流→出口流量；同口径NSE对照数据驱动基线。浏览器可复现。",
     category: "hydro",
-    tags: "新安江,产汇流,NSE,浏览器可复现",
+    tags: "模型,新安江,产汇流,NSE,浏览器可复现",
     featured: true,
     published: true,
-    sortOrder: 0,
+    sortOrder: 3,
     link: "/xaj-bench",
     content: `## 一句话
 
@@ -81,7 +81,7 @@ npm run xaj:generate
     description:
       "示意流域 GIS「一张图」：图层开关、测距与阈值过程线，数据谱系可讲清，挂载 /watershed-map。",
     category: "hydro",
-    tags: "GIS,GeoJSON,空间统计",
+    tags: "空间,GIS,GeoJSON,空间统计",
     featured: true,
     published: true,
     sortOrder: 1,
@@ -124,8 +124,8 @@ python scripts/generate_watershed_geojson.py
     description:
       "SpringBoot + Vue 前后端分离：巡测员考勤/请假/任务/测报/仪器借用，管理员看板与审核。挂载 /smart-water。",
     category: "hydro",
-    tags: "SpringBoot,Vue,MyBatis-Plus,Element-UI,ECharts,智慧水利,管理系统",
-    featured: true,
+    tags: "工具,SpringBoot,Vue,MyBatis-Plus,Element-UI,ECharts,智慧水利,管理系统",
+    featured: false,
     published: true,
     sortOrder: 0,
     link: "/smart-water",
@@ -157,7 +157,7 @@ python scripts/generate_watershed_geojson.py
       "自对弈 + MCTS 训练的中国象棋策略网络：本地 CUDA 闭环训练，浏览器 ONNX 对弈。挂载 /xiangqi。",
     category: "demo",
     tags: "象棋,AlphaZero,MCTS,ONNX,深度学习,自对弈,前端演示",
-    featured: true,
+    featured: false,
     published: true,
     sortOrder: 8,
     link: "/xiangqi",
@@ -197,7 +197,7 @@ python main.py
       "浏览器端匿名问卷：公开/私密分发、填写汇总、结果快照，以及问卷绑定的匿名讨论区。挂载 /survey。",
     category: "demo",
     tags: "问卷,匿名,讨论,前端,localStorage,工具,演示",
-    featured: true,
+    featured: false,
     published: true,
     sortOrder: 10,
     link: "/survey",
@@ -231,7 +231,7 @@ python main.py
       "Obsidian 式双向链接笔记 × Graph-RAG：TF-IDF 种子检索、1-hop 邻居扩展、关系图高亮出处；可对比纯向量模式。挂载 /graph-rag。",
     category: "demo",
     tags: "RAG,知识图谱,Obsidian,检索,TF-IDF,前端演示",
-    featured: true,
+    featured: false,
     published: true,
     sortOrder: 9,
     link: "/graph-rag",
@@ -315,10 +315,10 @@ python -m http.server 8080
     description:
       "公开站 CSV 驱动的水情态势看板：多站 KPI、过程线与阈值、质控预警、洪水 CSI 回放、LSTM 指标舱；与作业台同属主导航「智慧水利」。",
     category: "hydro",
-    tags: "智慧水利,水信息,Leaflet,CSV,质控,CSI,LSTM",
+    tags: "态势,智慧水利,水信息,Leaflet,CSV,质控,CSI,LSTM",
     featured: true,
     published: true,
-    sortOrder: 1,
+    sortOrder: 2,
     github: "https://github.com/Az0998/hydro-info-platform",
     link: "/hydrobench?tab=info",
     content: `## 定位
@@ -355,10 +355,10 @@ python app.py
     description:
       "智慧水利作业台：室内 DAT/CSV/图片/公式一体处理；户外无网测次、速算与清单；与水情态势同页三页签直达。",
     category: "hydro",
-    tags: "水文,工作台,DAT,离线,公式,Canvas,localStorage,智慧水利",
+    tags: "工具,水文,工作台,DAT,离线,公式,Canvas,localStorage,智慧水利",
     featured: true,
     published: true,
-    sortOrder: 2,
+    sortOrder: 0,
     link: "/hydrobench?tab=studio",
     content: `## 定位
 
@@ -389,7 +389,7 @@ python app.py
   {
     title: "临时文件柜 · 到期自毁分享",
     description:
-      "个人站临时文件存储：拖拽上传、分享链接、1 小时～7 天 TTL，过期自动删除；主导航 /temp-files。",
+      "个人站临时文件存储：拖拽上传、分享链接、1 小时～7 天 TTL，过期自动删除；入口见页脚「临时文件柜」。",
     category: "tool",
     tags: "文件分享,临时存储,Render,SQLite,工具",
     featured: false,
@@ -403,6 +403,8 @@ python app.py
 ## 在线打开
 
 [打开临时文件柜](/temp-files)
+
+> 不在主导航占位，页脚可进入。
 
 ## 能力
 
@@ -420,10 +422,10 @@ python app.py
     description:
       "多时效径流预报实验闭环：LSTM-Attention 一日 NSE 0.93，含消融、洪水评估与 HSJ 文稿流水线。",
     category: "paper",
-    tags: "深度学习,水文,PyTorch,LSTM,XGBoost,HSJ",
+    tags: "论文,深度学习,水文,PyTorch,LSTM,XGBoost,HSJ,Hydro-ML",
     featured: true,
     published: true,
-    sortOrder: 3,
+    sortOrder: 5,
     github: "https://github.com/Az0998/hydro-ml-paper",
     link: "/presentations/hydro-ml",
     content: `## 一句话
@@ -629,7 +631,7 @@ python create_plant_ppt.py
     description:
       "Budyko 框架下的植被—水文耦合：径流、降水、PET 与 NDVI 一体化分析流水线。",
     category: "hydro",
-    tags: "生态水文,Budyko,NDVI,课程论文",
+    tags: "论文,生态水文,Budyko,NDVI,课程论文",
     featured: false,
     published: true,
     sortOrder: 4,
@@ -654,7 +656,7 @@ python create_plant_ppt.py
     description:
       "水位过程、大断面 DXF、绳套洪水流量、评级延长——野外数据到报表的整编合集。",
     category: "hydro",
-    tags: "水文测验,断面,水位流量,实习",
+    tags: "工具,水文测验,断面,水位流量,实习",
     featured: false,
     published: true,
     sortOrder: 5,
@@ -697,7 +699,7 @@ python create_plant_ppt.py
       "可见产品：lead-1 氧场交互 Demo + NetCDF。科学侧含物理驱动、Mask-View 消融、季节技巧与沿岸失败模态；主投 AIES。",
     category: "paper",
     tags: "海洋,溶解氧,预报,Transformer,稀疏观测,AIES,产品Demo",
-    featured: true,
+    featured: false,
     published: true,
     sortOrder: 7,
     github: "https://github.com/Az0998/ocean-do-forecast",
@@ -752,11 +754,11 @@ python scripts/export_web_forecast.py
 
 export const profileContent = {
   name: "张森捷",
-  title: "智慧水利 · 水信息 · 机器学习",
-  tagline: "把站网态势、质控预警与径流预报做成可点开的产品；作业数据进 HydroBench，态势演示进 HydroInfo。",
-  bio: "兰州大学水文与水资源工程方向，目标岗位：智慧水利 / 水信息。日常工作围绕「采集 → 质控 → 态势 → 预报」闭环：用公开站网与自建 CSV 做多站看板，用实习测次与大断面 DAT 做可离线工具台，用深度学习做 1/3/7 日流量实验并统一指标板复现。",
-  email: "your.email@example.com",
-  location: "兰州 / 中国",
+  title: "智慧水利 · 水信息",
+  tagline: "采集 → 空间 → 态势 → 预报 → 文档：把水信息闭环做成可点开的产品。",
+  bio: "兰州大学水文与水资源工程。求职方向：智慧水利 / 水信息（意向南京、广州设计院与信息化岗位）。\n\n主链演示：HydroBench 作业采集 → 流域一张图空间落点 → HydroInfo 态势看板 → 新安江机理对照与径流实验 → 水平衡论证报告。业余兴趣项目保留在作品档案，不占精选。",
+  email: "3079099853@qq.com",
+  location: "兰州（意向：南京 / 广州）",
   github: "https://github.com/Az0998",
   website: "https://zhangsjqaq.vexr.dev",
 };

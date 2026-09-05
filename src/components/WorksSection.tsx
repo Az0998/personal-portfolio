@@ -8,6 +8,12 @@ import {
   resolveWorkCategory,
   orderedWorkCategories,
 } from "@/lib/utils";
+import {
+  FEATURED_WORK_TITLES,
+  HYDRO_LANES,
+  getHydroLane,
+  type HydroLane,
+} from "@/lib/hydro-guide";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
@@ -15,16 +21,9 @@ interface WorksSectionProps {
   works: WorkItem[];
 }
 
-/** 精选优先标题（库里 featured 未更新时仍保证主推位） */
-const FEATURED_TITLES = [
-  "HydroInfo 流域水情信息平台",
-  "HydroBench · 水文双工作台",
-  "波托马克河多时效径流深度学习预报",
-  "匿名问卷 · 分发填写与汇总",
-];
-
 export function WorksSection({ works }: WorksSectionProps) {
   const [filter, setFilter] = useState<string>("all");
+  const [laneFilter, setLaneFilter] = useState<HydroLane | "all">("all");
 
   const categories = useMemo(
     () => [
@@ -37,18 +36,25 @@ export function WorksSection({ works }: WorksSectionProps) {
   );
 
   const filtered = useMemo(() => {
-    if (filter === "all") return works;
-    return works.filter((w) => resolveWorkCategory(w.title, w.category) === filter);
-  }, [works, filter]);
+    let list = works;
+    if (filter !== "all") {
+      list = list.filter((w) => resolveWorkCategory(w.title, w.category) === filter);
+    }
+    if (filter === "hydro" && laneFilter !== "all") {
+      list = list.filter((w) => getHydroLane(w.title) === laneFilter);
+    }
+    return list;
+  }, [works, filter, laneFilter]);
 
+  /** 首页精选：仅主链 + Hydro-ML；demo 不进首屏 */
   const featured = useMemo(() => {
-    const byFlag = filtered.filter((w) => w.featured);
-    const byTitle = FEATURED_TITLES.map((t) => filtered.find((w) => w.title === t)).filter(
+    if (filter !== "all" && filter !== "hydro") return [];
+    const pool = filter === "all" ? works : filtered;
+    return FEATURED_WORK_TITLES.map((t) => pool.find((w) => w.title === t)).filter(
       Boolean
     ) as WorkItem[];
-    const merged = [...byTitle, ...byFlag.filter((w) => !byTitle.some((x) => x.id === w.id))];
-    return merged.slice(0, 4);
-  }, [filtered]);
+  }, [works, filtered, filter]);
+
   const featuredIds = new Set(featured.map((w) => w.id));
   const rest = filtered.filter((w) => !featuredIds.has(w.id));
 
@@ -95,15 +101,20 @@ export function WorksSection({ works }: WorksSectionProps) {
             作品档案
           </h2>
           <p className="text-white/60 text-sm mb-6 max-w-xl mx-auto text-pretty">
-            按智慧水利、在线演示、论文与工具分组浏览
+            精选仅主链 + Hydro-ML；演示类默认在档案区，不占首页首屏
           </p>
 
-          <div className="flex flex-wrap justify-center gap-2">
+          <div className="flex flex-wrap justify-center gap-2" role="tablist" aria-label="作品分类">
             {categories.map((cat) => (
               <motion.button
                 key={cat}
                 type="button"
-                onClick={() => setFilter(cat)}
+                role="tab"
+                aria-selected={filter === cat}
+                onClick={() => {
+                  setFilter(cat);
+                  setLaneFilter("all");
+                }}
                 whileTap={{ scale: 0.96 }}
                 whileHover={{ y: -1 }}
                 className={`px-4 py-2 rounded-full text-sm transition-all ${
@@ -116,13 +127,47 @@ export function WorksSection({ works }: WorksSectionProps) {
               </motion.button>
             ))}
           </div>
+
+          {filter === "hydro" && (
+            <div
+              className="flex flex-wrap justify-center gap-2 mt-4"
+              role="group"
+              aria-label="智慧水利子标签"
+            >
+              <button
+                type="button"
+                onClick={() => setLaneFilter("all")}
+                className={`px-3 py-1.5 rounded-full text-xs transition-all ${
+                  laneFilter === "all"
+                    ? "bg-[#2ec4b6] text-[#041018] font-semibold"
+                    : "bg-white/10 text-white/70 hover:bg-white/20"
+                }`}
+              >
+                全部子标签
+              </button>
+              {HYDRO_LANES.map((lane) => (
+                <button
+                  key={lane}
+                  type="button"
+                  onClick={() => setLaneFilter(lane)}
+                  className={`px-3 py-1.5 rounded-full text-xs transition-all ${
+                    laneFilter === lane
+                      ? "bg-[#2ec4b6] text-[#041018] font-semibold"
+                      : "bg-white/10 text-white/70 hover:bg-white/20"
+                  }`}
+                >
+                  {lane}
+                </button>
+              ))}
+            </div>
+          )}
         </motion.div>
 
         {featured.length > 0 && (
           <div className="mb-10">
-            {filter === "all" && (
+            {(filter === "all" || filter === "hydro") && (
               <h3 className="font-display text-xl text-white/90 mb-4 px-1 text-shadow text-balance">
-                精选
+                {filter === "hydro" ? "主链精选" : "精选 · 智慧水利主链"}
               </h3>
             )}
             <div className="grid md:grid-cols-2 gap-5">
