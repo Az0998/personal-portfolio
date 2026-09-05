@@ -119,10 +119,10 @@ export function computeBalance(input: WaterBalanceInput): WaterBalanceResult {
     );
   }
 
-  if (input.industry.includes("工业") && input.reliability < 90) {
+  if (input.reliability != null && input.industry.includes("工业") && input.reliability < 90) {
     flags.push("工业/集中供水常见论证口径多为 90%～95% 保证率，当前取值偏低。");
   }
-  if (input.industry.includes("灌溉") && input.reliability > 90) {
+  if (input.reliability != null && input.industry.includes("灌溉") && input.reliability > 90) {
     flags.push("灌溉工程常见保证率多为 75%～90%，95% 偏高，请按灌区规范核对。");
   }
 
