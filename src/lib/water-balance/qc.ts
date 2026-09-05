@@ -12,6 +12,7 @@ type RuleDef = {
 
 type RulesFile = {
   version: number;
+  note: string;
   thresholds: {
     residualAbsHardWan: number;
     lifeShareMinPct: number;
