@@ -13,6 +13,7 @@
     "reset-admin": "tsx prisma/reset-admin.ts",
     "postinstall": "prisma generate",
     "wm:generate": "python modules/watershed-map/scripts/generate.py",
+    "xaj:generate": "python modules/xaj-bench/scripts/generate.py",
     "wm:docs": "echo See modules/watershed-map/README.md"
   },
   "dependencies": {

@@ -12,6 +12,7 @@ export function Navbar({ name }: { name: string }) {
     { href: "/#works", label: "作品" },
     { href: "/hydrobench", label: "智慧水利", match: (p: string) => p.startsWith("/hydro") },
     { href: "/watershed-map", label: "流域图", match: (p: string) => p.startsWith("/watershed-map") },
+    { href: "/xaj-bench", label: "机理对照", match: (p: string) => p.startsWith("/xaj") },
     { href: "/#sponsor", label: "赞助" },
     { href: "/#feedback", label: "反馈" },
     { href: "/temp-files", label: "临时柜", match: (p: string) => p.startsWith("/temp-files") },

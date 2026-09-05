@@ -14,6 +14,38 @@ export type WorkSeed = {
 /** Single source of truth — edit here, then sync / redeploy. */
 export const worksContent: WorkSeed[] = [
   {
+    title: "新安江机理预报对照台",
+    description:
+      "日降水→三水源产汇流→出口流量；与 Persistence / Lag-LSTM 同数据对照 NSE。会讲产汇流，挂载 /xaj-bench。",
+    category: "hydro",
+    tags: "新安江,产汇流,机理模型,NSE,水文预报",
+    featured: true,
+    published: true,
+    sortOrder: 0,
+    link: "/xaj-bench",
+    content: `## 一句话
+
+不是只会刷深度学习，会讲产汇流。
+
+## 打开
+
+[机理对照台](/xaj-bench) · [智慧水利](/hydrobench) · [流域一张图](/watershed-map)
+
+## 做什么
+
+- 示意小流域：日降水 / 蒸发 → **新安江（三水源）** → 出口流量
+- 同数据对照 Persistence、Lag-LSTM（示意序列模型）
+- 指标 NSE / RMSE；参数含义与手工率定思路写在页内
+- 浏览器可改参即时重跑（\`src/lib/xaj/model.ts\`）
+
+## 再生
+
+\`\`\`bash
+npm run xaj:generate
+\`\`\`
+`,
+  },
+  {
     title: "流域「一张图」GIS 小站",
     description:
       "示意流域 GIS「一张图」：图层开关、测距与阈值过程线，数据谱系可讲清，挂载 /watershed-map。",
@@ -21,7 +53,7 @@ export const worksContent: WorkSeed[] = [
     tags: "GIS,GeoJSON,空间统计",
     featured: true,
     published: true,
-    sortOrder: 0,
+    sortOrder: 1,
     link: "/watershed-map",
     content: `## 一句话
 

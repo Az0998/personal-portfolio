@@ -72,6 +72,9 @@ export function HydroHub() {
           <Link href="/watershed-map" className="hb-map-link" title="流域一张图 GIS">
             空间图
           </Link>
+          <Link href="/xaj-bench" className="hb-map-link" title="新安江机理预报对照">
+            机理对照
+          </Link>
         </div>
       </header>
 
