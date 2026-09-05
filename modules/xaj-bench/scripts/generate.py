@@ -14,13 +14,13 @@ PUBLIC = REPO / "public" / "xaj-bench"
 
 # Truth params used to synthesize "observed" flow
 TRUE = dict(
-    K=0.85, B=0.3, IMP=0.02, WUM=20, WLM=60, WDM=40, C=0.15,
+    K=0.55, B=0.3, IMP=0.02, WUM=20, WLM=60, WDM=40, C=0.15,
     SM=22, EX=1.2, KI=0.3, KG=0.4, CS=0.65, CI=0.82, CG=0.975,
     L=1, area_km2=1200,
 )
 # Hand calibration (demo) — intentionally nearby
 CAL = dict(
-    K=0.88, B=0.28, IMP=0.02, WUM=18, WLM=65, WDM=40, C=0.15,
+    K=0.58, B=0.28, IMP=0.02, WUM=18, WLM=65, WDM=40, C=0.15,
     SM=24, EX=1.2, KI=0.32, KG=0.38, CS=0.68, CI=0.82, CG=0.978,
     L=1, area_km2=1200,
 )
@@ -55,46 +55,49 @@ def step_xaj(p, st, precip, em):
     qsLag = list(st["qsLag"]) if len(st["qsLag"]) == L else [0.0] * L
 
     pe = 0.0
-    if P + wu >= E0:
-        wu = wu + P - E0
+    # Do not add P into soil before runoff — PE is applied once in remain = W+PE-R
+    if P >= E0:
         pe = P - E0
     else:
-        eu = P + wu
-        wu = 0.0
-        need = E0 - eu
-        if need * (wl / max(p["WLM"], 1e-6)) <= wl:
-            wl -= need * (wl / p["WLM"])
+        need = E0 - P
+        if need <= wu:
+            wu -= need
         else:
-            el = wl
-            wl = 0.0
-            ed = min(wd, (E0 - eu - el) * p["C"])
-            wd -= ed
+            from_u = wu
+            wu = 0.0
+            need2 = need - from_u
+            if need2 * (wl / max(p["WLM"], 1e-6)) <= wl:
+                wl -= need2 * (wl / p["WLM"])
+            else:
+                el = wl
+                wl = 0.0
+                ed = min(wd, (need2 - el) * p["C"])
+                wd -= ed
         pe = 0.0
-    if wu > p["WUM"]:
-        wl += wu - p["WUM"]
-        wu = p["WUM"]
-    if wl > p["WLM"]:
-        wd += wl - p["WLM"]
-        wl = p["WLM"]
+    wu = min(max(wu, 0.0), p["WUM"])
+    wl = min(max(wl, 0.0), p["WLM"])
     wd = min(max(wd, 0.0), p["WDM"])
 
     R = 0.0
     if pe > 0:
+        pe_imp = pe * p["IMP"]
+        pe_perv = pe * (1 - p["IMP"])
         W = wu + wl + wd
         A = WMM * (1 - (max(0.0, 1 - W / WM)) ** (1 / (1 + p["B"])))
-        if pe + A >= WMM:
-            R = pe - (WM - W)
-        else:
-            R = pe - (WM - W) + WM * (1 - (pe + A) / WMM) ** (1 + p["B"])
-        R = max(0.0, R)
-        remain = W + pe - R
-        wu = min(p["WUM"], remain)
-        remain -= wu
-        wl = min(p["WLM"], remain)
-        remain -= wl
-        wd = min(p["WDM"], max(0.0, remain))
-
-    R = R * (1 - p["IMP"]) + (pe * p["IMP"] if pe > 0 else 0.0)
+        Rperv = 0.0
+        if pe_perv > 0:
+            if pe_perv + A >= WMM:
+                Rperv = pe_perv - (WM - W)
+            else:
+                Rperv = pe_perv - (WM - W) + WM * (1 - (pe_perv + A) / WMM) ** (1 + p["B"])
+            Rperv = max(0.0, Rperv)
+            remain = W + pe_perv - Rperv
+            wu = min(p["WUM"], remain)
+            remain -= wu
+            wl = min(p["WLM"], remain)
+            remain -= wl
+            wd = min(p["WDM"], max(0.0, remain))
+        R = Rperv + pe_imp
 
     RS = RI = RG = 0.0
     if R > 0:
@@ -145,8 +148,41 @@ def rmse(obs, sim):
     return math.sqrt(sum((obs[i] - sim[i]) ** 2 for i in range(n)) / n)
 
 
+def kge(obs, sim):
+    n = min(len(obs), len(sim))
+    if n < 2:
+        return float("nan")
+    mo = sum(obs[:n]) / n
+    ms = sum(sim[:n]) / n
+    so = math.sqrt(sum((obs[i] - mo) ** 2 for i in range(n)) / n)
+    ss = math.sqrt(sum((sim[i] - ms) ** 2 for i in range(n)) / n)
+    if so < 1e-12 or mo == 0:
+        return float("nan")
+    cov = sum((obs[i] - mo) * (sim[i] - ms) for i in range(n)) / n
+    r = cov / (so * max(ss, 1e-12))
+    alpha = ss / so
+    beta = ms / mo
+    return 1 - math.sqrt((r - 1) ** 2 + (alpha - 1) ** 2 + (beta - 1) ** 2)
+
+
+def score(obs, sim):
+    return {
+        "NSE": round(nse(obs, sim), 3),
+        "RMSE": round(rmse(obs, sim), 2),
+        "KGE": round(kge(obs, sim), 3),
+    }
+
+
 def persistence(obs):
     return [obs[0]] + obs[:-1]
+
+
+def moving_average(obs, window=3):
+    out = []
+    for i in range(len(obs)):
+        chunk = obs[max(0, i + 1 - window) : i + 1]
+        out.append(sum(chunk) / len(chunk))
+    return out
 
 
 def synth_climate(n=730, seed=42):
@@ -157,11 +193,11 @@ def synth_climate(n=730, seed=42):
         doy = i % 365
         season = 0.55 + 0.45 * math.sin((doy - 60) / 365 * 2 * math.pi)
         storm = 0.0
-        if rng.random() < 0.18 * season:
-            storm = rng.gammavariate(2.2, 6.0) * season
-        drizzle = rng.random() * 1.2 if rng.random() < 0.25 else 0.0
-        p = min(80.0, storm + drizzle)
-        e = 1.2 + 3.5 * (0.5 + 0.5 * math.sin((doy - 80) / 365 * 2 * math.pi)) + rng.uniform(-0.2, 0.2)
+        if rng.random() < 0.22 * season:
+            storm = rng.gammavariate(2.2, 8.0) * season
+        drizzle = rng.random() * 1.5 if rng.random() < 0.28 else 0.0
+        p = min(100.0, storm + drizzle)
+        e = 0.8 + 2.2 * (0.5 + 0.5 * math.sin((doy - 80) / 365 * 2 * math.pi)) + rng.uniform(-0.15, 0.15)
         precip.append(round(p, 2))
         em.append(round(max(0.5, e), 2))
         y = 2022 + (i // 365)
@@ -202,12 +238,21 @@ def fit_lag_lstm(precip, obs, lags=7):
 def main():
     DATA.mkdir(parents=True, exist_ok=True)
     PUBLIC.mkdir(parents=True, exist_ok=True)
-    dates, precip, em = synth_climate(730, seed=7)
+    forcing_seed = 7
+    noise_seed = 9
+    n_days = 730
+    dates, precip, em = synth_climate(n_days, seed=forcing_seed)
     q_true = run_xaj(TRUE, precip, em)
-    rng = random.Random(9)
-    q_obs = [max(0.0, q * (1 + rng.uniform(-0.06, 0.06)) + rng.gauss(0, 0.8)) for q in q_true]
+    rng = random.Random(noise_seed)
+    noise_mult = (-0.06, 0.06)
+    noise_sigma = 0.8
+    q_obs = [
+        max(0.0, q * (1 + rng.uniform(*noise_mult)) + rng.gauss(0, noise_sigma))
+        for q in q_true
+    ]
     q_xaj = run_xaj(CAL, precip, em)
     q_pers = persistence(q_obs)
+    q_ma3 = moving_average(q_obs, 3)
     try:
         q_lstm, w = fit_lag_lstm(precip, q_obs)
         lstm_note = "同数据滞后特征脊回归序列模型（示意 LSTM 对照，非完整深度学习工程）"
@@ -216,13 +261,17 @@ def main():
         lstm_note = "numpy 不可用，回退 Persistence"
 
     warmup = 60
+    holdout = 30
     metrics = {}
-    for name, series in [("xaj", q_xaj), ("persistence", q_pers), ("lag_lstm", q_lstm)]:
-        o, s = q_obs[warmup:], series[warmup:]
-        metrics[name] = {
-            "NSE": round(nse(o, s), 3),
-            "RMSE": round(rmse(o, s), 2),
-        }
+    metrics_holdout = {}
+    for name, series in [
+        ("xaj", q_xaj),
+        ("persistence", q_pers),
+        ("ma3", q_ma3),
+        ("lag_lstm", q_lstm),
+    ]:
+        metrics[name] = score(q_obs[warmup:], series[warmup:])
+        metrics_holdout[name] = score(q_obs[-holdout:], series[-holdout:])
 
     payload = {
         "basin": {
@@ -233,6 +282,28 @@ def main():
             "timestep": "daily",
             "schematic": True,
             "note": "强迫与「观测」由真理参数新安江+噪声合成，用于讲解产汇流与对照，非实测站网。",
+        },
+        "disclaimer":
+            "教学对照用合成 forcing / 合成观测，非实测站网业务系统。高 NSE 部分来自「真值同构+噪声」协议，须结合留出段与 baseline 解读。",
+        "protocol": {
+            "forcing_seed": forcing_seed,
+            "noise_seed": noise_seed,
+            "n_days": n_days,
+            "noise": {
+                "type": "multiplicative_uniform + additive_gaussian",
+                "mult_uniform": list(noise_mult),
+                "add_gaussian_sigma_m3s": noise_sigma,
+                "formula": "Q_obs = max(0, Q_truth*(1+U) + N(0,σ))",
+            },
+            "warmup_days": warmup,
+            "holdout_days": holdout,
+            "metric_unit": "m³/s",
+            "metric_periods": {
+                "post_warmup": f"丢弃前 {warmup} d 暖期后全段计分",
+                "holdout_tail": f"序列末 {holdout} d 盲测（与暖期后全段并列，非调参专用）",
+            },
+            "obs_generation": "Q_obs ← run(XAJ, params_truth) + noise；率定参数 params_calibrated ≠ 真值",
+            "baselines": ["persistence", "ma3 (3-day trailing mean)", "lag_lstm (ridge, schematic)"],
         },
         "calibration": {
             "method": "手工试错 + 目视过程线 / NSE（暖期 60 d）",
@@ -249,7 +320,9 @@ def main():
         "lag_lstm_weights": w,
         "lstm_note": lstm_note,
         "warmup_days": warmup,
+        "holdout_days": holdout,
         "metrics": metrics,
+        "metrics_holdout": metrics_holdout,
         "series": {
             "date": dates,
             "precip_mm": precip,
@@ -257,6 +330,7 @@ def main():
             "q_obs": [round(x, 3) for x in q_obs],
             "q_xaj": [round(x, 3) for x in q_xaj],
             "q_persistence": [round(x, 3) for x in q_pers],
+            "q_ma3": [round(x, 3) for x in q_ma3],
             "q_lag_lstm": [round(x, 3) for x in q_lstm],
         },
     }
@@ -266,6 +340,7 @@ def main():
         json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8"
     )
     print("metrics", metrics)
+    print("holdout", metrics_holdout)
     print("wrote", PUBLIC / "benchmark.json")
 
 

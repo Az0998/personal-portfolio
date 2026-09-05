@@ -33,7 +33,7 @@ export type XajState = {
 };
 
 export const DEFAULT_XAJ: XajParams = {
-  K: 0.85,
+  K: 0.55,
   B: 0.3,
   IMP: 0.02,
   WUM: 20,
@@ -54,7 +54,7 @@ export const DEFAULT_XAJ: XajParams = {
 /** Hand-calibrated demo params (slightly off truth used in generator). */
 export const CALIBRATED_XAJ: XajParams = {
   ...DEFAULT_XAJ,
-  K: 0.88,
+  K: 0.58,
   B: 0.28,
   WUM: 18,
   WLM: 65,
@@ -65,29 +65,236 @@ export const CALIBRATED_XAJ: XajParams = {
   CG: 0.978,
 };
 
+export type ParamGroupId = "evap" | "tension" | "free" | "routing";
+
+export const PARAM_GROUPS: {
+  id: ParamGroupId;
+  title: string;
+  hint: string;
+}[] = [
+  { id: "evap", title: "蒸发", hint: "蒸散发能力折算" },
+  { id: "tension", title: "张力水 / 产流", hint: "蓄满产流与分层张力水" },
+  { id: "free", title: "自由水 / 分水源", hint: "地表 · 壤中 · 地下划分" },
+  { id: "routing", title: "汇流", hint: "线性水库与滞时" },
+];
+
 export const PARAM_DOCS: {
   key: keyof XajParams;
+  symbol: string;
   zh: string;
   unit: string;
   meaning: string;
+  group: ParamGroupId;
+  min: number;
+  max: number;
+  step: number;
 }[] = [
-  { key: "K", zh: "蒸发折算系数", unit: "—", meaning: "潜在蒸发 → 流域蒸散发能力" },
-  { key: "B", zh: "蓄水容量曲线指数", unit: "—", meaning: "张力水蓄满曲线形状（空间不均）" },
-  { key: "IMP", zh: "不透水面积比", unit: "—", meaning: "直接产流面积占比" },
-  { key: "WUM", zh: "上层张力水容量", unit: "mm", meaning: "上层张力水最大蓄量" },
-  { key: "WLM", zh: "下层张力水容量", unit: "mm", meaning: "下层张力水最大蓄量" },
-  { key: "WDM", zh: "深层张力水容量", unit: "mm", meaning: "深层张力水最大蓄量" },
-  { key: "C", zh: "深层蒸散发系数", unit: "—", meaning: "上层偏干时深层蒸发折减" },
-  { key: "SM", zh: "自由水蓄水容量", unit: "mm", meaning: "产流后自由水水库容量" },
-  { key: "EX", zh: "自由水容量曲线指数", unit: "—", meaning: "自由水蓄满曲线形状" },
-  { key: "KI", zh: "壤中流出流系数", unit: "1/d", meaning: "自由水划分到壤中流的日比例" },
-  { key: "KG", zh: "地下出流系数", unit: "1/d", meaning: "自由水划分到地下水的日比例" },
-  { key: "CS", zh: "地表汇流消退", unit: "—", meaning: "地表线性水库消退系数" },
-  { key: "CI", zh: "壤中流消退", unit: "—", meaning: "壤中流线性水库消退系数" },
-  { key: "CG", zh: "地下水消退", unit: "—", meaning: "地下径流消退系数（基流）" },
-  { key: "L", zh: "地表滞时", unit: "d", meaning: "地表波到达出口的滞后天数" },
-  { key: "area_km2", zh: "流域面积", unit: "km²", meaning: "径流深→流量换算" },
+  {
+    key: "K",
+    symbol: "K",
+    zh: "蒸发折算系数",
+    unit: "—",
+    meaning: "潜在蒸发 → 流域蒸散发能力",
+    group: "evap",
+    min: 0.05,
+    max: 1.5,
+    step: 0.01,
+  },
+  {
+    key: "C",
+    symbol: "C",
+    zh: "深层蒸散发系数",
+    unit: "—",
+    meaning: "上层偏干时深层蒸发折减",
+    group: "evap",
+    min: 0,
+    max: 0.35,
+    step: 0.01,
+  },
+  {
+    key: "B",
+    symbol: "B",
+    zh: "蓄水容量曲线指数",
+    unit: "—",
+    meaning: "张力水蓄满曲线形状（空间不均）",
+    group: "tension",
+    min: 0.05,
+    max: 0.8,
+    step: 0.01,
+  },
+  {
+    key: "IMP",
+    symbol: "IMP",
+    zh: "不透水面积比",
+    unit: "—",
+    meaning: "直接产流面积占比",
+    group: "tension",
+    min: 0,
+    max: 0.35,
+    step: 0.005,
+  },
+  {
+    key: "WUM",
+    symbol: "WUM",
+    zh: "上层张力水容量",
+    unit: "mm",
+    meaning: "上层张力水最大蓄量",
+    group: "tension",
+    min: 1,
+    max: 120,
+    step: 0.5,
+  },
+  {
+    key: "WLM",
+    symbol: "WLM",
+    zh: "下层张力水容量",
+    unit: "mm",
+    meaning: "下层张力水最大蓄量",
+    group: "tension",
+    min: 5,
+    max: 200,
+    step: 1,
+  },
+  {
+    key: "WDM",
+    symbol: "WDM",
+    zh: "深层张力水容量",
+    unit: "mm",
+    meaning: "深层张力水最大蓄量",
+    group: "tension",
+    min: 5,
+    max: 200,
+    step: 1,
+  },
+  {
+    key: "SM",
+    symbol: "SM",
+    zh: "自由水蓄水容量",
+    unit: "mm",
+    meaning: "产流后自由水水库容量",
+    group: "free",
+    min: 1,
+    max: 100,
+    step: 0.5,
+  },
+  {
+    key: "EX",
+    symbol: "EX",
+    zh: "自由水容量曲线指数",
+    unit: "—",
+    meaning: "自由水蓄满曲线形状",
+    group: "free",
+    min: 0.5,
+    max: 2.5,
+    step: 0.05,
+  },
+  {
+    key: "KI",
+    symbol: "KI",
+    zh: "壤中流出流系数",
+    unit: "1/d",
+    meaning: "自由水划分到壤中流的日比例",
+    group: "free",
+    min: 0,
+    max: 0.7,
+    step: 0.01,
+  },
+  {
+    key: "KG",
+    symbol: "KG",
+    zh: "地下出流系数",
+    unit: "1/d",
+    meaning: "自由水划分到地下水的日比例",
+    group: "free",
+    min: 0,
+    max: 0.7,
+    step: 0.01,
+  },
+  {
+    key: "CS",
+    symbol: "CS",
+    zh: "地表汇流消退",
+    unit: "—",
+    meaning: "地表线性水库消退系数",
+    group: "routing",
+    min: 0,
+    max: 0.99,
+    step: 0.01,
+  },
+  {
+    key: "CI",
+    symbol: "CI",
+    zh: "壤中流消退",
+    unit: "—",
+    meaning: "壤中流线性水库消退系数",
+    group: "routing",
+    min: 0,
+    max: 0.99,
+    step: 0.01,
+  },
+  {
+    key: "CG",
+    symbol: "CG",
+    zh: "地下水消退",
+    unit: "—",
+    meaning: "地下径流消退系数（基流）",
+    group: "routing",
+    min: 0.5,
+    max: 0.999,
+    step: 0.001,
+  },
+  {
+    key: "L",
+    symbol: "L",
+    zh: "地表滞时",
+    unit: "d",
+    meaning: "地表波到达出口的滞后天数",
+    group: "routing",
+    min: 0,
+    max: 10,
+    step: 1,
+  },
+  {
+    key: "area_km2",
+    symbol: "A",
+    zh: "流域面积",
+    unit: "km²",
+    meaning: "径流深 → 流量换算",
+    group: "routing",
+    min: 1,
+    max: 1e6,
+    step: 1,
+  },
 ];
+
+export function paramsNearlyEqual(a: XajParams, b: XajParams, eps = 1e-6): boolean {
+  for (const d of PARAM_DOCS) {
+    if (Math.abs(a[d.key] - b[d.key]) > eps) return false;
+  }
+  return true;
+}
+
+/** Frontend bounds + cross-param checks. Empty array = OK. */
+export function validateXajParams(p: XajParams): string[] {
+  const errs: string[] = [];
+  for (const d of PARAM_DOCS) {
+    const v = p[d.key];
+    if (!Number.isFinite(v)) {
+      errs.push(`${d.symbol} 不是有效数字`);
+      continue;
+    }
+    if (v < d.min || v > d.max) {
+      errs.push(`${d.symbol} 应在 [${d.min}, ${d.max}] ${d.unit === "—" ? "" : d.unit}`.trim());
+    }
+  }
+  if (Number.isFinite(p.KI) && Number.isFinite(p.KG) && p.KI + p.KG >= 1) {
+    errs.push("KI + KG 须 < 1（自由水出流合计）");
+  }
+  if (Number.isFinite(p.L) && (p.L < 0 || Math.abs(p.L - Math.round(p.L)) > 1e-9)) {
+    errs.push("L 须为非负整数（天）");
+  }
+  return errs;
+}
 
 export function mmToCms(rMm: number, areaKm2: number) {
   return (rMm * areaKm2) / 86.4;
@@ -111,12 +318,42 @@ export function initState(p: XajParams): XajState {
   };
 }
 
+/** Tracked storages for schematic mass balance (mm). */
+export function storageMm(st: XajState): number {
+  let lag = 0;
+  for (const x of st.qsLag) lag += x;
+  // Soil + free water + surface lag. qs/qi/qg are outflow depths (flux), not extra S.
+  return st.wu + st.wl + st.wd + st.s + lag;
+}
+
+export type XajStepFlux = {
+  q: number;
+  pe: number;
+  /** Actual ET this step (mm) */
+  e: number;
+  /** Total runoff generation into free-water path (mm) */
+  R: number;
+  RS: number;
+  RI: number;
+  RG: number;
+  wu: number;
+  wl: number;
+  wd: number;
+  s: number;
+  /** Routed outflow components (mm/d; also linear-reservoir states) */
+  qs: number;
+  qi: number;
+  qg: number;
+  storage_mm: number;
+  state: XajState;
+};
+
 export function stepXaj(
   p: XajParams,
   state: XajState,
   precipMm: number,
   emMm: number
-): { q: number; pe: number; state: XajState } {
+): XajStepFlux {
   const P = Math.max(0, precipMm);
   const E0 = Math.max(0, emMm) * p.K;
   const WM = p.WUM + p.WLM + p.WDM;
@@ -132,55 +369,64 @@ export function stepXaj(
   const L = Math.max(1, Math.round(p.L));
   let qsLag = state.qsLag.length === L ? [...state.qsLag] : Array(L).fill(0);
 
-  // Evaporation + PE
+  // Evaporation + PE (do not add P into soil before runoff — avoids double-counting PE)
   let pe = 0;
-  if (P + wu >= E0) {
-    const eu = E0;
-    wu = wu + P - eu;
+  let e = 0;
+  if (P >= E0) {
+    e = E0;
     pe = P - E0;
   } else {
-    const eu = P + wu;
-    wu = 0;
-    const need = E0 - eu;
-    if (need * (wl / Math.max(p.WLM, 1e-6)) <= wl) {
-      const el = need * (wl / p.WLM);
-      wl -= el;
+    // P all consumed by ET demand; remainder from tension water layers
+    const need = E0 - P;
+    let el = 0;
+    let ed = 0;
+    if (need <= wu) {
+      wu -= need;
+      e = P + need;
     } else {
-      const el = wl;
-      wl = 0;
-      const ed = Math.min(wd, (E0 - eu - el) * p.C);
-      wd -= ed;
+      const fromU = wu;
+      wu = 0;
+      const need2 = need - fromU;
+      if (need2 * (wl / Math.max(p.WLM, 1e-6)) <= wl) {
+        el = need2 * (wl / p.WLM);
+        wl -= el;
+      } else {
+        el = wl;
+        wl = 0;
+        ed = Math.min(wd, (need2 - el) * p.C);
+        wd -= ed;
+      }
+      e = P + fromU + el + ed;
     }
     pe = 0;
   }
-  if (wu > p.WUM) {
-    wl += wu - p.WUM;
-    wu = p.WUM;
-  }
-  if (wl > p.WLM) {
-    wd += wl - p.WLM;
-    wl = p.WLM;
-  }
   wd = clamp(wd, 0, p.WDM);
+  wu = clamp(wu, 0, p.WUM);
+  wl = clamp(wl, 0, p.WLM);
 
-  // Runoff generation (storage capacity curve)
+  // Runoff generation (storage capacity curve) — add PE once here
   let R = 0;
   if (pe > 0) {
+    const peImp = pe * p.IMP;
+    const pePerv = pe * (1 - p.IMP);
     const W = wu + wl + wd;
     const A = WMM * (1 - Math.pow(Math.max(0, 1 - W / WM), 1 / (1 + p.B)));
-    if (pe + A >= WMM) R = pe - (WM - W);
-    else R = pe - (WM - W) + WM * Math.pow(1 - (pe + A) / WMM, 1 + p.B);
-    R = Math.max(0, R);
-    let remain = W + pe - R;
-    wu = Math.min(p.WUM, remain);
-    remain -= wu;
-    wl = Math.min(p.WLM, remain);
-    remain -= wl;
-    wd = Math.min(p.WDM, Math.max(0, remain));
+    let Rperv = 0;
+    if (pePerv > 0) {
+      if (pePerv + A >= WMM) Rperv = pePerv - (WM - W);
+      else
+        Rperv =
+          pePerv - (WM - W) + WM * Math.pow(1 - (pePerv + A) / WMM, 1 + p.B);
+      Rperv = Math.max(0, Rperv);
+      let remain = W + pePerv - Rperv;
+      wu = Math.min(p.WUM, remain);
+      remain -= wu;
+      wl = Math.min(p.WLM, remain);
+      remain -= wl;
+      wd = Math.min(p.WDM, Math.max(0, remain));
+    }
+    R = Rperv + peImp;
   }
-
-  const Rimp = pe > 0 ? pe * p.IMP : 0;
-  R = R * (1 - p.IMP) + Rimp;
 
   // Three sources via free-water reservoir
   let RS = 0;
@@ -210,23 +456,139 @@ export function stepXaj(
   qi = p.CI * qi + (1 - p.CI) * RI;
   qg = p.CG * qg + (1 - p.CG) * RG;
 
+  const next: XajState = { wu, wl, wd, s, qs, qi, qg, qsLag };
   const q = mmToCms(qs + qi + qg, p.area_km2);
   return {
     q,
     pe,
-    state: { wu, wl, wd, s, qs, qi, qg, qsLag },
+    e,
+    R,
+    RS,
+    RI,
+    RG,
+    wu,
+    wl,
+    wd,
+    s,
+    qs,
+    qi,
+    qg,
+    storage_mm: storageMm(next),
+    state: next,
   };
 }
 
-export function runXaj(p: XajParams, precip: number[], em: number[]): number[] {
+export type XajTrace = {
+  q: number[];
+  e: number[];
+  R: number[];
+  RS: number[];
+  RI: number[];
+  RG: number[];
+  wu: number[];
+  wl: number[];
+  wd: number[];
+  s: number[];
+  qs: number[];
+  qi: number[];
+  qg: number[];
+  storage_mm: number[];
+};
+
+export type XajBalance = {
+  precip_mm: number;
+  et_mm: number;
+  runoff_mm: number;
+  dS_mm: number;
+  residual_mm: number;
+  residual_pct_of_P: number;
+  /** |residual|/P above this → warn (schematic threshold) */
+  warn: boolean;
+  note: string;
+};
+
+export function runXajTrace(p: XajParams, precip: number[], em: number[]): XajTrace {
   let st = initState(p);
-  const out: number[] = [];
-  for (let i = 0; i < precip.length; i++) {
+  const n = precip.length;
+  const trace: XajTrace = {
+    q: new Array(n),
+    e: new Array(n),
+    R: new Array(n),
+    RS: new Array(n),
+    RI: new Array(n),
+    RG: new Array(n),
+    wu: new Array(n),
+    wl: new Array(n),
+    wd: new Array(n),
+    s: new Array(n),
+    qs: new Array(n),
+    qi: new Array(n),
+    qg: new Array(n),
+    storage_mm: new Array(n),
+  };
+  for (let i = 0; i < n; i++) {
     const step = stepXaj(p, st, precip[i] ?? 0, em[i] ?? 0);
     st = step.state;
-    out.push(step.q);
+    trace.q[i] = step.q;
+    trace.e[i] = step.e;
+    trace.R[i] = step.R;
+    trace.RS[i] = step.RS;
+    trace.RI[i] = step.RI;
+    trace.RG[i] = step.RG;
+    trace.wu[i] = step.wu;
+    trace.wl[i] = step.wl;
+    trace.wd[i] = step.wd;
+    trace.s[i] = step.s;
+    trace.qs[i] = step.qs;
+    trace.qi[i] = step.qi;
+    trace.qg[i] = step.qg;
+    trace.storage_mm[i] = step.storage_mm;
   }
-  return out;
+  return trace;
+}
+
+export function runXaj(p: XajParams, precip: number[], em: number[]): number[] {
+  return runXajTrace(p, precip, em).q;
+}
+
+/**
+ * Schematic basin water balance (mm):
+ *   ΣP ≈ ΣE + ΣQ_out + (S_end − S_start)
+ * S = tension + free water + surface lag queue (mm).
+ * Linear-reservoir qs/qi/qg counted as outlet runoff depth Q (not in S);
+ * residual may retain a small routing-lag mismatch — warn if |res|/P > threshold.
+ */
+export function summarizeBalance(
+  precip: number[],
+  trace: XajTrace,
+  initStorageMm: number,
+  warnPct = 2
+): XajBalance {
+  const n = precip.length;
+  let P = 0;
+  let E = 0;
+  let Q = 0;
+  for (let i = 0; i < n; i++) {
+    P += precip[i] ?? 0;
+    E += trace.e[i] ?? 0;
+    Q += (trace.qs[i] ?? 0) + (trace.qi[i] ?? 0) + (trace.qg[i] ?? 0);
+  }
+  const S0 = initStorageMm;
+  const S1 = trace.storage_mm[n - 1] ?? S0;
+  const dS = S1 - S0;
+  const residual = P - E - Q - dS;
+  const residual_pct_of_P = P > 1e-6 ? (100 * residual) / P : 0;
+  return {
+    precip_mm: P,
+    et_mm: E,
+    runoff_mm: Q,
+    dS_mm: dS,
+    residual_mm: residual,
+    residual_pct_of_P,
+    warn: Math.abs(residual_pct_of_P) > warnPct,
+    note:
+      "示意闭合：P − E − Q − ΔS ≈ 0；S=张力水+自由水+地表滞时队列。汇流线性水库以出流为通量（不入 S），残差通常很小；过大则告警。",
+  };
 }
 
 export function nse(obs: number[], sim: number[]): number {
@@ -251,10 +613,63 @@ export function rmse(obs: number[], sim: number[]): number {
   return Math.sqrt(s / n);
 }
 
+/** Kling-Gupta efficiency (2009); optional alongside NSE/RMSE. */
+export function kge(obs: number[], sim: number[]): number {
+  const n = Math.min(obs.length, sim.length);
+  if (n < 2) return NaN;
+  let mo = 0;
+  let ms = 0;
+  for (let i = 0; i < n; i++) {
+    mo += obs[i];
+    ms += sim[i];
+  }
+  mo /= n;
+  ms /= n;
+  let so = 0;
+  let ss = 0;
+  let cov = 0;
+  for (let i = 0; i < n; i++) {
+    const do_ = obs[i] - mo;
+    const ds = sim[i] - ms;
+    so += do_ * do_;
+    ss += ds * ds;
+    cov += do_ * ds;
+  }
+  so = Math.sqrt(so / n);
+  ss = Math.sqrt(ss / n);
+  if (so < 1e-12 || mo === 0) return NaN;
+  const r = cov / n / (so * Math.max(ss, 1e-12));
+  const alpha = ss / so;
+  const beta = ms / mo;
+  return 1 - Math.sqrt((r - 1) ** 2 + (alpha - 1) ** 2 + (beta - 1) ** 2);
+}
+
+export type ScoreBundle = { NSE: number; RMSE: number; KGE: number };
+
+export function scoreBundle(obs: number[], sim: number[]): ScoreBundle {
+  return { NSE: nse(obs, sim), RMSE: rmse(obs, sim), KGE: kge(obs, sim) };
+}
+
 export function persistenceForecast(obs: number[]): number[] {
   const out = new Array(obs.length);
   out[0] = obs[0];
   for (let i = 1; i < obs.length; i++) out[i] = obs[i - 1];
+  return out;
+}
+
+/** Trailing moving-average baseline (causal: uses past + current obs). */
+export function movingAverageForecast(obs: number[], window = 3): number[] {
+  const w = Math.max(1, Math.round(window));
+  const out = new Array(obs.length);
+  for (let i = 0; i < obs.length; i++) {
+    let s = 0;
+    let c = 0;
+    for (let k = 0; k < w && i - k >= 0; k++) {
+      s += obs[i - k];
+      c++;
+    }
+    out[i] = c ? s / c : obs[i];
+  }
   return out;
 }
 

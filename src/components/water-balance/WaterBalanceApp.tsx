@@ -1,33 +1,76 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { computeBalance, emptyInput, SAMPLE_INPUT } from "@/lib/water-balance/compute";
+import {
+  UNIT_LABEL,
+  checksumDemands,
+  cloneInput,
+  computeBalance,
+  convertInputUnit,
+  emptyInput,
+  fmtSigned,
+  newDemandRow,
+  sampleInput,
+  sumDemands,
+} from "@/lib/water-balance/compute";
 import {
   buildMarkdown,
   buildRationality,
   buildWordHtml,
   downloadText,
 } from "@/lib/water-balance/report";
-import type { WaterBalanceInput } from "@/lib/water-balance/types";
+import type { VolumeUnit, WaterBalanceInput } from "@/lib/water-balance/types";
 
-const KEY = "water-balance-report:v1";
+const KEY = "water-balance-report:v2";
+const LEGACY_KEY = "water-balance-report:v1";
+
+function normalize(raw: unknown): WaterBalanceInput | null {
+  if (!raw || typeof raw !== "object") return null;
+  const o = raw as Partial<WaterBalanceInput>;
+  const base = sampleInput();
+  const demands = Array.isArray(o.demands) && o.demands.length
+    ? o.demands.map((d, i) => ({
+        id: String(d?.id || `d-${i}`),
+        name: String(d?.name || ""),
+        volume: Number(d?.volume) || 0,
+        note: String(d?.note || ""),
+      }))
+    : base.demands;
+  return {
+    ...base,
+    ...o,
+    unit: o.unit === "m³/d" ? "m³/d" : "万m³/a",
+    reliability: o.reliability === 75 || o.reliability === 90 || o.reliability === 95
+      ? o.reliability
+      : 95,
+    demands,
+  };
+}
 
 function load(): WaterBalanceInput {
   try {
-    const raw = localStorage.getItem(KEY);
-    if (!raw) return SAMPLE_INPUT;
-    return { ...SAMPLE_INPUT, ...JSON.parse(raw) };
+    const raw = localStorage.getItem(KEY) || localStorage.getItem(LEGACY_KEY);
+    if (!raw) return sampleInput();
+    return normalize(JSON.parse(raw)) ?? sampleInput();
   } catch {
-    return SAMPLE_INPUT;
+    return sampleInput();
   }
 }
 
+function fmtVol(n: number) {
+  if (!Number.isFinite(n)) return "—";
+  return Number.isInteger(n) ? String(n) : n.toFixed(2);
+}
+
 export function WaterBalanceApp() {
-  const [input, setInput] = useState<WaterBalanceInput>(SAMPLE_INPUT);
+  const [input, setInput] = useState<WaterBalanceInput>(() => sampleInput());
   const [ready, setReady] = useState(false);
+  const [revision, setRevision] = useState(0);
+  const [unitTip, setUnitTip] = useState("");
 
   useEffect(() => {
     setInput(load());
+    setRevision((n) => n + 1);
     setReady(true);
   }, []);
 
@@ -40,7 +83,19 @@ export function WaterBalanceApp() {
   const md = useMemo(() => buildMarkdown(input, result), [input, result]);
   const rationale = useMemo(() => buildRationality(input, result), [input, result]);
 
+  const unit = UNIT_LABEL[input.unit];
+  const rowSum = checksumDemands(input.demands);
+  const demandTotal = sumDemands(input.demands);
+  const tableGap = result.demandGap;
+  const tableOk = Math.abs(tableGap) < 0.005;
+
   const patch = (p: Partial<WaterBalanceInput>) => setInput((s) => ({ ...s, ...p }));
+
+  const replace = (next: WaterBalanceInput, tip = "") => {
+    setInput(cloneInput(next));
+    setRevision((n) => n + 1);
+    setUnitTip(tip);
+  };
 
   const setDemand = (id: string, field: "name" | "volume" | "note", value: string | number) => {
     setInput((s) => ({
@@ -48,6 +103,30 @@ export function WaterBalanceApp() {
       demands: s.demands.map((d) => (d.id === id ? { ...d, [field]: value } : d)),
     }));
   };
+
+  const addDemand = () => {
+    setInput((s) => ({ ...s, demands: [...s.demands, newDemandRow()] }));
+  };
+
+  const removeDemand = (id: string) => {
+    setInput((s) => ({ ...s, demands: s.demands.filter((d) => d.id !== id) }));
+  };
+
+  const switchUnit = (to: VolumeUnit) => {
+    if (input.unit === to) return;
+    const next = convertInputUnit(input, to);
+    replace(
+      next,
+      to === "m³/d"
+        ? "已按 365 日/年换算为 m³/d（1 万m³/a = 10000/365 ≈ 27.40 m³/d）。四舍五入到 0.01，请复核取整。"
+        : "已按 365 日/年换算为 万m³/a（m³/d × 365 / 10000）。四舍五入到 0.01，请复核取整。"
+    );
+  };
+
+  const kpiResidualClass =
+    result.status === "open" ? "is-bad" : result.status === "closed" ? "is-ok" : "is-idle";
+  const residualLabel =
+    result.status === "closed" ? "闭合" : result.status === "idle" ? "待计算" : "未闭合";
 
   const slug = (input.projectName || "water-balance").replace(/[\\/:*?"<>|]/g, "").slice(0, 32);
 
@@ -58,23 +137,63 @@ export function WaterBalanceApp() {
           <p className="wbr-kicker">Indoor / 室内岗</p>
           <h1 className="text-balance">水资源论证 / 水平衡报告生成器</h1>
           <p className="wbr-sell text-pretty">
-            填取水量、退水、保证率和需水结构，即时生成简化论证章节与水平衡表。信息化交付里的业务文档自动化，不是又一块看板。
+            填取水、退水、损失和需水分项，按固定口径演算耗水与平衡差。信息化交付里的业务文档草稿，不是法定论证。
           </p>
         </div>
         <div className="wbr-hero-actions">
-          <span className="wbr-pill">演示稿 · 非正式论证</span>
-          <button type="button" className="wbr-btn" onClick={() => setInput(SAMPLE_INPUT)}>
+          <span className="wbr-pill">演示草稿 · 非正式论证</span>
+          <button type="button" className="wbr-btn" onClick={() => replace(sampleInput())}>
             载入示例
           </button>
-          <button type="button" className="wbr-btn ghost" onClick={() => setInput(emptyInput())}>
+          <button type="button" className="wbr-btn ghost" onClick={() => replace(emptyInput())}>
             清空
           </button>
         </div>
       </div>
 
+      <aside className="wbr-formulas" aria-label="水量关系主口径">
+        <article>
+          <code>D = Σ Qi</code>
+          <p>需水合计 = 表内分项之和，不另开表外合计</p>
+        </article>
+        <article>
+          <code>C = Q − R</code>
+          <p>耗水唯一口径：取水 − 退水，不用工艺耗水</p>
+        </article>
+        <article>
+          <code>Δ = Q − (D + L)</code>
+          <p>供给闭合；退水不进 Δ。|Δ|&lt;0.005 才可称闭合</p>
+        </article>
+      </aside>
+
       <div className="wbr-grid">
         <section className="wbr-panel" aria-labelledby="wbr-form">
           <h2 id="wbr-form">输入</h2>
+          <div className="wbr-unitbar">
+            <span>水量单位</span>
+            <div className="wbr-unit-toggle" role="group" aria-label="水量单位">
+              <button
+                type="button"
+                className={input.unit === "万m³/a" ? "is-on" : ""}
+                onClick={() => switchUnit("万m³/a")}
+              >
+                万m³/a
+              </button>
+              <button
+                type="button"
+                className={input.unit === "m³/d" ? "is-on" : ""}
+                onClick={() => switchUnit("m³/d")}
+              >
+                m³/d
+              </button>
+            </div>
+          </div>
+          {unitTip ? (
+            <p className="wbr-unit-tip" role="status">
+              {unitTip}
+            </p>
+          ) : null}
+
           <div className="wbr-fields">
             <label>
               项目名称
@@ -152,86 +271,123 @@ export function WaterBalanceApp() {
               </select>
             </label>
             <label>
-              取水量（万m³/a）
-              <input
-                type="number"
-                min={0}
-                step="0.1"
-                className="tabular"
-                value={input.withdrawal}
-                onChange={(e) => patch({ withdrawal: Number(e.target.value) })}
-              />
+              取水量 Q
+              <span className="wbr-field-unit">
+                <input
+                  type="number"
+                  min={0}
+                  step="0.1"
+                  className="tabular"
+                  value={input.withdrawal}
+                  onChange={(e) => patch({ withdrawal: Number(e.target.value) })}
+                />
+                <em>{unit}</em>
+              </span>
             </label>
             <label>
-              退水量（万m³/a）
-              <input
-                type="number"
-                min={0}
-                step="0.1"
-                className="tabular"
-                value={input.returnWater}
-                onChange={(e) => patch({ returnWater: Number(e.target.value) })}
-              />
+              退水量 R
+              <span className="wbr-field-unit">
+                <input
+                  type="number"
+                  min={0}
+                  step="0.1"
+                  className="tabular"
+                  value={input.returnWater}
+                  onChange={(e) => patch({ returnWater: Number(e.target.value) })}
+                />
+                <em>{unit}</em>
+              </span>
             </label>
             <label>
-              损耗（万m³/a）
-              <input
-                type="number"
-                min={0}
-                step="0.1"
-                className="tabular"
-                value={input.loss}
-                onChange={(e) => patch({ loss: Number(e.target.value) })}
-              />
+              管网/未计量损失 L
+              <span className="wbr-field-unit">
+                <input
+                  type="number"
+                  min={0}
+                  step="0.1"
+                  className="tabular"
+                  value={input.loss}
+                  onChange={(e) => patch({ loss: Number(e.target.value) })}
+                />
+                <em>{unit}</em>
+              </span>
             </label>
           </div>
 
-          <h3>需水结构</h3>
+          <div className="wbr-table-head">
+            <h3>需水结构</h3>
+            <button type="button" className="wbr-btn" onClick={addDemand}>
+              增加用水户
+            </button>
+          </div>
           <div className="wbr-table-wrap">
             <table className="wbr-table">
               <thead>
                 <tr>
                   <th>用水户</th>
-                  <th>需水（万m³/a）</th>
+                  <th>需水（{unit}）</th>
                   <th>备注</th>
+                  <th> </th>
                 </tr>
               </thead>
               <tbody>
-                {input.demands.map((d) => (
-                  <tr key={d.id}>
-                    <td>
-                      <input
-                        value={d.name}
-                        aria-label={`${d.name}名称`}
-                        onChange={(e) => setDemand(d.id, "name", e.target.value)}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="number"
-                        min={0}
-                        step="0.1"
-                        className="tabular"
-                        aria-label={`${d.name}需水量`}
-                        value={d.volume}
-                        onChange={(e) => setDemand(d.id, "volume", Number(e.target.value))}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        value={d.note}
-                        aria-label={`${d.name}备注`}
-                        onChange={(e) => setDemand(d.id, "note", e.target.value)}
-                      />
+                {input.demands.length === 0 ? (
+                  <tr>
+                    <td colSpan={4} className="wbr-empty">
+                      暂无分项。点击「增加用水户」后填写，需水合计才会有数。
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  input.demands.map((d) => (
+                    <tr key={d.id}>
+                      <td>
+                        <input
+                          value={d.name}
+                          aria-label={`${d.name || "用水户"}名称`}
+                          onChange={(e) => setDemand(d.id, "name", e.target.value)}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          min={0}
+                          step="0.1"
+                          className="tabular"
+                          aria-label={`${d.name || "用水户"}需水量`}
+                          value={d.volume}
+                          onChange={(e) => setDemand(d.id, "volume", Number(e.target.value))}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          value={d.note}
+                          aria-label={`${d.name || "用水户"}备注`}
+                          onChange={(e) => setDemand(d.id, "note", e.target.value)}
+                        />
+                      </td>
+                      <td>
+                        <button
+                          type="button"
+                          className="wbr-btn ghost wbr-mini"
+                          onClick={() => removeDemand(d.id)}
+                        >
+                          删除
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
+          <p className={tableOk ? "wbr-check is-ok" : "wbr-check is-bad"} role="status">
+            表内校验：分项之和 {fmtVol(rowSum)} − 需水合计 {fmtVol(demandTotal)} ={" "}
+            {fmtSigned(tableGap)} {unit}
+            {tableOk ? "（一致）" : `（超差 ${fmtSigned(tableGap)} ${unit}）`}
+          </p>
         </section>
 
-        <section className="wbr-panel" aria-labelledby="wbr-out">
+        <section className="wbr-panel" aria-labelledby="wbr-out" key={revision}>
           <div className="wbr-panel-head">
             <h2 id="wbr-out">输出</h2>
             <div className="wbr-hero-actions">
@@ -266,20 +422,22 @@ export function WaterBalanceApp() {
 
           <div className="wbr-kpis">
             <div>
-              <b className="tabular">{result.demandTotal}</b>
-              <span>需水合计</span>
+              <b className="tabular">{fmtVol(result.demandTotal)}</b>
+              <span>需水合计 D · {unit}</span>
             </div>
             <div>
-              <b className="tabular">{result.consume}</b>
-              <span>耗水量</span>
+              <b className="tabular">{fmtVol(result.consume)}</b>
+              <span>耗水 C=Q−R · {unit}</span>
             </div>
             <div>
-              <b className="tabular">{result.returnRate}%</b>
-              <span>退水率</span>
+              <b className="tabular">{fmtVol(result.returnRate)}%</b>
+              <span>退水率 R/Q</span>
             </div>
-            <div>
-              <b className="tabular">{result.closed ? "闭合" : "未闭合"}</b>
-              <span>差 {result.residual}</span>
+            <div className={kpiResidualClass}>
+              <b className="tabular">{residualLabel}</b>
+              <span>
+                Δ {fmtSigned(result.residual)} {unit}
+              </span>
             </div>
           </div>
 
@@ -289,19 +447,19 @@ export function WaterBalanceApp() {
               <thead>
                 <tr>
                   <th>项目</th>
-                  <th>数量（万m³/a）</th>
+                  <th>数量（{unit}）</th>
                   <th>占取水</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>取水量</td>
-                  <td className="tabular">{input.withdrawal}</td>
+                  <td>取水量 Q</td>
+                  <td className="tabular">{fmtVol(input.withdrawal)}</td>
                   <td>100%</td>
                 </tr>
                 <tr>
-                  <td>需水合计</td>
-                  <td className="tabular">{result.demandTotal}</td>
+                  <td>需水合计 D</td>
+                  <td className="tabular">{fmtVol(result.demandTotal)}</td>
                   <td className="tabular">
                     {input.withdrawal
                       ? `${((result.demandTotal / input.withdrawal) * 100).toFixed(1)}%`
@@ -309,32 +467,38 @@ export function WaterBalanceApp() {
                   </td>
                 </tr>
                 <tr>
-                  <td>损耗</td>
-                  <td className="tabular">{input.loss}</td>
-                  <td className="tabular">{result.lossRate}%</td>
+                  <td>管网/未计量损失 L</td>
+                  <td className="tabular">{fmtVol(input.loss)}</td>
+                  <td className="tabular">{fmtVol(result.lossRate)}%</td>
                 </tr>
                 <tr>
-                  <td>退水量</td>
-                  <td className="tabular">{input.returnWater}</td>
-                  <td className="tabular">{result.returnRate}%</td>
+                  <td>退水量 R</td>
+                  <td className="tabular">{fmtVol(input.returnWater)}</td>
+                  <td className="tabular">{fmtVol(result.returnRate)}%</td>
                 </tr>
                 <tr>
-                  <td>耗水量（取水−退水）</td>
-                  <td className="tabular">{result.consume}</td>
-                  <td className="tabular">{result.consumeRate}%</td>
+                  <td>耗水量 C = Q − R</td>
+                  <td className="tabular">{fmtVol(result.consume)}</td>
+                  <td className="tabular">{fmtVol(result.consumeRate)}%</td>
                 </tr>
-                <tr>
-                  <td>闭合差</td>
-                  <td className="tabular">{result.residual}</td>
-                  <td>{result.closed ? "基本闭合" : "需复核"}</td>
+                <tr className={result.status === "open" ? "is-bad" : undefined}>
+                  <td>平衡差 Δ = Q − (D + L)</td>
+                  <td className="tabular">{fmtSigned(result.residual)}</td>
+                  <td>
+                    {result.status === "closed"
+                      ? "精度内为零"
+                      : result.status === "idle"
+                        ? "待计算"
+                        : "未闭合"}
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <h3>取用水合理性简述</h3>
-          {rationale.map((p) => (
-            <p key={p.slice(0, 24)} className="wbr-para text-pretty">
+          {rationale.map((p, i) => (
+            <p key={`${revision}-${i}`} className="wbr-para text-pretty">
               {p}
             </p>
           ))}

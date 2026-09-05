@@ -34,36 +34,38 @@ export const worksContent: WorkSeed[] = [
 ## 能做什么
 
 - 输入取水量、退水、保证率、简单需水结构
-- 输出水平衡表、闭合差、取用水合理性简述
+- 输出水平衡表、平衡差 Δ、取用水合理性简述
+- 主口径：D=Σ分项，C=Q−R，Δ=Q−(D+L)；差非零不得称「闭合」
 - 章节骨架对照常见水资源论证报告（**简化演示，非正式文本**）
 - 下载 Markdown 或 Word（.doc，WPS / Word 可开）
+- 演算口径见 \`src/lib/water-balance/README.md\`
 
-数据只存在本机 \`localStorage\`（\`water-balance-report:v1\`）。
+数据只存在本机 \`localStorage\`（\`water-balance-report:v2\`）。
 `,
   },
   {
     title: "新安江机理预报对照台",
     description:
-      "日降水→三水源产汇流→出口流量；与 Persistence / Lag-LSTM 同数据对照 NSE。会讲产汇流，挂载 /xaj-bench。",
+      "日降水→新安江产汇流→出口流量；同口径NSE对照数据驱动基线。浏览器可复现。",
     category: "hydro",
-    tags: "新安江,产汇流,机理模型,NSE,水文预报",
+    tags: "新安江,产汇流,NSE,浏览器可复现",
     featured: true,
     published: true,
     sortOrder: 0,
     link: "/xaj-bench",
     content: `## 一句话
 
-不是只会刷深度学习，会讲产汇流。
+不是只会刷深度学习，会讲产汇流。机理 ↔ 数据驱动同口径对照。
 
 ## 打开
 
-[机理对照台](/xaj-bench) · [智慧水利](/hydrobench) · [流域一张图](/watershed-map)
+[机理对照台](/xaj-bench) · [Hydro-ML](/presentations/hydro-ml) · [HydroInfo](/hydrobench?tab=info) · [智慧水利](/hydrobench)
 
 ## 做什么
 
 - 示意小流域：日降水 / 蒸发 → **新安江（三水源）** → 出口流量
-- 同数据对照 Persistence、Lag-LSTM（示意序列模型）
-- 指标 NSE / RMSE；参数含义与手工率定思路写在页内
+- 同数据对照 Persistence、MA3、Lag-LSTM（示意）；NSE / RMSE / KGE（m³/s）
+- 协议透明：真值+噪声合成观测、暖期 60 d、末 30 d 留出；可导出参数 JSON / 过程线 CSV
 - 浏览器可改参即时重跑（\`src/lib/xaj/model.ts\`）
 
 ## 再生

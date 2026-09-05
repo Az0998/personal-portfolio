@@ -261,6 +261,139 @@
   color: var(--wbr-muted);
 }
 
+.wbr-formulas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+}
+
+.wbr-formulas article {
+  background: rgba(46, 196, 182, 0.07);
+  border: 1px solid rgba(46, 196, 182, 0.22);
+  border-radius: 0.8rem;
+  padding: 0.7rem 0.8rem;
+}
+
+.wbr-formulas code {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--wbr-accent);
+  margin-bottom: 0.28rem;
+}
+
+.wbr-formulas p {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--wbr-muted);
+}
+
+.wbr-unitbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.55rem;
+  font-size: 0.75rem;
+  color: var(--wbr-muted);
+}
+
+.wbr-unit-toggle {
+  display: inline-flex;
+  border: 1px solid rgba(46, 196, 182, 0.35);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.wbr-unit-toggle button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--wbr-muted);
+  padding: 0.28rem 0.7rem;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.wbr-unit-toggle button.is-on {
+  background: rgba(46, 196, 182, 0.22);
+  color: var(--wbr-text);
+}
+
+.wbr-unit-tip {
+  margin: 0 0 0.7rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #ffd166;
+}
+
+.wbr-field-unit {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.wbr-field-unit em {
+  font-style: normal;
+  font-size: 0.72rem;
+  color: var(--wbr-muted);
+  white-space: nowrap;
+}
+
+.wbr-table-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+
+.wbr-table-head h3 {
+  margin: 0;
+}
+
+.wbr-mini {
+  padding: 0.22rem 0.55rem;
+  font-size: 0.72rem;
+}
+
+.wbr-empty {
+  color: var(--wbr-muted);
+  font-size: 0.82rem;
+  padding: 0.7rem 0.2rem;
+}
+
+.wbr-check {
+  margin: 0.55rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.wbr-check.is-ok {
+  color: #8fd9cf;
+}
+
+.wbr-check.is-bad,
+.wbr-kpis .is-bad b,
+.wbr-table tr.is-bad td {
+  color: #ff8a80;
+}
+
+.wbr-kpis .is-bad {
+  background: rgba(255, 82, 82, 0.12);
+  border: 1px solid rgba(255, 138, 128, 0.35);
+}
+
+.wbr-kpis .is-idle b {
+  color: var(--wbr-muted);
+}
+
+.wbr-kpis .is-ok b {
+  color: var(--wbr-accent);
+}
+
 .wbr-para {
   margin: 0 0 0.65rem;
   font-size: 0.88rem;
@@ -288,7 +421,8 @@
 @media (max-width: 900px) {
   .wbr-grid,
   .wbr-fields,
-  .wbr-kpis {
+  .wbr-kpis,
+  .wbr-formulas {
     grid-template-columns: 1fr;
   }
   .wbr-sub {

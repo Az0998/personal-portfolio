@@ -8,6 +8,16 @@ function u(input: WaterBalanceInput) {
   return input.unit;
 }
 
+function closeLine(input: WaterBalanceInput, result: WaterBalanceResult): string {
+  if (result.status === "idle") {
+    return `尚未形成可判断的水量，不作闭合结论。平衡差 Δ = ${fmt(result.residual)} ${u(input)}。`;
+  }
+  if (result.status === "closed") {
+    return `Δ = ${fmt(result.residual)} ${u(input)}，在显示精度下视为闭合。`;
+  }
+  return `Δ = ${fmt(result.residual)} ${u(input)}，未闭合，不得称「水平衡闭合」。`;
+}
+
 function line(input: WaterBalanceInput, result: WaterBalanceResult) {
   const rows = input.demands
     .filter((d) => d.volume > 0 || d.name)
@@ -18,9 +28,7 @@ function line(input: WaterBalanceInput, result: WaterBalanceResult) {
 
 export function buildMarkdown(input: WaterBalanceInput, result: WaterBalanceResult): string {
   const { rows, unit } = line(input, result);
-  const closeTxt = result.closed
-    ? `闭合差 ${fmt(result.residual)} ${unit}，可视为基本闭合。`
-    : `闭合差 ${fmt(result.residual)} ${unit}，尚未闭合。`;
+  const closeTxt = closeLine(input, result);
 
   return `# ${input.projectName || "（未命名项目）"}水资源论证 / 水平衡报告（简化演示）
 
@@ -51,7 +59,7 @@ export function buildMarkdown(input: WaterBalanceInput, result: WaterBalanceResu
 | 用水户 | 需水量 | 备注 |
 |--------|--------|------|
 ${rows || "| — | — | — |"}
-| **合计** | **${fmt(result.demandTotal)}** | 表内合计 |
+| **需水合计 D** | **${fmt(result.demandTotal)}** | 分项之和 ${fmt(result.demandChecksum)}，差 ${fmt(result.demandGap)} |
 
 ## 4 水平衡分析
 
@@ -61,12 +69,12 @@ ${rows || "| — | — | — |"}
 |------|------|------------|
 | 取水量 | ${fmt(input.withdrawal)} | 100% |
 | 需水合计 | ${fmt(result.demandTotal)} | ${pct(result.demandTotal, input.withdrawal)} |
-| 损耗（管网/未计量等） | ${fmt(input.loss)} | ${fmt(result.lossRate)}% |
-| 退水量 | ${fmt(input.returnWater)} | ${fmt(result.returnRate)}% |
-| 耗水量（取水−退水） | ${fmt(result.consume)} | ${fmt(result.consumeRate)}% |
-| 闭合差（取水−需水−损耗） | ${fmt(result.residual)} | — |
+| 管网/未计量损失 L | ${fmt(input.loss)} | ${fmt(result.lossRate)}% |
+| 退水量 R | ${fmt(input.returnWater)} | ${fmt(result.returnRate)}% |
+| 耗水量 C = Q − R | ${fmt(result.consume)} | ${fmt(result.consumeRate)}% |
+| 平衡差 Δ = Q − (D + L) | ${fmt(result.residual)} | ${result.status === "closed" ? "精度内为零" : "非零"} |
 
-平衡关系（简化）：**取水量 ≈ 需水合计 + 损耗**；**耗水量 = 取水量 − 退水量**。${closeTxt}
+主口径（演示）：**D = Σ 分项**；**C = Q − R**（不用工艺耗水）；**Δ = Q − (D + L)**。退水不进入 Δ。${closeTxt}
 
 ## 5 取用水合理性简述
 
@@ -75,7 +83,7 @@ ${buildRationality(input, result).join("\n\n")}
 ## 6 结论与建议
 
 1. ${input.horizonYear} 水平年拟定取水 ${fmt(input.withdrawal)} ${unit}，退水 ${fmt(input.returnWater)} ${unit}，耗水 ${fmt(result.consume)} ${unit}。
-2. ${result.closed ? "水平衡基本闭合，可作为室内讨论底稿。" : "建议先消化闭合差，再写入正式章节。"}
+2. ${result.status === "closed" ? "供给闭合式在显示精度下成立，仅作室内讨论底稿。" : result.status === "idle" ? "尚未形成可判断水量，不作闭合结论。" : "平衡差非零，正文不得写「水平衡闭合」。"}
 3. 正式论证尚需补充水文系列、定额依据、节水评价、退水水质与水生态影响等专章。
 
 ---
@@ -92,11 +100,13 @@ export function buildRationality(input: WaterBalanceInput, result: WaterBalanceR
   if (input.withdrawal > 0) {
     paras.push(
       `需水合计 ${fmt(result.demandTotal)} ${u(input)}，占取水 ${pct(result.demandTotal, input.withdrawal)}；损耗 ${fmt(input.loss)} ${u(input)}（${fmt(result.lossRate)}%）。` +
-        (result.closed
-          ? "取水与「需水+损耗」匹配较好，规模上未见明显超额取水。"
-          : result.residual > 0
-            ? `尚有 ${fmt(result.residual)} ${u(input)} 未分解，建议归入未预见损失、备用或复核定额。`
-            : `缺口 ${fmt(-result.residual)} ${u(input)}，需压缩需水、提高重复利用率或调整取水规模。`)
+        (result.status === "closed"
+          ? "取水与「需水合计 + 损失」在显示精度下匹配。"
+          : result.status === "idle"
+            ? "待填数后再判断规模是否匹配。"
+            : result.residual > 0
+              ? `尚有 ${fmt(result.residual)} ${u(input)} 未分解（Δ>0），建议归入未预见损失或复核定额。`
+              : `缺口 ${fmt(-result.residual)} ${u(input)}（Δ<0），需压缩需水或调整取水。`)
     );
     paras.push(
       `退水率 ${fmt(result.returnRate)}%，耗水率 ${fmt(result.consumeRate)}%。` +
