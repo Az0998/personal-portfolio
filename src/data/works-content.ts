@@ -16,9 +16,9 @@ export const worksContent: WorkSeed[] = [
   {
     title: "水资源论证 / 水平衡报告生成器",
     description:
-      "室内岗文档自动化：填取水、退水、保证率与需水结构，生成水平衡表与合理性简述，下载 Word / Markdown。挂载 /water-balance-report。",
+      "信息化交付里的业务文档自动化：填取用水与需水结构，生成水平衡与论证草稿，软硬质控后导出 Word / Markdown，便于室内岗交付与作品集附送。",
     category: "hydro",
-    tags: "水资源论证,水平衡,报告生成,室内岗,Word,Markdown",
+    tags: "水平衡,论证草稿,Word/Markdown,质控校验,室内岗",
     featured: true,
     published: true,
     sortOrder: 1,
@@ -34,10 +34,11 @@ export const worksContent: WorkSeed[] = [
 ## 能做什么
 
 - 输入取水量、退水、保证率、简单需水结构
-- 输出水平衡表、平衡差 Δ、取用水合理性简述
+- 输出六节简化论证底稿（概况—水源取退水—需水结构—水平衡表—结论—局限）
+- 软/硬质控（\`rules.json\`）：硬校验须确认后才能导出草稿，软校验黄灯可导出
+- Word 含封面、三线表、页眉页脚；Markdown 同结构便于 Git 存档
+- 案例库（工业集中区 / 城镇供水）与项目 JSON 导入导出
 - 主口径：D=Σ分项，C=Q−R，Δ=Q−(D+L)；差非零不得称「闭合」
-- 章节骨架对照常见水资源论证报告（**简化演示，非正式文本**）
-- 下载 Markdown 或 Word（.doc，WPS / Word 可开）
 - 演算口径见 \`src/lib/water-balance/README.md\`
 
 数据只存在本机 \`localStorage\`（\`water-balance-report:v2\`）。

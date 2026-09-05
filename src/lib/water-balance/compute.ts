@@ -1,3 +1,4 @@
+import { CASES } from "./cases";
 import type {
   BalanceStatus,
   DemandRow,
@@ -33,22 +34,7 @@ export const DEFAULT_DEMANDS: DemandRow[] = [
 ];
 
 export function sampleInput(): WaterBalanceInput {
-  return {
-    projectName: "临洮工业集中区供水工程",
-    location: "甘肃省定西市临洮县",
-    owner: "临洮县水务局（演示）",
-    industry: "工业集中区综合供水",
-    year: 2026,
-    horizonYear: 2030,
-    sourceName: "洮河",
-    sourceType: "地表水",
-    reliability: 95,
-    unit: "万m³/a",
-    withdrawal: 120,
-    returnWater: 48,
-    loss: 8,
-    demands: DEFAULT_DEMANDS.map((d) => ({ ...d })),
-  };
+  return cloneInput(CASES[0].input);
 }
 
 export function emptyInput(): WaterBalanceInput {
@@ -61,7 +47,7 @@ export function emptyInput(): WaterBalanceInput {
     horizonYear: 2030,
     sourceName: "",
     sourceType: "地表水",
-    reliability: 95,
+    reliability: null,
     unit: "万m³/a",
     withdrawal: 0,
     returnWater: 0,
@@ -110,11 +96,18 @@ export function computeBalance(input: WaterBalanceInput): WaterBalanceResult {
   const L = Number(input.loss) || 0;
   const consume = round(Q - R);
   const residual = round(Q - (demandTotal + L));
-  const closed = Math.abs(residual) < DISPLAY_EPS;
-  const idle = Math.abs(Q) < DISPLAY_EPS && Math.abs(demandTotal) < DISPLAY_EPS && Math.abs(L) < DISPLAY_EPS;
-  const status: BalanceStatus = idle ? "idle" : closed ? "closed" : "open";
+  const nearZero = Math.abs(residual) < DISPLAY_EPS;
+  const idle =
+    Math.abs(Q) < DISPLAY_EPS && Math.abs(demandTotal) < DISPLAY_EPS && Math.abs(L) < DISPLAY_EPS;
+  const status: BalanceStatus = idle ? "idle" : nearZero ? "closed" : "open";
+  const closed = status === "closed";
   const flags: string[] = [];
 
+  if (Math.abs(demandGap) >= DISPLAY_EPS) {
+    flags.push(
+      `需水表内校验超差 ${fmtSigned(demandGap)} ${input.unit}：分项之和与需水合计不一致。`
+    );
+  }
   if (status === "idle") flags.push("尚未填写取水或需水，右侧为结构示意，不作闭合判断。");
   if (R < 0 || L < 0) flags.push("退水或管网/未计量损失为负，请检查输入。");
   if (R > Q + DISPLAY_EPS && Q > 0) flags.push("退水大于取水，耗水为负，主口径下不平衡。");

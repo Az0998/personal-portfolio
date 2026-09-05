@@ -29,12 +29,12 @@ export const showcases: Showcase[] = [
     title: "水资源论证 / 水平衡报告生成器",
     mood: "hydro",
     heroEmoji: "📑",
-    tagline: "室内岗 · 水平衡表 · 合理性简述 · Word / Markdown",
+    tagline: "信息化交付里的业务文档自动化 · 水平衡 · 论证草稿 · 质控校验",
     highlights: [
-      "表单输入取水、退水、保证率与需水结构，即时演算闭合差",
-      "输出简化水资源论证章节：概况—水源—需水—平衡—合理性—结论",
-      "一键下载 Markdown / Word，强调业务文档自动化而非看板",
-      "明确标注演示稿，不替代正式论证与行政许可",
+      "填取用水结构，生成六节论证草稿与水平衡表",
+      "软硬质控后导出 Word / Markdown，封面页眉标明非正式",
+      "案例库与项目 JSON，便于邮件附件演示",
+      "室内岗主线是报告生成，不是第二块水情大屏",
     ],
     metrics: [
       { label: "示例取水", value: 120, display: "120 万m³/a" },
@@ -46,7 +46,7 @@ export const showcases: Showcase[] = [
       { title: "改需水表", detail: "调整生活/工业/灌溉/生态水量，看闭合差。" },
       { title: "导出文稿", detail: "下载 Markdown 或 Word 交给室内讨论。" },
     ],
-    stack: ["Next.js", "TypeScript", "水平衡演算", "Word HTML 导出"],
+    stack: ["水平衡", "论证草稿", "Word/Markdown", "质控校验"],
     galleryHints: ["输入表单", "水平衡表", "合理性段落", "导出按钮"],
   },
   {

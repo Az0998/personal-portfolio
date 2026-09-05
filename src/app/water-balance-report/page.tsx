@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { WaterBalanceApp } from "@/components/water-balance/WaterBalanceApp";
+import { WORK_BLURB, indoorNavFromEnv } from "@/lib/water-balance/nav";
 import "./water-balance.css";
 
 export const metadata: Metadata = {
   title: "水资源论证 / 水平衡报告生成器 | 张森捷",
-  description:
-    "室内岗演示：填取水、退水、保证率与需水结构，生成水平衡表与取用水合理性简述，下载 Word / Markdown。简化水资源论证章节，非正式文本。",
+  description: WORK_BLURB,
 };
+
+const NAV = indoorNavFromEnv();
 
 export default function WaterBalanceReportPage() {
   return (
@@ -20,10 +22,15 @@ export default function WaterBalanceReportPage() {
           <span className="wbr-mark">衡</span>
           <div>
             <div className="wbr-title">水平衡报告生成器</div>
-            <div className="wbr-sub">水资源论证简化章节 · 室内岗文档自动化</div>
+            <div className="wbr-sub">室内岗 · 论证草稿 · 文档自动化</div>
           </div>
         </div>
-        <span className="wbr-chip">/water-balance-report</span>
+        <nav className="wbr-nav" aria-label="室内岗导航">
+          <span className="wbr-chip indoor">INDOOR</span>
+          <Link href={NAV.hydroInfo}>HydroInfo</Link>
+          <Link href={NAV.hydroBench}>HydroBench</Link>
+          <Link href={NAV.watershedMap}>流域一张图</Link>
+        </nav>
       </header>
       <WaterBalanceApp />
     </div>

@@ -16,12 +16,29 @@ export type WaterBalanceInput = {
   horizonYear: number;
   sourceName: string;
   sourceType: "地表水" | "地下水" | "再生水" | "混合水源";
-  reliability: 75 | 90 | 95;
+  reliability: 75 | 90 | 95 | null;
   unit: VolumeUnit;
   withdrawal: number;
   returnWater: number;
   loss: number;
   demands: DemandRow[];
+};
+
+export type QcLevel = "hard" | "soft";
+
+export type QcFinding = {
+  id: string;
+  level: QcLevel;
+  name: string;
+  detail: string;
+  advice: string;
+};
+
+export type QcReport = {
+  findings: QcFinding[];
+  hardCount: number;
+  softCount: number;
+  canExport: boolean;
 };
 
 export type BalanceStatus = "idle" | "closed" | "open";

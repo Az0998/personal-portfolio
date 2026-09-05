@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "note": "咨询院室内质控示意。阈值是经验值，不是规范条文。改此文件即可调整软硬校验。",
+  "thresholds": {
+    "residualAbsHardWan": 0.5,
+    "lifeShareMinPct": 5,
+    "lifeShareMaxPct": 20,
+    "returnRateMinPct": 30,
+    "returnRateMaxPct": 70
+  },
+  "keywords": {
+    "industrial": ["工业", "园区", "集中区"],
+    "lifeDemand": ["生活"],
+    "highConsume": ["化工", "钢铁", "造纸", "印染", "火电", "煤化工", "电镀", "高耗水"]
+  },
+  "rules": [
+    {
+      "id": "reliability-required",
+      "level": "hard",
+      "enabled": true,
+      "name": "保证率未选",
+      "advice": "请选择 75%、90% 或 95% 设计保证率后再导出。"
+    },
+    {
+      "id": "withdrawal-positive",
+      "level": "hard",
+      "enabled": true,
+      "name": "取水量无效",
+      "advice": "取水 Q 须大于 0，并与需水、损失同一单位。"
+    },
+    {
+      "id": "demand-positive",
+      "level": "hard",
+      "enabled": true,
+      "name": "需水合计为 0",
+      "advice": "至少填写一条需水分项，使 D = ΣQi > 0。"
+    },
+    {
+      "id": "residual-over-threshold",
+      "level": "hard",
+      "enabled": true,
+      "name": "平衡差超过阈值",
+      "advice": "请调整取水、需水或管网/未计量损失，使 |Δ| 落到阈值内；未闭合不得称「水平衡闭合」。"
+    },
+    {
+      "id": "return-exceeds-withdrawal",
+      "level": "hard",
+      "enabled": true,
+      "name": "退水大于取水",
+      "advice": "核对退水计量或循环水是否重复计入；主口径下退水不应大于取水。"
+    },
+    {
+      "id": "consume-negative",
+      "level": "hard",
+      "enabled": true,
+      "name": "耗水为负",
+      "advice": "C = Q − R。退水大于取水时耗水为负，须先纠正取退水。"
+    },
+    {
+      "id": "life-share-outlier",
+      "level": "soft",
+      "enabled": true,
+      "name": "生活用水占比偏离经验区间",
+      "advice": "核对接户清单与定额；区间为工业园区经验示意，不是规范限值。"
+    },
+    {
+      "id": "return-rate-outlier",
+      "level": "soft",
+      "enabled": true,
+      "name": "退水率不在常见示意区间",
+      "advice": "说明循环冷却、封闭工艺或漏计退水；30%–70% 仅为一般工业示意。"
+    },
+    {
+      "id": "horizon-before-base",
+      "level": "soft",
+      "enabled": true,
+      "name": "水平年早于基准年",
+      "advice": "水平年通常不早于编制/基准年，请核对年份填写。"
+    },
+    {
+      "id": "groundwater-high-consume",
+      "level": "soft",
+      "enabled": true,
+      "name": "地下水用于疑似高耗水工业",
+      "advice": "关注地下水取水许可、禁限采区和替代水源论证，正式件须对照地方名录。"
+    }
+  ]
+}
