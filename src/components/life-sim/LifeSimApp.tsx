@@ -184,7 +184,10 @@ export function LifeSimApp({ domainId }: { domainId: string }) {
         </details>
 
         <p className="ls-note">
-          权重用 Logit + Softmax 温度；上一选会影响下一轮扇区（回声）。节点年龄触发阶段典礼。
+          权重用 Logit + Softmax；上一选有回声。节点年龄触发典礼。
+          {["xianxia", "isekai", "academy", "mecha"].includes(domainId)
+            ? " 本包为同人题材风 Demo：原创桥段与代称，与任何官方 IP 无关。"
+            : ""}
         </p>
       </main>
     </div>

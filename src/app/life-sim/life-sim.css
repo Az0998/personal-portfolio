@@ -213,6 +213,13 @@
   line-height: 1.55;
   max-width: 36rem;
 }
+.ls-hub-section {
+  margin: 1.5rem 0 0.65rem;
+  font-size: 0.95rem;
+  font-family: "Noto Serif SC", "Songti SC", Georgia, serif;
+  font-weight: 700;
+  color: var(--ls-ink);
+}
 
 .ls-domain-list {
   list-style: none;

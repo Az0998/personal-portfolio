@@ -31,7 +31,7 @@
 2. **自适应权重**：见下方算法；实现于 `weighting.ts`。
 3. **长程依赖**：选项 `enqueue` 子事件；`addFlags` 改变未来池。
 4. **阶段典礼**：`rite.ts` 在节点年龄 / 退役时生成称号与短赋。
-5. **领域包**：`cs`（`/cs-life` 深链 + `arcs.ts` 叙事支线）、`mortal`、`hydro`、`night`（都市夜谈）；站点挂载为附属玩法。
+5. **领域包**：`cs` + `mortal` / `hydro` / `night`；同人题材风 `xianxia` / `isekai` / `academy` / `mecha`（`fanfic.ts`，原创桥段致敬类型，不搬运官方设定原文）。
 
 ## 权重 / 差分 / 后续影响（好用算法）
 

@@ -90,16 +90,84 @@ function nightEpithet(run: LifeRun): string {
   return "灯火里的过路人";
 }
 
+function fanficEpithet(run: LifeRun): string {
+  const f = run.flags;
+  if (run.domainId === "xianxia") {
+    if (f.includes("flew_away")) return "虚空那头有人应门";
+    if (f.includes("demonic_path")) return "魔气未散，道心还在";
+    if (f.includes("dao_partner")) return "双修契上落了一层雪";
+    if (f.includes("ascended_once")) return "劫云记得你的名字";
+    if (f.includes("patriarch")) return "山门新匾还没干";
+    return "云深不知处的编外散修";
+  }
+  if (run.domainId === "isekai") {
+    if (f.includes("went_home")) return "地球便当仍在冰箱";
+    if (f.includes("op_skill")) return "外挂比剧情先醒";
+    if (f.includes("villain_queen")) return "反派女主营业中";
+    if (f.includes("stayed")) return "第二故乡盖章生效";
+    if (f.includes("author")) return "见闻录加印三刷";
+    return "系统提示音的常客";
+  }
+  if (run.domainId === "academy") {
+    if (f.includes("grad_hero")) return "钟楼记得那晚的风";
+    if (f.includes("top_student")) return "猫头鹰投递员的噩梦";
+    if (f.includes("house_ember")) return "燃灯院围巾未凉";
+    if (f.includes("prophecy_path")) return "纸条比课表准";
+    return "公共休息室的编外居民";
+  }
+  if (run.domainId === "mecha") {
+    if (f.includes("war_hero")) return "简报首页有你呼号";
+    if (f.includes("last_stand")) return "弹射座椅不曾使用";
+    if (f.includes("ai_bond")) return "机载 AI 仍在线";
+    if (f.includes("instructor")) return "下一期学员喊你教官";
+    if (f.includes("diplomat")) return "停火协议比光束亮";
+    return "机库灯下的半个影子";
+  }
+  return "同人世界线过客";
+}
+
+function fanficStageAt(domainId: string, age: number): string | null {
+  const tables: Record<string, { age: number; stage: string }[]> = {
+    xianxia: [
+      { age: 20, stage: "初入仙途" },
+      { age: 40, stage: "秘境迭起" },
+      { age: 80, stage: "渡劫前后" },
+      { age: 120, stage: "道果将成" },
+    ],
+    isekai: [
+      { age: 2, stage: "落地异界" },
+      { age: 8, stage: "冒险中场" },
+      { age: 20, stage: "王都风云" },
+      { age: 35, stage: "传送门择" },
+    ],
+    academy: [
+      { age: 12, stage: "一年级冬" },
+      { age: 15, stage: "学年大考将至" },
+      { age: 18, stage: "毕业将临" },
+    ],
+    mecha: [
+      { age: 18, stage: "首战之后" },
+      { age: 28, stage: "编队中坚" },
+      { age: 40, stage: "退役倒计时" },
+    ],
+  };
+  return tables[domainId]?.find((s) => s.age === age)?.stage ?? null;
+}
+
 export function riteForLifeRun(run: LifeRun, meta: DomainMeta, final = false): RiteBeat {
+  const fanfic = ["xianxia", "isekai", "academy", "mecha"].includes(run.domainId);
   const stage =
     (run.domainId === "mortal"
       ? mortalStageAt(run.age)
       : run.domainId === "hydro"
         ? hydroStageAt(run.age)
-        : nightStageAt(run.age)) ||
+        : run.domainId === "night"
+          ? nightStageAt(run.age)
+          : fanficStageAt(run.domainId, run.age)) ||
     (final ? "生涯落定" : `${run.age} 岁节点`);
-  const epithet =
-    run.domainId === "hydro"
+  const epithet = fanfic
+    ? fanficEpithet(run)
+    : run.domainId === "hydro"
       ? hydroEpithet(run)
       : run.domainId === "night"
         ? nightEpithet(run)
@@ -170,6 +238,9 @@ export function shouldTriggerLifeRite(run: LifeRun): boolean {
   if (run.domainId === "mortal") return mortalStageAt(run.age) != null;
   if (run.domainId === "hydro") return hydroStageAt(run.age) != null;
   if (run.domainId === "night") return nightStageAt(run.age) != null;
+  if (["xianxia", "isekai", "academy", "mecha"].includes(run.domainId)) {
+    return fanficStageAt(run.domainId, run.age) != null;
+  }
   return false;
 }
 

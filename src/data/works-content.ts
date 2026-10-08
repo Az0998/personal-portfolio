@@ -48,9 +48,9 @@ Major 文案参考公开赛果（如 Shanghai 2024 Spirit、Austin/Budapest 2025
   {
     title: "人生模拟枢纽 · 多领域转盘",
     description:
-      "多领域命运转盘：CS 职业叙事、凡人重开、水信息职场、都市夜谈。Logit+Softmax 自适应，赛季时间线与典礼总结。",
+      "多领域命运转盘：CS/凡人/水职场/夜谈，以及修仙·异世界·魔法学院·机甲等同人题材风包。",
     category: "demo",
-    tags: "人生模拟,转盘,BitLife,凡人重开,水信息,都市夜谈,前端演示",
+    tags: "人生模拟,转盘,同人,修仙,异世界,魔法学院,机甲,前端演示",
     featured: false,
     published: true,
     sortOrder: 21,
@@ -59,14 +59,21 @@ Major 文案参考公开赛果（如 Shanghai 2024 Spirit、Austin/Budapest 2025
 
 [人生模拟枢纽](/life-sim)
 
-- [CS 深度线](/cs-life) — 训练营 / Major / 媒体赞助 / 更衣室
-- [凡人重开](/life-sim/mortal) — 雨伞、夜市、热搜与遗产信
-- [水信息职场](/life-sim/hydro) — Excel 战争、失踪数据、巡河
-- [都市夜谈](/life-sim/night) — 天台、末班车、关东煮审判
+### 现实与日常
+- [CS 深度线](/cs-life)
+- [凡人重开](/life-sim/mortal)
+- [水信息职场](/life-sim/hydro)
+- [都市夜谈](/life-sim/night)
+
+### 同人题材风（原创桥段，类型致敬）
+- [修仙同人](/life-sim/xianxia)
+- [异世界转生](/life-sim/isekai)
+- [魔法学院同人](/life-sim/academy)
+- [机甲星际同人](/life-sim/mecha)
 
 ## 引擎
 
-年龄/属性门槛 · flag 长程 · Softmax 温度 · 上一选回声 · 阶段典礼。详见 \`docs/life-sim-sources.md\`。
+年龄/属性门槛 · flag · Softmax · 回声 · 典礼。详见 \`docs/life-sim-sources.md\`。
 `,
   },
   {

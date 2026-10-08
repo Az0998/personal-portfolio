@@ -6,10 +6,15 @@ import "./life-sim.css";
 export const metadata: Metadata = {
   title: "人生模拟枢纽 · 多领域命运转盘",
   description:
-    "CS 职业、凡人重开、水信息职场等多领域人生模拟：条件事件池、自适应权重、长程 flag 依赖。",
+    "CS、凡人、水职场、都市夜谈，以及修仙/异世界/魔法学院/机甲等同人题材风转盘。",
 };
 
+const REALITY = new Set(["cs", "mortal", "hydro", "night"]);
+
 export default function LifeSimHubPage() {
+  const reality = DOMAINS.filter((d) => REALITY.has(d.id));
+  const fanfic = DOMAINS.filter((d) => !REALITY.has(d.id));
+
   return (
     <div className="ls-root">
       <header className="ls-top">
@@ -22,13 +27,15 @@ export default function LifeSimHubPage() {
         </span>
       </header>
       <div className="ls-hub">
-        <p className="ls-kicker">加权转盘 · 条件池 · 自适应后续</p>
+        <p className="ls-kicker">加权转盘 · 同人题材风 · 自适应后续</p>
         <h1>人生模拟枢纽</h1>
         <p className="ls-hub-lead">
-          不是简历附件，是可重开的小世界。CS 有训练营、混合区、赞助与更衣室气流；凡人有雨伞与热搜；水职场有失踪数据与巡河黄昏；还有都市夜谈——天台和关东煮也会审判你。权重会自适应，选项写得像短篇，只要合理有趣就成立。
+          现实支线与同人题材风都在这里。同人包用原创桥段致敬爆款类型（修仙、转生、学院、机甲），不搬运官方角色名与设定原文——好玩优先，合理有趣即可。
         </p>
+
+        <h2 className="ls-hub-section">现实与日常</h2>
         <ul className="ls-domain-list">
-          {DOMAINS.map((d) => (
+          {reality.map((d) => (
             <li key={d.id}>
               <Link href={d.href} style={{ ["--d-accent" as string]: d.accent }}>
                 <h2>{d.title}</h2>
@@ -37,9 +44,21 @@ export default function LifeSimHubPage() {
             </li>
           ))}
         </ul>
+
+        <h2 className="ls-hub-section">同人题材风</h2>
+        <ul className="ls-domain-list">
+          {fanfic.map((d) => (
+            <li key={d.id}>
+              <Link href={d.href} style={{ ["--d-accent" as string]: d.accent }}>
+                <h2>{d.title}</h2>
+                <p>{d.tagline}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+
         <p className="ls-hub-foot">
-          机制与信息源笔记：仓库 <code>docs/life-sim-sources.md</code>。CS
-          赛果为公开 Major 考据示意，非 HLTV 实时爬取。
+          笔记：仓库 <code>docs/life-sim-sources.md</code>。同人包为类型致敬 Demo，与任何官方作品无关。
         </p>
       </div>
     </div>
