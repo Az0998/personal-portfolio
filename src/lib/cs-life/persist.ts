@@ -1,6 +1,6 @@
 import type { PlayerState, SharePack } from "./types";
 
-const KEY = "cs-life:v1";
+const KEY = "cs-life:v2";
 
 export function saveLocal(player: PlayerState, phase: string) {
   if (typeof window === "undefined") return;

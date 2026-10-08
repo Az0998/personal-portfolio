@@ -5,12 +5,15 @@ import Link from "next/link";
 import { SpinWheel } from "./SpinWheel";
 import { RadarChart } from "./RadarChart";
 import { EventEditor } from "./EventEditor";
+import { CareerTimeline } from "./CareerTimeline";
 import {
   applyPick,
   createPlayer,
   currentEvent,
+  eventsForYear,
   insertCustomIntoQueue,
   optionsForPhase,
+  originProgress,
   phaseTitle,
   summaryText,
 } from "@/lib/cs-life/sim";
@@ -49,8 +52,7 @@ export function CsLifeApp() {
     if (snap) {
       const pack = decodeShare(snap);
       if (pack) {
-        const p = migratePlayer(pack.player);
-        setPlayer(p);
+        setPlayer(migratePlayer(pack.player));
         setPhase("summary");
         setResult("已载入分享生涯");
         setReady(true);
@@ -59,8 +61,14 @@ export function CsLifeApp() {
     }
     const local = loadLocal();
     if (local) {
-      setPlayer(migratePlayer(local.player));
-      setPhase(local.phase as PhaseId);
+      const p = migratePlayer(local.player);
+      let ph = local.phase as PhaseId;
+      // 旧档若已有 year 却无战队，拉回选队
+      if (!p.team && (ph === "year_loop" || ph === "event_spin" || ph === "season_recap")) {
+        ph = "team_pick";
+      }
+      setPlayer(p);
+      setPhase(ph);
       setResult(local.player.history?.at(-1)?.picked || "");
     }
     setReady(true);
@@ -77,11 +85,17 @@ export function CsLifeApp() {
   );
   const title = phaseTitle(phase, player);
   const ev = phase === "event_spin" ? currentEvent(player) : null;
+  const progress = originProgress(phase);
+  const inCareer =
+    phase === "year_loop" ||
+    phase === "event_spin" ||
+    phase === "season_recap" ||
+    player.history.length > 8;
+  const yearEvents = eventsForYear(player, player.year);
 
   const onSpinEnd = useCallback(
     (opt: WheelOption) => {
       setSpinning(false);
-      setResult(opt.label);
       const { player: nextP, next, subResult, rite: beat, echo: nextEcho } = applyPick(
         phase,
         player,
@@ -91,14 +105,14 @@ export function CsLifeApp() {
       setPlayer(nextP);
       setEcho(nextEcho);
       if (beat) setRite(beat);
-      if (subResult) setResult(subResult);
-      window.setTimeout(() => setPhase(next), 280);
+      setResult(subResult || opt.label);
+      window.setTimeout(() => setPhase(next), 240);
     },
     [phase, player, customs]
   );
 
   const startSpin = () => {
-    if (spinning || phase === "summary") return;
+    if (spinning || phase === "summary" || rite) return;
     setSpinning(true);
   };
 
@@ -144,31 +158,29 @@ export function CsLifeApp() {
 
   if (phase === "summary") {
     return (
-      <div className="csl-root" style={{ ["--ls-accent" as string]: "#d97706" }}>
+      <div className="csl-root">
         <header className="csl-top">
           <Link href="/life-sim" className="csl-back">
             ← 人生枢纽
           </Link>
-          <span className="csl-pill">CS 人生模拟 · 退役典礼</span>
+          <span className="csl-pill">退役典礼</span>
+          <button type="button" className="csl-ghost" onClick={restart}>
+            再转
+          </button>
         </header>
         <main className="csl-main">
           <RiteCard rite={rite || riteForCs(player, false)} final />
-          <p className="csl-sub">
-            {player.country} · {player.team} · Major 冠 {player.majorWins}/{player.majors}
-            {player.hasPartner ? " · 脱单" : ""}
-          </p>
+          <div className="csl-status">
+            <span className="csl-chip accent">{player.country || "—"}</span>
+            <span className="csl-chip">{player.team || "无战队"}</span>
+            <span className="csl-chip">
+              Major 冠 {player.majorWins}/{player.majors}
+            </span>
+            {player.hasPartner && <span className="csl-chip">脱单</span>}
+          </div>
           <RadarChart stats={player.stats} judges={player.judges} />
           <pre className="csl-summary">{summaryText(player)}</pre>
-          <ol className="csl-timeline">
-            {player.events.map((e, i) => (
-              <li key={`${e.year}-${i}`}>
-                <strong>
-                  {e.year} · {e.title}
-                </strong>
-                <span>{e.detail}</span>
-              </li>
-            ))}
-          </ol>
+          <CareerTimeline events={player.events} title="生涯时间线" />
           <div className="csl-actions">
             <button type="button" className="csl-btn primary" onClick={doShare}>
               复制分享链接
@@ -189,37 +201,105 @@ export function CsLifeApp() {
             <Link href="/life-sim" className="csl-btn">
               人生枢纽
             </Link>
-            <Link href="/#works" className="csl-btn">
-              作品档案
-            </Link>
           </div>
           {toast && <p className="csl-toast">{toast}</p>}
           <p className="csl-note">
-            赛果文案参考公开 Major；权重为 Logit+Softmax 示意，非 HLTV 实时爬取。附属玩法见人生枢纽。
+            赛果为公开 Major 考据示意；权重 Logit+Softmax，非 HLTV 实时爬取。
           </p>
         </main>
       </div>
     );
   }
 
+  if (phase === "season_recap") {
+    return (
+      <div className="csl-root">
+        <header className="csl-top">
+          <Link href="/life-sim" className="csl-back">
+            ← 人生枢纽
+          </Link>
+          <span className="csl-pill">{player.year} 赛季总结</span>
+          <button type="button" className="csl-ghost" onClick={restart}>
+            重开
+          </button>
+        </header>
+        <main className="csl-main">
+          {rite && <RiteCard rite={rite} onDismiss={() => setRite(null)} />}
+          <div className="csl-recap-hero">
+            <h2>{player.year} 赛季落幕</h2>
+            <p>
+              {player.team || "无战队"} · 本季冠军 {player.trophiesYear} 座 · Major 生涯{" "}
+              {player.majors} 次深跑 / 冠 {player.majorWins}
+              {player.hasPartner ? " · 已脱单" : ""}
+            </p>
+          </div>
+          <CareerTimeline
+            events={yearEvents}
+            year={player.year}
+            title="本赛季时间线"
+          />
+          <p className="csl-stage">转盘选择下一步</p>
+          <SpinWheel options={options} spinning={spinning} onSpinEnd={onSpinEnd} />
+          <button
+            type="button"
+            className="csl-btn primary csl-spin"
+            onClick={startSpin}
+            disabled={spinning || Boolean(rite)}
+          >
+            {spinning ? "转动中…" : "转动 · 赛季抉择"}
+          </button>
+          <RadarChart stats={player.stats} judges={player.judges} size={180} />
+          <details className="csl-history">
+            <summary>完整生涯时间线（{player.events.length}）</summary>
+            <CareerTimeline events={player.events} compact />
+          </details>
+          {toast && <p className="csl-toast">{toast}</p>}
+        </main>
+      </div>
+    );
+  }
+
   return (
-    <div className="csl-root" style={{ ["--ls-accent" as string]: "#d97706" }}>
+    <div className="csl-root">
       <header className="csl-top">
         <Link href="/life-sim" className="csl-back">
-          ← 人生枢纽
+          ← 枢纽
         </Link>
-        <button type="button" className="csl-pill" aria-label="当前事件">
+        <span className="csl-pill" title={title}>
           {title}
-        </button>
+        </span>
         <button type="button" className="csl-ghost" onClick={restart}>
           重开
         </button>
       </header>
 
       <main className="csl-main">
-        <p className="csl-kicker">AI 转盘 · 嵌套分支 · 自定义事件</p>
+        {progress < 1 && (
+          <div className="csl-progress" aria-hidden>
+            <i style={{ width: `${Math.round(progress * 100)}%` }} />
+          </div>
+        )}
+
+        <p className="csl-kicker">CS 职业人生 · 命运转盘</p>
+        <p className="csl-stage">{title}</p>
         <h1 className="csl-result">{result || "点下方开转"}</h1>
         {ev?.blurb && <p className="csl-sub">{ev.blurb}</p>}
+        {!ev?.blurb && phase === "team_pick" && (
+          <p className="csl-sub">先定效力战队，再进入开局评定——不会偷偷默认一支队。</p>
+        )}
+
+        {inCareer && (
+          <div className="csl-status">
+            <span className="csl-chip accent">{player.year || "—"}</span>
+            <span className="csl-chip">{player.team || "未加盟"}</span>
+            <span className="csl-chip">
+              Major {player.majors} · 冠 {player.majorWins}
+            </span>
+            {phase === "event_spin" && (
+              <span className="csl-chip">队列 {player.queue.length}</span>
+            )}
+          </div>
+        )}
 
         {rite && <RiteCard rite={rite} onDismiss={() => setRite(null)} />}
 
@@ -235,34 +315,52 @@ export function CsLifeApp() {
           {spinning
             ? "转动中…"
             : phase === "event_spin"
-              ? "转动 · 当前分支"
+              ? "转动 · 当前事件"
               : phase === "year_loop"
-                ? `赛季菜单 · ${player.year}`
-                : "转动转盘"}
+                ? `推进 ${player.year} 赛季`
+                : phase === "team_pick"
+                  ? "转动 · 选战队"
+                  : "转动转盘"}
         </button>
 
-        {(phase === "event_spin" || phase === "year_loop" || player.history.length > 5) && (
+        {phase === "event_spin" && (
+          <section className="csl-panel">
+            <h2>扇区占比</h2>
+            <p className="csl-meta">随属性 / 上一选回声自适应</p>
+            <ul className="csl-odds" aria-label="自适应占比">
+              {options.map((o) => (
+                <li key={o.id}>
+                  <i style={{ background: o.color }} />
+                  {o.label}
+                  <em>{Math.round(o.weight * 100)}%</em>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {inCareer && (
           <section className="csl-panel">
             <h2>
-              {player.year || "—"} · {player.team || "未加盟"}
+              {player.team || "未加盟"} · 能力雷达
             </h2>
-            <p className="csl-meta">
-              Major {player.majors} · 冠 {player.majorWins} · 队列 {player.queue.length} · 恋爱{" "}
-              {player.hasPartner ? "有" : "无"}
-            </p>
             <RadarChart stats={player.stats} judges={player.judges} size={200} />
-            {phase === "event_spin" && (
-              <ul className="csl-odds" aria-label="自适应占比">
-                {options.map((o) => (
-                  <li key={o.id}>
-                    <i style={{ background: o.color }} />
-                    {o.label}
-                    <em>{Math.round(o.weight * 100)}%</em>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <ul className="csl-stats">
+              {(Object.keys(SIX_LABELS) as (keyof typeof SIX_LABELS)[]).map((k) => (
+                <li key={k}>
+                  <span>{SIX_LABELS[k]}</span>
+                  <strong>{Math.round(player.stats[k])}</strong>
+                </li>
+              ))}
+            </ul>
           </section>
+        )}
+
+        {player.events.length > 0 && phase !== "event_spin" && (
+          <details className="csl-history" open={phase === "year_loop"}>
+            <summary>时间线（{player.events.length}）</summary>
+            <CareerTimeline events={player.events} compact />
+          </details>
         )}
 
         <div className="csl-actions">
@@ -296,36 +394,16 @@ export function CsLifeApp() {
           <ul>
             {MAJOR_LORE.map((m) => (
               <li key={m.name}>
-                {m.year} {m.name} · {m.winner} &gt; {m.runnerUp}（{m.note}）
+                {m.year} {m.name} · {m.winner} &gt; {m.runnerUp}
               </li>
             ))}
           </ul>
         </details>
 
-        <details className="csl-history">
-          <summary>轨迹（{player.history.length}）</summary>
-          <ol>
-            {player.history.map((h, i) => (
-              <li key={i}>
-                {h.label} → {h.picked}
-              </li>
-            ))}
-          </ol>
-        </details>
-
         {toast && <p className="csl-toast">{toast}</p>}
         <p className="csl-note">
-          心态高：崩盘掉分减伤、负面扇区缩小。颜值/名气/忠诚自适应转会·恋爱·世界线。赛年队列按状态拼装，非固定剧本。Major
-          决赛链：对手→地图 BP→半场→指挥对位→比分。更多领域见人生枢纽。
+          出道年之后会单独转「加盟战队」。冠军数 / 补强人数等选项已写成完整句子。每赛季结束进入时间线总结，再决定下一年或退役。
         </p>
-        <ul className="csl-stats compact">
-          {(Object.keys(SIX_LABELS) as (keyof typeof SIX_LABELS)[]).map((k) => (
-            <li key={k}>
-              <span>{SIX_LABELS[k]}</span>
-              <strong>{Math.round(player.stats[k])}</strong>
-            </li>
-          ))}
-        </ul>
       </main>
     </div>
   );
@@ -338,12 +416,17 @@ function migratePlayer(raw: PlayerState): PlayerState {
     ...raw,
     stats: { ...base.stats, ...raw.stats },
     judges: { ...base.judges, ...(raw as PlayerState).judges },
-    queue: Array.isArray(raw.queue) ? raw.queue : [],
+    queue: Array.isArray(raw.queue)
+      ? raw.queue.map((q) =>
+          q.id === "team_pick_cis" ? { ...q, id: "team_pick" } : q
+        )
+      : [],
     events: raw.events || [],
     history: raw.history || [],
     ctx: raw.ctx || {},
     grades: raw.grades || {},
     trophiesYear: raw.trophiesYear || 0,
     hasPartner: Boolean(raw.hasPartner),
+    team: raw.team || undefined,
   };
 }

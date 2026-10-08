@@ -70,6 +70,9 @@
   font-size: clamp(1.35rem, 4vw, 1.85rem);
   text-align: center;
   font-weight: 700;
+  font-family: "Noto Serif SC", "Songti SC", Georgia, serif;
+  text-wrap: balance;
+  min-height: 2.2em;
 }
 
 .ls-sub {

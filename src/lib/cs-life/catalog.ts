@@ -146,7 +146,7 @@ export function debutYearOptions(birthEra: string): WheelOption[] {
   for (let y = a; y <= b; y++) {
     const i = y - a;
     const w = map[birthEra]?.[2]?.[i] ?? 5 + i;
-    opts.push({ id: String(y), label: String(y), weight: w });
+    opts.push({ id: String(y), label: `${y} 年出道`, weight: w });
   }
   return withColors(opts);
 }

@@ -67,7 +67,10 @@ export function SpinWheel({ options, spinning, onSpinEnd }: Props) {
         >
           {arcs.map((a) => {
             const mid = polar(cx, cy, r * 0.62, a.midDeg);
-            const label = a.label.length > 10 ? `${a.label.slice(0, 9)}…` : a.label;
+            // 扇区窄时缩短文案，完整句子看下方占比列表
+            const maxLen = a.sweepDeg < 36 ? 5 : a.sweepDeg < 55 ? 7 : 10;
+            const label =
+              a.label.length > maxLen ? `${a.label.slice(0, maxLen)}…` : a.label;
             return (
               <g key={a.id}>
                 <path

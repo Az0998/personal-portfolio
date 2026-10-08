@@ -28,14 +28,14 @@ import type {
   PlayerState,
   RuntimeEvent,
   SixKey,
-  SixStats,
   StatDelta,
   WheelOption,
 } from "./types";
-import { pickWeighted, withColors } from "./wheel";
+import { withColors } from "./wheel";
 import type { EchoBias } from "@/lib/life-sim/weighting";
 import { riteForCs, shouldTriggerCsMidRite } from "@/lib/life-sim/rite";
 import type { RiteBeat } from "@/lib/life-sim/rite";
+import { humanizePick, regionKeyFromLabel } from "./format";
 
 export function createPlayer(seed = `${Date.now()}`): PlayerState {
   return {
@@ -62,42 +62,71 @@ export function phaseTitle(phase: PhaseId, p: PlayerState): string {
   if (phase === "event_spin" && p.queue[0]) return p.queue[0].title;
   switch (phase) {
     case "origin_region":
-      return "出生地点";
+      return "出生地区";
     case "origin_country":
       return `所在国家 · ${p.region || "—"}`;
     case "birth_era":
       return "出生时期";
     case "debut_year":
-      return "加入职业战队时间";
+      return "职业出道年份";
+    case "team_pick":
+      return `加盟战队 · ${p.region || "本区"}`;
     case "motivation":
-      return "为何成为职业选手";
+      return "为何走上职业路";
     case "intl_squad":
-      return `是否加入国际纵队（${p.region === "独联体" || p.region === "cis" ? "独联体" : p.region || "本区"}）`;
+      return "是否加入国际纵队";
     case "igl":
-      return "是否担任指挥";
+      return "是否担任指挥 (IGL)";
     case "role_ct":
-      return "队内位置 (CT)";
+      return "队内位置 · CT";
     case "role_t":
-      return "队内位置 (T)";
+      return "队内位置 · T";
     case "grade_aim":
-      return "瞄准能力 · 初登场";
+      return "初评 · 瞄准";
     case "grade_utility":
-      return "道具能力 · 初登场";
+      return "初评 · 道具";
     case "grade_sense":
-      return "游戏理解 · 初登场";
+      return "初评 · 游戏理解";
     case "grade_attitude":
-      return "职业态度";
+      return "初评 · 职业态度";
     case "grade_mentality":
-      return "心态";
+      return "初评 · 心态";
     case "grade_appearance":
-      return "颜值 · 初登场";
+      return "初评 · 颜值";
     case "year_loop":
       return `${p.year} 赛季 · 日程`;
+    case "season_recap":
+      return `${p.year} 赛季 · 时间线总结`;
     case "summary":
-      return "生涯结算";
+      return "退役典礼";
     default:
       return phase;
   }
+}
+
+/** 开局进度：0～1，用于顶栏步骤条 */
+export function originProgress(phase: PhaseId): number {
+  const order: PhaseId[] = [
+    "origin_region",
+    "origin_country",
+    "birth_era",
+    "debut_year",
+    "team_pick",
+    "motivation",
+    "intl_squad",
+    "igl",
+    "role_ct",
+    "role_t",
+    "grade_aim",
+    "grade_utility",
+    "grade_sense",
+    "grade_attitude",
+    "grade_mentality",
+    "grade_appearance",
+  ];
+  const i = order.indexOf(phase);
+  if (i < 0) return 1;
+  return (i + 1) / order.length;
 }
 
 const GRADE_PHASES: { phase: PhaseId; key: SixKey }[] = [
@@ -114,6 +143,7 @@ export function nextPhase(current: PhaseId | null): PhaseId {
     "origin_country",
     "birth_era",
     "debut_year",
+    "team_pick",
     "motivation",
     "intl_squad",
     "igl",
@@ -143,7 +173,6 @@ function applyDelta(p: PlayerState, delta?: StatDelta) {
     if (v == null) continue;
     if (k in p.stats) {
       const key = k as SixKey;
-      // 心态高：负面掉分打折（图一崩了少掉）
       let dv = v;
       if (dv < 0 && p.stats.mentality >= 75) dv = Math.ceil(dv * 0.45);
       else if (dv < 0 && p.stats.mentality >= 60) dv = Math.ceil(dv * 0.7);
@@ -160,19 +189,6 @@ function recomputeLeadership(p: PlayerState) {
   p.stats.leadership = clamp(base * 0.85 + (p.isIgl ? 12 : 0));
 }
 
-function enqueueIds(p: PlayerState, ids: string[] | undefined, customs: CustomEventDef[]) {
-  if (!ids?.length) return;
-  for (const id of ids) {
-    const custom = customs.find((c) => c.id === id);
-    if (custom) {
-      p.queue.push(customToRuntime(custom));
-      continue;
-    }
-    const tpl = resolveTemplate(id, p);
-    if (tpl) p.queue.push(tpl);
-  }
-}
-
 export function currentEvent(p: PlayerState): RuntimeEvent | null {
   return p.queue[0] || null;
 }
@@ -186,35 +202,42 @@ export function optionsForPhase(
   if (phase === "event_spin") {
     const ev = currentEvent(p);
     if (!ev) return withColors([{ id: "skip", label: "继续", weight: 1 }]);
-    // refresh adaptive templates that depend on ctx
     const live = resolveTemplate(ev.id, p) || ev;
     return adaptOptions(live, p, echo);
+  }
+  if (phase === "season_recap") {
+    return withColors([
+      { id: "next", label: "进入下一赛季", weight: 75 },
+      { id: "retire", label: "宣布退役", weight: 25 },
+    ]);
   }
   switch (phase) {
     case "origin_region":
       return REGION_OPTIONS;
     case "origin_country": {
-      const list = COUNTRY_BY_REGION[mapRegionId(p.region)] || COUNTRY_BY_REGION.eu;
+      const list = COUNTRY_BY_REGION[regionKeyFromLabel(p.region)] || COUNTRY_BY_REGION.eu;
       return withColors(list);
     }
     case "birth_era":
       return BIRTH_ERA;
     case "debut_year":
       return debutYearOptions(p.birthEra || "00_05");
+    case "team_pick":
+      return teamsForRegion(regionKeyFromLabel(p.region));
     case "motivation":
       return MOTIVATION;
     case "intl_squad": {
-      const stay = p.region === "独联体" || p.region === "cis" || p.region === "欧洲" ? 72 : 55;
+      const stay = p.region === "独联体" || p.region === "欧洲" ? 72 : 55;
       return withColors([
-        { id: "no", label: "否", weight: stay },
-        { id: "yes", label: "是", weight: 100 - stay },
+        { id: "no", label: "留在本区阵容", weight: stay },
+        { id: "yes", label: "加入国际纵队", weight: 100 - stay },
       ]);
     }
     case "igl": {
       const yes = Math.max(8, Math.min(45, 12 + (p.stats.sense - 50) * 0.35));
       return withColors([
-        { id: "no", label: "否", weight: 100 - yes },
-        { id: "yes", label: "是", weight: yes },
+        { id: "no", label: "不当指挥", weight: 100 - yes },
+        { id: "yes", label: "担任 IGL", weight: yes },
       ]);
     }
     case "role_ct":
@@ -244,9 +267,9 @@ export function optionsForPhase(
       });
     case "year_loop":
       return withColors([
-        { id: "run_year", label: "推进本赛季事件链", weight: 70 },
-        { id: "insert_custom", label: "先插入自定义事件", weight: 20 },
-        { id: "retire", label: "退役结算", weight: 10 },
+        { id: "run_year", label: `推进 ${p.year} 赛季`, weight: 72 },
+        { id: "insert_custom", label: "插入自定义事件", weight: 18 },
+        { id: "retire", label: "退役并总结生涯", weight: 10 },
       ]);
     default:
       return withColors([{ id: "ok", label: "继续", weight: 1 }]);
@@ -277,6 +300,33 @@ export function applyPick(
     return applyEventSpin(player, opt, customs);
   }
 
+  if (phase === "season_recap") {
+    player.history.push({ phase, label: phaseTitle(phase, p), picked: opt.label });
+    if (opt.id === "retire") {
+      player.retired = true;
+      return {
+        player,
+        next: "summary",
+        subResult: "宣布退役",
+        rite: riteForCs(player, false),
+      };
+    }
+    const age = player.year - (player.debutYear || player.year);
+    if (age >= 10) {
+      player.retired = true;
+      return {
+        player,
+        next: "summary",
+        subResult: "生涯年限到头",
+        rite: riteForCs(player, false),
+      };
+    }
+    player.year += 1;
+    player.ctx = {};
+    const rite = shouldTriggerCsMidRite(player) ? riteForCs(player, true) : undefined;
+    return { player, next: "year_loop", subResult: `${player.year} 赛季开启`, rite };
+  }
+
   player.history.push({ phase, label: phaseTitle(phase, p), picked: opt.label });
 
   switch (phase) {
@@ -289,10 +339,25 @@ export function applyPick(
     case "birth_era":
       player.birthEra = opt.id;
       break;
-    case "debut_year":
-      player.debutYear = Number(opt.label);
-      player.year = Number(opt.label);
-      player.team = pickWeighted(teamsForRegion(mapRegionId(player.region))).label;
+    case "debut_year": {
+      const y = Number(opt.id) || Number(String(opt.label).replace(/\D/g, ""));
+      player.debutYear = y;
+      player.year = y;
+      // 故意不设 team —— 下一环 team_pick 才选
+      break;
+    }
+    case "team_pick":
+      player.team = opt.label;
+      player.events.push({
+        year: player.year || player.debutYear || 0,
+        title: "加盟战队",
+        detail: `正式签约 ${opt.label}`,
+        kind: "team",
+      });
+      // 若已完成开局评定（中途补选战队），直接回赛季；否则继续开局链
+      if (player.grades.aim != null || player.grades.mentality != null) {
+        next = "year_loop";
+      }
       break;
     case "motivation":
       player.motivation = opt.label;
@@ -329,7 +394,14 @@ export function applyPick(
       player.events.push({
         year: player.year,
         title: "初登职业",
-        detail: `加盟 ${player.team} · ${player.country} · ${player.isIgl ? "IGL · " : ""}${opt.label}`,
+        detail: [
+          player.team ? `效力 ${player.team}` : "战队待定",
+          player.country || "",
+          player.isIgl ? "IGL" : "",
+          `颜值 ${opt.label}`,
+        ]
+          .filter(Boolean)
+          .join(" · "),
         kind: "life",
       });
       next = "year_loop";
@@ -339,18 +411,26 @@ export function applyPick(
       if (opt.id === "retire") {
         player.retired = true;
         next = "summary";
-        break;
+        return {
+          player,
+          next,
+          subResult: "退役结算",
+          rite: riteForCs(player, false),
+        };
       }
       if (opt.id === "insert_custom") {
         next = "year_loop";
         subResult = "请在下方编辑器插入自定义事件";
         break;
       }
-      // run year chain
+      if (!player.team) {
+        next = "team_pick";
+        subResult = "请先选择效力战队";
+        break;
+      }
       player.trophiesYear = 0;
       player.queue = seedYearQueue(player);
-      next = player.queue.length ? "event_spin" : "year_loop";
-      if (!player.queue.length) player.year += 1;
+      next = player.queue.length ? "event_spin" : "season_recap";
       break;
     }
     default:
@@ -360,18 +440,6 @@ export function applyPick(
   return { player, next, subResult };
 }
 
-function mapRegionId(label?: string) {
-  const m: Record<string, string> = {
-    独联体: "cis",
-    欧洲: "eu",
-    北美: "na",
-    南美: "sa",
-    亚洲: "asia",
-    大洋洲: "oce",
-  };
-  return m[label || ""] || "eu";
-}
-
 function applyEventSpin(
   player: PlayerState,
   opt: WheelOption,
@@ -379,14 +447,13 @@ function applyEventSpin(
 ): { player: PlayerState; next: PhaseId; subResult?: string; rite?: RiteBeat; echo?: EchoBias } {
   const head = player.queue[0];
   if (!head) {
-    return { player, next: "year_loop", subResult: "队列空" };
+    return { player, next: "season_recap", subResult: "本赛季事件已空" };
   }
 
-  // use adapted option metadata from pick (effects/flags/enqueue on opt)
-  player.history.push({ phase: "event_spin", label: head.title, picked: opt.label });
+  const detail = humanizePick(head.id, opt.id, opt.label);
+  player.history.push({ phase: "event_spin", label: head.title, picked: detail });
   applyDelta(player, opt.effects);
 
-  // flags
   for (const f of opt.flags || []) {
     if (f.startsWith("join:")) player.team = f.slice(5);
     if (f.startsWith("vs:")) player.ctx.opponent = f.slice(3);
@@ -402,12 +469,10 @@ function applyEventSpin(
     if (f === "wr:0") player.ctx.winRateBias = player.ctx.winRateBias || 0;
   }
 
-  // championship from champ_count → fame
   if (head.id === "champ_count" && player.trophiesYear > 0) {
     applyDelta(player, { fame: player.trophiesYear * 2, form: player.trophiesYear });
   }
 
-  // major final win heuristic after half_score
   if (head.id === "half_score") {
     const crush = /11:1|10:2|9:3/.test(opt.label);
     const lost = /1:11|2:10|3:9/.test(opt.label);
@@ -416,8 +481,8 @@ function applyEventSpin(
       applyDelta(player, { fame: 8, mentality: 3, form: 4, clutch: 3 });
       player.events.push({
         year: player.year,
-        title: "Major 冠军（示意）",
-        detail: `${player.ctx.map || "地图"} 上半场 ${opt.label}；对阵 ${player.ctx.opponent || "?"}；链路夺冠结算`,
+        title: "Major 冠军",
+        detail: `${player.ctx.map || "地图"} 上半场 ${opt.label}；对阵 ${player.ctx.opponent || "?"} `,
         kind: "major",
       });
     } else if (lost) {
@@ -428,33 +493,35 @@ function applyEventSpin(
       player.events.push({
         year: player.year,
         title: "大赛受挫",
-        detail: `${opt.label} · 心态${player.stats.mentality >= 70 ? "抗压减伤" : "下滑"}`,
+        detail: `${opt.label} · ${player.stats.mentality >= 70 ? "心态抗压减伤" : "心态下滑"}`,
         kind: "match",
       });
     } else {
       player.events.push({
         year: player.year,
         title: head.title,
-        detail: opt.label,
+        detail,
         kind: head.kind || "match",
       });
     }
+  } else if (head.id === "team_pick" || head.id === "team_pick_cis") {
+    player.events.push({
+      year: player.year,
+      title: "加盟 / 转会落定",
+      detail: `效力 ${opt.label}`,
+      kind: "team",
+    });
   } else {
     player.events.push({
       year: player.year,
       title: head.title,
-      detail: opt.label,
+      detail,
       kind: head.kind || "custom",
     });
   }
 
-  if (opt.flags?.includes("did_transfer") || head.id === "team_pick_cis") {
-    // team already set via join
-  }
-
   recomputeLeadership(player);
 
-  // pop current, enqueue children at front (depth-first story)
   player.queue.shift();
   const children: RuntimeEvent[] = [];
   for (const id of opt.enqueue || []) {
@@ -470,25 +537,11 @@ function applyEventSpin(
   const echo = echoFromPick(opt.id, opt.label);
 
   if (player.queue.length) {
-    return { player, next: "event_spin", subResult: opt.label, echo };
+    return { player, next: "event_spin", subResult: detail, echo };
   }
 
-  // year complete
-  const age = player.year - (player.debutYear || player.year);
-  if (age >= 11 || player.retired) {
-    player.retired = true;
-    return {
-      player,
-      next: "summary",
-      subResult: opt.label,
-      rite: riteForCs(player, false),
-      echo,
-    };
-  }
-  player.year += 1;
-  player.ctx = {};
-  const rite = shouldTriggerCsMidRite(player) ? riteForCs(player, true) : undefined;
-  return { player, next: "year_loop", subResult: opt.label, rite, echo };
+  // 赛季事件跑完 → 时间线总结（先不涨年）
+  return { player, next: "season_recap", subResult: detail, echo };
 }
 
 export function insertCustomIntoQueue(p: PlayerState, def: CustomEventDef): PlayerState {
@@ -496,6 +549,10 @@ export function insertCustomIntoQueue(p: PlayerState, def: CustomEventDef): Play
     ...p,
     queue: [customToRuntime(def), ...p.queue],
   };
+}
+
+export function eventsForYear(p: PlayerState, year: number) {
+  return p.events.filter((e) => e.year === year);
 }
 
 export function summaryText(p: PlayerState): string {
@@ -506,11 +563,11 @@ export function summaryText(p: PlayerState): string {
   return [
     `【${rite.stage}】${rite.epithet}`,
     rite.verse,
-    `${p.country || "?"} · ${p.team || "?"}`,
+    `${p.country || "?"} · ${p.team || "无战队"}`,
     `出道 ${p.debutYear || "?"} → ${p.retired ? `退役 ${p.year}` : `${p.year} 赛季`}`,
-    `Major ${p.majors} · 冠 ${p.majorWins} · 最佳排名 ${p.bestHltvRank ?? "—"} · 峰值 ${p.ratingPeak.toFixed(2)}`,
+    `Major 出场 ${p.majors} · 冠军 ${p.majorWins}`,
     `六维：${dims}`,
-    `判定维：颜值${p.judges.appearance} 忠诚${p.judges.loyalty} 名气${p.judges.fame} 状态${p.judges.form} 残局${p.judges.clutch}`,
+    `判定：颜值${p.judges.appearance} 忠诚${p.judges.loyalty} 名气${p.judges.fame} 状态${p.judges.form} 残局${p.judges.clutch}`,
     `恋爱：${p.hasPartner ? "稳定脱单" : "专注事业"} · IGL：${p.isIgl ? "是" : "否"}`,
     `动机：${p.motivation || "—"}`,
   ].join("\n");

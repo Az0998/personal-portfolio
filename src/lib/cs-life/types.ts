@@ -35,6 +35,7 @@ export type PhaseId =
   | "origin_country"
   | "birth_era"
   | "debut_year"
+  | "team_pick"
   | "motivation"
   | "intl_squad"
   | "igl"
@@ -48,6 +49,7 @@ export type PhaseId =
   | "grade_appearance"
   | "year_loop"
   | "event_spin"
+  | "season_recap"
   | "summary";
 
 export type CareerEvent = {
