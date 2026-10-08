@@ -51,6 +51,7 @@ const TITLE_CATEGORY: Record<string, WorkCategory> = {
   "Graph-RAG Vault · 知识图谱检索": "demo",
   "CS 人生模拟 · AI 转盘事件": "demo",
   "人生模拟枢纽 · 多领域转盘": "demo",
+  "都市夜谈 · 命运转盘": "demo",
   "临时文件柜 · 到期自毁分享": "tool",
   "剪贴板智能可视化仪表板": "tool",
   "庄方宜 Q 版桌面宠物": "design",

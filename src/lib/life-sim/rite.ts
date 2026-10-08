@@ -58,6 +58,9 @@ function mortalEpithet(run: LifeRun): string {
   if (f.includes("startup_seed") || f.includes("lucky")) return "赌徒与诗人之间";
   if (f.includes("contest_gold")) return "少年折桂 · 余韵未散";
   if (f.includes("first_love") && f.includes("married")) return "情字一笔 · 白首约成";
+  if (f.includes("mini_viral") || f.includes("creator")) return "算法偶然 · 你认真接住";
+  if (f.includes("pet")) return "多了一双眼睛的日子";
+  if (f.includes("took_leap")) return "赴约的人有风";
   if (f.includes("crisis") && (run.stats.spr ?? 0) >= 60) return "中年破浪 · 心灯未灭";
   if ((run.stats.iq ?? 0) >= 80) return "慧根不浅 · 人间一场";
   if ((run.stats.chr ?? 0) >= 75) return "风度翩翩 · 路过人间";
@@ -76,12 +79,31 @@ function hydroEpithet(run: LifeRun): string {
   return "水信息人 · 一行脚印";
 }
 
+function nightEpithet(run: LifeRun): string {
+  const f = run.flags;
+  if (f.includes("wrote_book")) return "把夜晚订成册";
+  if (f.includes("night_keeper")) return "城市的编外守夜人";
+  if (f.includes("sleep_peace")) return "终于与黎明握手";
+  if (f.includes("rooftop_friend")) return "天台上的共犯";
+  if (f.includes("cat_ally")) return "关东煮与流浪猫同盟";
+  if ((run.stats.soft ?? 0) >= 75) return "锋芒收进外套内侧";
+  return "灯火里的过路人";
+}
+
 export function riteForLifeRun(run: LifeRun, meta: DomainMeta, final = false): RiteBeat {
   const stage =
-    (run.domainId === "mortal" ? mortalStageAt(run.age) : hydroStageAt(run.age)) ||
+    (run.domainId === "mortal"
+      ? mortalStageAt(run.age)
+      : run.domainId === "hydro"
+        ? hydroStageAt(run.age)
+        : nightStageAt(run.age)) ||
     (final ? "生涯落定" : `${run.age} 岁节点`);
   const epithet =
-    run.domainId === "hydro" ? hydroEpithet(run) : mortalEpithet(run);
+    run.domainId === "hydro"
+      ? hydroEpithet(run)
+      : run.domainId === "night"
+        ? nightEpithet(run)
+        : mortalEpithet(run);
   const seals = [
     ...topStats(run.stats, meta.stats, 3),
     run.flags.slice(-3).join(" · ") || "尚无印记",
@@ -104,9 +126,13 @@ export function riteForCs(p: PlayerState, mid = false): RiteBeat {
     : "退役典礼";
 
   let epithet = "枪口之下 · 普通选手";
+  const viral = p.events.some((e) => /热搜|名场面|病毒|viral|见面会/i.test(e.title + e.detail));
+  const mvp = p.events.some((e) => /MVP|捧起赛事/i.test(e.detail));
   if (p.majorWins >= 2) epithet = "大满贯侧影 · 奖杯刻名";
+  else if (mvp) epithet = "聚光灯认出了你的准星";
   else if (p.majorWins >= 1) epithet = "一度加冕 · 余生回味";
   else if (p.majors >= 4) epithet = "常客八强 · 未竟决赛";
+  else if (viral) epithet = "梗比子弹飞得远";
   else if (p.judges.fame >= 75) epithet = "流量与枪法 · 双线并行";
   else if (p.isIgl && p.stats.leadership >= 70) epithet = "耳机里的皇帝";
   else if (p.judges.loyalty >= 80) epithet = "一队忠犬 · 少有离歌";
@@ -129,9 +155,21 @@ export function riteForCs(p: PlayerState, mid = false): RiteBeat {
   return { stage, epithet, verse, seals };
 }
 
+const NIGHT_STAGES: { age: number; stage: string }[] = [
+  { age: 22, stage: "夜色初浓" },
+  { age: 30, stage: "城市中场" },
+  { age: 40, stage: "灯火知己" },
+  { age: 50, stage: "黎明和解" },
+];
+
+export function nightStageAt(age: number): string | null {
+  return NIGHT_STAGES.find((s) => s.age === age)?.stage ?? null;
+}
+
 export function shouldTriggerLifeRite(run: LifeRun): boolean {
   if (run.domainId === "mortal") return mortalStageAt(run.age) != null;
   if (run.domainId === "hydro") return hydroStageAt(run.age) != null;
+  if (run.domainId === "night") return nightStageAt(run.age) != null;
   return false;
 }
 

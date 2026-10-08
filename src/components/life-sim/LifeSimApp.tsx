@@ -15,6 +15,7 @@ import type { RiteBeat } from "@/lib/life-sim/rite";
 import type { EchoBias } from "@/lib/life-sim/weighting";
 import type { LifeRun } from "@/lib/life-sim/types";
 import type { WheelOption } from "@/lib/cs-life/types";
+import { lifeAtmosphere, previewQueueTitles } from "@/lib/life-sim/flavor";
 
 const STORAGE_KEY = (id: string) => `life-sim:${id}:v1`;
 
@@ -45,6 +46,8 @@ export function LifeSimApp({ domainId }: { domainId: string }) {
   const options = useMemo(() => optionsForRun(run, echo), [run, echo]);
   const card = currentCard(run);
   const title = card?.title || (run.ended ? "人生落定" : `${run.age} 岁 · 年度菜单`);
+  const atmos = lifeAtmosphere(run);
+  const queueHint = previewQueueTitles(run.queue.map((c) => c.title));
 
   const onSpinEnd = useCallback(
     (opt: WheelOption) => {
@@ -133,7 +136,10 @@ export function LifeSimApp({ domainId }: { domainId: string }) {
       <main className="ls-main">
         <p className="ls-kicker">{meta.tagline}</p>
         <h1 className="ls-result">{result || "点下方开转"}</h1>
-        {card?.blurb && <p className="ls-sub">{card.blurb}</p>}
+        <p className="ls-sub">{card?.blurb || atmos}</p>
+        {run.queue.length > 1 && (
+          <p className="ls-queue">{queueHint}</p>
+        )}
 
         {rite && !run.ended && (
           <RiteCard rite={rite} onDismiss={() => setRite(null)} />

@@ -32,6 +32,7 @@ import { RiteCard } from "@/components/life-sim/RiteCard";
 import type { RiteBeat } from "@/lib/life-sim/rite";
 import type { EchoBias } from "@/lib/life-sim/weighting";
 import { riteForCs } from "@/lib/life-sim/rite";
+import { csAtmosphere, previewQueueTitles } from "@/lib/life-sim/flavor";
 
 export function CsLifeApp() {
   const [phase, setPhase] = useState<PhaseId>("origin_region");
@@ -92,6 +93,8 @@ export function CsLifeApp() {
     phase === "season_recap" ||
     player.history.length > 8;
   const yearEvents = eventsForYear(player, player.year);
+  const atmos = csAtmosphere(player);
+  const queuePreview = previewQueueTitles(player.queue.map((q) => q.title));
 
   const onSpinEnd = useCallback(
     (opt: WheelOption) => {
@@ -283,9 +286,15 @@ export function CsLifeApp() {
         <p className="csl-kicker">CS 职业人生 · 命运转盘</p>
         <p className="csl-stage">{title}</p>
         <h1 className="csl-result">{result || "点下方开转"}</h1>
-        {ev?.blurb && <p className="csl-sub">{ev.blurb}</p>}
-        {!ev?.blurb && phase === "team_pick" && (
-          <p className="csl-sub">先定效力战队，再进入开局评定——不会偷偷默认一支队。</p>
+        <p className="csl-sub csl-atmos">{ev?.blurb || atmos}</p>
+        {phase === "team_pick" && !ev?.blurb && (
+          <p className="csl-sub">先定效力战队，再进入开局评定。</p>
+        )}
+        {phase === "event_spin" && player.queue.length > 1 && (
+          <p className="csl-queue-preview">接下来：{queuePreview}</p>
+        )}
+        {phase === "year_loop" && (
+          <p className="csl-queue-preview">推进后将生成训练营、杯赛、Major 与随机支线</p>
         )}
 
         {inCareer && (

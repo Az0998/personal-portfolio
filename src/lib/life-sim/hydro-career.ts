@@ -1,4 +1,5 @@
 import type { EventCard, LifeRun, StatMap } from "./types";
+import { HYDRO_TALES } from "./tales";
 
 /** 水信息 / 水文职场人生：贴合本站 Hydro 主线的趣味分支 */
 
@@ -318,4 +319,5 @@ export const HYDRO_POOL: EventCard[] = [
       { id: "mentor_young", label: "带新人传帮带", weight: 12, delta: { mood: 6, write: 2, network: 2 } },
     ],
   },
+  ...HYDRO_TALES,
 ];

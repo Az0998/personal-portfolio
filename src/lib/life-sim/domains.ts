@@ -1,14 +1,15 @@
 import type { DomainMeta, EventCard, LifeRun, StatMap } from "./types";
 import { MORTAL_POOL, MORTAL_STATS, createMortalRun } from "./mortal";
 import { HYDRO_POOL, HYDRO_STATS, createHydroRun } from "./hydro-career";
+import { NIGHT_POOL, NIGHT_STATS, createNightRun } from "./night";
 
 export const DOMAINS: DomainMeta[] = [
   {
     id: "cs",
     title: "CS 职业人生",
-    tagline: "加权转盘 · Major 嵌套链 · 世界线考据 · 自定义事件",
+    tagline: "训练营 · Major 链 · 媒体赞助 · 更衣室气流 · 自定义事件",
     href: "/cs-life",
-    accent: "#f59e0b",
+    accent: "#ea580c",
     stats: [
       { key: "aim", label: "瞄准" },
       { key: "utility", label: "道具" },
@@ -28,7 +29,7 @@ export const DOMAINS: DomainMeta[] = [
   {
     id: "mortal",
     title: "凡人重开",
-    tagline: "年龄池 · 属性门槛 · 快乐抗性 · 长程 flag 依赖",
+    tagline: "雨伞、夜市、热搜与远房来信 —— 普通日子的非常选项",
     href: "/life-sim/mortal",
     accent: "#0d9488",
     stats: MORTAL_STATS,
@@ -36,10 +37,18 @@ export const DOMAINS: DomainMeta[] = [
   {
     id: "hydro",
     title: "水信息职场",
-    tagline: "测站 · 论证 · 信息化交付 · 考研/编制分支",
+    tagline: "Excel 战争 · 失踪数据 · 巡河黄昏 · 科普开放日",
     href: "/life-sim/hydro",
     accent: "#0284c7",
     stats: HYDRO_STATS,
+  },
+  {
+    id: "night",
+    title: "都市夜谈",
+    tagline: "天台、末班车、洗衣房与关东煮审判 —— 短而跳的夜游模拟",
+    href: "/life-sim/night",
+    accent: "#b45309",
+    stats: NIGHT_STATS,
   },
 ];
 
@@ -50,12 +59,14 @@ export function domainById(id: string): DomainMeta | undefined {
 export function poolFor(domainId: string): EventCard[] {
   if (domainId === "mortal") return MORTAL_POOL;
   if (domainId === "hydro") return HYDRO_POOL;
+  if (domainId === "night") return NIGHT_POOL;
   return [];
 }
 
 export function createRun(domainId: string, seed = `${Date.now()}`): LifeRun {
   if (domainId === "mortal") return createMortalRun(seed);
   if (domainId === "hydro") return createHydroRun(seed);
+  if (domainId === "night") return createNightRun(seed);
   return {
     domainId,
     age: 18,
@@ -72,7 +83,6 @@ export function resolveCard(domainId: string, id: string, run: LifeRun): EventCa
   const pool = poolFor(domainId);
   const found = pool.find((c) => c.id === id);
   if (found) return found;
-  // dynamic cards stamped into queue already carry full payload
   void run;
   return null;
 }

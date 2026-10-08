@@ -25,9 +25,7 @@ export default function LifeSimHubPage() {
         <p className="ls-kicker">加权转盘 · 条件池 · 自适应后续</p>
         <h1>人生模拟枢纽</h1>
         <p className="ls-hub-lead">
-          主站作品档案的附属玩法：CS 是深链，凡人重开与水信息职场共用「Logit + Softmax
-          温度 + 回声偏置」引擎。节点年龄会举行阶段典礼；落幕时给出称号碑文。机制参考
-          BitLife / 人生重开，选项合理有趣即可浮动，不写死唯一正解。
+          不是简历附件，是可重开的小世界。CS 有训练营、混合区、赞助与更衣室气流；凡人有雨伞与热搜；水职场有失踪数据与巡河黄昏；还有都市夜谈——天台和关东煮也会审判你。权重会自适应，选项写得像短篇，只要合理有趣就成立。
         </p>
         <ul className="ls-domain-list">
           {DOMAINS.map((d) => (

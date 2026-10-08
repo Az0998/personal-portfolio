@@ -13,7 +13,7 @@ import type { EventCard, LifeRun, WeightOption } from "./types";
 import type { WheelOption } from "@/lib/cs-life/types";
 import type { EchoBias } from "./weighting";
 
-const MAX_AGE: Record<string, number> = { mortal: 85, hydro: 55 };
+const MAX_AGE: Record<string, number> = { mortal: 85, hydro: 55, night: 52 };
 
 export type ApplyResult = {
   run: LifeRun;

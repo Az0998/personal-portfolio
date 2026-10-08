@@ -80,6 +80,21 @@
   color: var(--ls-muted);
   font-size: 0.9rem;
   text-align: center;
+  font-style: italic;
+  max-width: 22rem;
+  text-wrap: pretty;
+}
+.ls-queue {
+  margin: 0;
+  font-size: 0.72rem;
+  color: color-mix(in srgb, var(--ls-accent) 85%, #000);
+  background: color-mix(in srgb, var(--ls-accent) 12%, #fff);
+  border-radius: 999px;
+  padding: 0.28rem 0.7rem;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ls-btn {

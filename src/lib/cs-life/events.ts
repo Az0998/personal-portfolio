@@ -21,6 +21,20 @@ import {
   REGION_LABEL,
   regionKeyFromLabel,
 } from "./format";
+import {
+  evtAwards,
+  evtBootcamp,
+  evtChemistry,
+  evtCoachTalk,
+  evtFanmeet,
+  evtMedia,
+  evtPhysio,
+  evtRankedNight,
+  evtRivalReply,
+  evtSponsor,
+  evtTravelDrama,
+  pickFlavorArcs,
+} from "./arcs";
 
 export function blankJudges() {
   return { appearance: 55, loyalty: 60, fame: 40, form: 55, clutch: 50 };
@@ -479,12 +493,34 @@ export function resolveTemplate(id: string, p: PlayerState): RuntimeEvent | null
       return evtHalfScore(p);
     case "major_chain":
       return buildMajorChain(p)[0];
+    case "bootcamp":
+      return evtBootcamp(p);
+    case "physio":
+      return evtPhysio();
+    case "media":
+      return evtMedia(p);
+    case "rival_reply":
+      return evtRivalReply();
+    case "sponsor":
+      return evtSponsor(p);
+    case "chemistry":
+      return evtChemistry(p);
+    case "coach_talk":
+      return evtCoachTalk();
+    case "ranked_night":
+      return evtRankedNight(p);
+    case "fanmeet":
+      return evtFanmeet(p);
+    case "travel_drama":
+      return evtTravelDrama();
+    case "awards":
+      return evtAwards(p);
     default:
       return null;
   }
 }
 
-/** 赛年入口：按状态灵活拼装，非固定剧本 */
+/** 赛年入口：主线 + 趣味支线拼装 */
 export function seedYearQueue(p: PlayerState): RuntimeEvent[] {
   const q: RuntimeEvent[] = [];
   const age = p.year - (p.debutYear || p.year);
@@ -493,26 +529,42 @@ export function seedYearQueue(p: PlayerState): RuntimeEvent[] {
   const cis =
     p.region === "独联体" || p.region === "cis" || p.country === "俄罗斯";
 
+  // 开季仪式感：多数年份先来训练营
+  if (age === 0 || Math.random() > 0.4) {
+    q.push(evtBootcamp(p));
+  }
+
   if (cis && ((p.year + p.seed.length) % 3 === 0 || (fameHigh && age >= 2))) {
     q.push(evtWorldlineShiro(p));
   }
+
+  q.push(...pickFlavorArcs(p));
+
   q.push(evtChampCount(p.year, p));
 
-  // 状态差或忠诚低：更易触发转会课题；忠诚极高可跳过
   if (p.judges.loyalty < 88 || formLow || (p.year + age) % 2 === 0) {
     q.push(evtTransfer(p));
   }
 
+  if (Math.random() > 0.45) q.push(evtTravelDrama());
+
   q.push(...buildMajorChain(p));
 
-  // 脱单：未婚且（偶数年 或 颜值/名气够高）
+  // Major 后余韵（避免与支线池重复 media）
+  if (Math.random() > 0.35 && !q.some((e) => e.id === "media")) {
+    q.push(evtMedia(p));
+  }
+
   if (!p.hasPartner && ((p.year + 1) % 2 === 0 || p.judges.appearance >= 70 || fameHigh)) {
     q.push(evtGirlfriend(p));
   }
 
-  // 生涯中后期偶发补强讨论（未转会时也有）
   if (age >= 3 && formLow && Math.random() > 0.55) {
     q.push(evtReinforceCount());
+  }
+
+  if (age >= 1 && Math.random() > 0.5 && !q.some((e) => e.id === "awards")) {
+    q.push(evtAwards(p));
   }
 
   return q;

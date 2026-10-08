@@ -1,4 +1,5 @@
 import type { EventCard, LifeRun, StatMap } from "./types";
+import { MORTAL_TALES } from "./tales";
 
 /** 凡人重开：借鉴 BitLife / 人生重开模拟器 — 年龄段事件池 + 属性门槛 + flag 长程 */
 
@@ -356,4 +357,5 @@ export const MORTAL_POOL: EventCard[] = [
       { id: "spa", label: "养生套餐", weight: 25, delta: { money: -6, str: 3, spr: 3 }, removeFlags: ["health_warn"] },
     ],
   },
+  ...MORTAL_TALES,
 ];

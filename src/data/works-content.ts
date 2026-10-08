@@ -48,9 +48,9 @@ Major 文案参考公开赛果（如 Shanghai 2024 Spirit、Austin/Budapest 2025
   {
     title: "人生模拟枢纽 · 多领域转盘",
     description:
-      "共享条件事件池与自适应权重引擎：CS 职业、凡人重开、水信息职场。机制参考 BitLife / 人生重开，后续选项按属性与 flag 浮动。",
+      "多领域命运转盘：CS 职业叙事、凡人重开、水信息职场、都市夜谈。Logit+Softmax 自适应，赛季时间线与典礼总结。",
     category: "demo",
-    tags: "人生模拟,转盘,BitLife,凡人重开,水信息,前端演示",
+    tags: "人生模拟,转盘,BitLife,凡人重开,水信息,都市夜谈,前端演示",
     featured: false,
     published: true,
     sortOrder: 21,
@@ -59,13 +59,14 @@ Major 文案参考公开赛果（如 Shanghai 2024 Spirit、Austin/Budapest 2025
 
 [人生模拟枢纽](/life-sim)
 
-- [CS 深度线](/cs-life)
-- [凡人重开](/life-sim/mortal)
-- [水信息职场](/life-sim/hydro)
+- [CS 深度线](/cs-life) — 训练营 / Major / 媒体赞助 / 更衣室
+- [凡人重开](/life-sim/mortal) — 雨伞、夜市、热搜与遗产信
+- [水信息职场](/life-sim/hydro) — Excel 战争、失踪数据、巡河
+- [都市夜谈](/life-sim/night) — 天台、末班车、关东煮审判
 
 ## 引擎
 
-年龄/属性门槛 · flag 长程依赖 · 自适应 boost/cut · 心态减伤。详见 \`docs/life-sim-sources.md\`。
+年龄/属性门槛 · flag 长程 · Softmax 温度 · 上一选回声 · 阶段典礼。详见 \`docs/life-sim-sources.md\`。
 `,
   },
   {
