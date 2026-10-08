@@ -133,6 +133,9 @@ export function Footer({ name }: { name: string }) {
         <a href="/#feedback" className="hover:text-[#ff9aab] transition-colors">
           反馈
         </a>
+        <a href="/life-sim" className="hover:text-[#ff9aab] transition-colors">
+          人生模拟
+        </a>
         <a href="/temp-files" className="hover:text-[#ff9aab] transition-colors">
           临时文件柜
         </a>

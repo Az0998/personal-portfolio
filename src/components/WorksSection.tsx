@@ -192,6 +192,35 @@ export function WorksSection({ works }: WorksSectionProps) {
           </div>
         )}
 
+        {(filter === "all" || filter === "demo") && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-8 glass-panel rounded-[1.5rem] px-6 py-5 md:px-8 border border-white/10"
+          >
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div className="text-left">
+                <p className="text-xs tracking-widest text-white/45 mb-1">附属玩法</p>
+                <h3 className="font-display text-lg md:text-xl text-white/90 text-shadow">
+                  人生模拟枢纽
+                </h3>
+                <p className="text-sm text-white/55 mt-1 max-w-lg text-pretty">
+                  CS 职业转盘之外，还有凡人重开与水信息职场——不占主链精选，当作作品档案的趣味支线。
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2 shrink-0">
+                <Link href="/life-sim" className="btn-primary text-sm px-4 py-2">
+                  打开枢纽
+                </Link>
+                <Link href="/cs-life" className="btn-outline text-sm px-4 py-2">
+                  CS 线
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
         {filter === "all" && grouped
           ? grouped.map((group) => (
               <div key={group.key} className="mb-10">

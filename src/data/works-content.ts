@@ -14,6 +14,61 @@ export type WorkSeed = {
 /** Single source of truth — edit here, then sync / redeploy. */
 export const worksContent: WorkSeed[] = [
   {
+    title: "CS 人生模拟 · AI 转盘事件",
+    description:
+      "加权命运转盘驱动职业人生：开局建档 → 六维成长 → 自适应赛季事件（Major/Top/转会），结果可保存分享。示意数据，非 HLTV 实时爬取。多领域入口见 /life-sim。",
+    category: "demo",
+    tags: "CS,电竞,转盘,人生模拟,六维,分享,前端演示",
+    featured: false,
+    published: true,
+    sortOrder: 20,
+    link: "/cs-life",
+    content: `## 一句话
+
+像「命运转盘」一样转出一支职业人生：出生地 → 战队 → 位置 → 六维天赋 → 逐年 Major / 排名 / 转会，扇区占比随数值自适应。
+
+## 打开
+
+[CS 人生模拟转盘](/cs-life) · [人生模拟枢纽](/life-sim)（凡人重开 / 水信息职场）
+
+## 能玩什么
+
+- **开局链**：地区 / 国家 / 出生时期 / 出道年 / 动机 / 国际队 / IGL / CT·T 位置 / 五项天赋评级
+- **六维图**：瞄准 · 道具 · 理解 · 心态 · 态度 · 指挥（由评级与角色推演）
+- **嵌套分支**：Major 成绩 → 决赛对手 → 地图 BP → 半场发挥 → 指挥对位 → 比分梗；世界线（如 sh1ro 出走）、冠军数、转会补强、脱单
+- **判定维**：颜值/忠诚/名气/状态/残局影响转盘占比；心态高时崩盘掉分减伤；赛年队列按状态拼装
+- **自定义事件**：选项、权重、数值效果、enqueue 后续模板均可编辑
+- **保存分享**：本机 \`localStorage\`；\`?snap=\` 链接
+
+## 数据说明
+
+Major 文案参考公开赛果（如 Shanghai 2024 Spirit、Austin/Budapest 2025 Vitality）；**不爬取 HLTV HTML**。信息源与机制笔记见仓库 \`docs/life-sim-sources.md\`。
+`,
+  },
+  {
+    title: "人生模拟枢纽 · 多领域转盘",
+    description:
+      "共享条件事件池与自适应权重引擎：CS 职业、凡人重开、水信息职场。机制参考 BitLife / 人生重开，后续选项按属性与 flag 浮动。",
+    category: "demo",
+    tags: "人生模拟,转盘,BitLife,凡人重开,水信息,前端演示",
+    featured: false,
+    published: true,
+    sortOrder: 21,
+    link: "/life-sim",
+    content: `## 打开
+
+[人生模拟枢纽](/life-sim)
+
+- [CS 深度线](/cs-life)
+- [凡人重开](/life-sim/mortal)
+- [水信息职场](/life-sim/hydro)
+
+## 引擎
+
+年龄/属性门槛 · flag 长程依赖 · 自适应 boost/cut · 心态减伤。详见 \`docs/life-sim-sources.md\`。
+`,
+  },
+  {
     title: "水资源论证 / 水平衡报告生成器",
     description:
       "信息化交付里的业务文档自动化：填取用水与需水结构，生成水平衡与论证草稿，软硬质控后导出 Word / Markdown，便于室内岗交付与作品集附送。",

@@ -290,6 +290,26 @@ export const showcases: Showcase[] = [
     galleryHints: ["流域示意图", "文稿封面"],
   },
   {
+    slug: "cs-life",
+    title: "CS 人生模拟 · AI 转盘事件",
+    mood: "tool",
+    heroEmoji: "🎯",
+    tagline: "加权转盘 · 六维成长 · 自适应赛季事件 · 可分享",
+    highlights: [
+      "挂载 /cs-life：开局建档到退役结算一条龙",
+      "扇区占比随六维自适应（Major / Top / 替补）",
+      "雷达图 + 生涯时间线；localStorage 与分享链接",
+      "示意战队/Major 目录，不爬 HLTV",
+    ],
+    demo: [
+      { title: "开转", detail: "从出生地点转到六维天赋。" },
+      { title: "赛季", detail: "看右侧/下方占比如何随数值变化。" },
+      { title: "结算分享", detail: "复制摘要或 ?snap= 链接。" },
+    ],
+    stack: ["Next.js", "SVG 转盘", "加权随机", "localStorage"],
+    galleryHints: ["命运转盘", "六维雷达", "赛季占比", "结算页"],
+  },
+  {
     slug: "novel-studio",
     title: "Novel Studio 写作工作台",
     mood: "novel",
