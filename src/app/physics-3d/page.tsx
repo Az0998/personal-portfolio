@@ -1,22 +1,9 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { Navbar, Footer } from "@/components/Navbar";
 import { SiteBackground } from "@/components/SiteBackground";
+import { PhysicsLabApp } from "@/components/physics-3d/PhysicsLabApp";
 import "./physics-3d.css";
-
-const PhysicsLabApp = dynamic(
-  () =>
-    import("@/components/physics-3d/PhysicsLabApp").then((m) => m.PhysicsLabApp),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="phys-shell">
-        <p className="phys-lead">正在装载物理世界…</p>
-      </div>
-    ),
-  }
-);
 
 export const metadata: Metadata = {
   title: "三维物理实验室 | 张森捷",
