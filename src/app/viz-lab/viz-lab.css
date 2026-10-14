@@ -1,0 +1,219 @@
+.viz-root {
+  --viz-rose: #e44c65;
+  min-height: calc(100dvh - 4rem);
+  color: #fff;
+}
+
+.viz-shell {
+  width: min(1240px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 0.6rem 0 2.4rem;
+}
+
+.viz-hero {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.viz-kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ff9aab;
+}
+
+.viz-hero h1 {
+  margin: 0.25rem 0 0.4rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.viz-lead {
+  margin: 0;
+  max-width: 40rem;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.6;
+}
+
+.viz-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: flex-start;
+}
+
+.viz-actions button,
+.viz-actions a,
+.viz-tabs button {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease-out, transform 0.15s ease-out;
+}
+
+.viz-actions button:hover,
+.viz-tabs button:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.viz-actions button.is-on,
+.viz-tabs button.is-on {
+  background: var(--viz-hue, var(--viz-rose));
+  border-color: transparent;
+  color: #fff;
+}
+
+.viz-actions a.ghost {
+  background: transparent;
+}
+
+.viz-actions button:focus-visible,
+.viz-tabs button:focus-visible,
+.viz-param input:focus-visible {
+  outline: 2px solid #ff9aab;
+  outline-offset: 2px;
+}
+
+.viz-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.85rem;
+}
+
+.viz-tabs button span {
+  margin-right: 0.3rem;
+}
+
+.viz-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.7fr);
+  gap: 0.9rem;
+  align-items: stretch;
+}
+
+.viz-viewport {
+  position: relative;
+  min-height: min(68dvh, 620px);
+  border-radius: 1.2rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(700px 280px at 15% -10%, color-mix(in srgb, var(--viz-hue, #e44c65) 28%, transparent), transparent 55%),
+    radial-gradient(500px 240px at 90% 110%, rgba(46, 196, 182, 0.12), transparent 50%),
+    rgba(8, 6, 10, 0.72);
+}
+
+.viz-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.viz-hint {
+  position: absolute;
+  left: 0.85rem;
+  bottom: 0.7rem;
+  margin: 0;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.42);
+  pointer-events: none;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.viz-dock {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.15rem;
+  padding: 1rem 1.05rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  min-height: min(68dvh, 620px);
+  max-height: min(78dvh, 720px);
+  overflow: auto;
+}
+
+.viz-dock h2 {
+  margin: 0.2rem 0 0.35rem;
+  font-size: 1.2rem;
+}
+
+.viz-dock .tagline {
+  margin: 0 0 0.45rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.88rem;
+}
+
+.viz-dock .blurb {
+  margin: 0 0 0.9rem;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.viz-params {
+  display: grid;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+.viz-param {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.viz-param span {
+  display: flex;
+  justify-content: space-between;
+}
+
+.viz-param b {
+  color: #ff9aab;
+  font-weight: 600;
+}
+
+.viz-param input[type="range"] {
+  width: 100%;
+  accent-color: var(--viz-rose);
+}
+
+.viz-list {
+  margin: auto 0 0;
+  padding-left: 1.05rem;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+@media (max-width: 980px) {
+  .viz-stage {
+    grid-template-columns: 1fr;
+  }
+  .viz-viewport,
+  .viz-dock {
+    min-height: 420px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viz-actions button,
+  .viz-tabs button {
+    transition: none;
+  }
+}

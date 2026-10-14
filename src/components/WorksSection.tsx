@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Icon } from "@iconify/react";
 import { WorkCard, WorkItem } from "@/components/WorkCard";
 import {
   WORK_CATEGORIES,
@@ -14,6 +15,7 @@ import {
   getHydroLane,
   type HydroLane,
 } from "@/lib/hydro-guide";
+import { SIDE_PORTALS, SKILL_PORTALS } from "@/data/site-portals";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
@@ -100,8 +102,19 @@ export function WorksSection({ works }: WorksSectionProps) {
           <h2 className="font-display text-3xl md:text-5xl font-bold mb-3 text-shadow text-balance">
             作品档案
           </h2>
-          <p className="text-white/60 text-sm mb-6 max-w-xl mx-auto text-pretty">
-            精选仅主链 + Hydro-ML；演示类默认在档案区，不占首页首屏
+          <p className="text-white/60 text-sm mb-4 max-w-xl mx-auto text-pretty">
+            展示顺序：主链精选 → 能力展厅 → 作品档案 → 趣味支线。演示不占 CMS 精选。
+          </p>
+          <p className="mb-6 flex flex-wrap justify-center gap-2">
+            <Link href="/hydrobench" className="btn-primary text-sm">
+              智慧水利主链
+            </Link>
+            <Link href="/labs" className="btn-outline text-sm">
+              效果集成馆
+            </Link>
+            <Link href="/atlas" className="btn-outline text-sm">
+              作品星图
+            </Link>
           </p>
 
           <div className="flex flex-wrap justify-center gap-2" role="tablist" aria-label="作品分类">
@@ -183,6 +196,50 @@ export function WorksSection({ works }: WorksSectionProps) {
           </div>
         )}
 
+        {filter === "all" && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-10"
+          >
+            <h3 className="font-display text-xl text-white/90 mb-2 px-1 text-shadow text-balance">
+              能力展厅
+            </h3>
+            <p className="text-sm text-white/50 mb-4 px-1 text-pretty">
+              求职主链之后优先看这里：交互渲染与作品导航，证明工程表达力。
+            </p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {SKILL_PORTALS.map((p) => (
+                <Link
+                  key={p.id}
+                  href={p.href}
+                  className="glass-panel rounded-[1.35rem] px-5 py-5 border border-white/10 hover:border-white/25 transition-colors group"
+                  style={{ ["--portal-hue" as string]: p.hue }}
+                >
+                  <div className="flex items-start gap-3">
+                    <span
+                      className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white"
+                      style={{ background: `color-mix(in srgb, ${p.hue} 55%, transparent)` }}
+                    >
+                      <Icon icon={p.icon} width={22} />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="font-display text-lg text-white/95 group-hover:text-white">
+                        {p.title}
+                      </p>
+                      <p className="text-sm text-white/55 mt-1 text-pretty">{p.blurb}</p>
+                      <p className="text-xs mt-3 font-semibold" style={{ color: p.hue }}>
+                        {p.cta} →
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
         {filter !== "all" && featured.length === 0 && rest.length === 0 && (
           <div className="glass-panel rounded-[2rem] p-10 text-center mb-8">
             <p className="text-white/70 mb-4">该分类暂无作品</p>
@@ -190,35 +247,6 @@ export function WorksSection({ works }: WorksSectionProps) {
               查看全部
             </button>
           </div>
-        )}
-
-        {(filter === "all" || filter === "demo") && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-8 glass-panel rounded-[1.5rem] px-6 py-5 md:px-8 border border-white/10"
-          >
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-              <div className="text-left">
-                <p className="text-xs tracking-widest text-white/45 mb-1">附属玩法</p>
-                <h3 className="font-display text-lg md:text-xl text-white/90 text-shadow">
-                  人生模拟枢纽
-                </h3>
-                <p className="text-sm text-white/55 mt-1 max-w-lg text-pretty">
-                  CS 职业转盘之外，还有凡人重开与水信息职场——不占主链精选，当作作品档案的趣味支线。
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2 shrink-0">
-                <Link href="/life-sim" className="btn-primary text-sm px-4 py-2">
-                  打开枢纽
-                </Link>
-                <Link href="/cs-life" className="btn-outline text-sm px-4 py-2">
-                  CS 线
-                </Link>
-              </div>
-            </div>
-          </motion.div>
         )}
 
         {filter === "all" && grouped
@@ -250,6 +278,37 @@ export function WorksSection({ works }: WorksSectionProps) {
                 ))}
               </div>
             )}
+
+        {(filter === "all" || filter === "demo") &&
+          SIDE_PORTALS.map((p) => (
+            <motion.div
+              key={p.id}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mt-2 mb-8 glass-panel rounded-[1.5rem] px-6 py-5 md:px-8 border border-white/10"
+            >
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div className="text-left">
+                  <p className="text-xs tracking-widest text-white/45 mb-1">趣味支线</p>
+                  <h3 className="font-display text-lg md:text-xl text-white/90 text-shadow">
+                    {p.title}
+                  </h3>
+                  <p className="text-sm text-white/55 mt-1 max-w-lg text-pretty">{p.blurb}</p>
+                </div>
+                <div className="flex flex-wrap gap-2 shrink-0">
+                  <Link href={p.href} className="btn-outline text-sm px-4 py-2">
+                    {p.cta}
+                  </Link>
+                  {p.id === "life-sim" && (
+                    <Link href="/cs-life" className="btn-outline text-sm px-4 py-2">
+                      CS 线
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          ))}
       </div>
     </section>
   );

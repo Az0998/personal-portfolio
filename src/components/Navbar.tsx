@@ -20,6 +20,13 @@ export function Navbar({ name }: { name: string }) {
         p.startsWith("/xaj") ||
         p.startsWith("/water-balance"),
     },
+    { href: "/atlas", label: "星图", match: (p: string) => p.startsWith("/atlas") },
+    {
+      href: "/labs",
+      label: "实验室",
+      match: (p: string) =>
+        p.startsWith("/labs") || p.startsWith("/viz-lab") || p.startsWith("/physics-3d"),
+    },
     { href: "/#works", label: "作品" },
     { href: "/#about", label: "关于" },
   ];
@@ -132,6 +139,18 @@ export function Footer({ name }: { name: string }) {
         </a>
         <a href="/#feedback" className="hover:text-[#ff9aab] transition-colors">
           反馈
+        </a>
+        <a href="/atlas" className="hover:text-[#ff9aab] transition-colors">
+          作品星图
+        </a>
+        <a href="/labs" className="hover:text-[#ff9aab] transition-colors">
+          效果集成馆
+        </a>
+        <a href="/viz-lab" className="hover:text-[#ff9aab] transition-colors">
+          视效实验室
+        </a>
+        <a href="/physics-3d" className="hover:text-[#ff9aab] transition-colors">
+          三维物理
         </a>
         <a href="/life-sim" className="hover:text-[#ff9aab] transition-colors">
           人生模拟

@@ -105,6 +105,24 @@ export function Hero({ profile }: HeroProps) {
               <Icon icon="mdi:water" width={18} />
               进入智慧水利
             </a>
+            <a
+              href="/labs"
+              className="btn-outline"
+              aria-label="打开效果集成馆"
+              onClick={() => trackCta("nav-labs", "hero-效果集成馆")}
+            >
+              <Icon icon="mdi:atom-variant" width={18} />
+              效果集成馆
+            </a>
+            <a
+              href="/atlas"
+              className="btn-outline"
+              aria-label="打开作品星图"
+              onClick={() => trackCta("nav-atlas", "hero-作品星图")}
+            >
+              <Icon icon="mdi:star-four-points" width={18} />
+              作品星图
+            </a>
           </div>
         </motion.div>
 
