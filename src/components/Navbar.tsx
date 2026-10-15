@@ -9,8 +9,10 @@ import { trackClick } from "@/lib/analytics";
 export function Navbar({ name }: { name: string }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  /** 栏目只保留五条：主线 / 作品 / 互动 / 关于，避免「星图·实验室·集成馆」并列 */
   const links = [
-    { href: "/", label: "主页", match: (p: string) => p === "/" },
+    { href: "/", label: "首页", match: (p: string) => p === "/" },
     {
       href: "/hydrobench",
       label: "智慧水利",
@@ -18,16 +20,20 @@ export function Navbar({ name }: { name: string }) {
         p.startsWith("/hydro") ||
         p.startsWith("/watershed-map") ||
         p.startsWith("/xaj") ||
-        p.startsWith("/water-balance"),
+        p.startsWith("/water-balance") ||
+        p.startsWith("/smart-water"),
     },
-    { href: "/atlas", label: "星图", match: (p: string) => p.startsWith("/atlas") },
+    {
+      href: "/atlas",
+      label: "作品",
+      match: (p: string) => p.startsWith("/atlas") || p.startsWith("/presentations"),
+    },
     {
       href: "/labs",
-      label: "实验室",
+      label: "互动演示",
       match: (p: string) =>
         p.startsWith("/labs") || p.startsWith("/viz-lab") || p.startsWith("/physics-3d"),
     },
-    { href: "/#works", label: "作品" },
     { href: "/#about", label: "关于" },
   ];
 
@@ -130,33 +136,33 @@ export function Footer({ name }: { name: string }) {
   return (
     <footer className="relative z-[1] border-t border-white/10 py-8 px-6 text-center text-sm text-white/60 text-shadow">
       <p>
-        &copy; {new Date().getFullYear()} {name}. 二次元一图流 · 智慧水利作品集
+        &copy; {new Date().getFullYear()} {name}. 智慧水利作品集
       </p>
       <p className="mt-1 text-[#ff9aab]/80">zhangsjqaq.vexr.dev</p>
       <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 justify-center text-white/45">
-        <a href="/#sponsor" className="hover:text-[#ff9aab] transition-colors">
-          赞助
-        </a>
-        <a href="/#feedback" className="hover:text-[#ff9aab] transition-colors">
-          反馈
+        <a href="/hydrobench" className="hover:text-[#ff9aab] transition-colors">
+          智慧水利
         </a>
         <a href="/atlas" className="hover:text-[#ff9aab] transition-colors">
-          作品星图
+          作品展厅
         </a>
         <a href="/labs" className="hover:text-[#ff9aab] transition-colors">
-          效果集成馆
+          互动演示
         </a>
-        <a href="/viz-lab" className="hover:text-[#ff9aab] transition-colors">
-          视效实验室
-        </a>
-        <a href="/physics-3d" className="hover:text-[#ff9aab] transition-colors">
-          三维物理
+        <a href="/#works" className="hover:text-[#ff9aab] transition-colors">
+          作品列表
         </a>
         <a href="/life-sim" className="hover:text-[#ff9aab] transition-colors">
           人生模拟
         </a>
         <a href="/temp-files" className="hover:text-[#ff9aab] transition-colors">
-          临时文件柜
+          临时文件
+        </a>
+        <a href="/#sponsor" className="hover:text-[#ff9aab] transition-colors">
+          赞助
+        </a>
+        <a href="/#feedback" className="hover:text-[#ff9aab] transition-colors">
+          反馈
         </a>
         <a href="/#contact" className="hover:text-[#ff9aab] transition-colors">
           联系

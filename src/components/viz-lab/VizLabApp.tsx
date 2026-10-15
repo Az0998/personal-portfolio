@@ -87,11 +87,10 @@ export function VizLabApp() {
       <div className="viz-shell">
         <header className="viz-hero">
           <div>
-            <p className="viz-kicker">Viz Lab / 可视化实验室</p>
-            <h1 className="text-balance">物理、混沌、光电与星空</h1>
+            <p className="viz-kicker">平面动画</p>
+            <h1 className="text-balance">边调参数，边看结果</h1>
             <p className="viz-lead text-pretty">
-              十八个可调参小品：机械与混沌、光电与流体、周转与鸟群、Julia 与波干涉、反应扩散与
-              L-system、柔体布与 Metaball、烟花，以及降雨—径流过程线。
+              十八个即时演算场景：从降雨过程、混沌轨迹到斑图、布料与烟花。点上方标签切换，右侧滑块实时生效。
             </p>
           </div>
           <div className="viz-actions">
@@ -108,13 +107,10 @@ export function VizLabApp() {
               重置
             </button>
             <a className="ghost" href="/labs">
-              集成馆
+              全部演示
             </a>
             <a className="ghost" href="/physics-3d">
               三维物理
-            </a>
-            <a className="ghost" href="/atlas">
-              作品星图
             </a>
           </div>
         </header>
@@ -146,12 +142,14 @@ export function VizLabApp() {
               resetToken={resetToken}
             />
             <p className="viz-hint">
-              {scene.id === "fluid"
-                ? "点击画布激起波纹 · "
-                : scene.id === "cosmos"
-                  ? "按住拖拽偏航 · "
-                  : ""}
-              ← → 换场景 · 空格暂停 · R 重置 · 1–9 直达前九个
+              {scene.id === "fluid" || scene.id === "reaction" || scene.id === "fireworks"
+                ? "点击画面可互动 · "
+                : scene.id === "cloth"
+                  ? "按住拖拽布料 · "
+                  : scene.id === "cosmos"
+                    ? "拖拽转动视角 · "
+                    : ""}
+              ← → 换场景 · 空格暂停 · R 重置
             </p>
           </div>
 
@@ -185,9 +183,9 @@ export function VizLabApp() {
             </div>
 
             <ul className="viz-list">
-              <li>全部场景用 Canvas 2D 实时绘制，无额外 3D 依赖。</li>
-              <li>尊重 prefers-reduced-motion：降低积分步数与粒子量。</li>
-              <li>参数即时生效；重置会清空轨迹 / 墨滴 / 初值。</li>
+              <li>画面在浏览器里即时演算，调参立刻生效。</li>
+              <li>若系统开启「减少动态效果」，会自动降低计算量。</li>
+              <li>点重置可回到该场景的默认状态。</li>
             </ul>
           </aside>
         </div>

@@ -5,12 +5,12 @@ import { LabsHub } from "@/components/labs/LabsHub";
 import "./labs.css";
 
 export const metadata: Metadata = {
-  title: "效果集成馆 | 张森捷",
+  title: "互动演示 | 张森捷",
   description:
-    "星图、Canvas 可视化实验室与三维物理实验室的集成入口：反应扩散、柔体、Metaball、绳链、磁力、喷泉等交互小品。",
+    "作品展厅、平面动画与三维物理：可调参数的降雨过程、斑图生长、柔软布料、水面浮力、绳链与喷泉。",
   openGraph: {
-    title: "效果集成馆 | 张森捷",
-    description: "作品星图 · 2D 视效 · 3D 物理——一座馆逛完好玩的运动与渲染。",
+    title: "互动演示 | 张森捷",
+    description: "可逛的作品展厅，加上可玩的平面动画与三维物理。",
   },
 };
 

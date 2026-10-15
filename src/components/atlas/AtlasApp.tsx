@@ -122,15 +122,12 @@ export function AtlasApp() {
       <div className="atlas-shell">
         <header className="atlas-hero">
           <div>
-            <p className="atlas-kicker">Atlas / 作品星图</p>
-            <h1 className="text-balance">把站点项目摊开成可逛的展馆</h1>
+            <p className="atlas-kicker">作品展厅</p>
+            <h1 className="text-balance">用三种方式浏览全部项目</h1>
             <p className="atlas-lead text-pretty">
-              三维星轨、二维星图与展柜三种看法。点开任意展品：指标、路径、演示入口与汇报页都在右侧。主站二次元气质保留，水利展品仍用自己的水色。
-            </p>
-            <p className="atlas-lead text-pretty" style={{ marginTop: "0.55rem" }}>
-              想看活塞、混沌、光电、水流与星空？去{" "}
-              <a href="/viz-lab" style={{ color: "#ff9aab", textDecoration: "underline" }}>
-                视效实验室
+              轨道、地图、列表任选。点开任一项目：简介、演示入口与介绍页都在右侧。想亲手调参玩动画，去{" "}
+              <a href="/labs" style={{ color: "#ff9aab", textDecoration: "underline" }}>
+                互动演示
               </a>
               。
             </p>
@@ -159,9 +156,9 @@ export function AtlasApp() {
           <div className="atlas-mode" role="group" aria-label="浏览方式">
             {(
               [
-                ["orbit", "星轨 1"],
-                ["stars", "星图 2"],
-                ["cabinet", "展柜 3"],
+                ["orbit", "轨道"],
+                ["stars", "地图"],
+                ["cabinet", "列表"],
               ] as const
             ).map(([id, label]) => (
               <button

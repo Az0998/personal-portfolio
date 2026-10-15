@@ -1294,9 +1294,10 @@ const reaction = (() => {
       for (let i = 0; i < a.length; i++) {
         const t = clamp(b[i] * 2.2, 0, 1);
         const idx = i * 4;
-        img.data[idx] = Math.floor(20 + 220 * t);
-        img.data[idx + 1] = Math.floor(30 + 80 * (1 - t));
-        img.data[idx + 2] = Math.floor(60 + 160 * Math.sin(t * 3));
+        // rose → soft teal gradient for a calmer, portfolio-native look
+        img.data[idx] = Math.floor(228 * t + 18 * (1 - t));
+        img.data[idx + 1] = Math.floor(76 * t + 160 * (1 - t) * (0.4 + t));
+        img.data[idx + 2] = Math.floor(101 * t + 196 * (1 - t));
         img.data[idx + 3] = 255;
       }
       offCtx.putImageData(img, 0, 0);
@@ -1576,7 +1577,7 @@ const fireworks = (() => {
     },
     draw(c: VizCtx) {
       const { ctx, w, h, params, dt } = c;
-      clear(c, "rgba(4,4,12,0.35)");
+      clear(c, "rgba(4,4,12,0.22)");
       const rate = params.rate ?? 0.7;
       const spread = params.spread ?? 1.1;
       const g = params.gravity ?? 0.08;
@@ -1589,24 +1590,33 @@ const fireworks = (() => {
           vx: (Math.random() - 0.5) * 1.2,
           vy: -(6 + Math.random() * 3),
           life: 1,
-          h: Math.random() * 360,
+          h: 330 + Math.random() * 50,
           kind: "rocket",
         });
       }
       const next: P[] = [];
       for (const p of parts) {
+        const ox = p.x;
+        const oy = p.y;
         p.x += p.vx;
         p.y += p.vy;
         p.vy += g;
-        p.life -= p.kind === "rocket" ? 0.01 : 0.016;
+        p.life -= p.kind === "rocket" ? 0.01 : 0.014;
         if (p.kind === "rocket" && p.vy >= -0.5) {
           burst(p.x, p.y, spread);
           continue;
         }
         if (p.life <= 0) continue;
-        ctx.fillStyle = hsl(p.h, 90, 65, clamp(p.life, 0, 1));
+        const a = clamp(p.life, 0, 1);
+        ctx.strokeStyle = hsl(p.h, 85, 68, a * 0.55);
+        ctx.lineWidth = p.kind === "rocket" ? 2 : 1.4;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.kind === "rocket" ? 2.4 : 1.8, 0, Math.PI * 2);
+        ctx.moveTo(ox, oy);
+        ctx.lineTo(p.x, p.y);
+        ctx.stroke();
+        ctx.fillStyle = hsl(p.h, 90, 70, a);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.kind === "rocket" ? 2.6 : 1.9, 0, Math.PI * 2);
         ctx.fill();
         next.push(p);
       }

@@ -87,10 +87,10 @@ export function PhysicsLabApp() {
       <div className="phys-shell">
         <header className="phys-hero">
           <div>
-            <p className="phys-kicker">Physics 3D / 三维物理实验室</p>
-            <h1 className="text-balance">碰撞 · 浮力 · 绳链 · 磁力喷泉</h1>
+            <p className="phys-kicker">三维物理</p>
+            <h1 className="text-balance">可旋转的刚体小世界</h1>
             <p className="phys-lead text-pretty">
-              Three.js + Cannon 八个刚体场景：堆叠、斜面、水面、多米诺、绳链约束、磁力吸引、粒子喷泉与点击沙盒。拖拽旋转视角。
+              八个场景：球堆碰撞、斜面滑动、水面浮力、绳链、磁力、喷泉与沙盒。拖拽旋转视角，右侧滑块改重力与弹性。
             </p>
           </div>
           <div className="phys-actions">
@@ -107,10 +107,10 @@ export function PhysicsLabApp() {
               重置
             </button>
             <a className="ghost" href="/labs">
-              集成馆
+              全部演示
             </a>
             <a className="ghost" href="/viz-lab">
-              2D 视效
+              平面动画
             </a>
           </div>
         </header>
@@ -176,9 +176,9 @@ export function PhysicsLabApp() {
             </div>
 
             <ul className="phys-list">
-              <li>引擎：three（渲染）+ cannon-es（刚体、摩擦、恢复系数）。</li>
-              <li>水面场景对浸入物体施加浮力与粘滞阻尼，波面为顶点动画。</li>
-              <li>尊重窄屏：可旋转查看；复杂堆叠时球数不宜过大。</li>
+              <li>拖拽旋转视角，滚轮缩放；沙盒场景可点击地面生成物体。</li>
+              <li>水面场景会给浸入物体加浮力，波面会轻微起伏。</li>
+              <li>手机上也可转视角；球太多时会更吃性能。</li>
             </ul>
           </aside>
         </div>

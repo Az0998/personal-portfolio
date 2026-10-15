@@ -6,12 +6,12 @@ import { PhysicsLabApp } from "@/components/physics-3d/PhysicsLabApp";
 import "./physics-3d.css";
 
 export const metadata: Metadata = {
-  title: "三维物理实验室 | 张森捷",
+  title: "三维物理 | 张森捷",
   description:
-    "Three.js + Cannon 三维刚体：碰撞堆叠、斜面摩擦、浮力水面、多米诺、绳链、磁力、粒子喷泉与交互沙盒。",
+    "可旋转的三维刚体演示：球堆碰撞、斜面滑动、水面浮力、多米诺、绳链、磁力、粒子喷泉与自由沙盒。",
   openGraph: {
-    title: "三维物理实验室 | 张森捷",
-    description: "碰撞、浮力、绳链约束、磁力吸引与粒子喷泉的实时 3D 小品。",
+    title: "三维物理 | 张森捷",
+    description: "拖拽旋转视角，调参看碰撞、浮力与喷泉。",
   },
 };
 

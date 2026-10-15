@@ -106,22 +106,22 @@ export function Hero({ profile }: HeroProps) {
               进入智慧水利
             </a>
             <a
-              href="/labs"
-              className="btn-outline"
-              aria-label="打开效果集成馆"
-              onClick={() => trackCta("nav-labs", "hero-效果集成馆")}
-            >
-              <Icon icon="mdi:atom-variant" width={18} />
-              效果集成馆
-            </a>
-            <a
               href="/atlas"
               className="btn-outline"
-              aria-label="打开作品星图"
-              onClick={() => trackCta("nav-atlas", "hero-作品星图")}
+              aria-label="浏览作品展厅"
+              onClick={() => trackCta("nav-atlas", "hero-作品展厅")}
             >
-              <Icon icon="mdi:star-four-points" width={18} />
-              作品星图
+              <Icon icon="mdi:view-dashboard-outline" width={18} />
+              作品展厅
+            </a>
+            <a
+              href="/labs"
+              className="btn-outline"
+              aria-label="打开互动演示"
+              onClick={() => trackCta("nav-labs", "hero-互动演示")}
+            >
+              <Icon icon="mdi:play-box-multiple-outline" width={18} />
+              互动演示
             </a>
           </div>
         </motion.div>

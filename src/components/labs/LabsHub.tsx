@@ -16,60 +16,65 @@ export function LabsHub() {
       <div className="labs-shell">
         <header className="labs-hero">
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
+            className="labs-hero-copy"
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="labs-kicker">Labs / 效果集成馆</p>
-            <h1 className="text-balance">星图 · 视效 · 三维物理</h1>
+            <p className="labs-kicker">互动演示</p>
+            <h1 className="text-balance">可逛、可调、可玩</h1>
             <p className="labs-lead text-pretty">
-              把站点里好玩的运动、渲染与物理小品收成一座馆：从作品星轨逛到 Canvas
-              实验室，再到 Three + Cannon 的刚体世界。任选一翼深入，或从亮点直达场景。
+              先看作品展厅了解项目全貌，再进入平面动画与三维物理——边调参数边看结果，逻辑清楚，画面也讲究。
             </p>
+            <ol className="labs-steps" aria-label="推荐浏览顺序">
+              <li>
+                <span>1</span>
+                作品展厅 · 浏览项目
+              </li>
+              <li>
+                <span>2</span>
+                平面动画 · 调参观察
+              </li>
+              <li>
+                <span>3</span>
+                三维物理 · 旋转体验
+              </li>
+            </ol>
           </motion.div>
+
           <motion.div
-            className="labs-orbit"
+            className="labs-hero-visual"
             aria-hidden
-            initial={{ opacity: 0, scale: 0.92 }}
+            initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.55, delay: 0.08 }}
+            transition={{ duration: 0.6, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className="labs-orbit-ring" />
-            <span className="labs-orbit-ring labs-orbit-ring--2" />
-            <span className="labs-orbit-core">✦</span>
-            {LAB_WINGS.map((w, i) => (
-              <span
-                key={w.id}
-                className={`labs-orbit-dot labs-orbit-dot--${i + 1}`}
-                style={{ ["--dot-hue" as string]: w.hue }}
-              >
-                {w.emoji}
-              </span>
-            ))}
+            <div className="labs-panel">
+              <div className="labs-panel-glow" />
+              <div className="labs-panel-grid" />
+              <div className="labs-panel-orb labs-panel-orb--a" />
+              <div className="labs-panel-orb labs-panel-orb--b" />
+              <div className="labs-panel-orb labs-panel-orb--c" />
+              <p className="labs-panel-caption">即时演算 · 可调参数 · 三维刚体</p>
+            </div>
           </motion.div>
         </header>
 
-        <section className="labs-wings" aria-label="实验室翼">
+        <section className="labs-wings" aria-label="三个入口">
           {LAB_WINGS.map((wing, i) => (
             <motion.article
               key={wing.id}
               className="labs-wing"
               style={{ ["--wing-hue" as string]: wing.hue }}
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.4, delay: i * 0.06 }}
+              transition={{ duration: 0.42, delay: i * 0.07 }}
             >
-              <div className="labs-wing-top">
-                <span className="labs-wing-emoji" aria-hidden>
-                  {wing.emoji}
-                </span>
-                <div>
-                  <p className="labs-wing-kicker">{wing.kicker}</p>
-                  <h2>{wing.title}</h2>
-                  <p className="labs-wing-tag">{wing.tagline}</p>
-                </div>
-              </div>
+              <div className="labs-wing-index">{String(i + 1).padStart(2, "0")}</div>
+              <p className="labs-wing-kicker">{wing.kicker}</p>
+              <h2>{wing.title}</h2>
+              <p className="labs-wing-tag">{wing.tagline}</p>
               <p className="labs-wing-blurb text-pretty">{wing.blurb}</p>
               <ul className="labs-tech">
                 {wing.tech.map((t) => (
@@ -92,23 +97,23 @@ export function LabsHub() {
                 className="labs-enter"
                 onClick={() => trackClick("labs-enter", wing.id)}
               >
-                进入本翼
+                开始体验
                 <span aria-hidden>→</span>
               </Link>
             </motion.article>
           ))}
         </section>
 
-        <section className="labs-highlights" aria-label="亮点直达">
+        <section className="labs-highlights" aria-label="精选场景">
           <div className="labs-section-head">
-            <h2>亮点直达</h2>
-            <p>新加的好玩效果，一键跳进对应场景。</p>
+            <h2>精选场景</h2>
+            <p>观感与交互都更完整的几条，点进去即可玩。</p>
           </div>
           <div className="labs-grid">
             {LAB_HIGHLIGHTS.map((h, i) => (
               <motion.div
                 key={h.href}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.04 }}

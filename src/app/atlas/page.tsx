@@ -6,12 +6,12 @@ import { AtlasApp } from "@/components/atlas/AtlasApp";
 import "./atlas.css";
 
 export const metadata: Metadata = {
-  title: "作品星图 | 张森捷",
+  title: "作品展厅 | 张森捷",
   description:
-    "三维星轨与二维星图浏览个人站项目：智慧水利、在线演示、论文与工具，可筛选、检索并进入演示或汇报页。",
+    "用轨道、地图、列表三种方式浏览项目：智慧水利、在线演示、论文与工具，可筛选并进入演示或介绍页。",
   openGraph: {
-    title: "作品星图 | 张森捷",
-    description: "把站点项目摊开成可逛的展馆：星轨、星图、展柜三种看法。",
+    title: "作品展厅 | 张森捷",
+    description: "浏览全部项目，并打开演示或介绍页。",
   },
 };
 

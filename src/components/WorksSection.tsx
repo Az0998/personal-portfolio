@@ -98,22 +98,22 @@ export function WorksSection({ works }: WorksSectionProps) {
           viewport={{ once: true }}
           className="glass-panel rounded-[2rem] p-8 md:p-10 mb-8 text-center"
         >
-          <p className="eyebrow mb-3">Works</p>
+          <p className="eyebrow mb-3">作品</p>
           <h2 className="font-display text-3xl md:text-5xl font-bold mb-3 text-shadow text-balance">
             作品档案
           </h2>
           <p className="text-white/60 text-sm mb-4 max-w-xl mx-auto text-pretty">
-            展示顺序：主链精选 → 能力展厅 → 作品档案 → 趣味支线。演示不占 CMS 精选。
+            先看智慧水利主线，再浏览全部项目；互动演示与趣味玩法放在后面，不抢主线位置。
           </p>
           <p className="mb-6 flex flex-wrap justify-center gap-2">
             <Link href="/hydrobench" className="btn-primary text-sm">
-              智慧水利主链
-            </Link>
-            <Link href="/labs" className="btn-outline text-sm">
-              效果集成馆
+              智慧水利
             </Link>
             <Link href="/atlas" className="btn-outline text-sm">
-              作品星图
+              作品展厅
+            </Link>
+            <Link href="/labs" className="btn-outline text-sm">
+              互动演示
             </Link>
           </p>
 
@@ -204,10 +204,10 @@ export function WorksSection({ works }: WorksSectionProps) {
             className="mb-10"
           >
             <h3 className="font-display text-xl text-white/90 mb-2 px-1 text-shadow text-balance">
-              能力展厅
+              接着看这些
             </h3>
             <p className="text-sm text-white/50 mb-4 px-1 text-pretty">
-              求职主链之后优先看这里：交互渲染与作品导航，证明工程表达力。
+              作品展厅浏览全部项目；互动演示里可亲手调参、旋转三维场景。
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               {SKILL_PORTALS.map((p) => (

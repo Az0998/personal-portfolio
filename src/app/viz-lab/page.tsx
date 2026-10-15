@@ -6,12 +6,12 @@ import { VizLabApp } from "@/components/viz-lab/VizLabApp";
 import "./viz-lab.css";
 
 export const metadata: Metadata = {
-  title: "可视化实验室 | 张森捷",
+  title: "平面动画 | 张森捷",
   description:
-    "交互式 Canvas 可视化：活塞、混沌、光电、流体、周转、鸟群、Julia、反应扩散、L-system、柔体、Metaball、烟花等十八场景。",
+    "十八个可调参数的平面动画：降雨过程、混沌轨迹、斑图生长、柔软布料、液态熔球与粒子烟花等。",
   openGraph: {
-    title: "可视化实验室 | 张森捷",
-    description: "物理机械、混沌、分形、反应扩散与粒子烟花的实时小品。",
+    title: "平面动画 | 张森捷",
+    description: "边调参数边看结果的即时演算动画。",
   },
 };
 
