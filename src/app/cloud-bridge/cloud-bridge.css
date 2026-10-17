@@ -1,0 +1,93 @@
+.cb-root {
+  min-height: 100dvh;
+  background: #f3efe6;
+  color: #1c1915;
+  font-family: "Source Han Serif SC", "Noto Serif SC", "Songti SC", Georgia, serif;
+}
+
+.cb-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 28px;
+  border-bottom: 1px solid rgba(28, 25, 21, 0.08);
+}
+
+.cb-back {
+  color: #0f6e56;
+  text-decoration: none;
+}
+
+.cb-wrap {
+  width: min(760px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 36px 0 72px;
+}
+
+.cb-kicker {
+  letter-spacing: 0.14em;
+  font-size: 12px;
+  color: #6b645b;
+}
+
+.cb-wrap h1 {
+  margin: 8px 0 10px;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 560;
+}
+
+.cb-lead {
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 40rem;
+}
+
+.cb-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 22px 0 8px;
+}
+
+.cb-download,
+.cb-quiet {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 10px 16px;
+  text-decoration: none;
+}
+
+.cb-download {
+  background: #0f6e56;
+  color: #f7f3ea;
+}
+
+.cb-quiet {
+  border: 1px solid rgba(28, 25, 21, 0.16);
+  color: #1c1915;
+}
+
+.cb-note {
+  color: #6b645b;
+  font-size: 14px;
+}
+
+.cb-wrap ol {
+  padding-left: 1.2rem;
+  line-height: 1.7;
+}
+
+.cb-wrap h2 {
+  margin-top: 32px;
+  font-size: 22px;
+}
+
+.cb-card {
+  margin-top: 16px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: #fffdf8;
+  border: 1px solid rgba(28, 25, 21, 0.08);
+}

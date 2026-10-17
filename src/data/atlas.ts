@@ -135,6 +135,22 @@ type Extra = Omit<AtlasExhibit, "deckHref" | "color" | "featured" | "metrics"> &
 
 const EXTRAS: Extra[] = [
   {
+    slug: "cloud-bridge",
+    title: "跨云复制",
+    emoji: "☁",
+    mood: "tool",
+    hall: "tool",
+    tagline: "本机把百度网盘复制到夸克，核对后才开始，默认不删原文件",
+    href: "/cloud-bridge",
+    highlights: ["五步核对：账号、目录、勾选、确认、进度", "Windows 本地程序，编译后分发", "网站只提供说明和下载"],
+    stack: ["Windows", "本地会话", "双栏目录"],
+    metrics: [
+      { label: "流程关卡", display: "5", value: 5 },
+      { label: "默认删源", display: "关", value: 0 },
+    ],
+    demo: [{ title: "下载 Windows 程序", detail: "在本机打开，登录会话不经过网站。" }],
+  },
+  {
     slug: "xaj-bench",
     title: "新安江机理预报对照台",
     emoji: "⛰️",

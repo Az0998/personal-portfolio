@@ -813,6 +813,31 @@ python scripts/export_web_forecast.py
 - 姐妹项目：[Dianchi Mask-View](https://az0998.github.io/dianchi-maskview-imputation/)
 `,
   },
+  {
+    title: "跨云复制",
+    description:
+      "Windows 本地程序：在本机把百度网盘文件复制到夸克。先核对账号、目录和是否保留原文件，再开始。网站提供说明和下载，不经手网盘登录。",
+    category: "tool",
+    tags: "网盘,百度网盘,夸克,本地工具,Windows",
+    featured: false,
+    published: true,
+    sortOrder: 48,
+    link: "/cloud-bridge",
+    content: `## 打开
+
+[说明与下载](/cloud-bridge)
+
+复制在你自己的电脑上完成。网站不保存网盘账号，也不代传文件。
+
+## 使用顺序
+
+1. 在这台电脑上登录百度网盘和夸克网盘（已用无隅登录过的话，程序会读到本机会话）。
+2. 打开程序，确认两边账号都在。
+3. 左边勾选来源，右边打开要放入的目录。
+4. 核对弹窗里的文件名、目标路径，以及是否删除来源。默认不删除。
+5. 看进度。同名且大小相同的文件会跳过，失败的可以再复制一次补上。
+`,
+  },
 ];
 
 export const profileContent = {
