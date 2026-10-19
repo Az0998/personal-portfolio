@@ -17,6 +17,7 @@
     <header>
       <h1>微型蒸渗仪数据处理</h1>
       <p class="lede">按 SmartField 中文手册处理 DT80 CSV。10 分钟只累计越过门限的增重；正式蒸散只累计真午夜、有储水瓶实测、且已确认自由度的日子。计算在浏览器里完成。</p>
+      <p class="lede" style="opacity:.85">说明：内置示例是合成序列，只演示界面；旧 Python 8765 路径已废弃。本页独立于 hydro-info-platform。</p>
     </header>
 
     <section class="panel controls">
@@ -40,6 +41,7 @@
       <button id="demo" class="ghost" type="button">用示例序列</button>
       <label class="check"><input id="snow" type="checkbox" /> 现场有积雪或边缘植物</label>
       <label class="check"><input id="free" type="checkbox" /> 已确认筒体和储水瓶可自由活动</label>
+      <label class="check"><input id="detect-wall" type="checkbox" /> 启用碰壁检测（默认关，易误标）</label>
     </section>
     <p id="status"></p>
     <div class="downloads">
