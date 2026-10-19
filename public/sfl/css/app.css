@@ -1,0 +1,111 @@
+:root {
+  --bg: #f3efe6;
+  --ink: #1c1915;
+  --muted: #5e574e;
+  --line: #ddd4c6;
+  --card: #fffdf8;
+  --green: #2f6f4e;
+  --soil: #8a5a44;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.5 "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+
+body { padding: 28px 22px 64px; }
+
+.wrap { max-width: 1080px; margin: 0 auto; }
+
+header h1 { margin: 0 0 8px; font-size: 1.7rem; letter-spacing: 0; }
+
+.lede { margin: 0 0 18px; color: var(--muted); max-width: 68ch; }
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  margin: 14px 0;
+}
+
+.controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: end; }
+
+label { display: grid; gap: 4px; font-size: 0.86rem; color: var(--muted); }
+
+input, select, button {
+  font: inherit;
+  color: var(--ink);
+}
+
+input[type="number"], select, input[type="file"] {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 7px 8px;
+}
+
+button, .btn {
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 14px;
+  background: var(--green);
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button.ghost, .btn.ghost {
+  background: transparent;
+  color: var(--green);
+  border: 1px solid var(--green);
+}
+
+.check { display: flex; gap: 8px; align-items: center; color: var(--ink); }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  display: grid;
+  gap: 4px;
+}
+
+.card b { font-size: 1.35rem; font-variant-numeric: tabular-nums; }
+
+.card span { color: var(--muted); font-size: 0.82rem; }
+
+#meta { color: var(--muted); }
+
+#notes { margin: 8px 0 0; padding-left: 1.2rem; }
+
+#notes li { margin: 4px 0; }
+
+.figure { overflow-x: auto; }
+
+svg { width: 100%; height: auto; display: block; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+th { color: var(--muted); font-weight: 600; }
+
+.downloads { display: flex; gap: 10px; flex-wrap: wrap; }
+
+h2 { font-size: 1.05rem; margin: 22px 0 8px; }
+
+html.embed body { padding-top: 12px; }
+
+@media (max-width: 720px) {
+  body { padding: 16px 12px 40px; }
+  header h1 { font-size: 1.35rem; }
+}

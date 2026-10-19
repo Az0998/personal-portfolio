@@ -18,6 +18,7 @@ export function Navbar({ name }: { name: string }) {
       label: "智慧水利",
       match: (p: string) =>
         p.startsWith("/hydro") ||
+        p.startsWith("/sfl") ||
         p.startsWith("/watershed-map") ||
         p.startsWith("/xaj") ||
         p.startsWith("/water-balance") ||

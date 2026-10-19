@@ -19,13 +19,14 @@ import {
 import { trackCta } from "@/lib/analytics";
 
 /** 一级：总览 → 态势 | 作业台 | 空间 | 模型 | 文档；作业台下再分室内/户外 */
-type Tab = "hub" | "info" | "studio" | "field" | "map" | "model" | "doc";
+type Tab = "hub" | "info" | "studio" | "field" | "sfl" | "map" | "model" | "doc";
 
 type Kind = "态势" | "作业" | "空间" | "机理" | "文档";
 
 function resolveTab(raw: string | null): Tab {
   if (raw === "studio" || raw === "bench" || raw === "workbench" || raw === "ops") return "studio";
   if (raw === "field") return "field";
+  if (raw === "sfl" || raw === "lysimeter") return "sfl";
   if (raw === "info" || raw === "situ" || raw === "态势") return "info";
   if (raw === "map" || raw === "space" || raw === "spatial" || raw === "watershed") return "map";
   if (raw === "model" || raw === "xaj" || raw === "mech") return "model";
@@ -34,7 +35,7 @@ function resolveTab(raw: string | null): Tab {
 }
 
 function primaryOf(tab: Tab): "hub" | "info" | "work" | "map" | "model" | "doc" {
-  if (tab === "studio" || tab === "field") return "work";
+  if (tab === "studio" || tab === "field" || tab === "sfl") return "work";
   if (tab === "hub" || tab === "info" || tab === "map" || tab === "model" || tab === "doc") return tab;
   return "hub";
 }
@@ -56,20 +57,21 @@ const PRIMARY_NAV: {
 const EMBED_PANES: Partial<Record<Tab, { title: string; src: string }>> = {
   studio: { title: "室内作业台", src: "/hydrobench/studio/index.html?embed=1" },
   field: { title: "户外应急台", src: "/hydrobench/field/index.html?embed=1" },
+  sfl: { title: "微型蒸渗仪", src: "/sfl/index.html?embed=1" },
   map: { title: "流域一张图", src: "/watershed-map?embed=1" },
   model: { title: "产汇流机理对照", src: "/xaj-bench?embed=1" },
   doc: { title: "水平衡论证草稿", src: "/water-balance-report?embed=1" },
 };
 
 type HubCard = {
-  id: GuideStepId | "work-field";
+  id: GuideStepId | "work-field" | "work-sfl";
   group: "看站网与作业" | "落空间" | "算预报与出文档";
   kind: Kind;
   title: string;
   role: string;
   href: string;
   guideId?: GuideStepId;
-  status: "已上线";
+  status: "已上线" | "雏形";
 };
 
 const HUB_GROUPS: { key: HubCard["group"]; cards: HubCard[] }[] = [
@@ -104,6 +106,15 @@ const HUB_GROUPS: { key: HubCard["group"]; cards: HubCard[] }[] = [
         role: "断网也能记测次、速算与清单，回城再导出。",
         href: "/hydrobench?tab=field",
         status: "已上线",
+      },
+      {
+        id: "work-sfl",
+        group: "看站网与作业",
+        kind: "作业",
+        title: "微型蒸渗仪",
+        role: "DT80 称重、底部反馈和午夜水平衡。按手册做质控，再算 10 分钟降水和日蒸散。",
+        href: "/sfl",
+        status: "雏形",
       },
     ],
   },
@@ -278,6 +289,15 @@ export function HydroHub() {
                 onClick={() => setTab("field")}
               >
                 户外应急
+              </button>
+              <button
+                type="button"
+                role="tab"
+                className={tab === "sfl" ? "active" : ""}
+                aria-selected={tab === "sfl"}
+                onClick={() => setTab("sfl")}
+              >
+                蒸渗仪
               </button>
             </div>
           )}
