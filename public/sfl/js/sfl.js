@@ -512,7 +512,8 @@
 
     const temp = w.fieldTemp || w.bottomTemp || w.temp1;
     const finiteLyw = w.lyw.filter(finite).length;
-    flags.wall_contact = temp && finiteLyw > 400 ? thermalWall(w.lyw, temp) : blank();
+    // 碰壁启发式默认关闭：合成示例易大片误标，需勾选才启用（仅诊断标记，不剔除通量）
+    flags.wall_contact = options.detectWall && temp && finiteLyw > 400 ? thermalWall(w.lyw, temp) : blank();
 
     flags.weight_nominal = w.lyw.map((v) => finite(v) && v > model.normalMax && v <= model.absMax);
     flags.weight_overload = w.lyw.map((v) => finite(v) && (v > model.absMax || v < 0));
@@ -750,6 +751,10 @@
     if (flagRuns(flags.wall_contact).count) notes.push("碰壁只标记，未从蒸散剔除（10.4.2.1）。");
     notes.push("本机通道没有辐射和风速，不算 Et0（10.3.3）。");
     notes.push("AWAT / snap 的公式在处理笔记里是图，这一版不做过滤前后对比。");
+    notes.push("内置「用示例序列」为合成数据，只用于演示界面，不等于现场结论；正式验收需真实 DT80 CSV。");
+    notes.push("旧本地 Python 服务（8765 / sfl-platform）已废弃，请只用本浏览器页；勿与 hydro-info-platform 流域看板混淆。");
+    if (options.detectWall) notes.push("已启用碰壁启发式（10.4.2.1），结果仅作诊断，阈值未用真实序列校准前勿当作现场定论。");
+    else notes.push("碰壁启发式默认关闭（易误标）；需要时勾选「启用碰壁检测」。");
     if (options.snow) notes.push("已勾选积雪或边缘植物（10.4.2.2），这些日子不进正式蒸散。");
     if (options.free) notes.push("已确认筒体和储水瓶可自由活动（10.2）。");
     else notes.push("尚未确认自由度（10.2），正式午夜蒸散不汇总。");
@@ -1159,6 +1164,7 @@
         biomassG: Number($("biomass").value) || 0,
         snow: $("snow").checked,
         free: $("free").checked,
+        detectWall: !!$("detect-wall") && $("detect-wall").checked,
         lysimeter: els.lys.value || undefined,
       };
     }
