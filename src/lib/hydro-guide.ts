@@ -16,9 +16,9 @@ export type GuideStep = {
 };
 
 /** hydro 分类下的链路子标签（作品卡 / 筛选） */
-export type HydroLane = "态势" | "工具" | "空间" | "模型" | "文档" | "论文";
+export type HydroLane = "采集" | "态势" | "工具" | "空间" | "模型" | "文档" | "论文";
 
-export const HYDRO_LANES: HydroLane[] = ["态势", "工具", "空间", "模型", "文档", "论文"];
+export const HYDRO_LANES: HydroLane[] = ["采集", "态势", "工具", "空间", "模型", "文档", "论文"];
 
 /** 主链 5 步（作品精选顺序 & 卡片「n/5」徽章） */
 export const HYDRO_CHAIN_STEPS = [
