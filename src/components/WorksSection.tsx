@@ -48,13 +48,23 @@ export function WorksSection({ works }: WorksSectionProps) {
     return list;
   }, [works, filter, laneFilter]);
 
-  /** 首页精选：仅主链 + Hydro-ML；demo 不进首屏 */
+  /** 精选：work.featured。主链标题按 FEATURED_WORK_TITLES 排前。 */
   const featured = useMemo(() => {
     if (filter !== "all" && filter !== "hydro") return [];
     const pool = filter === "all" ? works : filtered;
-    return FEATURED_WORK_TITLES.map((t) => pool.find((w) => w.title === t)).filter(
-      Boolean
-    ) as WorkItem[];
+    const picked = new Set<string>();
+    const ordered: WorkItem[] = [];
+    for (const t of FEATURED_WORK_TITLES) {
+      const w = pool.find((item) => item.title === t && item.featured);
+      if (w) {
+        ordered.push(w);
+        picked.add(w.id);
+      }
+    }
+    for (const w of pool) {
+      if (w.featured && !picked.has(w.id)) ordered.push(w);
+    }
+    return ordered;
   }, [works, filtered, filter]);
 
   const featuredIds = new Set(featured.map((w) => w.id));
@@ -180,7 +190,7 @@ export function WorksSection({ works }: WorksSectionProps) {
           <div className="mb-10">
             {(filter === "all" || filter === "hydro") && (
               <h3 className="font-display text-xl text-white/90 mb-4 px-1 text-shadow text-balance">
-                {filter === "hydro" ? "主链精选" : "精选 · 智慧水利主链"}
+                精选 · 智慧水利主链
               </h3>
             )}
             <div className="grid md:grid-cols-2 gap-5">

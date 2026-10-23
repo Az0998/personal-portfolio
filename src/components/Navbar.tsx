@@ -27,7 +27,8 @@ export function Navbar({ name }: { name: string }) {
     {
       href: "/atlas",
       label: "作品",
-      match: (p: string) => p.startsWith("/atlas") || p.startsWith("/presentations"),
+      match: (p: string) =>
+        p.startsWith("/atlas") || p.startsWith("/presentations"),
     },
     {
       href: "/labs",

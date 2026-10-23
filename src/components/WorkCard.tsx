@@ -7,7 +7,7 @@ import { parseTags, getWorkCategoryLabel, resolveWorkCategory } from "@/lib/util
 import { getShowcaseByTitle } from "@/data/showcases";
 import { presentationHrefForTitle } from "@/data/presentations";
 import { workCovers, moodCovers } from "@/data/covers";
-import { getHydroChainMeta, getHydroLane, isFeaturedWorkTitle } from "@/lib/hydro-guide";
+import { getHydroChainMeta, getHydroLane } from "@/lib/hydro-guide";
 
 export interface WorkItem {
   id: string;
@@ -51,7 +51,7 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
   const openHref = demoHref || work.link || deckHref;
   const cover = resolveCover(work, mood);
   const hasLiveDemo = Boolean(demoHref);
-  const isFeatured = work.featured || isFeaturedWorkTitle(work.title);
+  const isFeatured = work.featured;
   const chainMeta = getHydroChainMeta(work.title);
   const isHydroChain = Boolean(chainMeta);
   const hydroLane = getHydroLane(work.title);

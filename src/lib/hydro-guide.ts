@@ -64,7 +64,12 @@ export type HydroChainStep = (typeof HYDRO_CHAIN_STEPS)[number];
 /** 可选进首页精选的 Hydro-ML（论文 / 数据驱动对照） */
 export const HYDRO_ML_TITLE = "波托马克河多时效径流深度学习预报";
 
-/** 首页精选：仅主链 + 可选 Hydro-ML（demo 默认不进首屏） */
+/**
+ * 主链 5 步 + Hydro-ML 的展示顺序。
+ * 只决定「精选 · 智慧水利主链」里谁排前面 / 链路 n/5。
+ * 首页精选资格看 Prisma `work.featured`。
+ * 「微型蒸渗仪实验站」是智慧水利分支小项目：页面独立 /sfl-lab，不进本列表。
+ */
 export const FEATURED_WORK_TITLES: readonly string[] = [
   ...HYDRO_CHAIN_STEPS.map((s) => s.title),
   HYDRO_ML_TITLE,
@@ -79,6 +84,7 @@ const HYDRO_LANE_BY_TITLE: Record<string, HydroLane> = {
   智慧水利管理系统: "工具",
   波托马克流域生态水文耦合分析: "论文",
   水文测验与资料整编实践合集: "工具",
+  微型蒸渗仪实验站: "采集",
 };
 
 export function getHydroChainMeta(title: string): HydroChainStep | null {
@@ -93,7 +99,8 @@ export function getHydroLane(title: string): HydroLane | null {
   return getHydroChainMeta(title)?.lane ?? HYDRO_LANE_BY_TITLE[title] ?? null;
 }
 
-export function isFeaturedWorkTitle(title: string) {
+/** 主链排序用，不是精选徽章。精选徽章只看 work.featured。 */
+export function isHydroGuideTitle(title: string) {
   return FEATURED_WORK_TITLES.includes(title);
 }
 

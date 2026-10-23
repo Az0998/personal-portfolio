@@ -50,6 +50,31 @@ export const showcases: Showcase[] = [
     galleryHints: ["输入表单", "水平衡表", "合理性段落", "导出按钮"],
   },
   {
+    slug: "sfl-lab",
+    title: "微型蒸渗仪实验站",
+    mood: "field",
+    heroEmoji: "⚖️",
+    tagline: "七步课堂：接入 → 旗标 → 订正 → 水平衡 · 泵不是雨 · ET0 ≠ ETa",
+    highlights: [
+      "接入 DT80 称重 / 探头 / 气象，走完七步质控与水平衡",
+      "Kapilaratne 介电订正只作用于 5TE 的 θ；AWAT / 滑动平均看残差",
+      "泵和风振不是雨；ET0 是参考蒸散，不是蒸渗仪 ETa",
+      "智慧水利分支，页面独立 /sfl-lab，不挤进工作台页签",
+    ],
+    metrics: [
+      { label: "课堂步数", value: 7, display: "7" },
+      { label: "5 g 门限", value: 0.071, display: "0.071 mm" },
+      { label: "面积", value: 0.0707, display: "0.0707 m²" },
+    ],
+    demo: [
+      { title: "打开 /sfl-lab", detail: "先看七步：接入、曲线、旗标、订正、水平衡、验证、报告。" },
+      { title: "接入数据", detail: "上传称重 / 探头 / 气象 CSV；没有实测再点课堂示例。" },
+      { title: "本机完整台", detail: "backend mvnw spring-boot:run，frontend npm run dev。" },
+    ],
+    stack: ["Spring Boot", "Vue", "Kapilaratne", "AWAT", "DT80"],
+    galleryHints: ["质量距平", "三层 θ", "旗标表", "水平衡闭合"],
+  },
+  {
     slug: "smart-water",
     title: "智慧水利管理系统",
     mood: "hydro",

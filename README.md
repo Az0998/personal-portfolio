@@ -21,7 +21,7 @@ npm install
 
 # 初始化数据库并填充示例数据
 npm run db:push
-npm run db:seed
+npm run sync
 
 # 启动开发服务器
 npm run dev
@@ -33,6 +33,14 @@ npm run dev
 |------|------|
 | http://localhost:3000 | 前台作品集网站 |
 | http://localhost:3000/admin | 后台管理（默认账号 `admin` / `admin123`） |
+
+## 作品数据源
+
+`src/data/works-content.ts` → `prisma/seed.ts`（`npm run sync`）→ SQLite `prisma/dev.db`。
+
+**改完 `works-content.ts` 必须跑 `npm run sync`**，否则新作品（如「微型蒸渗仪实验站」「跨云复制」）不会进库，首页作品档案看不到。`npm run build` 已串联 `prisma generate && prisma db push && tsx prisma/seed.ts`，部署构建会补缺失条目；本地改完仍应立刻 `npm run sync`，不必等一次完整 build。
+
+已在后台保存过的作品带 `locked`，默认同步只补缺失、轻量更新分类/精选/链接，不覆盖正文。
 
 ## 后台管理
 

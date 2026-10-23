@@ -108,6 +108,37 @@ Major 文案参考公开赛果（如 Shanghai 2024 Spirit、Austin/Budapest 2025
 `,
   },
   {
+    title: "微型蒸渗仪实验站",
+    description:
+      "智慧水利分支：接入 DT80 称重/探头/气象 → 旗标 → Kapilaratne 订正 → 水平衡。页面独立 /sfl-lab，不挤进工作台页签。泵不是雨，ET0 ≠ ETa。",
+    category: "hydro",
+    tags: "蒸渗仪,质控,Kapilaratne,AWAT,水平衡,教学",
+    featured: false,
+    published: true,
+    sortOrder: 8,
+    link: "/sfl-lab",
+    content: `## 一句话
+
+课堂七步：接入 → 曲线 → 旗标 → 订正 → 水平衡 → 验证 → 报告。泵不是雨，ET0 不是 ETa。5 g ≈ 0.071 mm。
+
+## 打开
+
+[微型蒸渗仪实验站](/sfl-lab)（智慧水利分支，页面独立，不进水文工作台页签）
+
+旧版静态处理器仍在 [/sfl](/sfl)。
+
+## 七步
+
+1. 接入：上传称重、探头、气象 CSV（没有实测时用课堂示例）
+2. 曲线：质量距平、三层 θ、泵柱
+3. 旗标：无雨抬升、介电日周期、层序反常
+4. 订正：Kapilaratne 只订 5TE 的 θ；滤波看残差
+5. 水平衡：P、ET、ΔS、D，泵和风振不是雨
+6. 验证：浅层先湿、θ 不该跟着土温假抖
+7. 报告：可粘贴段落；ET0 ≠ ETa
+`,
+  },
+  {
     title: "新安江机理预报对照台",
     description:
       "日降水→新安江产汇流→出口流量；同口径NSE对照数据驱动基线。浏览器可复现。",

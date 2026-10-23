@@ -6,6 +6,8 @@
 
 **日常改站点内容：只在后台改。** 保存作品后会自动「保护」；部署 / 默认同步**不会**覆盖已有作品、头像、赞助码、反馈与点击数据。
 
+仓库里改 `src/data/works-content.ts` 后必须本地执行 **`npm run sync`**（即 `tsx prisma/seed.ts`），否则新作品进不了 SQLite，首页作品档案看不到。`package.json` 的 `build` 已含 `prisma generate && prisma db push && tsx prisma/seed.ts`，Render 构建会补缺失条目。
+
 | 操作 | 是否覆盖后台已改内容 |
 |------|----------------------|
 | `git push` 自动部署 + `db:seed`（`FORCE_SEED=0`） | 否，只补缺失作品；资料不覆盖 |
@@ -23,6 +25,7 @@
 - `/temp-files` — 临时文件柜
 - `/watershed-map` — 流域一张图 GIS（默认 Esri Dark Gray 零密钥底图；可选 `NEXT_PUBLIC_MAP_TILE_*` / `NEXT_PUBLIC_HYDRO_HUB_URL`，见 README）
 - `/xaj-bench` — 新安江机理预报对照台（产汇流 × Persistence / Lag-LSTM）
+- `/sfl-lab` — 微型蒸渗仪实验站（独立页，不进水文工作台）
 - `/novel-studio` — Novel Studio（作品进入）
 - `/yili` — 易理占筮（作品进入）
 - `/graph-rag` — Graph-RAG Vault（作品进入）
@@ -74,7 +77,7 @@ git push -u origin main
 | Name | `personal-portfolio` |
 | Region | Singapore（或离你近的） |
 | Runtime | Node |
-| Build Command | `npm install && npx prisma generate && npx prisma db push && npm run db:seed && npm run build` |
+| Build Command | `npm install && npm run build` |
 | Start Command | `npm start` |
 | Instance | Free |
 
