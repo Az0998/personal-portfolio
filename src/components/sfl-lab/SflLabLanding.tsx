@@ -11,13 +11,13 @@ type Preview = {
 };
 
 const STEPS = [
-  ["接入", "上传称重、探头、气象 CSV（与 DT80 同表头）。没有实测时再载入课堂示例。"],
-  ["曲线", "质量距平贴合 mm 级变幅；泵柱若空，读图下说明，不要把空图当尺度坏了。"],
-  ["旗标", "宁可多标：无雨 θ 起伏、介电日周期、层序反常。"],
-  ["订正", "温度订正只作用于 5TE 的 θ。滤波差别看残差，不要看四条重合的全序列。"],
-  ["水平衡", "P、ET、ΔS、D。泵和风振不是雨。闭合差写在卡片上。"],
-  ["验证", "浅层是否先湿、θ 是否跟着土温假抖、深层会不会抢先。"],
-  ["报告", "一段可粘贴的文字。ET0 只是参考，不是 ETa。"],
+  ["接入", "称重必传；探头、气象可缺。时段对不上不混用。"],
+  ["曲线", "距平与三层 θ。色带是可疑段。"],
+  ["旗标", "无雨台阶、日周期、深层先动标可疑。"],
+  ["订正", "只订 5TE 的 θ。滤波看残差。"],
+  ["水平衡", "P、ET、ΔS、D。无同期气象则 P 只来自称重。"],
+  ["验证", "浅层先湿；θ 跟土温假抖就订正。"],
+  ["报告", "一段可粘贴文字。ET0 ≠ ETa。"],
 ];
 
 function pathFrom(values: number[], w = 640, h = 160, pad = 8) {
@@ -102,9 +102,8 @@ export function SflLabLanding({ liveOrigin }: { liveOrigin: string }) {
       <p className="sflab-kicker">智慧水利 · 采集分支</p>
       <h1>微型蒸渗仪实验站</h1>
       <p className="sflab-lead">
-        课堂七步：接入 → 曲线 → 旗标 → 订正 → 水平衡 → 验证 → 报告。
-        顶栏另有「自由作图」，自选要素叠图或散点，不占第八步。
-        页面独立，不挤进水文工作台页签。泵不是雨，风振不是蒸散，ET0 不是 ETa。
+        榆中萃英山。七步质控。曲线机制按数据写：秋末浅层白天 θ 抬先当介电。
+        三类可缺、可错位；错位则雨量 / ET0 作废。泵不是雨。ET0 ≠ ETa。
       </p>
       <div className="sflab-actions">
         {liveOrigin ? (
@@ -147,16 +146,16 @@ export function SflLabLanding({ liveOrigin }: { liveOrigin: string }) {
           </ol>
         </div>
         <div className="sflab-card">
-          <h2>硬约束</h2>
-          <p>底面积 0.0707 m²，1 kg = 14.14 mm。手册 5 g 对应约 0.071 mm，不是 0.035 mm。</p>
-          <p>泵是土柱与补水桶之间的内部调水，不是降水或蒸散。</p>
-          <p>Kapilaratne 订正只作用于 5TE 体积含水量；ET0 是参考蒸散，不是蒸渗仪 ETa。</p>
+          <h2>读图与覆盖</h2>
+          <p>0.0707 m²，5 g ≈ 0.071 mm。泵是内部调水。</p>
+          <p>θ 与土温同位相 → 介电假湿。三层同跳 → 温度，不是锋面。</p>
+          <p>探头或气象整体缺失、或与称重无交集：跳过对应对照，不补造。</p>
         </div>
       </section>
 
       <h2 style={{ fontSize: "1.1rem", margin: "0 0 0.7rem" }}>曲线长什么样</h2>
       <p className="sflab-muted" style={{ marginTop: 0, marginBottom: "0.8rem" }}>
-        课堂示例 14 天：质量距平有 mm 级起伏；15 cm θ 白天会假抬，那是订正对象；雨日与泵不要混。
+        示例：距平 mm 级；15 cm 白天假抬是订正对象。
       </p>
       {preview ? (
         <div className="sflab-grid" style={{ marginBottom: "1.5rem" }}>

@@ -179,7 +179,7 @@ const EXTRAS: Extra[] = [
     emoji: "⚖️",
     mood: "field",
     hall: "hydro",
-    tagline: "七步质控与水平衡，智慧水利分支，页面独立",
+    tagline: "榆中萃英山 · 七步 · 三类可缺可错位",
     href: "/sfl-lab",
     highlights: [
       "接入 → 曲线 → 旗标 → 订正 → 水平衡 → 验证 → 报告",

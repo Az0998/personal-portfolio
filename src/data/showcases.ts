@@ -54,12 +54,11 @@ export const showcases: Showcase[] = [
     title: "微型蒸渗仪实验站",
     mood: "field",
     heroEmoji: "⚖️",
-    tagline: "七步课堂：接入 → 旗标 → 订正 → 水平衡 · 泵不是雨 · ET0 ≠ ETa",
+    tagline: "榆中萃英山 · 七步质控 · 三类可缺可错位",
     highlights: [
-      "接入 DT80 称重 / 探头 / 气象，走完七步质控与水平衡",
-      "Kapilaratne 介电订正只作用于 5TE 的 θ；AWAT / 滑动平均看残差",
-      "泵和风振不是雨；ET0 是参考蒸散，不是蒸渗仪 ETa",
-      "智慧水利分支，页面独立 /sfl-lab，不挤进工作台页签",
+      "曲线机制按数据写：θ–土温同位相先当介电",
+      "探头或气象缺失、错位则跳过对照",
+      "泵不是雨；ET0 ≠ ETa",
     ],
     metrics: [
       { label: "课堂步数", value: 7, display: "7" },

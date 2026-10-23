@@ -110,7 +110,7 @@ Major 文案参考公开赛果（如 Shanghai 2024 Spirit、Austin/Budapest 2025
   {
     title: "微型蒸渗仪实验站",
     description:
-      "智慧水利分支：接入 DT80 称重/探头/气象 → 旗标 → Kapilaratne 订正 → 水平衡。页面独立 /sfl-lab，不挤进工作台页签。泵不是雨，ET0 ≠ ETa。",
+      "榆中萃英山蒸渗仪七步。三类可缺可错位。θ 跟土温假抖先订正。泵不是雨。",
     category: "hydro",
     tags: "蒸渗仪,质控,Kapilaratne,AWAT,水平衡,教学",
     featured: false,
@@ -119,7 +119,7 @@ Major 文案参考公开赛果（如 Shanghai 2024 Spirit、Austin/Budapest 2025
     link: "/sfl-lab",
     content: `## 一句话
 
-课堂七步：接入 → 曲线 → 旗标 → 订正 → 水平衡 → 验证 → 报告。泵不是雨，ET0 不是 ETa。5 g ≈ 0.071 mm。
+榆中萃英山。七步质控。三类可缺可错位。泵不是雨。ET0 ≠ ETa。
 
 ## 打开
 
