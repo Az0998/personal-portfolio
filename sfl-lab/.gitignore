@@ -1,0 +1,10 @@
+backend/target/
+backend/data/
+frontend/node_modules/
+frontend/dist/
+.tools/
+*.zip
+.idea/
+.vscode/
+*.iml
+.DS_Store

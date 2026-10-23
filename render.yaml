@@ -18,3 +18,15 @@ services:
         generateValue: true
       - key: FORCE_SEED
         value: "0"
+
+  - type: web
+    name: sfl-lab
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./sfl-lab/Dockerfile
+    dockerContext: ./sfl-lab
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: "10000"

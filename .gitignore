@@ -52,5 +52,10 @@ next-env.d.ts
 
 # SpringBoot demo
 smart-water-mgmt/backend/target/
+sfl-lab/frontend/node_modules/
+sfl-lab/frontend/dist/
+sfl-lab/backend/target/
+sfl-lab/backend/data/
+sfl-lab/backend/.mvn/wrapper/maven-wrapper.jar
 
 

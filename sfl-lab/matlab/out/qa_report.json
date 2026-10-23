@@ -1,0 +1,47 @@
+{
+  "demo": {
+    "id": "8b5c9c8a",
+    "weightRows": 20160,
+    "probeRows": 2016,
+    "weatherRows": 1344,
+    "weightError": 3,
+    "weightSuspect": 20,
+    "gateMm": 0.07072135785007072,
+    "demoKind": "matlab",
+    "totals": {
+      "officialDays": 13.0,
+      "precipMm": 32.32745360906061,
+      "etMm": 12.26235629344109,
+      "drainMm": 1.415062381949268,
+      "dsMm": 16.776491094628152,
+      "closureMm": 1.8735438390420995
+    },
+    "simTruth": {
+      "source": "matlab-bucket",
+      "script": "matlab/generate_sfl_sim.m",
+      "start": "2024-06-01",
+      "days": 14,
+      "rainDays": [
+        "2024-06-05",
+        "2024-06-11"
+      ],
+      "spikeMinutes": [
+        1850,
+        7320,
+        15120
+      ],
+      "pumpOut": "2024-06-05 19:00 排出（不是雨）",
+      "pumpIn": "2024-06-12 06:00 补入（不是雨）",
+      "dielectric": "15 cm θ 含日周期表观抬升，Kapilaratne 订正对象",
+      "layerLag": "35 cm 雨后当晚微抬；55 cm 第 5–6 日凌晨",
+      "note": "正向仿真真值：泵不是雨；浅层先湿；白天 θ 假高。"
+    }
+  },
+  "issues": [],
+  "upload": {
+    "id": "c026757e",
+    "weightRows": 20160,
+    "probeRows": 2016,
+    "weatherRows": 1344
+  }
+}

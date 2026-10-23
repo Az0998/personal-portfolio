@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Source Serif 4", "Noto Serif SC", Georgia, serif;
+  --color-ink: #102a43;
+  --color-paper: #e8eef5;
+  --color-panel: #f6f9fc;
+  --color-line: #c5d4e3;
+  --color-navy: #0b3d5c;
+  --color-hydro: #1565a8;
+  --color-teal: #1565a8;
+  --color-warn: #b45309;
+  --color-err: #b91c1c;
+}
+
+html, body, #app {
+  min-height: 100dvh;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  text-wrap: balance;
+  color: var(--color-navy);
+}
+
+p, li {
+  text-wrap: pretty;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.875rem;
+}
+.data-table thead th {
+  background: #0b3d5c;
+  color: #fff;
+  font-weight: 500;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+}
+.data-table tbody td {
+  padding: 0.45rem 0.75rem;
+  border-bottom: 1px solid #d7e3ee;
+}
+.data-table tbody tr:nth-child(even) {
+  background: #f3f7fb;
+}
+.data-table tbody tr:hover {
+  background: #e4eef8;
+}
