@@ -106,28 +106,16 @@ export function SflLabLanding({ liveOrigin }: { liveOrigin: string }) {
         三类可缺、可错位；错位则雨量 / ET0 作废。泵不是雨。ET0 ≠ ETa。
       </p>
       <div className="sflab-actions">
-        {liveOrigin ? (
-          <a className="sflab-btn sflab-btn-primary" href={liveOrigin} target="_blank" rel="noreferrer">
-            打开七步课堂
-          </a>
-        ) : (
-          <a className="sflab-btn sflab-btn-primary" href="#steps">
-            看七步流程
-          </a>
-        )}
-        {liveOrigin ? (
-          <a className="sflab-btn sflab-btn-quiet" href={`${liveOrigin.replace(/\/$/, "")}/plot`} target="_blank" rel="noreferrer">
-            打开自由作图
-          </a>
-        ) : null}
+        <a className="sflab-btn sflab-btn-primary" href="#steps">
+          看七步
+        </a>
         <Link className="sflab-btn sflab-btn-quiet" href="/hydrobench">
-          回到智慧水利
+          智慧水利
+        </Link>
+        <Link className="sflab-btn sflab-btn-quiet" href="/sfl">
+          旧版 /sfl
         </Link>
       </div>
-
-      <p className="sflab-note">
-        旧版浏览器内核仍在 <Link href="/sfl">/sfl</Link>。本页是完整七步教学站。
-      </p>
 
       <section id="steps" className="sflab-grid sflab-grid-2" style={{ marginBottom: "1.25rem" }}>
         <div className="sflab-card">
@@ -173,31 +161,10 @@ export function SflLabLanding({ liveOrigin }: { liveOrigin: string }) {
         <p className="sflab-muted">预览序列载入中…</p>
       )}
 
-      <section className="sflab-card" style={{ marginBottom: "1.25rem" }}>
-        <h2>本机跑完整七步</h2>
-        <p>Spring Boot 8080 + Vue 5173。先上传 CSV，没有实测再点接入页的课堂示例。</p>
-        <pre className="sflab-code">{`cd sfl-lab/backend && ./mvnw spring-boot:run
-cd sfl-lab/frontend && npm run dev
-# 浏览器打开 http://127.0.0.1:5173`}</pre>
-      </section>
-
       {liveOrigin ? (
-        <section id="classroom">
-          <h2 style={{ fontSize: "1.1rem" }}>七步课堂台</h2>
-          <p className="sflab-muted">
-            需要本机 Vue 5173 + Spring Boot 8080。空白就
-            <a href={liveOrigin} target="_blank" rel="noreferrer"> 新窗口打开 {liveOrigin}</a>
-            。
-          </p>
-          <div className="sflab-frame-wrap">
-            <iframe
-              className="sflab-frame"
-              title="微型蒸渗仪实验站"
-              src={liveOrigin}
-              allow="clipboard-read; clipboard-write"
-            />
-          </div>
-        </section>
+        <p className="sflab-note">
+          本机七步台 <a href={liveOrigin} target="_blank" rel="noreferrer">{liveOrigin}</a>
+        </p>
       ) : null}
     </div>
   );

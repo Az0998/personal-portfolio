@@ -49,6 +49,8 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
   const deckHref = presentationHrefForTitle(work.title);
   const demoHref = work.link && !isPresentationLink(work.link) ? work.link : null;
   const openHref = demoHref || work.link || deckHref;
+  const cardHref = demoHref || `/works/${work.id}`;
+  const cardExternal = cardHref.startsWith("http");
   const cover = resolveCover(work, mood);
   const hasLiveDemo = Boolean(demoHref);
   const isFeatured = work.featured;
@@ -73,7 +75,11 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
           aria-hidden
         />
       )}
-      <Link href={`/works/${work.id}`} className="block flex-1">
+      <Link
+        href={cardHref}
+        className="block flex-1"
+        {...(cardExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      >
         <div className={`relative overflow-hidden ${large ? "h-56 md:h-64" : "h-40 md:h-44"}`}>
           {isSvg(cover) ? (
             <div className="w-full h-full bg-gradient-to-br from-[#e44c65]/35 via-white/10 to-[#5ec8e8]/25 flex items-center justify-center p-6">
@@ -169,6 +175,15 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
               {isPresentationLink(openHref) ? "汇报" : "打开"}
             </a>
           )}
+          {demoHref && (
+            <Link
+              href={`/works/${work.id}`}
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white/85 transition-colors"
+            >
+              介绍
+            </Link>
+          )}
           {deckHref && demoHref && (
             <a
               href={deckHref}
@@ -176,7 +191,7 @@ export function WorkCard({ work, index = 0, large = false }: WorkCardProps) {
               className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white/85 transition-colors"
             >
               <Presentation className="w-3.5 h-3.5" />
-              介绍
+              汇报
             </a>
           )}
           {work.github && (
