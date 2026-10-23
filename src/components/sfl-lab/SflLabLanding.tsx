@@ -103,6 +103,7 @@ export function SflLabLanding({ liveOrigin }: { liveOrigin: string }) {
       <h1>微型蒸渗仪实验站</h1>
       <p className="sflab-lead">
         课堂七步：接入 → 曲线 → 旗标 → 订正 → 水平衡 → 验证 → 报告。
+        顶栏另有「自由作图」，自选要素叠图或散点，不占第八步。
         页面独立，不挤进水文工作台页签。泵不是雨，风振不是蒸散，ET0 不是 ETa。
       </p>
       <div className="sflab-actions">
@@ -115,6 +116,11 @@ export function SflLabLanding({ liveOrigin }: { liveOrigin: string }) {
             看七步流程
           </a>
         )}
+        {liveOrigin ? (
+          <a className="sflab-btn sflab-btn-quiet" href={`${liveOrigin.replace(/\/$/, "")}/plot`} target="_blank" rel="noreferrer">
+            打开自由作图
+          </a>
+        ) : null}
         <Link className="sflab-btn sflab-btn-quiet" href="/hydrobench">
           回到智慧水利
         </Link>
