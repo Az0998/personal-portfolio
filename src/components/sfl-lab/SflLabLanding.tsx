@@ -107,7 +107,7 @@ export function SflLabLanding({ liveOrigin }: { liveOrigin: string }) {
       </p>
       <div className="sflab-actions">
         {liveOrigin ? (
-          <a className="sflab-btn sflab-btn-primary" href="#classroom">
+          <a className="sflab-btn sflab-btn-primary" href={liveOrigin} target="_blank" rel="noreferrer">
             打开七步课堂
           </a>
         ) : (
@@ -179,9 +179,18 @@ cd sfl-lab/frontend && npm run dev
       {liveOrigin ? (
         <section id="classroom">
           <h2 style={{ fontSize: "1.1rem" }}>七步课堂台</h2>
-          <p className="sflab-muted">本机服务。接入后按顶栏 1→7 走。</p>
+          <p className="sflab-muted">
+            需要本机 Vue 5173 + Spring Boot 8080。空白就
+            <a href={liveOrigin} target="_blank" rel="noreferrer"> 新窗口打开 {liveOrigin}</a>
+            。
+          </p>
           <div className="sflab-frame-wrap">
-            <iframe className="sflab-frame" title="微型蒸渗仪实验站" src={liveOrigin} />
+            <iframe
+              className="sflab-frame"
+              title="微型蒸渗仪实验站"
+              src={liveOrigin}
+              allow="clipboard-read; clipboard-write"
+            />
           </div>
         </section>
       ) : null}
