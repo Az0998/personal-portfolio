@@ -1,0 +1,45 @@
+# Keep the lysimeter classroom from spinning down on Render's free plan.
+# Stops after 2026-10-28 16:00 UTC (end of 28 Oct, China).
+name: Keep sfl-lab warm
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Wake personal site and lysimeter lab
+        shell: bash
+        run: |
+          set -u
+          until=$(date -d '2026-10-28 16:00:00 UTC' +%s)
+          now=$(date +%s)
+          if [ "$now" -ge "$until" ]; then
+            echo "Keep-alive window ended"
+            exit 0
+          fi
+
+          wake() {
+            local url="$1"
+            local i code
+            for i in 1 2 3 4; do
+              code=$(curl -sS -o /tmp/keep-alive-body -w "%{http_code}" --max-time 90 "$url" || echo 000)
+              echo "$url try $i -> $code"
+              if [ "$code" = "200" ]; then
+                return 0
+              fi
+              sleep 20
+            done
+            echo "FAILED $url"
+            return 1
+          }
+
+          fail=0
+          wake "https://sfl-lab.onrender.com/api/health" || fail=1
+          wake "https://sfl-lab.onrender.com/" || fail=1
+          wake "https://zhangsjqaq.vexr.dev/sfl-lab" || fail=1
+          exit "$fail"
