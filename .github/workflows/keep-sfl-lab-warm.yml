@@ -39,7 +39,8 @@ jobs:
           }
 
           fail=0
+          # Hit Render origins only. The custom domain can 403 GitHub runners.
           wake "https://sfl-lab.onrender.com/api/health" || fail=1
           wake "https://sfl-lab.onrender.com/" || fail=1
-          wake "https://zhangsjqaq.vexr.dev/sfl-lab" || fail=1
+          wake "https://personal-portfolio-7mu7.onrender.com/sfl-lab" || fail=1
           exit "$fail"
