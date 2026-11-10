@@ -19,7 +19,7 @@ export default function XiangqiPage() {
           <span className="xq-mark">象</span>
           <div>
             <div className="xq-title">中国象棋 · 策略网络</div>
-            <div className="xq-sub">ONNX · 自对弈 · 浏览器对弈</div>
+            <div className="xq-sub">浏览器内 ONNX 推理 · 自对弈训练在本地 Python</div>
           </div>
         </div>
         <a className="xq-open" href="/xiangqi/index.html" target="_blank" rel="noreferrer">

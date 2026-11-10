@@ -202,7 +202,11 @@ export function TempFilesApp() {
           ，过期后自动清理。
           {config?.directUpload ? (
             <span className="text-aqua-soft"> 当前：Cloudflare R2 浏览器直传。</span>
-          ) : null}
+          ) : (
+            <span className="block text-sm mt-2 text-amber-200/90">
+              未配置 R2 时文件落在本机磁盘，实例重部署可能清空。正式互传请配 Cloudflare R2。
+            </span>
+          )}
           <span className="block text-ink-500 text-sm mt-2">{config?.note}</span>
         </p>
       </section>

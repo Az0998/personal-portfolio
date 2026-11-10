@@ -11,7 +11,7 @@ export const PROJECT_REVIEWS: Record<string, ProjectReview> = {
     stage: "可上课",
     stack: "Spring Boot + Vue；个人站 iframe；阿里云 :8080 systemd",
     limit: "2G 机内存紧；主站 HTTPS 与课用机 HTTP 双入口，冷启动体验不一致。",
-    next: "阿里云上 HTTPS；课堂示例一键载入写进首屏；与 Hydro 采集链路互链测次编号。",
+    next: "阿里云上 HTTPS；课堂三道判断已进报告页，课上先载入示例再提交。",
   },
   "新安江机理预报对照台": {
     stage: "可演示",
@@ -59,7 +59,7 @@ export const PROJECT_REVIEWS: Record<string, ProjectReview> = {
     stage: "可演示",
     stack: "浏览器 ONNX；训练在本地 Python",
     limit: "在线是策略网对弈，不是完整 MCTS 自对弈集群。",
-    next: "页眉写清「推理演示 / 训练离线」；败局可回放最近一手。",
+    next: "页眉已标明推理在浏览器、训练在本地；下一步可回放最近一手。",
   },
   "Graph-RAG Vault · 知识图谱检索": {
     stage: "可演示",
@@ -77,7 +77,7 @@ export const PROJECT_REVIEWS: Record<string, ProjectReview> = {
     stage: "可演示",
     stack: "Next API + SQLite；可选 R2",
     limit: "Render 磁盘易失；未配 R2 时文件随实例丢失。",
-    next: "生产必须配 R2；首页写清保留时长。",
+    next: "首页已提示未配 R2 会随磁盘丢失；生产环境打开 R2 直传。",
   },
   "Novel Studio 写作工作台": {
     stage: "可演示",
