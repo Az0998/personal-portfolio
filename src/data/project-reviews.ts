@@ -13,6 +13,12 @@ export const PROJECT_REVIEWS: Record<string, ProjectReview> = {
     limit: "2G 机内存紧；主站 HTTPS 与课用机 HTTP 双入口，冷启动体验不一致。",
     next: "阿里云上 HTTPS；课堂三道判断已进报告页，课上先载入示例再提交。",
   },
+  "系列质检台": {
+    stage: "可演示",
+    stack: "浏览器 CSV 解析；不上传",
+    limit: "尖峰和缺测是固定倍数规则，不是整编规范；复杂引号 CSV 只做了基本拆分。",
+    next: "可记住列映射，并把「通过的行」另存成干净 CSV。",
+  },
   "水文频率小算盘": {
     stage: "可演示",
     stack: "浏览器矩法 + Wilson–Hilferty P-III",

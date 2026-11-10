@@ -35,7 +35,10 @@ export function Navbar({ name }: { name: string }) {
       href: "/labs",
       label: "互动演示",
       match: (p: string) =>
-        p.startsWith("/labs") || p.startsWith("/viz-lab") || p.startsWith("/physics-3d"),
+        p.startsWith("/labs") ||
+        p.startsWith("/viz-lab") ||
+        p.startsWith("/physics-3d") ||
+        p.startsWith("/series-qa"),
     },
     { href: "/#about", label: "关于" },
   ];

@@ -505,6 +505,29 @@ python app.py
 `,
   },
   {
+    title: "系列质检台",
+    description:
+      "浏览器内检查时间序列 CSV：空值、重复时刻、倒序、缺测、负值与尖峰。文件不上传，可导出问题清单。",
+    category: "tool",
+    tags: "CSV,质检,时间序列,本机,工具",
+    featured: false,
+    published: true,
+    sortOrder: 19,
+    link: "/series-qa",
+    content: `## 一句话
+
+入库前先过一遍筛子：时间序列 CSV 的坏行在浏览器里标出来。
+
+## 打开
+
+[系列质检台](/series-qa)
+
+## 边界
+
+尖峰和缺测用步长中位数的固定倍数，不是正式整编规范。文件不离开本机。
+`,
+  },
+  {
     title: "临时文件柜 · 到期自毁分享",
     description:
       "个人站临时文件存储：拖拽上传、分享链接、1 小时～7 天 TTL，过期自动删除；入口见页脚「临时文件柜」。",

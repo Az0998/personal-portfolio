@@ -1,0 +1,47 @@
+.sqa-root { min-height: 100dvh; background: #10131a; color: #e8e6e3; }
+.sqa-top {
+  display: flex; justify-content: space-between;
+  padding: 0.8rem 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.sqa-top a { color: #f0c27a; }
+.sqa { max-width: 920px; margin: 0 auto; padding: 1.2rem 1.2rem 3rem; }
+.sqa-kicker { letter-spacing: 0.14em; font-size: 0.72rem; color: #f0c27a; text-transform: uppercase; }
+.sqa-hero h1 { margin: 0.25rem 0; font-size: 1.8rem; }
+.sqa-hero p { color: #b7b3ac; line-height: 1.55; max-width: 40rem; }
+.sqa-links { display: flex; gap: 1rem; }
+.sqa-links a { color: #f0c27a; }
+.sqa-drop, .sqa-paste, .sqa-stats, .sqa-table {
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  border-radius: 0.7rem;
+}
+.sqa-drop {
+  display: flex; flex-wrap: wrap; gap: 0.7rem; align-items: center;
+  padding: 0.8rem; margin: 0.8rem 0;
+}
+.sqa-drop button, .sqa-actions button {
+  background: #f0c27a; color: #1a140c; border: 0; border-radius: 999px;
+  padding: 0.35rem 0.8rem; cursor: pointer;
+}
+.sqa-actions button:disabled { opacity: 0.4; cursor: default; }
+.sqa-paste { display: flex; flex-direction: column; gap: 0.35rem; padding: 0.8rem; }
+.sqa-paste textarea {
+  width: 100%; background: #0c0e13; color: #e8e6e3;
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 0.4rem; padding: 0.45rem;
+  font-family: ui-monospace, Consolas, monospace; font-size: 0.82rem;
+}
+.sqa-stats { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 0.8rem; }
+.sqa-stats div { padding: 0.7rem; display: flex; flex-direction: column; }
+.sqa-stats b { font-size: 1.05rem; }
+.sqa-stats span { color: #8d897f; font-size: 0.75rem; }
+@media (max-width: 700px) { .sqa-stats { grid-template-columns: 1fr 1fr; } }
+.sqa-counts { display: flex; flex-wrap: wrap; gap: 0.35rem; list-style: none; padding: 0.7rem 0; margin: 0; }
+.sqa-counts li {
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 999px;
+  padding: 0.15rem 0.55rem; font-size: 0.78rem; color: #8d897f;
+}
+.sqa-counts li[data-on="true"] { color: #1a140c; background: #f0c27a; border-color: #f0c27a; }
+.sqa-actions { margin-bottom: 0.6rem; }
+.sqa-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; overflow: hidden; }
+.sqa-table th, .sqa-table td { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.sqa-note { color: #8d897f; font-size: 0.8rem; }

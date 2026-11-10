@@ -69,6 +69,12 @@ export const LAB_WINGS: LabWing[] = [
 
 export const LAB_HIGHLIGHTS = [
   {
+    title: "系列质检台",
+    href: "/series-qa",
+    hue: "#f0c27a",
+    note: "CSV 在浏览器里查缺测、重复、尖峰，可导出问题清单",
+  },
+  {
     title: "斑图生长",
     href: "/viz-lab?scene=reaction",
     hue: "#f472b6",
