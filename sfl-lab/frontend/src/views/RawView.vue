@@ -2,6 +2,8 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import AcademicChart from '../components/AcademicChart.vue'
 import ChartFrame from '../components/ChartFrame.vue'
+import DrillCard from '../components/DrillCard.vue'
+import EventJump from '../components/EventJump.vue'
 import { api, store } from '../state'
 import { toPairs } from '../lib/series'
 import { readout } from '../lib/readout'
@@ -52,6 +54,7 @@ const echo = (k: string) => toPairs(probe.value?.t, probe.value?.series?.[k])
   <section class="space-y-5">
     <p v-if="!store.sessionId" class="rounded border border-line bg-white px-4 py-3 text-sm">回到「1 接入」上传或载入示例。</p>
     <p v-else-if="weight && !(weight.n > 0)" class="rounded border border-amber-300 bg-amber-50 px-4 py-3 text-sm">称重为空。检查 Timestamp 与 L1_LYW。</p>
+    <EventJump />
     <div class="flex flex-wrap gap-3 text-sm">
       <label v-for="k in Object.keys(show)" :key="k" class="flex items-center gap-1">
         <input v-model="(show as any)[k]" type="checkbox" /> {{ k }}
@@ -74,6 +77,8 @@ const echo = (k: string) => toPairs(probe.value?.t, probe.value?.series?.[k])
           { name: '补水桶', data: swwAnom, dashed: true },
         ]"
         :marks="marks()"
+        :x-min="store.timeRange?.[0]"
+        :x-max="store.timeRange?.[1]"
       />
     </ChartFrame>
 
@@ -93,6 +98,8 @@ const echo = (k: string) => toPairs(probe.value?.t, probe.value?.series?.[k])
           { name: 'SWW', data: toPairs(weight.t, weight.series.sww), yAxisIndex: 1 },
         ]"
         :marks="marks()"
+        :x-min="store.timeRange?.[0]"
+        :x-max="store.timeRange?.[1]"
       />
     </ChartFrame>
 
@@ -116,6 +123,8 @@ const echo = (k: string) => toPairs(probe.value?.t, probe.value?.series?.[k])
           { name: 'Pump_out', type: 'bar', data: pumpOutEv },
           { name: '推断调水', type: 'scatter', data: pumpInf, color: '#6D28D9' },
         ]"
+        :x-min="store.timeRange?.[0]"
+        :x-max="store.timeRange?.[1]"
       />
     </ChartFrame>
 
@@ -125,15 +134,16 @@ const echo = (k: string) => toPairs(probe.value?.t, probe.value?.series?.[k])
     <h3 class="text-base">三层 θ · 色带 = 无雨抬升 / 日周期 / 层序反常</h3>
     <div class="grid gap-4">
       <ChartFrame title="15 cm 浅层" kind="时间序列" :read="readout('应先接雨。色带：日周期或无雨台阶，不是入渗。', [{ name: '15 cm', data: echo('echo1') }])">
-        <AcademicChart compact title="" y-name="θ (%)" height="240px" :series="[{ name: '15 cm', data: echo('echo1') }]" :marks="probeMarks()" />
+        <AcademicChart compact title="" y-name="θ (%)" height="240px" :series="[{ name: '15 cm', data: echo('echo1') }]" :marks="probeMarks()" :x-min="store.timeRange?.[0]" :x-max="store.timeRange?.[1]" />
       </ChartFrame>
       <ChartFrame title="35 cm 中层" kind="时间序列" :read="readout('变幅通常小。先于浅层抬=层序反了。', [{ name: '35 cm', data: echo('echo2') }])">
-        <AcademicChart compact title="" y-name="θ (%)" height="240px" :series="[{ name: '35 cm', data: echo('echo2') }]" :marks="probeMarks()" />
+        <AcademicChart compact title="" y-name="θ (%)" height="240px" :series="[{ name: '35 cm', data: echo('echo2') }]" :marks="probeMarks()" :x-min="store.timeRange?.[0]" :x-max="store.timeRange?.[1]" />
       </ChartFrame>
       <ChartFrame title="55 cm 深层" kind="时间序列" :read="readout('应滞后。与浅层同跳先当温度。', [{ name: '55 cm', data: echo('echo3') }])">
-        <AcademicChart compact title="" y-name="θ (%)" height="240px" :series="[{ name: '55 cm', data: echo('echo3') }]" :marks="probeMarks()" />
+        <AcademicChart compact title="" y-name="θ (%)" height="240px" :series="[{ name: '55 cm', data: echo('echo3') }]" :marks="probeMarks()" :x-min="store.timeRange?.[0]" :x-max="store.timeRange?.[1]" />
       </ChartFrame>
     </div>
     </template>
+    <DrillCard />
   </section>
 </template>

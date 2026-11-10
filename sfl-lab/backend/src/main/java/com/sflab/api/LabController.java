@@ -118,6 +118,21 @@ public class LabController {
         return lab.report(lab.get(id));
     }
 
+    @GetMapping("/sessions/{id}/drill")
+    public Map<String, Object> drill(@PathVariable String id) {
+        return lab.drillQuestions(lab.get(id));
+    }
+
+    @PostMapping("/sessions/{id}/drill")
+    public Map<String, Object> gradeDrill(@PathVariable String id, @RequestBody(required = false) Map<String, Object> body) {
+        return lab.gradeDrill(lab.get(id), body);
+    }
+
+    @PostMapping("/sessions/{id}/guess")
+    public Map<String, Object> guess(@PathVariable String id, @RequestBody(required = false) Map<String, Object> body) {
+        return lab.saveGuess(lab.get(id), body);
+    }
+
     @GetMapping("/health")
     public Map<String, Object> health() {
         return Map.of("ok", true);

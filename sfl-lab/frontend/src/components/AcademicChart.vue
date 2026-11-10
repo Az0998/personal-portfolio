@@ -21,6 +21,8 @@ const props = withDefaults(defineProps<{
   markLines?: { y: number; name: string }[]
   identityLine?: boolean
   annotate?: boolean
+  xMin?: number
+  xMax?: number
 }>(), {
   xType: 'time',
   yFromZero: false,
@@ -100,8 +102,8 @@ function option(): echarts.EChartsOption {
     itemStyle: { color: markColor[m.code] || 'rgba(0,0,0,0.08)' },
   }))
   const time = props.xType !== 'value'
-  const x0 = fromInput(from.value)
-  const x1 = fromInput(to.value)
+  const x0 = props.xMin ?? fromInput(from.value)
+  const x1 = props.xMax ?? fromInput(to.value)
   const y0 = axisBounds(0, x0, x1)
   const y1 = axisBounds(1, x0, x1)
   const ymin = yMin.value === '' ? (props.yFromZero ? 0 : y0.min) : Number(yMin.value)
@@ -169,8 +171,8 @@ function option(): echarts.EChartsOption {
       name: props.xName || (time ? '时间' : ''),
       nameLocation: 'middle',
       nameGap: 26,
-      min: time ? fromInput(from.value) : undefined,
-      max: time ? fromInput(to.value) : undefined,
+      min: time ? (props.xMin ?? fromInput(from.value)) : undefined,
+      max: time ? (props.xMax ?? fromInput(to.value)) : undefined,
       axisLine: { lineStyle: { color: '#1d4e89', width: 1.2 } },
       splitLine: { show: !time, lineStyle: { color: '#d7e3ee', type: 'dashed' } },
       axisLabel: {
@@ -288,7 +290,7 @@ onMounted(() => {
   })
 })
 
-watch(() => [props.series, props.marks, yMin.value, yMax.value, from.value, to.value, props.yFromZero, props.annotate], render, { deep: true })
+watch(() => [props.series, props.marks, yMin.value, yMax.value, from.value, to.value, props.yFromZero, props.annotate, props.xMin, props.xMax], render, { deep: true })
 
 function reset() {
   yMin.value = ''

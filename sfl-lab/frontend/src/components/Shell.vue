@@ -65,7 +65,7 @@ onMounted(async () => {
       <span class="rounded border border-line bg-white px-2 py-1">称重 {{ store.meta.coverage?.weight?.range || (store.meta.weightRows || 0) }}</span>
       <span class="rounded border px-2 py-1" :class="store.meta.probeRows ? 'border-line bg-white' : 'border-amber-300 bg-amber-50'">探头 {{ store.meta.coverage?.probe?.range || '缺' }}</span>
       <span class="rounded border px-2 py-1" :class="store.meta.coverage?.weightWeather ? 'border-line bg-white' : 'border-amber-300 bg-amber-50'">气象 {{ store.meta.weatherRows ? (store.meta.coverage?.weightWeather ? store.meta.coverage?.weather?.range : '错位 ' + (store.meta.coverage?.weather?.range || '')) : '缺' }}</span>
-      <span v-if="store.meta.totals" class="rounded border border-line bg-white px-2 py-1">P {{ Number(store.meta.totals.precipMm).toFixed(1) }} / ET {{ Number(store.meta.totals.etMm).toFixed(1) }} mm</span>
+      <span v-if="store.meta.totals && ['/balance','/results','/report'].includes(route.path)" class="rounded border border-line bg-white px-2 py-1">P {{ Number(store.meta.totals.precipMm).toFixed(1) }} / ET {{ Number(store.meta.totals.etMm).toFixed(1) }} mm</span>
     </p>
     <ul v-if="store.meta?.mechanisms?.length" class="mx-5 mt-2 space-y-1 rounded border border-navy/20 bg-white px-4 py-3 text-sm leading-6 text-slate-800">
       <li v-for="(m, i) in store.meta.mechanisms" :key="i">{{ m }}</li>

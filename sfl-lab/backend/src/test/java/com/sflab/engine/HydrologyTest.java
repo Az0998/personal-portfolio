@@ -30,4 +30,14 @@ class HydrologyTest {
         double dSys = dLyw + dSww;
         assertEquals(0.0, dSys, 1e-12);
     }
+
+    @Test
+    void classroomDrillKeysStayOnPumpDielectricAndEt0() {
+        var demo = ClassroomDrill.grade(true, java.util.Map.of("winB", "pump", "diel", "diel", "et0", "ref"));
+        assertEquals(3, demo.get("ok"));
+        var rainWrong = ClassroomDrill.grade(true, java.util.Map.of("winB", "rain", "diel", "infil", "et0", "eta"));
+        assertEquals(0, rainWrong.get("ok"));
+        var field = ClassroomDrill.grade(false, java.util.Map.of("pumpP", "no", "diel", "diel", "et0", "ref"));
+        assertEquals(3, field.get("ok"));
+    }
 }

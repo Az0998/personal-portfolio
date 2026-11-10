@@ -8,6 +8,8 @@ import { zipDaily } from '../lib/series'
 import { readout } from '../lib/readout'
 
 const bal = ref<any>(null)
+const guess = ref({ precipMm: '', etMm: '', dsMm: '', drainMm: '' })
+const compared = ref<any>(null)
 
 async function load() {
   if (!store.sessionId) return
@@ -17,6 +19,37 @@ async function load() {
     store.error = e.message
   }
 }
+
+async function checkGuess() {
+  if (!store.sessionId) return
+  try {
+    compared.value = await api(`/api/sessions/${store.sessionId}/guess`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        precipMm: Number(guess.value.precipMm),
+        etMm: Number(guess.value.etMm),
+        dsMm: Number(guess.value.dsMm),
+        drainMm: Number(guess.value.drainMm),
+      }),
+    })
+  } catch (e: any) {
+    store.error = e.message
+  }
+}
+
+function exportDaily() {
+  const rows = [['date', 'P', 'ET', 'D', 'dS', 'dS_profile', 'meteoP', 'ET0', 'closure']]
+  for (const d of bal.value?.daily || []) {
+    rows.push([d.date, d.p, d.et, d.d, d.ds, d.dsProfile ?? '', d.meteoP, d.et0 ?? '', d.closure])
+  }
+  const csv = rows.map((r) => r.join(',')).join('\n')
+  const a = document.createElement('a')
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }))
+  a.download = 'sfl-lab-daily.csv'
+  a.click()
+}
+
 onMounted(load)
 watch(() => store.sessionId, load)
 
@@ -30,6 +63,34 @@ function fluxPairs(key: string): [number, number][] {
 
 <template>
   <section class="space-y-5">
+    <div class="rounded-lg border-2 border-hydro bg-white p-5">
+      <p class="text-xs font-semibold tracking-wide text-hydro">先估再揭</p>
+      <h2 class="mt-1 text-lg">先写下 P、ET、ΔS、D（mm），再对照计算值</h2>
+      <p class="mt-1 text-sm text-slate-600">泵和风振不要算进 P。无同期气象则 P 只来自称重门限。</p>
+      <div class="mt-3 grid grid-cols-2 gap-2 md:grid-cols-4">
+        <label class="text-sm">P
+          <input v-model="guess.precipMm" type="number" step="any" class="mt-1 w-full rounded border px-2 py-1 tabular" />
+        </label>
+        <label class="text-sm">ET
+          <input v-model="guess.etMm" type="number" step="any" class="mt-1 w-full rounded border px-2 py-1 tabular" />
+        </label>
+        <label class="text-sm">ΔS
+          <input v-model="guess.dsMm" type="number" step="any" class="mt-1 w-full rounded border px-2 py-1 tabular" />
+        </label>
+        <label class="text-sm">D
+          <input v-model="guess.drainMm" type="number" step="any" class="mt-1 w-full rounded border px-2 py-1 tabular" />
+        </label>
+      </div>
+      <button type="button" class="mt-3 rounded bg-hydro px-4 py-2 text-white" @click="checkGuess">对照计算值</button>
+      <ul v-if="compared?.rows" class="mt-3 grid grid-cols-2 gap-2 text-sm md:grid-cols-4">
+        <li v-for="r in compared.rows" :key="r.key" :class="r.close ? 'text-slate-700' : 'text-amber-900'">
+          {{ r.key.replace('Mm','') }} 估 {{ Number(r.guess).toFixed(2) }} / 算 {{ Number(r.calc).toFixed(2) }}
+          {{ r.close ? '接近' : '差得远，回旗标' }}
+        </li>
+      </ul>
+    </div>
+
+    <template v-if="compared">
     <LysimeterSchematic
       :p="bal?.totals?.precipMm"
       :et="bal?.totals?.etMm"
@@ -95,5 +156,7 @@ function fluxPairs(key: string): [number, number][] {
         </tr>
       </tbody>
     </table>
+    <button type="button" class="rounded border border-navy px-4 py-2 text-navy" @click="exportDaily">导出日表 CSV</button>
+    </template>
   </section>
 </template>

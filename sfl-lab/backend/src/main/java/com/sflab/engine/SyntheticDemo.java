@@ -32,7 +32,23 @@ public final class SyntheticDemo {
         t.put("dielectric", "15 cm θ 含日周期表观抬升，Kapilaratne 订正对象");
         t.put("layerLag", "35 cm 雨后当晚微抬；55 cm 第 5–6 日凌晨");
         t.put("note", "正向仿真真值：泵不是雨；浅层先湿；白天 θ 假高。");
+        t.put("windows", List.of(
+                window("A", "窗口 A · 6-05 14–18h", "2024-06-05T14:00:00Z", "2024-06-05T18:00:00Z"),
+                window("B", "窗口 B · 6-05 18:30–20h", "2024-06-05T18:30:00Z", "2024-06-05T20:00:00Z"),
+                window("C", "窗口 C · 6-11 08–12h", "2024-06-11T08:00:00Z", "2024-06-11T12:00:00Z"),
+                window("D", "窗口 D · 6-12 05–08h", "2024-06-12T05:00:00Z", "2024-06-12T08:00:00Z"),
+                window("E", "窗口 E · 6-03 08–16h", "2024-06-03T08:00:00Z", "2024-06-03T16:00:00Z")
+        ));
         return t;
+    }
+
+    private static Map<String, String> window(String id, String label, String from, String to) {
+        Map<String, String> w = new LinkedHashMap<>();
+        w.put("id", id);
+        w.put("label", label);
+        w.put("from", from);
+        w.put("to", to);
+        return w;
     }
 
     public static Tables.Weight weight() {

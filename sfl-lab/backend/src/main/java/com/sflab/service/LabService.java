@@ -1,5 +1,6 @@
 package com.sflab.service;
 
+import com.sflab.engine.ClassroomDrill;
 import com.sflab.engine.Downsample;
 import com.sflab.engine.FilterEngine;
 import com.sflab.engine.MechanismEngine;
@@ -329,7 +330,76 @@ public class LabService {
     public Map<String, Object> report(LabSession s) {
         Map<String, Object> cov = MechanismEngine.coverage(s.weight, s.probe, s.weather, s.weatherNote);
         List<String> mech = MechanismEngine.lines(s.weight, s.probe, s.weather, s.weightFlags, s.probeFlags, s.temp, s.balance, s.demoKind != null);
-        return report.build(s.weight, s.weightGrade, s.probeGrade, s.temp, s.balance, s.filterMethod, cov, mech, s.demoKind != null);
+        Map<String, Object> out = report.build(s.weight, s.weightGrade, s.probeGrade, s.temp, s.balance, s.filterMethod, cov, mech, s.demoKind != null);
+        if (s.drillResult != null) out.put("drill", s.drillResult);
+        if (!s.balanceGuess.isEmpty() && s.balance != null) out.put("guess", compareGuess(s));
+        return out;
+    }
+
+    public Map<String, Object> drillQuestions(LabSession s) {
+        Map<String, Object> out = new LinkedHashMap<>();
+        out.put("demo", s.demoKind != null);
+        out.put("questions", ClassroomDrill.questions(s.demoKind != null));
+        if (s.drillResult != null) out.put("result", s.drillResult);
+        return out;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Map<String, Object> gradeDrill(LabSession s, Map<String, Object> body) {
+        Map<String, String> picks = new LinkedHashMap<>();
+        Object raw = body == null ? null : body.get("answers");
+        if (raw instanceof Map<?, ?> m) {
+            for (var e : m.entrySet()) {
+                picks.put(String.valueOf(e.getKey()), String.valueOf(e.getValue()));
+            }
+        }
+        s.drillPick = picks;
+        s.drillResult = ClassroomDrill.grade(s.demoKind != null, picks);
+        return s.drillResult;
+    }
+
+    public Map<String, Object> saveGuess(LabSession s, Map<String, Object> body) {
+        s.balanceGuess.clear();
+        if (body != null) {
+            putGuess(s, body, "precipMm");
+            putGuess(s, body, "etMm");
+            putGuess(s, body, "dsMm");
+            putGuess(s, body, "drainMm");
+        }
+        return compareGuess(s);
+    }
+
+    private void putGuess(LabSession s, Map<String, Object> body, String key) {
+        Object v = body.get(key);
+        if (v instanceof Number n) s.balanceGuess.put(key, n.doubleValue());
+        else if (v != null) {
+            try {
+                s.balanceGuess.put(key, Double.parseDouble(String.valueOf(v)));
+            } catch (NumberFormatException ignored) {
+                /* skip */
+            }
+        }
+    }
+
+    private Map<String, Object> compareGuess(LabSession s) {
+        Map<String, Object> out = new LinkedHashMap<>();
+        out.put("guess", s.balanceGuess);
+        Map<String, Double> calc = s.balance == null ? Map.of() : s.balance.totals;
+        out.put("calc", calc);
+        List<Map<String, Object>> rows = new ArrayList<>();
+        for (String k : List.of("precipMm", "etMm", "dsMm", "drainMm")) {
+            Double g = s.balanceGuess.get(k);
+            Double c = calc.get(k);
+            Map<String, Object> row = new LinkedHashMap<>();
+            row.put("key", k);
+            row.put("guess", g);
+            row.put("calc", c);
+            boolean close = g != null && c != null && (Math.abs(g - c) <= 0.5 || (Math.abs(c) > 1e-6 && Math.abs(g - c) / Math.abs(c) <= 0.15));
+            row.put("close", close);
+            rows.add(row);
+        }
+        out.put("rows", rows);
+        return out;
     }
 
     private byte[] applyOverride(long[] t, byte[] auto, Map<Long, Byte> ov) {

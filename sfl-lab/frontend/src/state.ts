@@ -11,7 +11,7 @@ export const steps = [
   {
     path: '/raw',
     label: '2 曲线',
-    now: '距平和三层 θ。色带是可疑段。泵无柱就不是内部调水。',
+    now: '距平和三层 θ。可跳窗口 A–E。看完做三道判断。',
     next: '/flags',
     nextLabel: '下一步：旗标',
   },
@@ -32,7 +32,7 @@ export const steps = [
   {
     path: '/balance',
     label: '5 水平衡',
-    now: 'P、ET、ΔS、D。无同期气象则 P 只来自称重门限。',
+    now: '先估 P、ET、ΔS、D，再对照。泵和风振不要算进 P。',
     next: '/results',
     nextLabel: '下一步：物理验证',
   },
@@ -46,7 +46,7 @@ export const steps = [
   {
     path: '/report',
     label: '7 报告',
-    now: '一段可粘贴文字。ET0 不是 ETa。',
+    now: '一段可粘贴文字，含判断和估计对照。ET0 不是 ETa。',
     next: '/',
     nextLabel: '回到接入',
   },

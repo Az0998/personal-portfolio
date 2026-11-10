@@ -30,4 +30,7 @@ public class LabSession {
     public String status = "empty";
     public String weatherNote;
     public String demoKind;
+    public Map<String, String> drillPick = new LinkedHashMap<>();
+    public Map<String, Object> drillResult;
+    public Map<String, Double> balanceGuess = new LinkedHashMap<>();
 }

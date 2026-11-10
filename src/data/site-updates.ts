@@ -9,6 +9,18 @@ export type SiteUpdate = {
 /** Newest first. Banner dismiss key is `site-update:${CURRENT_UPDATE.id}`. */
 export const SITE_UPDATES: SiteUpdate[] = [
   {
+    id: "2026-11-10-classroom-tools",
+    date: "2026-11-10",
+    title: "课上加了窗口跳转、当堂判断、先估再揭",
+    lead: "曲线页可跳窗口 A–E。三道判断提交后才给解释。水平衡先填再对照。P/ET 数字推迟到第 5 步才出现。",
+    points: [
+      "课上仍走阿里云七步 http://47.109.64.111:8080/ 。这三项都在七步里面，不另开菜单。",
+      "窗口 B 是泵不是雨；窗口 E 看 15 cm 白天假湿。答案在服务器上，提交前前端拿不到。",
+      "水平衡先估 P、ET、ΔS、D，再揭计算值。差得远回旗标。可导出日表 CSV。",
+      "报告导出会带上判断对错和估计对照。面试导览仍是作业→空间→态势→模型→文档。",
+    ],
+  },
+  {
     id: "2026-11-10-ops-audit",
     date: "2026-11-10",
     title: "双端在线：Render 主站 + 阿里云课用机",
