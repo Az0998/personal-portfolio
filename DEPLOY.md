@@ -18,6 +18,8 @@
 站点：https://zhangsjqaq.vexr.dev  
 仓库：https://github.com/Az0998/personal-portfolio
 
+课用公开地址是 `/sfl-lab`（iframe 到 `https://sfl-lab.onrender.com`）。`scripts/aliyun-*.sh` 只是 ECS 备案脚本，**目前没有正在运行的阿里云课用机**。
+
 挂载演示：
 
 - `/hydrobench` — **智慧水利**（主导航一页三签）：水情态势 / 室内台 / 户外台
@@ -25,7 +27,9 @@
 - `/temp-files` — 临时文件柜
 - `/watershed-map` — 流域一张图 GIS（默认 Esri Dark Gray 零密钥底图；可选 `NEXT_PUBLIC_MAP_TILE_*` / `NEXT_PUBLIC_HYDRO_HUB_URL`，见 README）
 - `/xaj-bench` — 新安江机理预报对照台（产汇流 × Persistence / Lag-LSTM）
-- `/sfl-lab` — 微型蒸渗仪实验站（独立页，不进水文工作台）
+- `/sfl-lab` — 微型蒸渗仪七步课堂（课上主入口；`/sfl` 转到这里）
+- `/updates` — 升级公告
+- `/hydrobench` — 智慧水利总览（面试五分钟导览仍在这里）
 - `/novel-studio` — Novel Studio（作品进入）
 - `/yili` — 易理占筮（作品进入）
 - `/graph-rag` — Graph-RAG Vault（作品进入）

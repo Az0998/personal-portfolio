@@ -68,7 +68,7 @@ export const HYDRO_ML_TITLE = "波托马克河多时效径流深度学习预报"
  * 主链 5 步 + Hydro-ML 的展示顺序。
  * 只决定「精选 · 智慧水利主链」里谁排前面 / 链路 n/5。
  * 首页精选资格看 Prisma `work.featured`。
- * 「微型蒸渗仪实验站」是智慧水利分支小项目：页面独立 /sfl-lab，不进本列表。
+ * 「微型蒸渗仪实验站」是课上采集主路径：独立页 /sfl-lab，不进面试五分钟导览。
  */
 export const FEATURED_WORK_TITLES: readonly string[] = [
   ...HYDRO_CHAIN_STEPS.map((s) => s.title),

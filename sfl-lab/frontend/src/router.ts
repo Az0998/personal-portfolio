@@ -18,9 +18,9 @@ export default createRouter({
       children: [
         { path: '', component: UploadView },
         { path: 'raw', component: RawView },
+        { path: 'flags', component: FlagsView },
         { path: 'process', component: ProcessView },
         { path: 'balance', component: BalanceView },
-        { path: 'flags', component: FlagsView },
         { path: 'results', component: ResultsView },
         { path: 'report', component: ReportView },
         { path: 'plot', component: PlotView },

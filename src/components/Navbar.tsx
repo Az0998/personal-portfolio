@@ -145,6 +145,12 @@ export function Footer({ name }: { name: string }) {
         <a href="/hydrobench" className="hover:text-[#ff9aab] transition-colors">
           智慧水利
         </a>
+        <a href="/sfl-lab" className="hover:text-[#ff9aab] transition-colors">
+          七步课堂
+        </a>
+        <a href="/updates" className="hover:text-[#ff9aab] transition-colors">
+          升级公告
+        </a>
         <a href="/atlas" className="hover:text-[#ff9aab] transition-colors">
           作品展厅
         </a>

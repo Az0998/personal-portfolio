@@ -47,8 +47,21 @@ async function upload() {
 
 <template>
   <section class="space-y-5">
-    <form class="grid gap-3 rounded-lg border-2 border-hydro bg-white p-5 md:grid-cols-3" @submit.prevent="upload">
-      <p class="md:col-span-3 text-sm text-slate-600">称重必传；探头、气象可缺。时段对不上则对照作废，不混用。</p>
+    <div class="rounded-lg border-2 border-hydro bg-white p-5">
+      <p class="text-xs font-semibold tracking-wide text-hydro">课上第一步</p>
+      <h2 class="mt-1 text-lg">载入课堂示例</h2>
+      <p class="mt-2 text-sm leading-6 text-slate-600">
+        榆中萃英山仿真序列。雨日 6 月 5 日、11 日。泵不是雨。走完 1→7 再考虑上传实测。
+      </p>
+      <button type="button" class="mt-3 rounded bg-hydro px-5 py-2.5 text-white" @click="demo('class')">
+        载入课堂示例并看曲线
+      </button>
+    </div>
+
+    <form class="grid gap-3 rounded-lg border border-line bg-white p-5 md:grid-cols-3" @submit.prevent="upload">
+      <p class="md:col-span-3 text-sm text-slate-600">
+        选做。有本组 CSV 再上传。称重必传；探头、气象可缺。时段对不上则对照作废，不混用。
+      </p>
       <label class="flex flex-col gap-1 text-sm">称重 CSV
         <input type="file" accept=".csv,.xlsx" @change="wFile = ($event.target as HTMLInputElement).files?.[0] || null" />
         <span class="text-xs text-slate-500">{{ wFile?.name || '未选' }}</span>
@@ -61,13 +74,11 @@ async function upload() {
         <input type="file" accept=".csv,.xlsx" @change="zFile = ($event.target as HTMLInputElement).files?.[0] || null" />
         <span class="text-xs text-slate-500">{{ zFile?.name || '未选' }}</span>
       </label>
-      <div class="md:col-span-3 flex flex-wrap items-center gap-3">
-        <button type="submit" class="rounded bg-hydro px-5 py-2.5 text-white">上传并分析</button>
-        <button type="button" class="rounded border border-navy px-4 py-2 text-navy" @click="demo('class')">
-          没有实测？载入课堂示例
-        </button>
+      <div class="md:col-span-3">
+        <button type="submit" class="rounded border border-navy px-4 py-2 text-navy">上传实测并分析</button>
       </div>
     </form>
+
     <dl v-if="store.meta" class="grid grid-cols-2 gap-2 text-sm tabular md:grid-cols-4">
       <div class="rounded border border-line bg-white p-2"><dt class="text-slate-500">称重</dt><dd>{{ store.meta.weightRows }}</dd></div>
       <div class="rounded border border-line bg-white p-2"><dt class="text-slate-500">探头</dt><dd>{{ store.meta.probeRows }}</dd></div>

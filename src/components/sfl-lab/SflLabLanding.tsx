@@ -106,14 +106,11 @@ export function SflLabLanding({ liveOrigin }: { liveOrigin: string }) {
         三类可缺、可错位；错位则雨量 / ET0 作废。泵不是雨。ET0 ≠ ETa。
       </p>
       <div className="sflab-actions">
-        <a className="sflab-btn sflab-btn-primary" href="#steps">
-          看七步
+        <a className="sflab-btn sflab-btn-primary" href={liveOrigin || "#steps"}>
+          {liveOrigin ? "打开七步课堂" : "看七步"}
         </a>
         <Link className="sflab-btn sflab-btn-quiet" href="/hydrobench">
-          智慧水利
-        </Link>
-        <Link className="sflab-btn sflab-btn-quiet" href="/sfl">
-          旧版 /sfl
+          智慧水利总览
         </Link>
       </div>
 

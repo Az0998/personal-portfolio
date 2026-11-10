@@ -16,11 +16,14 @@ const nextConfig: NextConfig = {
     remotePatterns: [],
   },
   async redirects() {
-    return brokenDemoRedirects.map((slug) => ({
-      source: `/${slug}`,
-      destination: `/presentations/${slug}`,
-      permanent: false,
-    }));
+    return [
+      { source: "/sfl", destination: "/sfl-lab", permanent: false },
+      ...brokenDemoRedirects.map((slug) => ({
+        source: `/${slug}`,
+        destination: `/presentations/${slug}`,
+        permanent: false,
+      })),
+    ];
   },
 };
 

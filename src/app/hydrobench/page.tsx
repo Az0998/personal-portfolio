@@ -7,7 +7,7 @@ import "./hydrobench.css";
 export const metadata: Metadata = {
   title: "智慧水利总览 | 张森捷",
   description:
-    "总览→态势·作业台·空间·模型·文档：站网态势、室内/户外作业、流域一张图、产汇流对照与水平衡论证草稿",
+    "课上走采集课堂（微型蒸渗仪七步）。面试走五分钟导览：作业→空间→态势→模型→文档。",
 };
 
 export default function HydroBenchPage() {

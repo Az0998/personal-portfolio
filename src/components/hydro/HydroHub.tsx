@@ -17,6 +17,7 @@ import {
   type GuideStepId,
 } from "@/lib/hydro-guide";
 import { trackCta } from "@/lib/analytics";
+import { SiteUpdateNotice } from "@/components/SiteUpdateNotice";
 
 /** 一级：总览 → 态势 | 作业台 | 空间 | 模型 | 文档；作业台下再分室内/户外 */
 type Tab = "hub" | "info" | "studio" | "field" | "sfl" | "map" | "model" | "doc";
@@ -57,7 +58,6 @@ const PRIMARY_NAV: {
 const EMBED_PANES: Partial<Record<Tab, { title: string; src: string }>> = {
   studio: { title: "室内作业台", src: "/hydrobench/studio/index.html?embed=1" },
   field: { title: "户外应急台", src: "/hydrobench/field/index.html?embed=1" },
-  sfl: { title: "微型蒸渗仪", src: "/sfl/index.html?embed=1" },
   map: { title: "流域一张图", src: "/watershed-map?embed=1" },
   model: { title: "产汇流机理对照", src: "/xaj-bench?embed=1" },
   doc: { title: "水平衡论证草稿", src: "/water-balance-report?embed=1" },
@@ -65,16 +65,32 @@ const EMBED_PANES: Partial<Record<Tab, { title: string; src: string }>> = {
 
 type HubCard = {
   id: GuideStepId | "work-field" | "work-sfl";
-  group: "看站网与作业" | "落空间" | "算预报与出文档";
+  group: "采集课堂" | "看站网与作业" | "落空间" | "算预报与出文档";
   kind: Kind;
   title: string;
   role: string;
   href: string;
   guideId?: GuideStepId;
   status: "已上线" | "雏形";
+  lead?: boolean;
 };
 
 const HUB_GROUPS: { key: HubCard["group"]; cards: HubCard[] }[] = [
+  {
+    key: "采集课堂",
+    cards: [
+      {
+        id: "work-sfl",
+        group: "采集课堂",
+        kind: "作业",
+        title: "微型蒸渗仪实验站",
+        role: "课上主入口。榆中萃英山七步：接入、曲线、旗标、订正、水平衡、验证、报告。泵不是雨。",
+        href: "/sfl-lab",
+        status: "已上线",
+        lead: true,
+      },
+    ],
+  },
   {
     key: "看站网与作业",
     cards: [
@@ -106,15 +122,6 @@ const HUB_GROUPS: { key: HubCard["group"]; cards: HubCard[] }[] = [
         role: "断网也能记测次、速算与清单，回城再导出。",
         href: "/hydrobench?tab=field",
         status: "已上线",
-      },
-      {
-        id: "work-sfl",
-        group: "看站网与作业",
-        kind: "作业",
-        title: "微型蒸渗仪",
-        role: "DT80 称重、底部反馈和午夜水平衡。按手册做质控，再算 10 分钟降水和日蒸散。",
-        href: "/sfl",
-        status: "雏形",
       },
     ],
   },
@@ -175,6 +182,10 @@ export function HydroHub() {
   useEffect(() => {
     setTab(initial);
   }, [initial]);
+
+  useEffect(() => {
+    if (tab === "sfl") window.location.replace("/sfl-lab");
+  }, [tab]);
 
   useEffect(() => {
     if (guideStep) setGuideFocus(guideStep);
@@ -241,6 +252,7 @@ export function HydroHub() {
 
   return (
     <div className="hb-root hydro-skin">
+      <SiteUpdateNotice variant="hydro" />
       <header className="hb-top">
         <Link href="/" className="hb-back">
           ← 返回主站
@@ -251,7 +263,7 @@ export function HydroHub() {
           </span>
           <div>
             <div className="hb-title">智慧水利</div>
-            <div className="hb-sub">总览 → 态势 · 作业台 · 空间 · 模型 · 文档</div>
+            <div className="hb-sub">课上走采集课堂 · 面试走五分钟导览</div>
           </div>
         </div>
         <nav className="hb-nav" aria-label="智慧水利信息架构">
@@ -295,7 +307,9 @@ export function HydroHub() {
                 role="tab"
                 className={tab === "sfl" ? "active" : ""}
                 aria-selected={tab === "sfl"}
-                onClick={() => setTab("sfl")}
+                onClick={() => {
+                  window.location.href = "/sfl-lab";
+                }}
               >
                 蒸渗仪
               </button>
@@ -348,11 +362,21 @@ export function HydroHub() {
                     <p className="hb-hub-eyebrow">Smart Water Hub</p>
                     <h1>智慧水利统一入口</h1>
                     <p>
-                      按业务找工具，不靠记技术名：先看态势与作业，再落空间，最后对模型、出论证文档。也可一键「开始导览」。
+                      两条路径不要混。课上请打开采集课堂（微型蒸渗仪七步）。面试五分钟导览走作业 → 空间 → 态势 → 模型 → 文档，不要从整编台开场。
                     </p>
                     <div className="hb-hub-actions">
-                      <button type="button" className="hb-open" onClick={startGuide}>
-                        开始导览（约 5 分钟）
+                      <button
+                        type="button"
+                        className="hb-open"
+                        onClick={() => {
+                          trackCta("classroom-sfl-lab", "打开七步课堂");
+                          window.location.href = "/sfl-lab";
+                        }}
+                      >
+                        打开七步课堂
+                      </button>
+                      <button type="button" className="hb-open ghost" onClick={startGuide}>
+                        面试导览（约 5 分钟）
                       </button>
                       <span className="hydro-badge-demo">演示</span>
                     </div>
@@ -385,14 +409,16 @@ export function HydroHub() {
                         {g.cards.map((item) => (
                           <article
                             key={String(item.id)}
-                            className={`hb-chain-card hb-hub-card ${
-                              item.guideId && guideFocus === item.guideId ? "focus" : ""
+                            className={`hb-chain-card hb-hub-card${item.lead ? " hb-hub-card-lead" : ""}${
+                              item.guideId && guideFocus === item.guideId ? " focus" : ""
                             }`}
                             data-step={item.guideId || undefined}
                           >
                             <div className="hb-chain-meta">
-                              <span className="hb-kind">{item.kind}</span>
-                              <span className="hb-chain-status">{item.status}</span>
+                              <span className="hb-kind">{item.lead ? "课上主入口" : item.kind}</span>
+                              <span className={`hb-chain-status${item.lead ? " hb-chain-status-lead" : ""}`}>
+                                {item.lead ? "已上线 · 课上请走这里" : item.status}
+                              </span>
                             </div>
                             <h3>{item.title}</h3>
                             <p>{item.role}</p>

@@ -9,12 +9,16 @@ export const metadata: Metadata = {
   description: "榆中萃英山七步质控：接入、曲线、旗标、订正、水平衡、验证、报告。",
 };
 
+const LIVE_CLASSROOM = "https://sfl-lab.onrender.com";
+
 /**
- * Default: portfolio landing (browser-only demo curves).
- * Optional: set SFL_LAB_UPSTREAM to a live Java/Vite lab origin to iframe it instead.
+ * Production always opens the seven-step classroom.
+ * Local Next without SFL_LAB_UPSTREAM keeps the static briefing.
  */
 export default function SflLabPage() {
-  const upstream = (process.env.SFL_LAB_UPSTREAM || "").trim().replace(/\/$/, "");
+  const configured = (process.env.SFL_LAB_UPSTREAM || "").trim().replace(/\/$/, "");
+  const upstream =
+    configured || (process.env.NODE_ENV === "production" ? LIVE_CLASSROOM : "");
   if (upstream) {
     return (
       <iframe
@@ -24,5 +28,5 @@ export default function SflLabPage() {
       />
     );
   }
-  return <SflLabLanding liveOrigin="" />;
+  return <SflLabLanding liveOrigin={LIVE_CLASSROOM} />;
 }

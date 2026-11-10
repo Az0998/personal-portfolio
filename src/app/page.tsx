@@ -12,6 +12,7 @@ import {
   AnalyticsBeacon,
 } from "@/components/Hero";
 import { WorksSection } from "@/components/WorksSection";
+import { SiteUpdateNotice } from "@/components/SiteUpdateNotice";
 
 export const dynamic = "force-dynamic";
 
@@ -50,6 +51,7 @@ function HomeChrome({
           <SakuraPetals />
         </div>
         <Navbar name={name} />
+        <SiteUpdateNotice />
         <main className="flex-1 relative z-[2]">{children}</main>
         <Footer name={name} />
       </div>
