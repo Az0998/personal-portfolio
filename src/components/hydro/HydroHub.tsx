@@ -370,7 +370,7 @@ export function HydroHub() {
                         className="hb-open"
                         onClick={() => {
                           trackCta("classroom-sfl-lab", "打开七步课堂");
-                          window.location.href = "/sfl-lab";
+                          window.location.href = "http://47.109.64.111:8080/";
                         }}
                       >
                         打开七步课堂

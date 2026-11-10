@@ -18,7 +18,7 @@
 站点：https://zhangsjqaq.vexr.dev  
 仓库：https://github.com/Az0998/personal-portfolio
 
-课用公开地址是 `/sfl-lab`（iframe 到 `https://sfl-lab.onrender.com`）。`scripts/aliyun-*.sh` 只是 ECS 备案脚本，**目前没有正在运行的阿里云课用机**。
+课上优先阿里云可操作机：`http://47.109.64.111:8080/`（systemd 常驻，无 HTTPS）。主站 HTTPS 仍是 `https://zhangsjqaq.vexr.dev`，其中 `/sfl-lab` 在 Render 上嵌 `https://sfl-lab.onrender.com`，在阿里云上嵌 `http://47.109.64.111:8080`。
 
 挂载演示：
 

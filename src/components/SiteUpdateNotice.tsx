@@ -45,7 +45,8 @@ export function SiteUpdateNotice({
         {` ${CURRENT_UPDATE.lead}`}
       </p>
       <span className="site-update-actions">
-        <Link href="/sfl-lab">打开七步课堂</Link>
+        <a href="http://47.109.64.111:8080/">课上七步（阿里云）</a>
+        <Link href="/sfl-lab">本站课堂</Link>
         <Link href="/updates">公告全文</Link>
         <button type="button" onClick={dismiss}>
           知道了
