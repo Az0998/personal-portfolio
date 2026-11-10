@@ -14,7 +14,7 @@ const reasonFilter = ref('')
 const table = ref<any>({ rows: [], total: 0 })
 const sum = ref<any>(null)
 const curve = ref<any>(null)
-const edit = ref({ reason: '人工检查' })
+const edit = ref({ reason: '' })
 
 const reasonRows = computed(() => {
   const r = sum.value?.reasons || {}
@@ -36,10 +36,15 @@ async function load() {
 }
 
 async function save(row: any) {
+  const reason = edit.value.reason.trim()
+  if (reason.length < 4) {
+    store.error = '改旗标要写具体理由，至少 4 个字。'
+    return
+  }
   await api(`/api/sessions/${store.sessionId}/flags`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ stream: stream.value, t: row.t, flag: Number(row.flag), reason: edit.value.reason }),
+    body: JSON.stringify({ stream: stream.value, t: row.t, flag: Number(row.flag), reason }),
   })
   await load()
 }
@@ -125,7 +130,7 @@ watch([() => store.sessionId, stream, page, onlyFlagged], load)
         <option value="">全部规则</option>
         <option v-for="r in reasonRows" :key="r.name" :value="r.name">{{ r.name }}</option>
       </select>
-      <label>改写理由 <input v-model="edit.reason" class="rounded border px-2 py-1" /></label>
+      <label>改写理由 <input v-model="edit.reason" placeholder="例如：19:00 是泵，不是雨" class="w-64 rounded border px-2 py-1" /></label>
     </div>
     <table class="data-table">
       <thead><tr><th>时间</th><th>flag</th><th>规则</th><th></th></tr></thead>

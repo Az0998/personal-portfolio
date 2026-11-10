@@ -70,8 +70,11 @@ onMounted(async () => {
     <ul v-if="store.meta?.mechanisms?.length" class="mx-5 mt-2 space-y-1 rounded border border-navy/20 bg-white px-4 py-3 text-sm leading-6 text-slate-800">
       <li v-for="(m, i) in store.meta.mechanisms" :key="i">{{ m }}</li>
     </ul>
-    <p v-if="store.meta?.simTruth" class="mx-5 mt-2 rounded border border-sky-200 bg-sky-50 px-3 py-2 text-sm text-slate-700">
-      示例雨日 {{ (store.meta.simTruth.rainDays || []).join('、') }}。泵不是雨。
+    <p v-if="store.meta?.answersHeld" class="mx-5 mt-2 rounded border border-sky-200 bg-sky-50 px-3 py-2 text-sm text-slate-700">
+      课堂示例。雨日和泵的位置先自己看，提交判断后才公布。
+    </p>
+    <p v-else-if="store.meta?.simTruth?.rainDays" class="mx-5 mt-2 rounded border border-sky-200 bg-sky-50 px-3 py-2 text-sm text-slate-700">
+      示例雨日 {{ store.meta.simTruth.rainDays.join('、') }}。泵不是雨。
     </p>
     <p v-if="store.meta?.warning" class="mx-5 mt-2 rounded border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-950">{{ store.meta.warning }}</p>
     <p v-if="store.error" class="mx-5 mt-3 rounded border border-err/30 bg-red-50 px-3 py-2 text-sm text-err">{{ store.error }}</p>

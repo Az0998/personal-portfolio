@@ -5,6 +5,7 @@ import PapersStrip from '../components/PapersStrip.vue'
 import DrillCard from '../components/DrillCard.vue'
 
 const rep = ref<any>(null)
+const copied = ref(false)
 
 async function load() {
   if (!store.sessionId) return
@@ -17,8 +18,8 @@ async function load() {
 onMounted(load)
 watch(() => store.sessionId, load)
 
-function download() {
-  if (!rep.value) return
+function reportText() {
+  if (!rep.value) return ''
   const lines = [rep.value.paragraph, '']
   if (rep.value.notes?.length) lines.push(...rep.value.notes, '')
   if (rep.value.drill) {
@@ -36,7 +37,20 @@ function download() {
     lines.push('')
   }
   lines.push('口径：5 g ≈ 0.071 mm。泵不是雨。ET0 ≠ ETa。Kapilaratne 只订 5TE 的 θ。')
-  const blob = new Blob([lines.join('\n') + '\n'], { type: 'text/plain;charset=utf-8' })
+  return lines.join('\n') + '\n'
+}
+
+async function copyText() {
+  const text = reportText()
+  if (!text) return
+  await navigator.clipboard.writeText(text)
+  copied.value = true
+  setTimeout(() => { copied.value = false }, 2000)
+}
+
+function download() {
+  if (!rep.value) return
+  const blob = new Blob([reportText()], { type: 'text/plain;charset=utf-8' })
   const a = document.createElement('a')
   a.href = URL.createObjectURL(blob)
   a.download = 'sfl-lab-report.txt'
@@ -64,7 +78,10 @@ function download() {
     <p v-if="rep?.guess" class="rounded border border-line bg-white px-4 py-3 text-sm">
       水平衡已对照。差得远就回旗标，不要硬改数字。
     </p>
-    <button type="button" class="rounded bg-hydro px-4 py-2 text-white" @click="download">导出报告</button>
+    <div class="flex flex-wrap gap-2">
+      <button type="button" class="rounded bg-hydro px-4 py-2 text-white" @click="copyText">{{ copied ? '已复制' : '复制全文' }}</button>
+      <button type="button" class="rounded border border-navy px-4 py-2 text-navy" @click="download">导出报告</button>
+    </div>
     <DrillCard />
     <PapersStrip />
   </section>

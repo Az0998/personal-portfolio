@@ -55,6 +55,8 @@ public final class ClassroomDrill {
             row.put("right", right);
             row.put("ok", hit);
             row.put("explain", why.get(id));
+            if ("winB".equals(id)) row.put("window", "B");
+            if ("diel".equals(id)) row.put("window", "E");
             items.add(row);
         }
         Map<String, Object> out = new LinkedHashMap<>();

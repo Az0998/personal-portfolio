@@ -9,6 +9,16 @@ export type SiteUpdate = {
 /** Newest first. Banner dismiss key is `site-update:${CURRENT_UPDATE.id}`. */
 export const SITE_UPDATES: SiteUpdate[] = [
   {
+    id: "2026-11-10-hold-answers",
+    date: "2026-11-10",
+    title: "判断题不再被页眉剧透",
+    lead: "课堂示例在提交判断前不公布雨日、泵和介电结论。P/ET 数字留到第 5 步先估再揭。改旗标必须写理由。",
+    points: [
+      "答错窗口题会把曲线跳到对应时段。报告可复制全文，并带上本组称呼。",
+      "闭合差超过 2 mm 会提示回旗标。这是课堂规则，不是规范阈值。",
+    ],
+  },
+  {
     id: "2026-11-10-classroom-tools",
     date: "2026-11-10",
     title: "课上加了窗口跳转、当堂判断、先估再揭",

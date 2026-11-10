@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
-import { api, store } from '../state'
+import { api, refreshMeta, store } from '../state'
 
 const pack = ref<any>(null)
 const picks = ref<Record<string, string>>({})
@@ -26,6 +26,10 @@ async function submit() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ answers: picks.value }),
     })
+    await refreshMeta()
+    const miss = (result.value?.items || []).find((it: any) => !it.ok && it.window)
+    const win = (store.meta?.simTruth?.windows || []).find((w: any) => w.id === miss?.window)
+    if (win) store.timeRange = [Date.parse(win.from), Date.parse(win.to)]
   } catch (e: any) {
     store.error = e.message
   } finally {

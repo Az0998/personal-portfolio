@@ -54,11 +54,12 @@ public class LabService {
     }
 
     public LabSession loadDemo() {
-        return loadDemo("class");
+        return loadDemo("class", null);
     }
 
-    public LabSession loadDemo(String kind) {
+    public LabSession loadDemo(String kind, String name) {
         LabSession s = create();
+        setLabel(s, name);
         s.demoKind = kind == null || kind.isBlank() ? "matlab" : kind;
         s.weight = SyntheticDemo.weight();
         s.probe = SyntheticDemo.probe();
@@ -148,7 +149,7 @@ public class LabService {
         Map<String, Object> cov = MechanismEngine.coverage(s.weight, s.probe, s.weather, s.weatherNote);
         m.put("coverage", cov);
         m.put("overlap", Boolean.TRUE.equals(cov.get("weightWeather")));
-        List<String> mech = MechanismEngine.lines(s.weight, s.probe, s.weather, s.weightFlags, s.probeFlags, s.temp, s.balance, s.demoKind != null);
+        List<String> mech = readLines(s, false);
         m.put("mechanisms", mech);
         String warn = MechanismEngine.warningLine(cov);
         if (warn != null) m.put("warning", warn);
@@ -179,13 +180,42 @@ public class LabService {
             }
             m.put("tempLayers", layers);
         }
-        if (s.balance != null) m.put("totals", s.balance.totals);
+        if (s.balance != null && !s.balanceGuess.isEmpty()) m.put("totals", s.balance.totals);
         m.put("notes", notes(s));
+        if (s.label != null && !s.label.isBlank()) m.put("label", s.label.trim());
         if (s.demoKind != null) {
             m.put("demoKind", s.demoKind);
-            m.put("simTruth", SyntheticDemo.truth());
+            m.put("answersHeld", s.drillResult == null);
+            m.put("simTruth", publicTruth(s));
         }
         return m;
+    }
+
+    private Map<String, Object> publicTruth(LabSession s) {
+        Map<String, Object> t = new LinkedHashMap<>(SyntheticDemo.truth());
+        if (s.drillResult == null) {
+            t.remove("rainDays");
+            t.remove("note");
+            t.remove("pumpOut");
+            t.remove("pumpIn");
+            t.remove("dielectric");
+            t.remove("layerLag");
+            t.remove("spikeMinutes");
+        }
+        return t;
+    }
+
+    private List<String> readLines(LabSession s, boolean full) {
+        boolean holdQuiz = !full && s.demoKind != null && s.drillResult == null;
+        boolean holdTotals = !full && s.balanceGuess.isEmpty();
+        return MechanismEngine.lines(s.weight, s.probe, s.weather, s.weightFlags, s.probeFlags, s.temp, s.balance, s.demoKind != null, holdQuiz, holdTotals);
+    }
+
+    public void setLabel(LabSession s, String name) {
+        if (name == null) return;
+        String n = name.trim();
+        if (n.length() > 24) n = n.substring(0, 24);
+        s.label = n.isBlank() ? null : n;
     }
 
     public Map<String, Object> series(LabSession s, String group, Long from, Long to, int maxPoints) {
@@ -281,6 +311,7 @@ public class LabService {
     public Map<String, Object> balancePayload(LabSession s) {
         Map<String, Object> out = new LinkedHashMap<>();
         if (s.balance == null) return out;
+        if (s.balanceGuess.isEmpty()) return Map.of("held", true);
         out.put("daily", s.balance.daily);
         out.put("flux", downsampleFlux(s.balance.flux, 1500));
         out.put("filteredFlux", downsampleFlux(s.balance.filteredFlux, 1500));
@@ -316,21 +347,28 @@ public class LabService {
 
     public void overrideFlag(LabSession s, String stream, long t, int flag, String reason) {
         if (flag < 0 || flag > 2) throw new IllegalArgumentException("flag 只能是 0、1、2。");
+        String why = reason == null ? "" : reason.trim();
+        if (why.length() < 4 || "人工检查".equals(why) || "人工修订".equals(why)) {
+            throw new IllegalArgumentException("改旗标要写具体理由，至少 4 个字。");
+        }
         boolean probe = "probe".equals(stream);
         Map<Long, Byte> map = probe ? s.probeOverride : s.weightOverride;
         map.put(t, (byte) flag);
         jdbc.update("""
                 MERGE INTO flag_override (session_id, stream, t_ms, flag, reason)
                 KEY (session_id, stream, t_ms) VALUES (?,?,?,?,?)
-                """, s.id, stream, t, flag, reason);
+                """, s.id, stream, t, flag, why);
         if (probe) s.probeGrade = applyOverride(s.probe.t, qc.probeGrade(s.probeFlags), s.probeOverride);
         else s.weightGrade = applyOverride(s.weight.t, qc.weightGrade(s.weightFlags), s.weightOverride);
     }
 
     public Map<String, Object> report(LabSession s) {
         Map<String, Object> cov = MechanismEngine.coverage(s.weight, s.probe, s.weather, s.weatherNote);
-        List<String> mech = MechanismEngine.lines(s.weight, s.probe, s.weather, s.weightFlags, s.probeFlags, s.temp, s.balance, s.demoKind != null);
+        List<String> mech = readLines(s, true);
         Map<String, Object> out = report.build(s.weight, s.weightGrade, s.probeGrade, s.temp, s.balance, s.filterMethod, cov, mech, s.demoKind != null);
+        if (s.label != null && !s.label.isBlank()) {
+            out.put("paragraph", s.label.trim() + "。" + out.get("paragraph"));
+        }
         if (s.drillResult != null) out.put("drill", s.drillResult);
         if (!s.balanceGuess.isEmpty() && s.balance != null) out.put("guess", compareGuess(s));
         return out;
@@ -418,7 +456,7 @@ public class LabService {
     }
 
     private List<String> notes(LabSession s) {
-        List<String> n = new ArrayList<>(MechanismEngine.lines(s.weight, s.probe, s.weather, s.weightFlags, s.probeFlags, s.temp, s.balance, s.demoKind != null));
+        List<String> n = new ArrayList<>(readLines(s, false));
         if (s.probeFlags != null && s.probe.n() > 0) {
             int gap = 0;
             for (boolean b : s.probeFlags.feedbackGap) if (b) gap++;

@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { api, setSession, store } from '../state'
 
 const router = useRouter()
+const groupName = ref('')
 const wFile = ref<File | null>(null)
 const pFile = ref<File | null>(null)
 const zFile = ref<File | null>(null)
@@ -12,7 +13,8 @@ async function demo(kind: string) {
   store.loading = true
   store.error = ''
   try {
-    const meta = await api(`/api/sessions/demo?kind=${encodeURIComponent(kind)}`, { method: 'POST' })
+    const name = encodeURIComponent(groupName.value.trim())
+    const meta = await api(`/api/sessions/demo?kind=${encodeURIComponent(kind)}&name=${name}`, { method: 'POST' })
     setSession(meta.id, meta)
     await router.push('/raw')
   } catch (e: any) {
@@ -34,6 +36,7 @@ async function upload() {
     fd.append('weight', wFile.value)
     if (pFile.value) fd.append('probe', pFile.value)
     if (zFile.value) fd.append('weather', zFile.value)
+    if (groupName.value.trim()) fd.append('name', groupName.value.trim())
     const meta = await api('/api/sessions/files', { method: 'POST', body: fd })
     setSession(meta.id, meta)
     await router.push('/raw')
@@ -51,8 +54,11 @@ async function upload() {
       <p class="text-xs font-semibold tracking-wide text-hydro">课上第一步</p>
       <h2 class="mt-1 text-lg">载入课堂示例</h2>
       <p class="mt-2 text-sm leading-6 text-slate-600">
-        榆中萃英山仿真序列。雨日 6 月 5 日、11 日。泵不是雨。走完 1→7 再考虑上传实测。
+        榆中萃英山仿真。先看曲线再答题，这一页不写雨日和泵。走完 1→7 再考虑上传实测。
       </p>
+      <label class="mt-3 flex max-w-xs flex-col gap-1 text-sm text-slate-700">本组称呼（写进报告）
+        <input v-model="groupName" maxlength="24" placeholder="例如 第3组" class="rounded border px-2 py-1" />
+      </label>
       <button type="button" class="mt-3 rounded bg-hydro px-5 py-2.5 text-white" @click="demo('class')">
         载入课堂示例并看曲线
       </button>
@@ -85,8 +91,6 @@ async function upload() {
       <div class="rounded border border-line bg-white p-2"><dt class="text-slate-500">气象</dt><dd>{{ store.meta.weatherRows }}</dd></div>
       <div class="rounded border border-line bg-white p-2"><dt class="text-slate-500">5 g 门限</dt><dd>{{ Number(store.meta.gateMm).toFixed(3) }} mm</dd></div>
     </dl>
-    <p v-if="store.meta?.simTruth" class="rounded border border-sky-200 bg-sky-50 px-3 py-2 text-sm leading-6 text-slate-700">
-      示例雨日 {{ (store.meta.simTruth.rainDays || []).join('、') }}。泵不是雨。
-    </p>
+    <p v-if="store.meta?.label" class="rounded border border-line bg-white px-3 py-2 text-sm">报告署名：{{ store.meta.label }}</p>
   </section>
 </template>

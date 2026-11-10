@@ -3,7 +3,7 @@ import { onMounted, ref, watch } from 'vue'
 import AcademicChart from '../components/AcademicChart.vue'
 import ChartFrame from '../components/ChartFrame.vue'
 import LysimeterSchematic from '../components/LysimeterSchematic.vue'
-import { api, store } from '../state'
+import { api, refreshMeta, store } from '../state'
 import { zipDaily } from '../lib/series'
 import { readout } from '../lib/readout'
 
@@ -14,7 +14,10 @@ const compared = ref<any>(null)
 async function load() {
   if (!store.sessionId) return
   try {
-    bal.value = await api(`/api/sessions/${store.sessionId}/balance`)
+    const data = await api(`/api/sessions/${store.sessionId}/balance`)
+    if (data?.held) return
+    bal.value = data
+    if (!compared.value) compared.value = { resumed: true }
   } catch (e: any) {
     store.error = e.message
   }
@@ -22,6 +25,11 @@ async function load() {
 
 async function checkGuess() {
   if (!store.sessionId) return
+  const filled = [guess.value.precipMm, guess.value.etMm, guess.value.dsMm, guess.value.drainMm]
+  if (filled.some((v) => v === '' || !Number.isFinite(Number(v)))) {
+    store.error = 'P、ET、ΔS、D 都要填数字。'
+    return
+  }
   try {
     compared.value = await api(`/api/sessions/${store.sessionId}/guess`, {
       method: 'POST',
@@ -33,6 +41,8 @@ async function checkGuess() {
         drainMm: Number(guess.value.drainMm),
       }),
     })
+    await load()
+    await refreshMeta()
   } catch (e: any) {
     store.error = e.message
   }
@@ -82,6 +92,9 @@ function fluxPairs(key: string): [number, number][] {
         </label>
       </div>
       <button type="button" class="mt-3 rounded bg-hydro px-4 py-2 text-white" @click="checkGuess">对照计算值</button>
+      <p v-if="compared && Math.abs(Number(bal?.totals?.closureMm)) > 2" class="mt-3 rounded border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-950">
+        课堂规则：闭合差超过 2 mm，先回旗标再写报告。这不是规范阈值。
+      </p>
       <ul v-if="compared?.rows" class="mt-3 grid grid-cols-2 gap-2 text-sm md:grid-cols-4">
         <li v-for="r in compared.rows" :key="r.key" :class="r.close ? 'text-slate-700' : 'text-amber-900'">
           {{ r.key.replace('Mm','') }} 估 {{ Number(r.guess).toFixed(2) }} / 算 {{ Number(r.calc).toFixed(2) }}

@@ -33,23 +33,30 @@ public class LabController {
     }
 
     @PostMapping("/sessions/demo")
-    public Map<String, Object> demo(@RequestParam(defaultValue = "matlab") String kind) throws Exception {
-        return lab.meta(lab.loadDemo(kind));
+    public Map<String, Object> demo(@RequestParam(defaultValue = "matlab") String kind,
+                                    @RequestParam(required = false) String name) throws Exception {
+        return lab.meta(lab.loadDemo(kind, name));
     }
 
     @PostMapping("/sessions/{id}/files")
     public Map<String, Object> files(@PathVariable String id,
                                      @RequestParam(required = false) MultipartFile weight,
                                      @RequestParam(required = false) MultipartFile probe,
-                                     @RequestParam(required = false) MultipartFile weather) throws Exception {
-        return lab.meta(lab.upload(id, weight, probe, weather));
+                                     @RequestParam(required = false) MultipartFile weather,
+                                     @RequestParam(required = false) String name) throws Exception {
+        LabSession s = lab.upload(id, weight, probe, weather);
+        lab.setLabel(s, name);
+        return lab.meta(s);
     }
 
     @PostMapping("/sessions/files")
     public Map<String, Object> filesNew(@RequestParam(required = false) MultipartFile weight,
                                         @RequestParam(required = false) MultipartFile probe,
-                                        @RequestParam(required = false) MultipartFile weather) throws Exception {
-        return lab.meta(lab.upload(null, weight, probe, weather));
+                                        @RequestParam(required = false) MultipartFile weather,
+                                        @RequestParam(required = false) String name) throws Exception {
+        LabSession s = lab.upload(null, weight, probe, weather);
+        lab.setLabel(s, name);
+        return lab.meta(s);
     }
 
     @GetMapping("/sessions/{id}")

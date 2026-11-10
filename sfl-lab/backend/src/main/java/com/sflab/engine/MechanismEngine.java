@@ -54,7 +54,7 @@ public final class MechanismEngine {
     public static List<String> lines(Tables.Weight w, Tables.Probe p, Tables.Weather z,
                                     QcEngine.WeightFlags wf, QcEngine.ProbeFlags pf,
                                     TempCorrectionEngine.Result temp, WaterBalanceEngine.Result bal,
-                                    boolean demo) {
+                                    boolean demo, boolean holdQuiz, boolean holdTotals) {
         List<String> out = new ArrayList<>();
         boolean wz = overlap(w, z);
         boolean wp = overlap(w, p);
@@ -73,7 +73,7 @@ public final class MechanismEngine {
         if (w != null && w.n() > 1) {
             double first = firstFin(w.lyw);
             double last = lastFin(w.lyw);
-            if (fin(first) && fin(last)) {
+            if (!holdTotals && fin(first) && fin(last)) {
                 double dmm = (last - first) * Const.MM_PER_KG;
                 if (dmm < -2) out.add(String.format("土柱净失水 %.1f mm，旱作蒸散主导。", -dmm));
                 else if (dmm > 2) out.add(String.format("土柱净增重 %.1f mm。%s", dmm, wz ? "对照气象雨量。" : "无同期雨量，不写成降水。"));
@@ -90,9 +90,9 @@ public final class MechanismEngine {
             if (temp != null && !temp.layers.isEmpty()) alpha = temp.layers.get(0).alpha;
             boolean dielectric = fin(r) && r >= 0.35;
             boolean alphaHit = fin(alpha) && alpha > 0.002;
-            if (dielectric) {
+            if (!holdQuiz && dielectric) {
                 out.add(String.format("15 cm θ–土温 r=%.2f，同位相 → 介电假湿，订正对象。", r));
-            } else if (!alphaHit && fin(r) && Math.abs(r) < 0.2) {
+            } else if (!holdQuiz && !alphaHit && fin(r) && Math.abs(r) < 0.2) {
                 out.add(String.format("15 cm θ–土温 r=%.2f，日周期弱。", r));
             }
             if (!wp) out.add("探头与称重错开，「无雨抬升」不能用称重证伪。");
@@ -103,11 +103,11 @@ public final class MechanismEngine {
                     ? String.format("浅层日振幅 %.2f %% ≫ 深层 %.2f %%。", a15, a55)
                     : String.format("浅层日振幅 %.2f %% ≫ 深层 %.2f %%，符合黄土浅层受热。", a15, a55));
             }
-            if (alphaHit) {
+            if (!holdQuiz && alphaHit) {
                 out.add(String.format("15 cm α=%.3f，白天峰应被压低；雨后三层一起抬才是入渗。", alpha));
             }
         }
-        if (bal != null && bal.totals != null) {
+        if (!holdTotals && bal != null && bal.totals != null) {
             double pmm = num(bal, "precipMm");
             double et = num(bal, "etMm");
             if (!wz) {
