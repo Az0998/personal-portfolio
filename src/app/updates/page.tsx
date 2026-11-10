@@ -16,7 +16,7 @@ export default function UpdatesPage() {
         <p className="text-xs tracking-[0.18em] text-sky-300">SITE UPDATES</p>
         <h1 className="font-display mt-2 text-3xl">升级公告</h1>
         <p className="mt-3 max-w-xl text-sm leading-7 text-white/70">
-          只记教学和科研主路径的改动。课上先看采集课堂，面试导览仍走五步作业链。阿里云课用机未上线前，公开地址就是本站。
+          只记教学和科研主路径的改动。课上先看采集课堂；主站走 Render，可操作七步另有阿里云课用机。
         </p>
         <ol className="mt-8 space-y-6">
           {SITE_UPDATES.map((u) => (

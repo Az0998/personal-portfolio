@@ -125,6 +125,9 @@ Major 文案参考公开赛果（如 Shanghai 2024 Spirit、Austin/Budapest 2025
 
 [微型蒸渗仪实验站](/sfl-lab)（课上主入口。旧版 /sfl 已转到这里。）
 
+- Render 课堂：https://sfl-lab.onrender.com  
+- 阿里云可操作机：http://47.109.64.111:8080/
+
 ## 七步
 
 1. 接入：上传称重、探头、气象 CSV（没有实测时用课堂示例）
