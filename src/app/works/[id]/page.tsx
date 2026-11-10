@@ -11,6 +11,7 @@ import { ShowcasePanel } from "@/components/ShowcasePanel";
 import { SiteBackground } from "@/components/SiteBackground";
 import { workCovers, moodCovers } from "@/data/covers";
 import { WorkChainRelated } from "@/components/WorkChainRelated";
+import { ProjectReviewPanel } from "@/components/ProjectReviewPanel";
 import {
   FEATURED_WORK_TITLES,
   HYDRO_CHAIN_STEPS,
@@ -158,6 +159,8 @@ export default async function WorkDetailPage({ params }: PageProps) {
               </a>
             )}
           </div>
+
+          <ProjectReviewPanel title={work.title} />
 
           {showcase && <ShowcasePanel showcase={showcase} />}
 

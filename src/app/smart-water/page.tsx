@@ -19,7 +19,7 @@ export default function SmartWaterPage() {
           <span className="sw-mark">水</span>
           <div>
             <div className="sw-title">智慧水利管理系统</div>
-            <div className="sw-sub">巡测员 lintao / 123456 · 管理员 admin / admin123</div>
+            <div className="sw-sub">演示前端 · 账号只写在项目说明，勿当生产口令</div>
           </div>
         </div>
         <a className="sw-open" href="/smart-water/index.html" target="_blank" rel="noreferrer">
