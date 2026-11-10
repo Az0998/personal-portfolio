@@ -1,10 +1,10 @@
-# Keep the lysimeter classroom from spinning down on Render's free plan.
-# Stops after 2026-10-28 16:00 UTC (end of 28 Oct, China).
+# Keep the lysimeter classroom and personal site from spinning down
+# on Render's free plan. Hits Render origins only (custom domain 403s runners).
 name: Keep sfl-lab warm
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/10 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -16,12 +16,6 @@ jobs:
         shell: bash
         run: |
           set -u
-          until=$(date -d '2026-10-28 16:00:00 UTC' +%s)
-          now=$(date +%s)
-          if [ "$now" -ge "$until" ]; then
-            echo "Keep-alive window ended"
-            exit 0
-          fi
 
           wake() {
             local url="$1"
