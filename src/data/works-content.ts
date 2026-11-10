@@ -140,6 +140,29 @@ Major 文案参考公开赛果（如 Shanghai 2024 Spirit、Austin/Budapest 2025
 `,
   },
   {
+    title: "水文频率小算盘",
+    description:
+      "年最大系列矩法求 Cv、Cs，用 P-III 近似给 1%–20% 设计值。浏览器可改数，不是审查适线。",
+    category: "hydro",
+    tags: "频率,P-III,设计值,矩法,浏览器可复现",
+    featured: false,
+    published: true,
+    sortOrder: 4,
+    link: "/freq",
+    content: `## 一句话
+
+适线之前先把矩法讲清楚。
+
+## 打开
+
+[水文频率小算盘](/freq) · [产汇流对照](/xaj-bench) · [智慧水利](/hydrobench)
+
+## 边界
+
+教学用 Wilson–Hilferty 频率因子。短系列 Cs 不稳，不考虑历史特大值，不做目估适线。
+`,
+  },
+  {
     title: "新安江机理预报对照台",
     description:
       "日降水→新安江产汇流→出口流量；同口径NSE对照数据驱动基线。浏览器可复现。",

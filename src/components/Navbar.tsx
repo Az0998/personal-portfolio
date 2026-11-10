@@ -22,7 +22,8 @@ export function Navbar({ name }: { name: string }) {
         p.startsWith("/watershed-map") ||
         p.startsWith("/xaj") ||
         p.startsWith("/water-balance") ||
-        p.startsWith("/smart-water"),
+        p.startsWith("/smart-water") ||
+        p.startsWith("/freq"),
     },
     {
       href: "/atlas",

@@ -64,7 +64,7 @@ const EMBED_PANES: Partial<Record<Tab, { title: string; src: string }>> = {
 };
 
 type HubCard = {
-  id: GuideStepId | "work-field" | "work-sfl";
+  id: GuideStepId | "work-field" | "work-sfl" | "work-freq";
   group: "采集课堂" | "看站网与作业" | "落空间" | "算预报与出文档";
   kind: Kind;
   title: string;
@@ -151,6 +151,15 @@ const HUB_GROUPS: { key: HubCard["group"]; cards: HubCard[] }[] = [
         role: "新安江产汇流与数据驱动基线同口径比 NSE，讲得清「为什么这么报」。",
         href: "/hydrobench?tab=model",
         guideId: 4,
+        status: "已上线",
+      },
+      {
+        id: "work-freq",
+        group: "算预报与出文档",
+        kind: "机理",
+        title: "设计值频率小算盘",
+        role: "年最大系列矩法 + P-III 近似，给出 1%–20% 设计值。教学计算，不是审查适线。",
+        href: "/freq",
         status: "已上线",
       },
       {
