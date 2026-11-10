@@ -3,14 +3,22 @@ import { computed, onMounted, ref, watch } from 'vue'
 import AcademicChart from '../components/AcademicChart.vue'
 import ChartFrame from '../components/ChartFrame.vue'
 import DrillCard from '../components/DrillCard.vue'
-import EventJump from '../components/EventJump.vue'
 import { api, store } from '../state'
 import { toPairs } from '../lib/series'
 import { readout } from '../lib/readout'
 
 const weight = ref<any>(null)
 const probe = ref<any>(null)
-const show = ref({ spike: true, wind: true, wall: true, step: true, bottle: true, pump: true, missing: true })
+const bands = [
+  { code: 'spike', label: '尖峰' },
+  { code: 'wind', label: '风振' },
+  { code: 'wall', label: '碰壁' },
+  { code: 'step', label: '台阶' },
+  { code: 'bottle', label: '补水' },
+  { code: 'pump', label: '泵' },
+  { code: 'missing', label: '缺测' },
+]
+const show = ref<Record<string, boolean>>({ spike: true, wind: true, wall: true, step: true, bottle: true, pump: true, missing: true })
 
 async function load() {
   if (!store.sessionId) return
@@ -54,10 +62,9 @@ const echo = (k: string) => toPairs(probe.value?.t, probe.value?.series?.[k])
   <section class="space-y-5">
     <p v-if="!store.sessionId" class="rounded border border-line bg-white px-4 py-3 text-sm">回到「1 接入」上传或载入示例。</p>
     <p v-else-if="weight && !(weight.n > 0)" class="rounded border border-amber-300 bg-amber-50 px-4 py-3 text-sm">称重为空。检查 Timestamp 与 L1_LYW。</p>
-    <EventJump />
-    <div class="flex flex-wrap gap-3 text-sm">
-      <label v-for="k in Object.keys(show)" :key="k" class="flex items-center gap-1">
-        <input v-model="(show as any)[k]" type="checkbox" /> {{ k }}
+    <div class="flex flex-wrap gap-x-3 gap-y-2 text-sm">
+      <label v-for="b in bands" :key="b.code" class="inline-flex min-h-9 items-center gap-1 rounded border border-line bg-white px-2">
+        <input v-model="show[b.code]" type="checkbox" /> {{ b.label }}
       </label>
     </div>
 

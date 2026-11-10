@@ -11,7 +11,7 @@ export const steps = [
   {
     path: '/raw',
     label: '2 曲线',
-    now: '距平和三层 θ。可跳窗口 A–E。看完做三道判断。',
+    now: '先跳窗口 A–E，五张图用同一横轴。看完再做三道判断。',
     next: '/flags',
     nextLabel: '下一步：旗标',
   },

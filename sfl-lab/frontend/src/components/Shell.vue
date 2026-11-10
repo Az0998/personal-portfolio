@@ -2,6 +2,7 @@
 import { computed, onMounted } from 'vue'
 import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
 import { refreshMeta, steps, store } from '../state'
+import EventJump from './EventJump.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -33,32 +34,37 @@ onMounted(async () => {
       <p class="text-xs text-white/70">SFL · 榆中萃英山 · 课上按 1→7</p>
       <h1 class="mt-0.5 text-xl text-white">微型蒸渗仪实验站</h1>
     </header>
-    <nav class="sticky top-0 z-20 flex flex-wrap gap-1 border-b border-line bg-panel px-4 py-2">
+    <div class="sticky top-0 z-20 border-b border-line bg-panel">
+    <nav class="step-nav px-4 py-2" aria-label="七步">
       <RouterLink
         v-for="s in steps"
         :key="s.path"
         :to="s.path"
-        class="rounded px-3 py-1.5 text-sm"
+        class="rounded px-3 text-sm"
         :class="route.path === s.path ? 'bg-hydro text-white' : 'text-slate-700 hover:bg-slate-200'"
       >{{ s.label }}</RouterLink>
       <RouterLink
         to="/plot"
-        class="rounded px-3 py-1.5 text-sm"
+        class="rounded px-3 text-sm"
         :class="route.path === '/plot' ? 'bg-navy text-white' : 'text-slate-500 hover:bg-slate-200'"
-      >自由作图 · 选做</RouterLink>
+      >自由作图</RouterLink>
     </nav>
 
-    <div class="sticky top-12 z-10 mx-5 mt-4 flex flex-wrap items-center gap-3 rounded-md bg-navy px-4 py-3 text-white">
+    <div class="mx-4 mb-3 flex flex-wrap items-center gap-3 rounded-md bg-navy px-4 py-3 text-white">
       <p class="min-w-0 flex-1 text-sm leading-6">
         <span class="mr-2 rounded bg-white/15 px-1.5 py-0.5 text-xs">{{ idx ? `${idx}/7` : '研' }}</span>
         {{ step.now }}
       </p>
       <button
         type="button"
-        class="shrink-0 rounded bg-white px-3 py-1.5 text-sm text-navy"
+        class="shrink-0 min-h-11 rounded bg-white px-3 text-sm text-navy"
         :disabled="step.path !== '/' && !ready"
         @click="router.push(step.next)"
       >{{ step.nextLabel }}</button>
+    </div>
+    <div v-if="route.path === '/raw'" class="mx-4 mb-3">
+      <EventJump />
+    </div>
     </div>
 
     <p v-if="store.meta" class="mx-5 mt-3 flex flex-wrap gap-2 text-xs tabular">

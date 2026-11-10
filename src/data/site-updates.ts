@@ -9,6 +9,16 @@ export type SiteUpdate = {
 /** Newest first. Banner dismiss key is `site-update:${CURRENT_UPDATE.id}`. */
 export const SITE_UPDATES: SiteUpdate[] = [
   {
+    id: "2026-11-10-window-rail",
+    date: "2026-11-10",
+    title: "曲线页以窗口跳转为主",
+    lead: "第 2 步顶部是窗口 A–E。点一个，质量、泵柱和三层 θ 切到同一时段，并给出不公布答案的观察句。",
+    points: [
+      "键盘 A–E、方向键、0 或 Esc 回到全时段。七步导航改成一行横滑，按钮加大。",
+      "色带筛选改成中文：尖峰、风振、碰壁、台阶、补水、泵、缺测。",
+    ],
+  },
+  {
     id: "2026-11-10-hold-answers",
     date: "2026-11-10",
     title: "判断题不再被页眉剧透",
